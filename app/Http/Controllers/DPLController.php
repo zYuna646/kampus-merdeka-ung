@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\DPLImport;
 use App\Models\Dosen;
 use App\Models\Lokasi;
 use Illuminate\Http\Request;
 use App\Models\DPL;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class DPLController extends Controller
 {
@@ -36,6 +39,13 @@ class DPLController extends Controller
         ];
         return view('admin.superadmin.dpl.add')->with('data', $data);;
     }
+    public function import()
+    {
+        Excel::import(new DPLImport, request()->file('file'));
+
+        return back()->with('success', 'Data imported successfully!');
+    }
+
 
     /**
      * Store a newly created resource in storage.

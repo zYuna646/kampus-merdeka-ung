@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\LokasiImport;
 use App\Models\Lokasi;
 use App\Models\ProgramKampus;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class LokasiController extends Controller
 {
@@ -52,10 +55,17 @@ class LokasiController extends Controller
             'name' => 'required',
             'lokasi' => 'required',
         ]);
-
-        Lokasi::create($request->all());
+        $data = $request->all();
+        Lokasi::create($data);
 
         return redirect()->route('admin.location')->with('success', 'Lokasi created successfully.');
+    }
+
+    public function import()
+    {
+        Excel::import(new LokasiImport, request()->file('file'));
+
+        return back()->with('success', 'Data imported successfully!');
     }
 
     /**
