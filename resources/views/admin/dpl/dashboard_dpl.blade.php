@@ -64,7 +64,7 @@
                                         {{ $program->lokasi->name }}
                                     </p>
                                     <p class="text-sm mt-1 text-slate-500">
-                                        {{ 'Semester ' . ($program->lowongan->semester % 2 == 0 ? 'Genap' : 'Ganjil') }}
+                                        {{ 'Semester ' . ($program->lowongan->semester) }}
                                         {{ $program->lowongan->tahun_akademik }}
                                     </p>
                                 </div>

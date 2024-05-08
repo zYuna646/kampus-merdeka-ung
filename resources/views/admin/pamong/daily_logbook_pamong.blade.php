@@ -188,7 +188,7 @@
                                 @if ($item->status == 'proses')
                                     <button type="button"
                                         class="text-white h-fit w-fit bg-color-success-500 hover:bg-success-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                        onclick="window.location='{{ route('guru.daily.review', ['id' => $data->id]) }}'">
+                                        onclick="window.location='{{ route('guru.daily.review', ['id' => $item->id]) }}'">
                                         Periksa
                                     </button>
                                 @endif

@@ -62,7 +62,7 @@
                         </p>
                         <p class="text-sm mt-1 text-slate-500">
                             @if ($data['programTransaction'])
-                                {{ 'Semester ' . ($data['programTransaction']->lowongan->semester % 2 == 0 ? 'Genap' : 'Ganjil') }}
+                                {{ 'Semester ' . ($data['programTransaction']->lowongan->semester) }}
                                 {{ $data['programTransaction']->lowongan->tahun_akademik }}
                             @endif
 

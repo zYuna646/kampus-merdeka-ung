@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\PesertaImport;
 use App\Models\DailyLog;
 use App\Models\Lokasi;
 use App\Models\Lowongan;
@@ -11,6 +12,8 @@ use App\Models\ProgramTransaction;
 use App\Models\WeeklyLog;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ProgramTransactionController extends Controller
 {
@@ -70,13 +73,15 @@ class ProgramTransactionController extends Controller
 
         $startDate = Carbon::parse($program->lowongan->tanggal_mulai); // Tanggal awal
         $endDate = Carbon::parse($program->lowongan->tanggal_selesai);
-
-        WeeklyLog::create([
+        $st = $startDate->copy(); // Create a separate copy of $startDate for $st
+        $e_d = $startDate->endOfWeek()->copy(); // Create a separate copy for $e_d
+        $wk = WeeklyLog::create([
             'program_transaction_id' => $program->id,
-            'start_date' => $startDate, // Start date
-            'end_date' => $startDate->endOfWeek(), // End date
+            'start_date' => $st, // Start date
+            'end_date' => $e_d, // End date
             'desc' => ''
         ]);
+
 
         $tmp_date = $startDate->copy()->addWeek()->startOfWeek();
         while ($tmp_date->lte($endDate)) {
@@ -102,7 +107,6 @@ class ProgramTransactionController extends Controller
         foreach ($program->weeklyLog as $key => $item) {
             $startDate = Carbon::parse($item->start_date); // Konversi ke objek Carbon
             $endDate = Carbon::parse($item->end_date); // Konversi ke objek Carbon
-
             while ($startDate <= $endDate) {
                 DailyLog::create([
                     'program_transaction_id' => $program->id,
@@ -118,6 +122,15 @@ class ProgramTransactionController extends Controller
         return redirect()->route('admin.peserta')
             ->with('success', 'ProgramTransaction created successfully.');
     }
+
+    public function import()
+    {
+        Excel::import(new PesertaImport, request()->file('file'));
+
+        return back()->with('success', 'Data imported successfully!');
+    }
+
+
     /**
      * Display the specified resource.
      *
