@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DPL extends Model
+class MitraTransaction extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'dosen_id',
+        'guru_id',
         'lowongan_id',
     ];
 
-    public function dosen()
+    public function guru()
     {
-        return $this->belongsTo(Dosen::class);
+        return $this->belongsTo(Guru::class);
     }
 
     public function lowongan()

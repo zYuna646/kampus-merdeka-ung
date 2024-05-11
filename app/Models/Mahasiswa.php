@@ -37,4 +37,14 @@ class Mahasiswa extends Model
     {
         return $this->hasOne(ProgramTransaction::class);
     }
+
+    public function dpls()
+    {
+        return $this->belongsToMany(DPL::class);
+    }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Guru::class);
+    }
 }

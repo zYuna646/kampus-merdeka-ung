@@ -12,10 +12,10 @@ class DailyLog extends Model
     protected $fillable = [
         'program_transaction_id',
         'weekly_log_id',
-        'desc',
         'date',
         'msg',
-        'status'
+        'status',
+        'dokumentasi'
     ];
 
     public function programTransaction()
@@ -26,6 +26,11 @@ class DailyLog extends Model
     public function week()
     {
         return $this->belongsTo(WeeklyLog::class);
+    }
+
+    public function activity()
+    {
+        return $this->belongsToMany(ActivityLog::class);
     }
 
 

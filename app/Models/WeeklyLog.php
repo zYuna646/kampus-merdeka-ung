@@ -28,4 +28,9 @@ class WeeklyLog extends Model
     {
         return $this->hasMany(DailyLog::class);
     }
+
+    public function activity()
+    {
+        return $this->belongsToMany(ActivityLog::class);
+    }
 }

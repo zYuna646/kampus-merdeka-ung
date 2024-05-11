@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('daily_logs', function (Blueprint $table) {
             $table->id();
-            $table->text('desc');
+            $table->string('dokumentasi');
             $table->date('date');
             $table->text('msg')->nullable();
             $table->enum('status', ['terima', 'proses', 'tolak', 'belum'])->default('belum');
@@ -22,6 +22,15 @@ return new class extends Migration
             $table->timestamps();
 
         });
+
+
+        Schema::create('daily_logs_activity', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
+            $table->foreignId('daily_logs_id')->constrained('daily_logs')->onDelete('cascade');
+            $table->foreignId('activity_logs_id')->constrained('activity_logs')->onDelete('cascade');
+        });
     }
 
     /**
@@ -29,6 +38,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('daily_logs_activity');
         Schema::dropIfExists('daily_logs');
     }
 };

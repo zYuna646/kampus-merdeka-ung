@@ -12,18 +12,10 @@ return new class extends Migration {
     {
         Schema::create('gurus', function (Blueprint $table) {
             $table->id();
-            $table->string('nip')->unique();
+            $table->string('nik')->unique();
             $table->string('name');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-        });
-
-        Schema::create('guru_lokasi', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-
-            $table->foreignId('guru_id')->constrained('gurus')->onDelete('cascade');
-            $table->foreignId('lokasi_id')->constrained('lokasis')->onDelete('cascade');
         });
     }
 
@@ -32,7 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('guru_lokasi');
         Schema::dropIfExists('gurus');
     }
 };

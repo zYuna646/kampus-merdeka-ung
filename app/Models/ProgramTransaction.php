@@ -12,7 +12,10 @@ class ProgramTransaction extends Model
     protected $fillable = [
         'lowongan_id',
         'lokasi_id',
-        'mahasiswa_id'
+        'mahasiswa_id',
+        'rancangan',
+        'status_rancangan',
+        'status_mahasiswa'
     ];
 
     public function dailyLog()

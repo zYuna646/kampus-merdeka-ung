@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('program_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('rancangan')->default('');
+            $table->boolean('status_rancangan')->default(false);
+            $table->boolean('status_mahasiswa')->default(false);
             $table->foreignId('lowongan_id')->constrained('lowongans')->onDelete('cascade');
             $table->foreignId('lokasi_id')->constrained('lokasis')->onDelete('cascade');
             $table->foreignId('mahasiswa_id')->constrained('mahasiswas')->onDelete('cascade');

@@ -10,15 +10,15 @@ class Guru extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nip',
+        'nik',
         'name',
         'lokasi_id',
         'user_id',
     ];
 
-    public function lokasis()
+    public function lokasi()
     {
-        return $this->belongsToMany(Lokasi::class);
+        return $this->belongsTo(Lokasi::class);
     }
 
     public function user()

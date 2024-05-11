@@ -13,14 +13,20 @@ return new class extends Migration
     {
         Schema::create('weekly_logs', function (Blueprint $table) {
             $table->id();
-            $table->text('desc')->nullable();
-            $table->integer('nilai')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->text('msg')->nullable();
             $table->enum('status', ['terima', 'proses', 'tolak', 'belum'])->default('belum');
             $table->foreignId('program_transaction_id')->constrained('program_transactions')->onDelete('cascade'); // Kolom untuk menampung id program kampus sebagai kunci asing
             $table->timestamps();
+        });
+
+        Schema::create('weekly_logs_activity', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
+            $table->foreignId('weekly_logs_id')->constrained('weekly_logs')->onDelete('cascade');
+            $table->foreignId('activity_logs_id')->constrained('activity_logs')->onDelete('cascade');
         });
     }
 
@@ -29,6 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('weekly_logs_activity');
         Schema::dropIfExists('weekly_logs');
     }
 };

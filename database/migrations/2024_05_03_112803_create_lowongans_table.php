@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('program_id')->constrained('program_kampuses')->onDelete('cascade');
             $table->string('tahun_akademik');
             $table->string('semester');
+            $table->dateTime('pendaftaran_mulai');
+            $table->dateTime('pendaftaran_selesai');
             $table->dateTime('tanggal_mulai');
             $table->dateTime('tanggal_selesai');
             $table->timestamps();

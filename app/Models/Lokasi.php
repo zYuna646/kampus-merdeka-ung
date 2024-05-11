@@ -19,10 +19,7 @@ class Lokasi extends Model
         'lokasi'
     ];
 
-    public function dpls()
-    {
-        return $this->belongsToMany(DPL::class);
-    }
+
 
     public function program()
     {
@@ -59,8 +56,4 @@ class Lokasi extends Model
         return $this->hasMany(Guru::class);
     }
 
-    public function teachers()
-    {
-        return $this->belongsToMany(Guru::class);
-    }
 }

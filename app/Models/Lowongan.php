@@ -13,6 +13,8 @@ class Lowongan extends Model
         'program_id',
         'tahun_akademik',
         'semester',
+        'pendaftaran_mulai',
+        'pendaftaran_selesai',
         'tanggal_mulai',
         'tanggal_selesai', // Mengubah 'sop/pob' menjadi 'sop_pob' karena nama kolom tidak boleh mengandung karakter '/'
     ];
