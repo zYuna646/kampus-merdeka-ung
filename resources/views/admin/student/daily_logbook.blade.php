@@ -100,7 +100,7 @@
                     {{-- <span class="text-sm text-slate-500">Minggu Ke-10</span> --}}
                 </div>
                 <hr class="mb-4 mt-4">
-                <div class="flex justify-around mt-4">
+                <div class="flex mt-4 justify-between">
                     @foreach ($data->daily as $dailyItem)
                         @php
                             // Mendapatkan inisial hari
@@ -135,8 +135,8 @@
                         <div class="flex flex-col items-center justify-center">
                             <p>{{ $dayInitial }}</p>
                             <span
-                                class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-white rounded-full {{ $colorClass }}">
-                                <i class="{{ $iconClass }} text-lg"></i>
+                                class="inline-flex items-center justify-center w-10 h-10 text-sm font-semibold text-white rounded-full {{ $colorClass }}">
+                                <i class="{{ $iconClass }} text-sm"></i>
                             </span>
                         </div>
                     @endforeach
