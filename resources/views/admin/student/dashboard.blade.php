@@ -136,7 +136,7 @@
 
         </div>
         <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
-            <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
                 <div class="col-span-2">
                     <img src="/images/avatar/mitra.png" alt="" class="w-16">
                 </div>
@@ -198,7 +198,7 @@
                 </button>
             </div> --}}
             </div>
-            <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
                 <div class="col-span-12 flex flex-col gap-y-2">
                     <h4 class="text-xl font-semibold">Lokasi Kegiatan</h4>
                     <p class="text-sm">Kamu akan mengikuti kegiatan dari tanggal 14 Agu - 31 Des 2023.</p>
