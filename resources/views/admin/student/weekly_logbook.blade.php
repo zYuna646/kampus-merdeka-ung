@@ -29,7 +29,7 @@
             </li>
         </ol>
     </div>
-    <div class="col-span-4 w-full">
+    <div class="col-span-12 lg:col-span-4 w-full">
         <div class="w-full bg-white border border-gray-200 rounded-lg shadow">
             <a href="#" class="w-full">
                 <img class="rounded-t-lg w-full brightness-50" src="/images/hero-image/image.png" alt="" />
@@ -100,11 +100,11 @@
             </div>
         </div>
     </div>
-    <div class="col-span-8 w-full flex flex-col gap-y-2">
+    <div class="col-span-12 lg:col-span-8 w-full flex flex-col gap-y-2">
         @if ($data['programTransaction'])
         @foreach ($data['programTransaction']->weeklyLog as $index => $item)
         <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow ">
-            <div class="flex justify-between">
+            <div class="flex justify-between flex-col lg:flex-row gap-y-4">
                 <div class="flex flex-col gap-y-1">
                     <div class="flex gap-x-2 items-center">
                         @switch($item->status)
@@ -223,9 +223,9 @@
         @endforeach
         @endif
         <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow flex flex-col gap-y-4">
-            <div class="flex gap-x-4">
+            <div class="flex  gap-x-4">
                 <span
-                    class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-color-danger-500 bg-color-danger-100 border border-color-danger-500 rounded-full ">
+                    class="inline-flex items-center justify-center max-w-8 max-h-8 h-full w-full text-sm font-semibold text-color-danger-500 bg-color-danger-100 border border-color-danger-500 rounded-full ">
                     <i class="fas fa-exclamation text-lg"></i>
                 </span>
                 <div class="flex flex-col text-color-danger-500">
