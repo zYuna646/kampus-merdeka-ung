@@ -27,11 +27,12 @@ class JurusanImport implements ToCollection, WithHeadingRow
                     continue;
                 }
 
-                $fakultas = Fakultas::where('code', $row['kode_fakultas'])->first();
+                $fakultas = Fakultas::where('name', $row['kode_fakultas'])->first();
                 if (!$fakultas) {
                     continue;
                 }
                 // Buat entri baru jika tidak ada duplikat
+
                 Jurusan::create([
                     'code' => $row['kode'],
                     'name' => $row['nama'],

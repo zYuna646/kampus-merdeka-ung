@@ -2,29 +2,27 @@
 
 namespace App\Imports;
 
-use App\Models\Dosen;
-use App\Models\DPL;
-use App\Models\Lokasi;
+use App\Models\Guru;
 use App\Models\Lowongan;
 use App\Models\Mahasiswa;
+use App\Models\MitraTransaction;
 use App\Models\ProgramTransaction;
-use App\Models\Role;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class DPLImport implements ToCollection, WithHeadingRow
+class PamongImport implements ToCollection, WithHeadingRow
 {
     /**
-     * @param Collection $collection
-     */
-    public function collection(Collection $rows)
+    * @param Collection $collection
+    */
+    public function collection(Collection $collection)
     {
         $tmp = null; // Initialize $tmp with null
-        foreach ($rows as $index => $row) {
+        foreach ($collection as $index => $row) {
             try {
-                if ($row['nidn']) {
-                    $dosen = Dosen::where('nidn', $row['nidn'])->first();
+                if ($row['nik']) {
+                    $dosen = Guru::where('name', $row['nik'])->first();
                     $tmp = $dosen;
                 } else {
                     $dosen = $tmp;
@@ -44,12 +42,12 @@ class DPLImport implements ToCollection, WithHeadingRow
 
                 $programTransaction = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->first();
 
-                $dpl = DPL::where('dosen_id', $dosen->id)->first();
+                $dpl = MitraTransaction::where('guru_id', $dosen->id)->first();
                 if ($dpl) {
                     $dpl->mahasiswa()->attach($programTransaction->id);
                 } else {
-                    $dosen = DPL::create([
-                        'dosen_id' => $dosen->id,
+                    $dosen = MitraTransaction::create([
+                        'guru_id' => $dosen->id,
                         'lowongan_id' => $lowongan->id
                     ]);
                     $dosen->mahasiswa()->attach($programTransaction->id);

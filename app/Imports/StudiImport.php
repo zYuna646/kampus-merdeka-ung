@@ -29,7 +29,7 @@ class StudiImport implements ToCollection, WithHeadingRow
                     continue;
                 }
 
-                $fakultas = Jurusan::where('code', $row['kode_jurusan'])->first();
+                $fakultas = Jurusan::where('name', $row['kode_jurusan'])->first();
                 if (!$fakultas) {
                     continue;
                 }

@@ -12,13 +12,12 @@ class Guru extends Model
     protected $fillable = [
         'nik',
         'name',
-        'lokasi_id',
         'user_id',
     ];
 
-    public function lokasi()
+    public function lokasis()
     {
-        return $this->belongsTo(Lokasi::class);
+        return $this->belongsToMany(Lokasi::class);
     }
 
     public function user()

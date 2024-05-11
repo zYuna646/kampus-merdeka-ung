@@ -51,9 +51,22 @@ class MahasiswaImport implements ToCollection, WithHeadingRow, WithChunkReading
                         'user_id' => $user->id // Menggunakan id user yang baru dibuat
                     ]);
                 } else {
+                    $studi = Studi::where('code', '000')->first();
+                    $user = User::create([
+                        'username' => $row['nim'],
+                        'password' => bcrypt($row['nim']),
+                        'role_id' => $role->id,
+                    ]);
+                    // Buat instansi Dosen terkait
+                    Mahasiswa::create([
+                        'nim' => $row['nim'],
+                        'name' => $row['nama'],
+                        'studi_id' => $studi->id,
+                        'angkatan' => $row['angkatan'],
+                        'user_id' => $user->id // Menggunakan id user yang baru dibuat
+                    ]);
                     // Jika program studi tidak ditemukan, log pesan kesalahan dan lanjutkan ke baris berikutnya
-                    \Log::error('Program Studi with code ' . $row['kode_program_studi'] . ' not found.');
-                    return null;
+
                 }
             } catch (\Throwable $th) {
                 // Tangani kesalahan di sini

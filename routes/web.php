@@ -9,6 +9,7 @@ use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\PamongController;
 use App\Http\Controllers\ProgramKampusController;
 use App\Http\Controllers\ProgramTransactionController;
 use App\Http\Controllers\StudiController;
@@ -128,11 +129,14 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/import', [MahasiswaController::class, 'import'])->name('admin.student.import');
             });
 
-            Route::prefix('/guru')->group(function () {
+            Route::prefix('/mitra')->group(function () {
                 Route::get('/', [GuruController::class, 'index'])->name('admin.guru');
                 Route::get('/add', [GuruController::class, 'create'])->name('admin.guru.add');
                 Route::post('/add', [GuruController::class, 'store'])->name('admin.guru.store');
                 Route::post('/import', [GuruController::class, 'import'])->name('admin.guru.import');
+                Route::post('/delete', [GuruController::class, 'index'])->name('admin.guru.delete');
+                Route::get('/show', [GuruController::class, 'index'])->name('admin.guru.show');
+                Route::get('/edit', [GuruController::class, 'index'])->name('admin.guru.edit');
             });
 
             Route::prefix('/dpl')->group(function () {
@@ -140,6 +144,13 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [DPLController::class, 'create'])->name('admin.dpl.add');
                 Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
                 Route::post('/import', [DPLController::class, 'import'])->name('admin.dpl.import');
+            });
+
+            Route::prefix('/pamong')->group(function () {
+                Route::get('/', [PamongController::class, 'index'])->name('admin.pamong');
+                Route::get('/add', [PamongController::class, 'create'])->name('admin.pamong.add');
+                Route::post('/add', [PamongController::class, 'store'])->name('admin.pamong.store');
+                Route::post('/import', [PamongController::class, 'import'])->name('admin.pamong.import');
             });
 
             Route::prefix('/location')->group(function () {

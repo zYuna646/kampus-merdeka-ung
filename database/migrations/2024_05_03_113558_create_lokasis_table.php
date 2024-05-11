@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('lokasis', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique()->default(Str::random(10));
+
             $table->foreignId('program_id')->constrained('program_kampuses')->onDelete('cascade');
             $table->string('provinsi_id'); // Mengubah menjadi tipe data string
             $table->string('kabupaten_id'); // Mengubah menjadi tipe data string

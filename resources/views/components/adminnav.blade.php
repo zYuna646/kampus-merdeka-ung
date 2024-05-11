@@ -139,7 +139,6 @@
                             </div>
                             <div class="inline-flex items-center gap-x-2  text-slate-500">
                                 <a href="{{ route('admin.guru') }}">
-
                                     <i class="fas fa-file"></i>
                                     Guru
                                 </a>
@@ -156,6 +155,13 @@
 
                                     <i class="fas fa-file"></i>
                                     DPL
+                                </a>
+                            </div>
+                            <div class="inline-flex items-center gap-x-2  text-slate-500">
+                                <a href="{{ route('admin.pamong') }}">
+
+                                    <i class="fas fa-file"></i>
+                                    Pamong
                                 </a>
                             </div>
                             <div class="inline-flex items-center gap-x-2  text-slate-500">

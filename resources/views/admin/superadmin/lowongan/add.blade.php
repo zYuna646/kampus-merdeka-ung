@@ -27,10 +27,37 @@
                 </select>
             </div>
 
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Log Book?</label>
+                <div class="mt-2">
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="isLogBook" value="1" class="form-radio text-indigo-600 focus:ring-indigo-500 h-4 w-4" required checked>
+                        <span class="ml-2 text-sm text-gray-900">Ya</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" name="isLogBook" value="0" class="form-radio text-red-600 focus:ring-red-500 h-4 w-4" required>
+                        <span class="ml-2 text-sm text-gray-900">Tidak</span>
+                    </label>
+                </div>
+            </div>
+
+
+
 
             <div class="mb-4">
                 <label for="semester" class="block text-sm font-medium text-gray-700">Semester</label>
-                <input type="text" name="semester" id="semester" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                <select name="semester" id="semester" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                        <option value="Genap">Genap</option>
+                        <option value="Genap">Ganjil</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="pendaftaran_mulai" class="block text-sm font-medium text-gray-700">Pendaftaran Mulai</label>
+                <input type="datetime-local" name="pendaftaran_mulai" id="pendaftaran_mulai" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+            </div>
+            <div class="mb-4">
+                <label for="pendaftaran_selesai" class="block text-sm font-medium text-gray-700">Pendaftaran Selesai</label>
+                <input type="datetime-local" name="pendaftaran_selesai" id="pendaftran_selesai" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
             </div>
             <div class="mb-4">
                 <label for="tanggal_mulai" class="block text-sm font-medium text-gray-700">Tanggal Mulai</label>

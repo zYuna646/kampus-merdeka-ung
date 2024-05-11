@@ -26,6 +26,6 @@ class MitraTransaction extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsToMany(Mahasiswa::class);
+        return $this->belongsToMany(ProgramTransaction::class);
     }
 }

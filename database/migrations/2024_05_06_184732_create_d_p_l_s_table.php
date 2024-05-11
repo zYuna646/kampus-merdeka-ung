@@ -19,12 +19,12 @@ return new class extends Migration
 
         });
 
-        Schema::create('d_p_l_mahasiswa', function (Blueprint $table) {
+        Schema::create('d_p_l_program_transaction', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
             $table->foreignId('d_p_l_id')->constrained('d_p_l_s')->onDelete('cascade');
-            $table->foreignId('program_transactions_id')->constrained('program_transactions')->onDelete('cascade');
+            $table->foreignId('program_transaction_id')->constrained('program_transactions')->onDelete('cascade');
         });
     }
 
@@ -33,7 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('d_p_l_mahasiswa');
+        Schema::dropIfExists('d_p_l_program_transaction');
         Schema::dropIfExists('d_p_l_s');
     }
 };

@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('nidn')->unique(); // Kolom NIDN dengan constraint unik
             $table->string('name'); // Kolom nama dosen
             $table->foreignId('studi_id')->constrained('studis')->onDelete('cascade'); // Kolom untuk menampung id studi sebagai kunci asing
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Kolom untuk menampung id user sebagai kunci asing
+            $table->uuid('user_id'); // Menggunakan UUID untuk kolom user_id
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps(); // Kolom waktu pembuatan dan pembaruan
         });
     }

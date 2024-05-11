@@ -49,7 +49,21 @@ class LowonganController extends Controller
             'semester' => 'required',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date',
+            'pendaftaran_mulai' => 'required|date',
+            'pendaftaran_selesai' => 'required|date',
+            'isLogBook' => 'required'
         ]);
+
+        $existingLowongan = Lowongan::where('program_id', $request->program_id)
+            ->where('tahun_akademik', $request->tahun_akademik)
+            ->where('semester', $request->semester)
+            ->first();
+
+        if ($existingLowongan) {
+            return redirect()->route('admin.lowongan')
+                ->with('failded', 'Lowongan Sudah Ada.');
+        }
+
 
         Lowongan::create($request->all());
 

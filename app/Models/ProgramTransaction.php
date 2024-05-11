@@ -43,4 +43,14 @@ class ProgramTransaction extends Model
     {
         return $this->belongsTo(Mahasiswa::class);
     }
+
+    public function dpls()
+    {
+        return $this->belongsToMany(DPL::class);
+    }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Guru::class);
+    }
 }

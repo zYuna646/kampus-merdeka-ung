@@ -14,8 +14,17 @@ return new class extends Migration {
             $table->id();
             $table->string('nik')->unique();
             $table->string('name');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->uuid('user_id'); // Menggunakan UUID untuk kolom user_id
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+        });
+
+        Schema::create('guru_lokasi', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+
+            $table->foreignId('guru_id')->constrained('gurus')->onDelete('cascade');
+            $table->foreignId('lokasi_id')->constrained('lokasis')->onDelete('cascade');
         });
     }
 
@@ -24,6 +33,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
+        Schema::dropIfExists('guru_lokasi');
         Schema::dropIfExists('gurus');
     }
 };

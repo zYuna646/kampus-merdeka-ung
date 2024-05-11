@@ -3,9 +3,9 @@
 @section('main')
     <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
         <div class="flex justify-between items-center">
-            <h1 class="text-xl font-semibold">Lokasi</h1>
+            <h1 class="text-xl font-semibold">Pamong</h1>
             <div class="inline-flex">
-                <a href="{{ route('admin.location.add') }}" class="text-white h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                <a href="{{ route('admin.pamong.add') }}" class="text-white h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                     <span><i class="fas fa-file-export text-sm me-2"></i></span>
                     Tambah Data
                 </a>
@@ -26,7 +26,7 @@
                         <!-- Konten Modal -->
                         <div
                             class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                            <form action="{{ route('admin.location.import') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.pamong.import') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                     <div class="sm:flex sm:items-start">
@@ -73,26 +73,26 @@
             <table id="table_config" class="">
                 <thead>
                     <tr>
-                        <th>Code</th>
+                        <th>NIK</th>
                         <th>Nama</th>
-                        <th>Progam</th>
-                        <th>Provinsi</th>
-                        <th>Kabupaten</th>
-                        <th>Kecamatan</th>
-                        <th>Kelurahan</th>
+                        <th>Code Lowongan</th>
+                        <th>Mahasiswa</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $item)
                         <tr>
-                            <td>{{ $item['code'] }}</td>
-                            <td>{{ $item['name'] }}</td>
-                            <td>{{ $item->program->name }}</td>
-                            <td>{{ $item->provinsi->name }}</td>
-                            <td>{{ $item->kabupaten->name }}</td>
-                            <td>{{ $item->kecamatan->name }}</td>
-                            <td>{{ $item->kelurahan->name }}</td>
+                            <td>{{ $item->guru->nik }}</td>
+                            <td>{{ $item->guru->name }}</td>
+                            <td>{{ $item->lowongan->code }}</td>
+                            <td>
+                                <ul>
+                                    @foreach ($item->mahasiswa as $index => $m)
+                                        <li> {{ $index + 1 . '. ' . $m->mahasiswa->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
                             <td>
                                 <div class="relative inline-block text-left">
                                     <button type="button" id="dropdownMenuButton{{ $item->id }}"
@@ -161,7 +161,6 @@
 
                                 </div>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>

@@ -16,7 +16,6 @@ class WeeklyLog extends Model
         'end_date',
         'msg',
         'status',
-        'nilai'
     ];
 
     public function programTransaction()

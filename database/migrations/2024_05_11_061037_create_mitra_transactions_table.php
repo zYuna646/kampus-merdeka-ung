@@ -16,17 +16,25 @@ return new class extends Migration
         Schema::create('mitra_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lowongan_id')->constrained('lowongans')->onDelete('cascade');
-            $table->foreignId('dosen_id')->constrained('dosens')->onDelete('cascade');
+            $table->foreignId('guru_id')->constrained('gurus')->onDelete('cascade');
             $table->timestamps();
         });
 
-        Schema::create('mitra_transactions_mahasiswa', function (Blueprint $table) {
+        Schema::create('mitra_transaction_program_transaction', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('mitra_transactions_id')->constrained('mitra_transactions')->onDelete('cascade');
-            $table->foreignId('program_transactions_id')->constrained('program_transactions')->onDelete('cascade');
+            $table->foreignId('mitra_transaction_id')
+                  ->constrained('mitra_transactions')
+                  ->onDelete('cascade')
+                  ->name('mitra_transaction_program_transaction_mitra_transaction_id_foreign');
+
+            $table->foreignId('program_transaction_id')
+                  ->constrained('program_transactions')
+                  ->onDelete('cascade')
+                  ->name('mitra_transaction_program_transaction_program_transaction_id_foreign');
         });
+
     }
 
     /**
@@ -36,7 +44,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mitra_transactions_mahasiswa');
+        Schema::dropIfExists('mitra_transaction_program_transaction');
         Schema::dropIfExists('mitra_transactions');
     }
 };

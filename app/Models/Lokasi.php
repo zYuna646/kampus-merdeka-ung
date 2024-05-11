@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\GeneratesUniqueCodes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Lokasi extends Model
 {
     use HasFactory;
+    use GeneratesUniqueCodes;
 
     protected $fillable = [
         'name',
@@ -16,10 +18,18 @@ class Lokasi extends Model
         'kabupaten_id',
         'kelurahan_id',
         'provinsi_id',
-        'lokasi'
+        'lokasi',
+        'code'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::creating(function ($model) {
+            $model->code = $model->generateUniqueCode(static::class);
+        });
+    }
 
     public function program()
     {
@@ -46,14 +56,14 @@ class Lokasi extends Model
         return $this->belongsTo(Regency::class);
     }
 
-    public function Kelurahan()
+    public function kelurahan()
     {
         return $this->belongsTo(Village::class);
     }
 
     public function guru()
     {
-        return $this->hasMany(Guru::class);
+        return $this->belongsToMany(Guru::class);
     }
 
 }

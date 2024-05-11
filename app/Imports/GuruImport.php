@@ -21,10 +21,10 @@ class GuruImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $index => $row) {
             try {
-                $nip = sprintf('%03d', $index); // Generate NIP with leading zeros
+                $nip = sprintf('%09d', $index); // Generate NIP with leading zeros
                 // Menambahkan tanda titik koma dan tanda kutip pada NIP
                 $role = Role::where('slug', 'guru')->first();
-                $existingGuru = Guru::where('nip', $nip)->first();
+                $existingGuru = Guru::where('nik', $nip)->first();
 
                 if ($existingGuru) {
                     continue; // Skip baris ini jika Guru sudah ada
@@ -43,7 +43,7 @@ class GuruImport implements ToCollection, WithHeadingRow
 
                 // Create a new Guru entry if no duplicate
                 $data = [
-                    "nip" => $nip,
+                    "nik" => $nip,
                     "name" => $row['nama'], // Menambahkan definisi $nama_lokasi
                     "user_id" => $user->id,
                 ];

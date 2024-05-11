@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('daily_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('dokumentasi');
+            $table->string('dokumentasi')->nullable();
             $table->date('date');
             $table->text('msg')->nullable();
             $table->enum('status', ['terima', 'proses', 'tolak', 'belum'])->default('belum');
