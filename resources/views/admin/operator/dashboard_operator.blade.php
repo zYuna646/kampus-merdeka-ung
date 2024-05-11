@@ -19,7 +19,7 @@
     </ol>
   </div>
   <div class="col-span-12 w-full">
-    <div class="p-6 bg-white border border-slate-200 shadow-sm rounded-xl mt-4 flex flex-col gap-y-4">
+    <div class="p-6 bg-white border border-slate-200 shadow-sm rounded-xl  flex flex-col gap-y-4">
       <h1 class="text-lg font-semibold">Cari Program</h1>
       <div>
         <form action="" class="w-full grid grid-cols-7 gap-4">
