@@ -17,5 +17,4 @@ class Program extends Model
         'sop_pob', // Mengubah 'sop/pob' menjadi 'sop_pob' karena nama kolom tidak boleh mengandung karakter '/'
     ];
 
-
 }

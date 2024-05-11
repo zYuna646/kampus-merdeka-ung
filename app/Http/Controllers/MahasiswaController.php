@@ -28,7 +28,7 @@ class MahasiswaController extends Controller
     public function dashboard()
     {
         try {
-            $programTransaction = Auth::user()->mahasiswa->programTransaction;
+            $programTransaction = Auth::user()->mahasiswa->programTransaction()->latest()->first();
         } catch (\Throwable $th) {
             //throw $th;
             $programTransaction = '';

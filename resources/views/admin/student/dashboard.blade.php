@@ -6,7 +6,7 @@
         <div class="flex col-span-12 mb-2 mt-2" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
-                    <a href="{{route('student.dashboard')}}"
+                    <a href="{{ route('student.dashboard') }}"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-color-primary-600 dark:text-gray-400 dark:hover:text-white">
                         <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -62,7 +62,7 @@
                         </p>
                         <p class="text-sm mt-1 text-slate-500">
                             @if ($data['programTransaction'])
-                                {{ 'Semester ' . ($data['programTransaction']->lowongan->semester) }}
+                                {{ 'Semester ' . $data['programTransaction']->lowongan->semester }}
                                 {{ $data['programTransaction']->lowongan->tahun_akademik }}
                             @endif
 
@@ -74,11 +74,8 @@
                             </span>
                             <p class="uppercase text-sm">
                                 @if ($data['programTransaction'])
-                                    @foreach ($data['programTransaction']->lokasi->teachers as $item)
-                                        {{ $item->name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
+                                    @foreach ($data['programTransaction']->pamong as $item)
+                                        {{ $item->guru->name }}
                                     @endforeach
                                 @endif
                             </p>
@@ -89,11 +86,8 @@
                             </p>
                             <p class="uppercase text-sm">
                                 @if ($data['programTransaction'])
-                                    @foreach ($data['programTransaction']->lokasi->dpls as $item)
+                                    @foreach ($data['programTransaction']->dpls as $item)
                                         {{ $item->dosen->name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
                                     @endforeach
                                 @endif
                             </p>
@@ -135,56 +129,73 @@
             </div>
 
         </div>
-        <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
-            <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
-                <div class="col-span-2">
-                    <img src="/images/avatar/mitra.png" alt="" class="w-16">
-                </div>
-                <div class="col-span-12 mt-4">
-                    <h4 class="font-semibold text-lg">Lorem ipsum dolor, sit amet</h4>
-                </div>
-                <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500 mt-2">
-                    <span class=""><i class="fas fa-book text-sm"></i></span>
-                    <p class="text-sm font-semibold">Kampus Mengajar</p>
-                </div>
-                <div class="col-span-12 mt-2">
-                    <p class="text-sm">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque quae iure est saepe cum quod
-                        quisquam,
-                        iste dolore obcaecati accusamus earum laborum magni incidunt id voluptas consequuntur explicabo
-                        corrupti
-                        alias.
-                    </p>
-                </div>
-                <div class="col-span-12 mt-4 flex flex-col gap-y-2">
-                    <div class="flex flex-col">
-                        <span class="text-xs text-slate-500">Kode Kegiatan: </span>
-                        <p class="text-sm">541341243</p>
+        @if ($data['programTransaction'])
+            <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
+                <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
+                    <div class="col-span-2">
+                        <img src="/images/avatar/mitra.png" alt="" class="w-16">
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-xs text-slate-500">Priode Kegiatan: </span>
-                        <p class="text-sm">14 Agu 2023 - 31 Des 2023 <span class="text-slate-500">(5 bulan)</span></p>
+                    <div class="col-span-12 mt-4">
+                        <h4 class="font-semibold text-lg">{{ $data['programTransaction']->lokasi->name }}</h4>
                     </div>
-                </div>
-                <hr class="col-span-12 mt-4">
-                <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                    <div class="flex items-center">
-                        <span
-                            class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-warning-500 rounded-full ">
-                            <i class="fas fa-exclamation"></i>
-                        </span>
-                        <p class="text-sm font-semibold">Log Book Minggu Ke-2 Belum Terisi</p>
+                    <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500 mt-2">
+                        <span class=""><i class="fas fa-book text-sm"></i></span>
+                        <p class="text-sm font-semibold">{{ $data['programTransaction']->lowongan->program->name }}</p>
                     </div>
-                    <div class="flex items-center">
-                        <span
-                            class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <p class="text-sm font-semibold">Laporan Permohonan Disetujui</p>
-                    </div>
-                </div>
+                    {{-- <div class="col-span-12 mt-2">
+                        <p class="text-sm">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque quae iure est saepe cum
+                            quod
+                            quisquam,
+                            iste dolore obcaecati accusamus earum laborum magni incidunt id voluptas consequuntur explicabo
+                            corrupti
+                            alias.
+                        </p>
+                    </div> --}}
+                    <div class="col-span-12 mt-4 flex flex-col gap-y-2">
+                        <div class="flex flex-col">
+                            <span class="text-xs text-slate-500">Kode Kegiatan: </span>
+                            <p class="text-sm">{{ $data['programTransaction']->lowongan->code }}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs text-slate-500">Priode Kegiatan: </span>
+                            @php
+                                $tanggalMulai = \Carbon\Carbon::parse(
+                                    $data['programTransaction']->lowongan->tanggal_mulai,
+                                );
+                                $tanggalSelesai = \Carbon\Carbon::parse(
+                                    $data['programTransaction']->lowongan->tanggal_selesai,
+                                );
+                                $selisihBulan = $tanggalMulai->diffInMonths($tanggalSelesai);
+                            @endphp
 
-                {{--
+                            <p class="text-sm">
+                                {{ $tanggalMulai->isoFormat('D MMM YYYY') }} -
+                                {{ $tanggalSelesai->isoFormat('D MMM YYYY') }}
+                                <span class="text-slate-500">({{ $selisihBulan }} bulan)</span>
+                            </p>
+
+                        </div>
+                    </div>
+                    <hr class="col-span-12 mt-4">
+                    <div class="col-span-12 mt-4 flex flex-col gap-y-4">
+                        <div class="flex items-center">
+                            <span
+                                class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-warning-500 rounded-full ">
+                                <i class="fas fa-exclamation"></i>
+                            </span>
+                            <p class="text-sm font-semibold">Log Book Minggu Ke-2 Belum Terisi</p>
+                        </div>
+                        <div class="flex items-center">
+                            <span
+                                class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <p class="text-sm font-semibold">Laporan Permohonan Disetujui</p>
+                        </div>
+                    </div>
+
+                    {{--
             <hr class="col-span-12 mt-4">
             <div class="col-span-12 mt-4 flex gap-x-1">
                 <button type="button"
@@ -197,14 +208,20 @@
                     Simpan
                 </button>
             </div> --}}
-            </div>
-            <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
-                <div class="col-span-12 flex flex-col gap-y-2">
-                    <h4 class="text-xl font-semibold">Lokasi Kegiatan</h4>
-                    <p class="text-sm">Kamu akan mengikuti kegiatan dari tanggal 14 Agu - 31 Des 2023.</p>
                 </div>
-            </div>
+                <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
+                    <div class="col-span-12 flex flex-col gap-y-2">
+                        <h4 class="text-xl font-semibold">Lokasi Kegiatan</h4>
+                        <p class="text-sm">Kamu akan mengikuti kegiatan dari tanggal
+                            {{ $tanggalMulai->isoFormat('D MMM YYYY') }} -
+                            {{ $tanggalSelesai->isoFormat('D MMM YYYY') }}
+                            <span class="text-slate-500">({{ $selisihBulan }} bulan)</span>
+                        </p>
+                    </div>
+                </div>
 
-        </div>
+            </div>
+        @endif
+
     </section>
 @endsection

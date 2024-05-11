@@ -14,7 +14,10 @@ class ProgramTransaction extends Model
         'lokasi_id',
         'mahasiswa_id',
         'rancangan',
-        'status_rancangan',
+        'status_rancangan_pamong',
+        'status_rancangan_dpl',
+        'msg_dpl',
+        'msg_pamong',
         'status_mahasiswa'
     ];
 
@@ -49,8 +52,8 @@ class ProgramTransaction extends Model
         return $this->belongsToMany(DPL::class);
     }
 
-    public function teachers()
+    public function pamong()
     {
-        return $this->belongsToMany(Guru::class);
+        return $this->belongsToMany(MitraTransaction::class);
     }
 }

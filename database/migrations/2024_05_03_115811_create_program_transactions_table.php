@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('program_transactions', function (Blueprint $table) {
             $table->id();
             $table->string('rancangan')->default('');
-            $table->boolean('status_rancangan')->default(false);
+            $table->boolean('status_rancangan_dpl')->default(false);
+            $table->boolean('status_rancangan_pamong')->default(false);
+            $table->string('msg_dpl')->default('');
+            $table->string('msg_pamong')->default('');
+
             $table->boolean('status_mahasiswa')->default(false);
             $table->foreignId('lowongan_id')->constrained('lowongans')->onDelete('cascade');
             $table->foreignId('lokasi_id')->constrained('lokasis')->onDelete('cascade');
