@@ -245,9 +245,6 @@
                         <input type="text" id="input-group-1"
                             class="bg-gray-50 border block border-gray-300 text-gray-900 xl:text-sm text-xs rounded-md w-full ps-12 p-4  "
                             placeholder="name@flowbite.com">
-                        {{-- <input id="input-group-1" type="url"
-                            class="ps-10 block w-full h-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs S"
-                            placeholder="Link Dokumen Rancngan Kegiatan"> --}}
                     </div>
                 </form>
                 <a
