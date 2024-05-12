@@ -20,8 +20,13 @@
   </div>
   <div class="p-6 bg-white rounded-lg border border-slate-200 shadow col-span-12 min-h-96 w-full">
     <h3 class="font-semibold text-lg">Histori Program</h3>
-    <div class="grid grid-flow-row p-4 divide-y-2">
-      <div class="flex lg:flex-row flex-col gap-y-6 justify-between p-4 mb-2">
+
+    <div class="flex flex-col items-center justify-center">
+      <img src="/images/avatar/Search-for-Ideas.png" alt="" class="w-52">
+      <p class="text-sm font-semibold">Ops!, Kamu Belum Menyelesaikan Program Apapun</p>
+    </div>
+    {{-- <div class="grid grid-flow-row p-4 divide-y-2">
+      <div class="flex lg:flex-row flex-col gap-y-6 justify-between lg:items-center  p-4 mb-2">
         <div>
           <div class="flex flex-col gap-y-4">
             <div class="flex gap-x-2 items-center text-color-primary-500">
@@ -47,7 +52,7 @@
           </a>
         </div>
       </div>
-    </div>
+    </div> --}}
   </div>
 </section>
 @endsection
