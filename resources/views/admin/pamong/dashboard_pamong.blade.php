@@ -29,7 +29,7 @@
                 <div class="flex flex-col ">
                     @auth
                         <p class="font-semibold text-base uppercase">{{ Auth::user()->guru->name }} </p>
-                        <span class="text-xs text-slate-500"> {{ Auth::user()->guru->nip }}</span>
+                        <span class="text-xs text-slate-500"> {{ Auth::user()->guru->nik }}</span>
                         <span class="text-slate-500 text-sm">
                             @foreach (Auth::user()->guru->lokasis as $item)
                                 {{ $item->name . ',' }}
@@ -39,46 +39,38 @@
 
                 </div>
             </div>
-            <p class="text-sm italic my-4">Total Program : <span>80</span></p>
+            <p class="text-sm italic my-4">Total Program : <span>{{$data['program']->count()}} </span></p>
             <div class="w-full max-h-[42rem] overflow-y-auto flex flex-col gap-y-4">
                 @if ($data['program'])
                     {{-- Menampilkan hanya programTransaction unik berdasarkan lowongan_id dan lokasi_id --}}
                     @foreach ($data['program'] as $program)
-                        <div
-                            class="w-full bg-white border border-gray-200 hover:border-color-primary-500 hover:bg-slate-100 transition-colors duration-300 rounded-lg shadow">
-                            <a href="{{ route('guru.program.detail', ['lowongan_id' => $program->lowongan->id, 'lokasi_id' => $program->lokasi->id]) }}"
-                                class="w-full">
-                                <img class="rounded-t-lg w-full brightness-50" src="/images/hero-image/image.png"
-                                    alt="" />
-                            </a>
-                            <div class="p-6">
-                                <div class="">
-                                    <div class="flex justify-between items-center">
-                                        <div class="flex gap-x-2 items-center text-color-primary-500">
-                                            <span class=""><i class="fas fa-book text-sm"></i>
-                                                {{ $program->lowongan->program->name }}</span>
-                                            <p class="text-sm font-semibold">{{-- Masukkan informasi yang sesuai di sini --}}</p>
-                                        </div>
-                                        <span>
-                                            <span class=""><i class="fas fa-chevron-right text-xs"></i></span>
-                                        </span>
+                    <a href="{{ route('guru.program.detail', ['lowongan_id' => $program->lowongan->id]) }}"
+                        class="w-full block bg-white border border-gray-200 hover:border-color-primary-500 hover:bg-slate-100 transition-colors duration-300 rounded-lg shadow">
+
+                        <img class="rounded-t-lg w-full brightness-50" src="/images/hero-image/image.png" alt="" />
+
+                        <div class="p-6">
+                            <div class="">
+                                <div class="flex justify-between items-center">
+                                    <div class="flex gap-x-2 items-center text-color-primary-500">
+                                        <span class=""><i class="fas fa-book text-sm"></i>
+                                            {{ $program->lowongan->program->name }}</span>
+                                        <p class="text-sm font-semibold">{{-- Masukkan informasi yang sesuai di sini --}}</p>
                                     </div>
-                                    <p class="text-base mt-1">
-                                        {{ $program->lokasi->name }}
-                                    </p>
-                                    <p class="text-sm mt-1 text-slate-500">
-                                        {{ 'Semester ' . ($program->lowongan->semester) }}
-                                        {{ $program->lowongan->tahun_akademik }}
-                                    </p>
+                                    <span>
+                                        <span class=""><i class="fas fa-chevron-right text-xs"></i></span>
+                                    </span>
                                 </div>
+
+                                <p class="text-sm mt-1 text-slate-500">
+                                    {{ 'Semester ' . ($program->lowongan->semester) }}
+                                    {{ $program->lowongan->tahun_akademik }}
+                                </p>
                             </div>
                         </div>
+                    </a>
                     @endforeach
                 @endif
-
-
-
-
             </div>
 
 
@@ -88,14 +80,14 @@
                 <div class="col-span-2">
                     <img src="/images/avatar/mitra.png" alt="" class="w-16">
                 </div>
-                <div class="col-span-12 mt-4">
+                {{-- <div class="col-span-12 mt-4">
                     <h4 class="font-semibold text-lg">Lorem ipsum dolor, sit amet</h4>
-                </div>
+                </div> --}}
                 <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500 mt-2">
                     <span class=""><i class="fas fa-book text-sm"></i></span>
-                    <p class="text-sm font-semibold">Kampus Mengajar</p>
+                    <p class="text-sm font-semibold">{{$data['mitra']->lowongan->program->name}}</p>
                 </div>
-                <div class="col-span-12 mt-2">
+                {{-- <div class="col-span-12 mt-2">
                     <p class="text-sm">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque quae iure est saepe cum quod
                         quisquam,
@@ -103,30 +95,44 @@
                         corrupti
                         alias.
                     </p>
-                </div>
+                </div> --}}
                 <div class="flex items-center col-span-12 mt-2 mb-2">
                     <span
                         class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
                         <i class="fas fa-check"></i>
                     </span>
-                    <p class="text-sm font-semibold">17 Mahasiswa Terdaftar</p>
+                    <p class="text-sm font-semibold">{{$data['mitra']->mahasiswa->count()}} Mahasiswa Terdaftar</p>
                 </div>
                 <div class="col-span-12 mt-2 flex flex-col gap-y-2">
                     <div class="flex flex-col">
                         <span class="text-xs text-slate-500">Kode Kegiatan: </span>
-                        <p class="text-sm">541341243</p>
+                        <p class="text-sm">{{$data['mitra']->lowongan->code}}</p>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-xs text-slate-500">Priode Kegiatan: </span>
-                        <p class="text-sm">14 Agu 2023 - 31 Des 2023 <span class="text-slate-500">(5 bulan)</span></p>
+                            @php
+                                $tanggalMulai = \Carbon\Carbon::parse(
+                                    $data['mitra']->lowongan->tanggal_mulai,
+                                );
+                                $tanggalSelesai = \Carbon\Carbon::parse(
+                                    $data['mitra']->lowongan->tanggal_selesai,
+                                );
+                                $selisihBulan = $tanggalMulai->diffInMonths($tanggalSelesai);
+                            @endphp
+
+                            <p class="text-sm">
+                                {{ $tanggalMulai->isoFormat('D MMM YYYY') }} -
+                                {{ $tanggalSelesai->isoFormat('D MMM YYYY') }}
+                                <span class="text-slate-500">({{ $selisihBulan }} bulan)</span>
+                            </p>
                     </div>
                 </div>
                 <hr class="col-span-12 mt-4">
                 <div class="col-span-12 mt-4 flex gap-x-1">
-                    <button type="button"
+                    <a type="button" href="{{ route('guru.program.detail', ['lowongan_id' => $data['mitra']->lowongan->id]) }}"
                         class="text-white h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                         Detail Program
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

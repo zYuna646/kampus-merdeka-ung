@@ -33,7 +33,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="{{route('guru.daily.log', ['id' => $data->weekly_log_id])}}"
+                        <a href="{{ route('guru.daily.log', ['id' => $data->weekly_log_id]) }}"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-color-primary-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Log
                             Book</a>
                     </div>
@@ -162,29 +162,44 @@
                         </div>
                     </div>
                     <div class="mt-4 flex flex-col gap-y-4">
-                        <div>
-                            <span class="font-semibold text-sm">Deskripsi Kegiatan:</span>
-                            <p class="text-xs mt-2">{{ json_decode($data->desc)->deskripsi }}</p>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-sm mb-4">Rencana Kegiatan:</span>
-                            <p class="text-xs mt-2">{{ json_decode($data->desc)->rencana }}</p>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-sm">Persentase Pencapaian:</span>
-                            <p class="font-semibold">{{ json_decode($data->desc)->persentase }}</p>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-sm">Hambatan Kegiatan:</span>
-                            <p class="text-xs mt-2">{{ json_decode($data->desc)->hambatan }}</p>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-sm">Rencana Solusi:</span>
-                            <p class="text-xs mt-2">{{ json_decode($data->desc)->solusi }}</p>
-                        </div>
+                        <table id="table_config" class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Deskripsi</th>
+                                    <th>Rencana</th>
+                                    <th>Presentase</th>
+                                    <th>Hambatan</th>
+                                    <th>Solusi</th>
+                                    <th>Jam Mulai</th>
+                                    <th>Jam Selesai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->activity as $data)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $data->desc }}</td>
+                                        <td>{{ $data->rencana }}</td>
+                                        <td>{{ $data->presentase }}%</td>
+                                        <td>{{ $data->hambatan }}</td>
+                                        <td>{{ $data->solusi }}</td>
+                                        <td>{{ $data->jam_mulai }}</td>
+                                        <td>{{ $data->jam_selesai }}</td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table_config').DataTable();
+        });
+    </script>
 @endsection

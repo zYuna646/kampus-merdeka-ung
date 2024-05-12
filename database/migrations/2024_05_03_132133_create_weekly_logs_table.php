@@ -21,12 +21,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('weekly_log_activity', function (Blueprint $table) {
+        Schema::create('activity_log_weekly_log', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
             $table->foreignId('weekly_log_id')->constrained('weekly_logs')->onDelete('cascade');
-            $table->foreignId('activity_logs_id')->constrained('activity_logs')->onDelete('cascade');
+            $table->foreignId('activity_log_id')->constrained('activity_logs')->onDelete('cascade');
         });
     }
 
@@ -35,7 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('weekly_log_activity');
+        Schema::dropIfExists('activity_log_weekly_log');
         Schema::dropIfExists('weekly_logs');
     }
 };

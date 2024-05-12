@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\MahasiswaImport;
+use App\Models\ActivityLog;
 use App\Models\DailyLog;
 use App\Models\Mahasiswa;
 use App\Models\ProgramTransaction;
@@ -45,15 +46,30 @@ class MahasiswaController extends Controller
     public function rancangan(Request $request, $id)
     {
         $request->validate([
-            'rancangan' => 'required|exists:program_transactions,id',
+            'rancangan' => 'required',
         ]);
-        $programTransaction = ProgramTransaction::find($id);
-        $programTransaction->rancangan = $request->rancangan;
-        $programTransaction->status_rancangan_pamong = 'proses';
-        $programTransaction->status_rancangan_dpl = 'proses';
 
+        // Cari program transaksi berdasarkan ID
+        $programTransaction = ProgramTransaction::find($id);
+
+        // Update nilai rancangan dan status
+        $programTransaction->rancangan = $request->rancangan;
+        if ($programTransaction->status_rancangan_pamong != 'terima') {
+            $programTransaction->status_rancangan_pamong = 'proses';
+
+        }
+        if ($programTransaction->status_rancangan_dpl != 'terima') {
+            $programTransaction->status_rancangan_dpl = 'proses';
+
+        }
+
+        // Simpan perubahan ke dalam database
+        $programTransaction->save();
+
+        // Redirect kembali ke halaman sebelumnya
         return redirect()->back();
     }
+
 
     public function weeklyBook()
     {
@@ -85,21 +101,59 @@ class MahasiswaController extends Controller
     public function dailyLog(Request $request, $id)
     {
         // Mengambil data dari request
-        $data = $request->all();
+        $request->validate([
+            'jumlah' => 'required',
+            'dokumentasi' => 'required',
+        ]);
+        $dailyLog = DailyLog::find($id);
+        $dailyLog->status = 'proses';
+        $dailyLog->dokumentasi = $request->dokumentasi;
+        for ($i = 1; $i <= $request->jumlah; $i++) {
+            $activity = ActivityLog::create([
+                'desc' => $request['deskripsi' . $i],
+                'rencana' => $request['rencana' . $i],
+                'jam_mulai' => $request['jam_mulai' . $i],
+                'jam_selesai' => $request['jam_selesai' . $i],
+                'presentase' => $request['persentase' . $i],
+                'hambatan' => $request['hambatan' . $i],
+                'solusi' => $request['solusi' . $i],
 
-        // Mengonversi deskripsi menjadi string
-        $desc = json_encode([
-            "deskripsi" => $data['deskripsi'],
-            "rencana" => $data['rencana'],
-            "persentase" => $data['persentase'],
-            "hambatan" => $data['hambatan'],
-            "solusi" => $data['solusi']
+            ]);
+            $dailyLog->activity()->attach($activity->id);
+        }
+        // Mengupdate daily log dengan deskripsi yang sudah dikonversi
+
+        $dailyLog->save();
+
+        // Redirect atau kembalikan ke halaman yang sesuai
+        return redirect()->route('student.weekly_logbook')->with('success', 'Daily log berhasil disimpan');
+    }
+
+    public function weeklyLogSubmit(Request $request, $id)
+    {
+        // Mengambil data dari request
+        $request->validate([
+            'jumlah' => 'required',
         ]);
 
-        // Mengupdate daily log dengan deskripsi yang sudah dikonversi
-        $dailyLog = DailyLog::find($id);
-        $dailyLog->desc = $desc;
+
+        $dailyLog = WeeklyLog::find($id);
         $dailyLog->status = 'proses';
+        for ($i = 1; $i <= $request->jumlah; $i++) {
+            $activity = ActivityLog::create([
+                'desc' => $request['deskripsi' . $i],
+                'rencana' => $request['rencana' . $i],
+                'jam_mulai' => $request['jam_mulai' . $i],
+                'jam_selesai' => $request['jam_selesai' . $i],
+                'presentase' => $request['persentase' . $i],
+                'hambatan' => $request['hambatan' . $i],
+                'solusi' => $request['solusi' . $i],
+
+            ]);
+            $dailyLog->activity()->attach($activity->id);
+        }
+        // Mengupdate daily log dengan deskripsi yang sudah dikonversi
+
         $dailyLog->save();
 
         // Redirect atau kembalikan ke halaman yang sesuai
@@ -108,17 +162,18 @@ class MahasiswaController extends Controller
 
     public function weeklyLog(Request $request, $id)
     {
-        // Mengambil data dari request
-        $data = $request->all();
+        // // Mengambil data dari request
+        // $data = $request->all();
 
-
-        // Mengupdate daily log dengan deskripsi yang sudah dikonversi
-        $weeklyLog = WeeklyLog::find($id);
-        $weeklyLog->status = 'proses';
-        $weeklyLog->save();
+        // // Mengupdate daily log dengan deskripsi yang sudah dikonversi
+        // $weeklyLog = WeeklyLog::find($id);
+        // $weeklyLog->status = 'proses';
+        // $weeklyLog->save();
 
         // Redirect atau kembalikan ke halaman yang sesuai
-        return redirect()->route('student.weekly_logbook')->with('success', 'Daily log berhasil disimpan');
+        $data = WeeklyLog::find($id);
+        return view('admin.student.weekly_logbook_form')->with('data', $data);
+
     }
 
 

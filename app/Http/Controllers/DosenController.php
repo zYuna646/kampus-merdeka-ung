@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\DosenImport;
 use App\Models\Dosen;
+use App\Models\DPL;
 use App\Models\ProgramTransaction;
 use App\Models\WeeklyLog;
 use Illuminate\Http\Request;
@@ -37,33 +38,14 @@ class DosenController extends Controller
     public function dashboard()
     {
         try {
-            $dpl = Auth::user()->dosen->dpl;
-            $uniqueProgramTransactions = collect([]);
-
-            // Gunakan koleksi untuk menyimpan id program transaksi yang sudah ditemukan
-            $foundIds = [];
-
-            foreach ($dpl->lokasis as $lokasi) {
-                foreach ($lokasi->programTransaction as $program) {
-                    // Periksa apakah program transaksi sudah ada dalam koleksi
-                    if (!in_array($program->id, $foundIds)) {
-                        // Jika belum, tambahkan ke koleksi unik
-                        $uniqueProgramTransactions->push($program);
-                        // Tambahkan id program transaksi ke dalam array foundIds
-                        $foundIds[] = $program->id;
-                    }
-                }
-            }
+            $dpl = Auth::user()->dosen->dpl()->latest()->first();
         } catch (\Throwable $th) {
-            // Tangani kesalahan jika diperlukan
+            //throw $th;
             $dpl = '';
-            $uniqueProgramTransactions = '';
         }
 
-
         $data = [
-            'dpl' => $dpl,
-            'program' => $uniqueProgramTransactions
+            'program' => $dpl
         ];
 
         return view('admin.dpl.dashboard_dpl')->with('data', $data);
@@ -77,15 +59,39 @@ class DosenController extends Controller
         return view('admin.dpl.peserta_detail', ['peserta' => $peserta]);
     }
 
-    public function programDetail($lowongan_id, $lokasi_id)
+    public function programDetail(Request $request, $lowongan_id)
     {
         // Ambil data peserta berdasarkan lowongan_id dan lokasi_id
-        $peserta = ProgramTransaction::where('lowongan_id', $lowongan_id)
-            ->where('lokasi_id', $lokasi_id)
-            ->get();
+        $dpl = DPL::where('lowongan_id', $lowongan_id)
+            ->where('dosen_id', Auth::user()->dosen->id)
+            ->first();
+
+        if ($request->search) {
+            $searchTerm = $request->input('search');
+            $isAllNumber = is_numeric($searchTerm);
+            // dd($isAllNumber); // Anda dapat menggunakan ini untuk debugging
+            if ($isAllNumber) {
+                // Jika nilai search adalah angka, cari berdasarkan NIM
+                $peserta = $dpl->mahasiswa()->whereHas('mahasiswa', function ($query) use ($searchTerm) {
+                    $query->where('nim', 'like', '%' . $searchTerm . '%');
+                })->paginate(5);
+            } else {
+                // Jika nilai search bukan angka, cari berdasarkan nama
+                $peserta = $dpl->mahasiswa()->whereHas('mahasiswa', function ($query) use ($searchTerm) {
+                    $query->where('name', 'like', '%' . $searchTerm . '%');
+                })->paginate(5);
+            }
+
+
+        } else {
+            // Jika tidak ada pencarian, ambil semua data mahasiswa yang terkait dengan DPL
+            $peserta = $dpl->mahasiswa()->paginate(5);
+        }
+
 
         $data = [
-            'peserta' => $peserta
+            'peserta' => $peserta,
+            'dpl' => $dpl
         ];
 
         return view('admin.dpl.program_details_dpl', compact('data'));
@@ -96,21 +102,35 @@ class DosenController extends Controller
         $weeklyLog = WeeklyLog::find($id);
         return view('admin.dpl.weekly_review_dpl')->with('data', $weeklyLog);
     }
+
+    public function rancangan(Request $request, $id)
+    {
+        $peserta = ProgramTransaction::find($id);
+        if ($request->status == 'terima') {
+            $peserta->status_rancangan_dpl = 'terima';
+            $peserta->msg_dpl = $request->msg ?? " ";
+        }else
+        {
+            $peserta->status_rancangan_dpl = 'tolak';
+            $peserta->msg_dpl = $request->msg ?? " ";
+        }
+        $peserta->save();
+        return redirect()->back();
+    }
+
     public function weeklyBook(Request $request, $id)
     {
         // Validate the request data
-        $validatedData = $request->validate([
-            'nilai' => 'required|numeric|min:0|max:100', // Ensure nilai is numeric and between 0 and 100
+        $request->validate([
             'msg' => 'string', // You can adjust this validation rule according to your requirements
         ]);
+
 
         // Find the WeeklyLog instance
         $weeklyLog = WeeklyLog::find($id);
 
-        // Update the values
-        $weeklyLog->nilai = $validatedData['nilai'];
-        $weeklyLog->msg = $validatedData['msg'];
-        $weeklyLog->status = 'terima';
+        $weeklyLog->msg = $request->msg;
+        $weeklyLog->status = $request->status;
 
         // Save the changes
         $weeklyLog->save();

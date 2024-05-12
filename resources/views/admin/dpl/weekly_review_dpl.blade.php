@@ -64,40 +64,132 @@
                     {{-- <span class="text-sm text-slate-500">Minggu Ke-10</span> --}}
                 </div>
                 <hr class="mb-4 mt-4">
-                <form method="POST" action="{{ route('dosen.weekly_review.submit', ['id' => $data->id]) }}">
-                    @csrf <!-- CSRF token -->
-                    <div class="mb-4">
-                        <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
-                            Feedback
-                        </label>
-                        <textarea id="deskripsi" name="msg" placeholder="Feedback"
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">{{ $data->msg }}</textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label for="nilai" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
-                            Nilai
-                        </label>
-                        <input name="nilai" id="nilai" type="number" min="0" max="100"
-                            placeholder="Nilai" value="{{ $data->nilai }}"
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                    </div>
-                    <div class="inline-flex w-full">
-                        <button type="submit"
-                            class="text-white w-full h-full
-                            @if ($data->status === 'belum') bg-gray-400 cursor-not-allowed
-                            @else
-                                bg-green-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 @endif
-                            font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                            {{ $data->status === 'belum' ? 'disabled' : '' }}>
-                            Kirim
-                        </button>
-                    </div>
-                </form>
+                @if ($data->status == 'proses')
+                    <form id="reviewForm" method="POST"
+                        action="{{ route('dosen.weekly_review.submit', ['id' => $data->id]) }}">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
+                                Feedback <span class="text-xs font-semibold">(Isi Jika LogBook Ditolak)</span>
+                            </label>
+                            <textarea id="deskripsi" name="msg" placeholder="Feedback"
+                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"></textarea>
+                        </div>
+
+                        <!-- Hidden input for status -->
+                        <input type="hidden" id="status" name="status" value="">
+
+                        <div class="inline-flex">
+                            <!-- Button to set status to 'terima' -->
+                            <button type="button" onclick="setStatus('terima')"
+                                class="text-white w-full h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                Setujui
+                            </button>
+
+                            <!-- Button to set status to 'tolak' -->
+                            <button type="button" onclick="setStatus('tolak')"
+                                class="text-white w-full h-full bg-color-danger-500 hover:bg-color-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                Tolak
+                            </button>
+                        </div>
+
+                    </form>
+                @endif
+
+                <script>
+                    function setStatus(status) {
+                        document.getElementById('status').value = status; // Set value based on button clicked
+                        document.getElementById('reviewForm').submit(); // Submit the form
+                    }
+                </script>
 
             </div>
         </div>
         <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
             <div class="col-span-8 w-full flex flex-col gap-y-2">
+                <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow mb-4">
+                    <button class="w-full flex justify-between items-center" onclick="openDetails(this)">
+                        <div class="flex gap-x-4 items-center">
+                            @php
+                                $statusColor = '';
+                                $iconClass = '';
+
+                                switch ($data->status) {
+                                    case 'terima':
+                                        $statusColor = 'success';
+                                        $iconClass = 'fas fa-check-circle';
+                                        break;
+                                    case 'proses':
+                                        $statusColor = 'warning';
+                                        $iconClass = 'fas fa-hourglass-half';
+                                        break;
+                                    case 'tolak':
+                                        $statusColor = 'danger';
+                                        $iconClass = 'fas fa-times-circle';
+                                        break;
+                                    case 'belum':
+                                        $statusColor = 'primary';
+                                        $iconClass = 'fas fa-question-circle';
+                                        break;
+                                    default:
+                                        $statusColor = 'secondary';
+                                        $iconClass = 'fas fa-exclamation-circle';
+                                        break;
+                                }
+                            @endphp
+                            <span
+                                class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-white rounded-full bg-color-{{ $statusColor }}-500">
+                                <i class="{{ $iconClass }} text-lg"></i>
+                            </span>
+                            <div class="flex flex-col justify-start items-start">
+
+                                <p class="font-semibold"> {{ \Carbon\Carbon::parse($data->start_date)->format('d F Y') }} -
+                                    {{ \Carbon\Carbon::parse($data->end_date)->format('d F Y') }}</p>
+
+
+                            </div>
+                        </div>
+                        <div>
+                            <i class="fas fa-chevron-down text-lg"></i>
+                        </div>
+                    </button>
+                    <div class="mt-4 flex-col gap-y-4 hidden detailContainer">
+
+                        <br>
+                        <table id="table_config" class="w-full ">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Deskripsi</th>
+                                    <th>Rencana</th>
+                                    <th>Presentase</th>
+                                    <th>Hambatan</th>
+                                    <th>Solusi</th>
+                                    <th>Jam Mulai</th>
+                                    <th>Jam Selesai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->activity as $a)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $a->desc }}</td>
+                                        <td>{{ $a->rencana }}</td>
+                                        <td>{{ $a->presentase }}%</td>
+                                        <td>{{ $a->hambatan }}</td>
+                                        <td>{{ $a->solusi }}</td>
+                                        <td>{{ $a->jam_mulai }}</td>
+                                        <td>{{ $a->jam_selesai }}</td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <hr class="mt-4 mb-4">
+
+                    </div>
+
+                </div>
                 @foreach ($data->daily as $item)
                     <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow mb-4">
                         <button class="w-full flex justify-between items-center" onclick="openDetails(this)">
@@ -149,30 +241,65 @@
                                 <i class="fas fa-chevron-down text-lg"></i>
                             </div>
                         </button>
-                        @if ($item->desc)
-                            <div class="mt-4 flex-col gap-y-4 hidden detailContainer">
-                                <div>
-                                    <span class="font-semibold text-sm">Deskripsi Kegiatan:</span>
-                                    <p class="text-xs mt-2">{{ json_decode($item->desc)->deskripsi }}</p>
+                        <div class="mt-4 flex-col gap-y-4 hidden detailContainer">
+                            <label for="">Dokumentasi</label>
+                            <form action="" class="flex items-center w-full gap-x-2">
+                                <div class="relative w-full ">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <span>
+                                            <i class="fas fa-link text-lg text-slate-500"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" id="input-group-1"
+                                        class="bg-gray-50 border block border-gray-300 text-gray-900  text-xs rounded-md w-full ps-12 p-4  "
+                                        placeholder="https://kampusmerdeka.kemdikbud.go.id/program/magang-mandiri/browse/185c2258-bf50-4211-b460-4ed6f1db081c/95ff7b3f-1a14-40f3-b142-0cdc24aa5d9a"
+                                        disabled value={{ $item->dokumentasi }}>
                                 </div>
-                                <div>
-                                    <span class="font-semibold text-sm mb-4">Rencana Kegiatan:</span>
-                                    <p class="text-xs mt-2">{{ json_decode($item->desc)->rencana }}</p>
-                                </div>
-                                <div>
-                                    <span class="font-semibold text-sm">Persentase Pencapaian:</span>
-                                    <p class="font-semibold">{{ json_decode($item->desc)->persentase }}</p>
-                                </div>
-                                <div>
-                                    <span class="font-semibold text-sm">Hambatan Kegiatan:</span>
-                                    <p class="text-xs mt-2">{{ json_decode($item->desc)->hambatan }}</p>
-                                </div>
-                                <div>
-                                    <span class="font-semibold text-sm">Rencana Solusi:</span>
-                                    <p class="text-xs mt-2">{{ json_decode($item->desc)->solusi }}</p>
-                                </div>
-                            </div>
-                        @endif
+                                <a href="{{ $item->dokumentasi }}" target="_blank" rel="noopener noreferrer"
+                                    class="text-white bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-3.5 me-2">
+                                    Lihat
+                                </a>
+                            </form>
+                            <br>
+                            <table id="table_config" class="w-full ">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Deskripsi</th>
+                                        <th>Rencana</th>
+                                        <th>Presentase</th>
+                                        <th>Hambatan</th>
+                                        <th>Solusi</th>
+                                        <th>Jam Mulai</th>
+                                        <th>Jam Selesai</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($item->activity as $data)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $data->desc }}</td>
+                                            <td>{{ $data->rencana }}</td>
+                                            <td>{{ $data->presentase }}%</td>
+                                            <td>{{ $data->hambatan }}</td>
+                                            <td>{{ $data->solusi }}</td>
+                                            <td>{{ $data->jam_mulai }}</td>
+                                            <td>{{ $data->jam_selesai }}</td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <hr class="mt-4 mb-4">
+                            @if ($item->status == 'proses')
+                                <button type="button"
+                                    class="text-white h-fit w-fit bg-color-success-500 hover:bg-success-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                                    onclick="window.location='{{ route('guru.daily.review', ['id' => $item->id]) }}'">
+                                    Periksa
+                                </button>
+                            @endif
+
+                        </div>
 
                     </div>
                 @endforeach
@@ -199,5 +326,11 @@
                 detailContainer.classList.add('hidden');
             }
         };
+    </script>
+    <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table_config').DataTable();
+        });
     </script>
 @endsection

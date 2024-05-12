@@ -14,6 +14,8 @@ class ProgramTransaction extends Model
         'lokasi_id',
         'mahasiswa_id',
         'rancangan',
+        'laporan_akhir',
+        'status_laporan_akhir',
         'status_rancangan_pamong',
         'status_rancangan_dpl',
         'msg_dpl',
