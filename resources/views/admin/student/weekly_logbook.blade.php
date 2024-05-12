@@ -95,7 +95,41 @@
         </div>
         <div class="col-span-12 lg:col-span-8 w-full flex flex-col gap-y-2">
             @if ($data['programTransaction'])
-                @if ($data['programTransaction']->status_rancangan)
+                <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow flex flex-col gap-y-4">
+                    <div class="flex  gap-x-4">
+                        <span
+                            class="inline-flex items-center justify-center max-w-8 max-h-8 h-full w-full text-sm font-semibold text-color-danger-500 bg-color-danger-100 border border-color-danger-500 rounded-full ">
+                            <i class="fas fa-exclamation text-lg"></i>
+                        </span>
+                        <div class="flex flex-col text-color-danger-500">
+                            <p class="font-semibold">Rancangan Kegiatan Belum Di Upload</p>
+                            <p class="text-sm">Masukan link dokumen rancangan kegiatan pada form dibawah ini</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="flex flex-col gap-y-2">
+                        <form action="" method="POST">
+                            <div class="relative mb-2">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                                    <span>
+                                        <i class="fas fa-link text-lg text-slate-500"></i>
+                                    </span>
+                                </div>
+                                <input type="text" id="input-group-1"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 xl:text-sm text-xs rounded-md w-full pl-12 py-2"
+                                    placeholder="http://">
+                            </div>
+                            <button type="submit"
+                                class="text-white w-fit bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                                Upload Rancangan
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+                @if (
+                    $data['programTransaction']->status_rancangan_dpl == 'terima' &&
+                        $data['programTransaction']->status_rancangan_pamong == 'terima')
                     @foreach ($data['programTransaction']->weeklyLog as $index => $item)
                         <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow ">
                             <div class="flex justify-between flex-col lg:flex-row gap-y-4">
@@ -215,38 +249,6 @@
                             </div>
                         </div>
                     @endforeach
-                @else
-                    <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow flex flex-col gap-y-4">
-                        <div class="flex  gap-x-4">
-                            <span
-                                class="inline-flex items-center justify-center max-w-8 max-h-8 h-full w-full text-sm font-semibold text-color-danger-500 bg-color-danger-100 border border-color-danger-500 rounded-full ">
-                                <i class="fas fa-exclamation text-lg"></i>
-                            </span>
-                            <div class="flex flex-col text-color-danger-500">
-                                <p class="font-semibold">Rancangan Kegiatan Belum Di Upload</p>
-                                <p class="text-sm">Masukan link dokumen rancangan kegiatan pada form dibawah ini</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="flex flex-col gap-y-2">
-                            <form action="">
-                                <div class="relative mb-2">
-                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                        <span>
-                                            <i class="fas fa-link text-lg text-slate-500"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" id="input-group-1"
-                                        class="bg-gray-50 border block border-gray-300 text-gray-900 xl:text-sm text-xs rounded-md w-full ps-12 p-4  "
-                                        placeholder="http:://">
-                                </div>
-                            </form>
-                            <a
-                                class="text-white w-fit h-fit bg-color-danger-500 hover:bg-color-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
-                                Upload Rancangan
-                            </a>
-                        </div>
-                    </div>
                 @endif
             @endif
 

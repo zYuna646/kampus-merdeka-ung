@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('program_transactions', function (Blueprint $table) {
             $table->id();
             $table->string('rancangan')->default('');
-            $table->boolean('status_rancangan_dpl')->default(false);
-            $table->boolean('status_rancangan_pamong')->default(false);
+            $table->enum('status_rancangan_dpl', ['terima', 'proses', 'tolak', 'belum'])->default('belum');
+            $table->enum('status_rancangan_pamong', ['terima', 'proses', 'tolak', 'belum'])->default('belum');
             $table->string('msg_dpl')->default('');
             $table->string('msg_pamong')->default('');
 

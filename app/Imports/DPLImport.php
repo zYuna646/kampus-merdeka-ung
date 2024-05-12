@@ -44,6 +44,10 @@ class DPLImport implements ToCollection, WithHeadingRow
 
                 $programTransaction = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->first();
 
+                if (!$programTransaction) {
+                    continue;
+                }
+
                 $dpl = DPL::where('dosen_id', $dosen->id)->first();
                 if ($dpl) {
                     $dpl->mahasiswa()->attach($programTransaction->id);

@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->foreignId('program_id')->constrained('program_kampuses')->onDelete('cascade');
             $table->string('tahun_akademik');
-            $table->string('semester');
+            $table->enum('semester', ['Genap', 'Ganjil']);
             $table->boolean('isLogBook')->default(true);
             $table->dateTime('pendaftaran_mulai');
             $table->dateTime('pendaftaran_selesai');

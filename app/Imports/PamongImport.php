@@ -42,6 +42,9 @@ class PamongImport implements ToCollection, WithHeadingRow
 
                 $programTransaction = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->first();
 
+                if (!$programTransaction) {
+                    continue;
+                }
                 $dpl = MitraTransaction::where('guru_id', $dosen->id)->first();
                 if ($dpl) {
                     $dpl->mahasiswa()->attach($programTransaction->id);

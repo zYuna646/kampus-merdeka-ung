@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\MahasiswaImport;
 use App\Models\DailyLog;
 use App\Models\Mahasiswa;
+use App\Models\ProgramTransaction;
 use App\Models\WeeklyLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,12 @@ class MahasiswaController extends Controller
 
 
         return view('admin.student.dashboard')->with('data', $data);
+    }
+
+    public function rancangan(Request $request, $id)
+    {
+        $programTransaction = ProgramTransaction::find($id);
+        return redirect()->back();
     }
 
     public function weeklyBook()

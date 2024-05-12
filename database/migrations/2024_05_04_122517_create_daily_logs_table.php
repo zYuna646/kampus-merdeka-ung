@@ -24,12 +24,12 @@ return new class extends Migration
         });
 
 
-        Schema::create('daily_logs_activity', function (Blueprint $table) {
+        Schema::create('daily_log_activity', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('daily_logs_id')->constrained('daily_logs')->onDelete('cascade');
-            $table->foreignId('activity_logs_id')->constrained('activity_logs')->onDelete('cascade');
+            $table->foreignId('daily_log_id')->constrained('daily_logs')->onDelete('cascade');
+            $table->foreignId('activity_log_id')->constrained('activity_logs')->onDelete('cascade');
         });
     }
 
@@ -38,7 +38,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('daily_logs_activity');
-        Schema::dropIfExists('daily_logs');
+        Schema::dropIfExists('daily_log_activity');
+        Schema::dropIfExists('daily_log');
     }
 };

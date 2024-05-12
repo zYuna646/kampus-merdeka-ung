@@ -90,17 +90,45 @@
                             Program Studi
                         </a>
                     </div>
+                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                        <a href="{{ route('admin.location') }}">
+
+                            <i class="fas fa-file"></i>
+                            Lokasi
+                        </a>
+                    </div>
                 </div>
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
                 <div class="inline-flex items-center gap-x-2  text-slate-500">
                     <i class="fas fa-columns"></i>
-                    Program KM
+                    Pengguna
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
                     <!-- Isi dropdown Program KM di sini -->
+                    <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
+                        <a href="{{ route('admin.dosen') }}">
+
+                            <i class="fas fa-file"></i>
+                            Dosen
+                        </a>
+                    </div>
+                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                        <a href="{{ route('admin.student') }}">
+
+                            <i class="fas fa-file"></i>
+                            Mahasiswa
+                        </a>
+                    </div>
+                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                        <a href="{{ route('admin.guru') }}">
+
+                            <i class="fas fa-file"></i>
+                            Guru
+                        </a>
+                    </div>
                 </div>
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
@@ -123,41 +151,6 @@
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
                     <!-- Isi dropdown MBKM di sini -->
-                    <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
-                        <a href="{{ route('admin.dosen') }}">
-
-                            <i class="fas fa-file"></i>
-                            Dosen
-                        </a>
-                    </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
-                        <a href="{{ route('admin.student') }}">
-
-                            <i class="fas fa-file"></i>
-                            Mahasiswa
-                        </a>
-                    </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
-                        <a href="{{ route('admin.guru') }}">
-
-                            <i class="fas fa-file"></i>
-                            Guru
-                        </a>
-                    </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
-                        <a href="{{ route('admin.location') }}">
-
-                            <i class="fas fa-file"></i>
-                            Lokasi
-                        </a>
-                    </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
-                        <a href="{{ route('admin.dpl') }}">
-
-                            <i class="fas fa-file"></i>
-                            DPL
-                        </a>
-                    </div>
                     <div class="inline-flex items-center gap-x-2  text-slate-500">
                         <a href="{{ route('admin.lowongan') }}">
 
@@ -172,6 +165,22 @@
                             Peserta
                         </a>
                     </div>
+                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                        <a href="{{ route('admin.dpl') }}">
+
+                            <i class="fas fa-file"></i>
+                            DPL
+                        </a>
+                    </div>
+                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                        <a href="{{ route('admin.pamong') }}">
+
+                            <i class="fas fa-file"></i>
+                            Pamong
+                        </a>
+                    </div>
+
+
                 </div>
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
