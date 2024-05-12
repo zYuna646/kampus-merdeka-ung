@@ -1,52 +1,66 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-12 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-lg mx-auto min-h-screen flex flex-col py-12 px-4 lg:px-12 gap-4">
     <div class="bg-white p-6 rounded-xl mt-32">
         <h2 class="text-xl font-semibold mb-4">Tambah Lokasi</h2>
         <form action="{{ route('admin.location.store') }}" method="POST">
             @csrf
             <div class="mb-4">
-                <label for="lokasi" class="block text-sm font-medium text-gray-700">Program</label>
-                <select name="program_id" id="lokasi" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Program</label>
+                <select name="program_id" id="lokasi"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required>
                     @foreach ($data['program'] as $program)
-                        <option value="{{ $program['id'] }}">{{ $program['name'] }}</option>
+                    <option value="{{ $program['id'] }}">{{ $program['name'] }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="mb-4">
-                <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
-                <input type="text" name="name" id="nama" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama</label>
+                <input type="text" name="name" id="nama"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required>
             </div>
             <div class="mb-4">
-                <label for="lokasi" class="block text-sm font-medium text-gray-700">Lokasi</label>
-                <input type="text" name="lokasi" id="nama" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                <input type="text" name="lokasi" id="nama"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required>
             </div>
 
             <div class="mb-4">
-                <label for="provinsi" class="block text-sm font-medium text-gray-700">Provinsi</label>
-                <select name="provinsi_id" id="provinsi" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Provinsi</label>
+                <select name="provinsi_id" id="provinsi"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required>
                     <option value="">Pilih Provinsi</option>
                 </select>
             </div>
 
             <div class="mb-4">
-                <label for="kabupaten" class="block text-sm font-medium text-gray-700">Kabupaten/Kota</label>
-                <select name="kabupaten_id" id="kabupaten" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required disabled>
+                <label for="kabupaten" class="block text-sm font-medium text-gray-700 mb-2">Kabupaten/Kota</label>
+                <select name="kabupaten_id" id="kabupaten"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required disabled>
                     <option value="">Pilih Kabupaten/Kota</option>
                 </select>
             </div>
 
             <div class="mb-4">
-                <label for="kecamatan" class="block text-sm font-medium text-gray-700">Kecamatan</label>
-                <select name="kecamatan_id" id="kecamatan" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required disabled>
+                <label for="kecamatan" class="block text-sm font-medium text-gray-700 mb-2">Kecamatan</label>
+                <select name="kecamatan_id" id="kecamatan"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required disabled>
                     <option value="">Pilih Kecamatan</option>
                 </select>
             </div>
 
             <div class="mb-4">
-                <label for="kelurahan" class="block text-sm font-medium text-gray-700">Kelurahan</label>
-                <select name="kelurahan_id" id="kelurahan" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required disabled>
+                <label for="kelurahan" class="block text-sm font-medium text-gray-700 mb-2">Kelurahan</label>
+                <select name="kelurahan_id" id="kelurahan"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required disabled>
                     <option value="">Pilih Kelurahan</option>
                 </select>
             </div>

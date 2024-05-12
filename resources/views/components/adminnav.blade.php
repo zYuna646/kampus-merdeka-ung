@@ -8,7 +8,7 @@
             @if (Auth::user()->profile != '')
             <img src="{{ Auth::user()->profile }}" alt="" class="w-12 rounded-full border-2 border-white">
             @else
-            <img src="/images/avatar/avatar.jpg" alt="" class="w-12 rounded-full border-2 border-white">
+            <img src="/images/avatar/placeholder.jpg" alt="" class="w-12 rounded-full border-2 border-white">
             @endif
             @else
             <a href="{{ route('login') }}"
@@ -453,5 +453,25 @@
             naruto.classList.remove('-translate-x-0');
             naruto.classList.add('-translate-x-[100%]');
         }
+
+        if (!isDropdownClicked) {
+        const allDropdowns = document.querySelectorAll('.dropdown_menu');
+        allDropdowns.forEach(function(dropdown) {
+            dropdown.classList.remove('flex');
+            dropdown.classList.add('hidden');
+        });
     }
+    }
+
+    document.addEventListener('click', function(event) {
+        const isOutsideDropdown = !event.target.closest('.relative');
+
+        if (isOutsideDropdown) {
+            const allDropdowns = document.querySelectorAll('.dropdown_menu');
+            allDropdowns.forEach(function(dropdown) {
+                dropdown.classList.remove('flex');
+                dropdown.classList.add('hidden');
+            });
+        }
+    });
 </script>
