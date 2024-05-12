@@ -8,7 +8,7 @@
             @if (Auth::user()->profile != '')
             <img src="{{ Auth::user()->profile }}" alt="" class="w-12 rounded-full border-2 border-white">
             @else
-            <img src="/images/avatar/avatar.jpg" alt="" class="w-12 rounded-full border-2 border-white">
+            <img src="/images/avatar/placeholder.jpg" alt="" class="w-12 rounded-full border-2 border-white">
             @endif
             @else
             <a href="{{ route('login') }}"

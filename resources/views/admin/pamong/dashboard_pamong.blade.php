@@ -20,7 +20,7 @@
         <div class="lg:col-span-4 col-span-12  w-full ">
             <div class="p-6 bg-white flex gap-4 items-center rounded-xl shadow-sm border border-slate-200">
                 <div class=" relative w-fit">
-                    <img src="/images/avatar/avatar.jpg" alt="" class="w-20 rounded-full object-cover">
+                    <img src="/images/avatar/placeholder.jpg" alt="" class="w-20 rounded-full object-cover">
                     <button
                         class="absolute right-0 bottom-0 inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-gray-800 bg-white hover:bg-slate-100 shadow-md border border-slate-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
                         <i class="fas fa-pencil-alt text-xs"></i>
