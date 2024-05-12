@@ -453,5 +453,25 @@
             naruto.classList.remove('-translate-x-0');
             naruto.classList.add('-translate-x-[100%]');
         }
+
+        if (!isDropdownClicked) {
+        const allDropdowns = document.querySelectorAll('.dropdown_menu');
+        allDropdowns.forEach(function(dropdown) {
+            dropdown.classList.remove('flex');
+            dropdown.classList.add('hidden');
+        });
     }
+    }
+
+    document.addEventListener('click', function(event) {
+        const isOutsideDropdown = !event.target.closest('.relative');
+
+        if (isOutsideDropdown) {
+            const allDropdowns = document.querySelectorAll('.dropdown_menu');
+            allDropdowns.forEach(function(dropdown) {
+                dropdown.classList.remove('flex');
+                dropdown.classList.add('hidden');
+            });
+        }
+    });
 </script>

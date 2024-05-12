@@ -21,7 +21,7 @@
   <div class="p-6 bg-white rounded-lg border border-slate-200 shadow col-span-12 min-h-96 w-full">
     <h3 class="font-semibold text-lg">Histori Program</h3>
     <div class="grid grid-flow-row p-4 divide-y-2">
-      <div class="flex items-center justify-between p-4">
+      <div class="flex lg:flex-row flex-col gap-y-6 justify-between p-4 mb-2">
         <div>
           <div class="flex flex-col gap-y-4">
             <div class="flex gap-x-2 items-center text-color-primary-500">
@@ -47,85 +47,6 @@
           </a>
         </div>
       </div>
-      <div class="flex items-center justify-between p-4">
-        <div>
-          <div class="flex flex-col gap-y-4">
-            <div class="flex gap-x-2 items-center text-color-primary-500">
-              <span class=""><i class="fas fa-book text-sm"></i></span>
-              <p class="text-sm font-semibold">
-                Kampus Mengajar
-              </p>
-            </div>
-            <div class="flex items-start gap-x-4">
-              <img src="/images/avatar/mitra.png" alt="" class="w-12">
-              <div class="flex flex-col">
-                <p class="font-semibold">SDN 6 Telaga Jaya</p>
-                <p class="text-sm ">1 Juni 2023 - 3 Juni 2024</p>
-                <p class="text-xs text-slate-500">Bandung</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <a
-            class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-            Lihat Detail
-          </a>
-        </div>
-      </div>
-      <div class="flex items-center justify-between p-4">
-        <div>
-          <div class="flex flex-col gap-y-4">
-            <div class="flex gap-x-2 items-center text-color-primary-500">
-              <span class=""><i class="fas fa-book text-sm"></i></span>
-              <p class="text-sm font-semibold">
-                Kampus Mengajar
-              </p>
-            </div>
-            <div class="flex items-start gap-x-4">
-              <img src="/images/avatar/mitra.png" alt="" class="w-12">
-              <div class="flex flex-col">
-                <p class="font-semibold">SDN 6 Telaga Jaya</p>
-                <p class="text-sm ">1 Juni 2023 - 3 Juni 2024</p>
-                <p class="text-xs text-slate-500">Bandung</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <a
-            class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-            Lihat Detail
-          </a>
-        </div>
-      </div>
-      <div class="flex items-center justify-between p-4">
-        <div>
-          <div class="flex flex-col gap-y-4">
-            <div class="flex gap-x-2 items-center text-color-primary-500">
-              <span class=""><i class="fas fa-book text-sm"></i></span>
-              <p class="text-sm font-semibold">
-                Kampus Mengajar
-              </p>
-            </div>
-            <div class="flex items-start gap-x-4">
-              <img src="/images/avatar/mitra.png" alt="" class="w-12">
-              <div class="flex flex-col">
-                <p class="font-semibold">SDN 6 Telaga Jaya</p>
-                <p class="text-sm ">1 Juni 2023 - 3 Juni 2024</p>
-                <p class="text-xs text-slate-500">Bandung</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <a
-            class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-            Lihat Detail
-          </a>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
