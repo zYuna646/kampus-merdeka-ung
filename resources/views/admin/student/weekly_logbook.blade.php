@@ -118,11 +118,11 @@
                             </span>
                         </div>
                         <input type="text" id="input-group-1" name="rancangan"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 xl:text-sm text-xs rounded-md w-full pl-12 py-2"
+                            class="bg-gray-50 border block border-gray-300 text-gray-900  text-xs rounded-md w-full ps-12 p-4  "
                             placeholder="http://">
                     </div>
                     <button type="submit"
-                        class="text-white w-fit bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                        class="text-white w-fit bg-color-primary-500 hover:bg-color-primary-600  font-medium rounded-lg text-sm px-5 py-2.5">
                         Upload Rancangan
                     </button>
                 </form>
@@ -254,10 +254,10 @@
         <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow flex flex-col gap-y-4">
             <div class="flex lg:flex-row flex-col gap-y-4 gap-x-4">
                 <span
-                    class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-color-primary-500 bg-color-primary-100 border border-color-primary-500 rounded-full ">
+                    class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-color-info-500 bg-color-info-100 border border-color-info-500 rounded-full ">
                     <i class="far fa-clock text-lg"></i>
                 </span>
-                <div class="flex flex-col text-color-primary-500">
+                <div class="flex flex-col text-color-info-500">
                     <p class="font-semibold">Rancangan Kegiatan Berhasil Diupload</p>
                     <p class="text-sm">Rancangan Kegiatanmu Sedang Dalam Proses Review Oleh DPL dan Pamong</p>
                 </div>
@@ -290,7 +290,7 @@
                     </span>
                     <div class="flex flex-col gap-y-2 max-w-[80%]">
                         <p class="text-sm font-semibold ">Rancangan Sedang Direview DPL</p>
-                       
+
                     </div>
                 </div>
                 <div class="flex items-start">
@@ -300,7 +300,7 @@
                     </span>
                     <div class="flex flex-col gap-y-2 max-w-[80%]">
                         <p class="text-sm font-semibold ">Rancangan Sedang Direview Pamong</p>
-                     
+
                     </div>
                 </div>
                 <div class="flex items-start">
@@ -319,7 +319,7 @@
                     </span>
                     <div class="flex flex-col gap-y-2 max-w-[80%]">
                         <p class="text-sm font-semibold ">Rancangan Ditolak DPL</p>
-                       
+
                     </div>
 
                 </div>
