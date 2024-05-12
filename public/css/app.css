@@ -780,6 +780,9 @@ video {
 .max-h-screen {
   max-height: 100vh;
 }
+.max-h-12 {
+  max-height: 3rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -874,6 +877,9 @@ video {
 }
 .max-w-8 {
   max-width: 2rem;
+}
+.max-w-12 {
+  max-width: 3rem;
 }
 .flex-\[1\] {
   flex: 1;
@@ -1215,6 +1221,10 @@ video {
 .bg-slate-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+.bg-color-primary-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 244 254 / var(--tw-bg-opacity));
 }
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
@@ -1905,6 +1915,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
+.hover\:bg-color-success-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 137 46 / var(--tw-bg-opacity));
+}
 .hover\:text-blue-500:hover {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
@@ -2019,6 +2033,10 @@ video {
 .focus\:ring-red-300:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(252 165 165 / var(--tw-ring-opacity));
+}
+.focus\:ring-color-success-300:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(136 226 124 / var(--tw-ring-opacity));
 }
 .focus\:ring-opacity-50:focus {
   --tw-ring-opacity: 0.5;

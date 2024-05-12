@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="col-span-4">
+        <div class="lg:col-span-4 col-span-12">
             <!-- Tampilkan daftar peserta -->
             @foreach ($data['peserta'] as $item)
                 <div class="max-h-[42rem] overflow-y-auto flex flex-col p-2">
