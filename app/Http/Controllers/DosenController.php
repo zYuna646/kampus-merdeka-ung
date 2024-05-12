@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\DosenImport;
 use App\Models\Dosen;
+use App\Models\DPL;
 use App\Models\ProgramTransaction;
 use App\Models\WeeklyLog;
 use Illuminate\Http\Request;
@@ -37,33 +38,14 @@ class DosenController extends Controller
     public function dashboard()
     {
         try {
-            $dpl = Auth::user()->dosen->dpl;
-            $uniqueProgramTransactions = collect([]);
-
-            // Gunakan koleksi untuk menyimpan id program transaksi yang sudah ditemukan
-            $foundIds = [];
-
-            foreach ($dpl->lokasis as $lokasi) {
-                foreach ($lokasi->programTransaction as $program) {
-                    // Periksa apakah program transaksi sudah ada dalam koleksi
-                    if (!in_array($program->id, $foundIds)) {
-                        // Jika belum, tambahkan ke koleksi unik
-                        $uniqueProgramTransactions->push($program);
-                        // Tambahkan id program transaksi ke dalam array foundIds
-                        $foundIds[] = $program->id;
-                    }
-                }
-            }
+            $dpl = Auth::user()->dosen->dpl()->latest()->first();
         } catch (\Throwable $th) {
-            // Tangani kesalahan jika diperlukan
+            //throw $th;
             $dpl = '';
-            $uniqueProgramTransactions = '';
         }
 
-
         $data = [
-            'dpl' => $dpl,
-            'program' => $uniqueProgramTransactions
+            'program' => $dpl
         ];
 
         return view('admin.dpl.dashboard_dpl')->with('data', $data);
@@ -77,15 +59,16 @@ class DosenController extends Controller
         return view('admin.dpl.peserta_detail', ['peserta' => $peserta]);
     }
 
-    public function programDetail($lowongan_id, $lokasi_id)
+    public function programDetail($lowongan_id)
     {
         // Ambil data peserta berdasarkan lowongan_id dan lokasi_id
-        $peserta = ProgramTransaction::where('lowongan_id', $lowongan_id)
-            ->where('lokasi_id', $lokasi_id)
-            ->get();
+        $dpl = DPL::where('lowongan_id', $lowongan_id)
+          ->where('dosen_id', Auth::user()->dosen->id)
+          ->first();
 
         $data = [
-            'peserta' => $peserta
+            'peserta' => $dpl->mahasiswa,
+            'dpl' => $dpl
         ];
 
         return view('admin.dpl.program_details_dpl', compact('data'));

@@ -6,7 +6,9 @@
         <div class="col-span-12 mt-4">
             <h4 class="font-semibold text-lg">{{ $peserta->mahasiswa->name }} ({{ $peserta->mahasiswa->nim }})</h4>
         </div>
-
+        <div class="col-span-12 mt-4">
+            <h4 class="font-semibold text-lg">{{ $peserta->lokasi->name }}</h4>
+        </div>
         <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500 mt-2">
             <span class=""><i class="fas fa-book text-sm"></i></span>
             <p class="text-sm font-semibold">{{ $peserta->lowongan->program->name }}</p>
@@ -26,53 +28,6 @@
 
     </div>
     <div class="flex flex-col gap-y-2 max-h-[42rem] overflow-y-auto">
-
-        @foreach ($peserta->weeklyLog as $index => $item)
-        @php
-        $statusColor = '';
-        $statusIcon = '';
-        switch ($item->status) {
-        case 'terima':
-        $statusColor = 'success';
-        $statusIcon = 'check-circle';
-        break;
-        case 'proses':
-        $statusColor = 'warning';
-        $statusIcon = 'spinner';
-        break;
-        case 'tolak':
-        $statusColor = 'danger';
-        $statusIcon = 'times-circle';
-        break;
-        case 'belum':
-        $statusColor = 'gray';
-        $statusIcon = 'clock';
-        break;
-        default:
-        $statusColor = 'primary';
-        $statusIcon = 'exclamation-circle';
-        break;
-        }
-        @endphp
-        <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
-            <div class="flex lg:flex-row flex-col gap-y-4 gap-x-6 w-full col-span-12">
-                <span
-                    class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-{{ $statusColor }}-500 bg-{{ $statusColor }}-100 border border-{{ $statusColor }}-500 rounded-full">
-                    <i class="fas fa-{{ $statusIcon }} text-lg"></i>
-                </span>
-                <div class="flex flex-col gap-y-2">
-                    <h4 class="text-xl font-semibold">Log Book Minggu Ke-{{ $index + 1 }}</h4>
-                    <p class="text-sm">
-                        {{ \Carbon\Carbon::parse($item->tanggal_mulai)->isoFormat('dddd D MMMM YYYY') }} -
-                        {{ \Carbon\Carbon::parse($item->tanggal_selesai)->isoFormat('dddd D MMMM YYYY') }}</p>
-                    <a href="{{ route('dosen.weekly_review', ['id' => $item->id]) }}"
-                        class="text-white h-fit w-fit bg-gray-500 hover:bg-{{ $statusColor }}-600 focus:ring-4 focus:ring-{{ $statusColor }}-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                        Periksa Laporan
-                    </a>
-                </div>
-            </div>
-        </div>
-        @endforeach
         <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow flex flex-col gap-y-4">
 
             <div class="flex lg:flex-row flex-col gap-y-4  gap-x-4">
@@ -127,5 +82,55 @@
                 </form>
             </div>
         </div>
+        @if ($peserta->status_rancangan_dpl == 'terima' && $peserta->status_rancangan_pamong == 'terima')
+            @foreach ($peserta->weeklyLog as $index => $item)
+                @php
+                    $statusColor = '';
+                    $statusIcon = '';
+                    switch ($item->status) {
+                        case 'terima':
+                            $statusColor = 'success';
+                            $statusIcon = 'check-circle';
+                            break;
+                        case 'proses':
+                            $statusColor = 'warning';
+                            $statusIcon = 'spinner';
+                            break;
+                        case 'tolak':
+                            $statusColor = 'danger';
+                            $statusIcon = 'times-circle';
+                            break;
+                        case 'belum':
+                            $statusColor = 'gray';
+                            $statusIcon = 'clock';
+                            break;
+                        default:
+                            $statusColor = 'primary';
+                            $statusIcon = 'exclamation-circle';
+                            break;
+                    }
+                @endphp
+                <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex lg:flex-row flex-col gap-y-4 gap-x-6 w-full col-span-12">
+                        <span
+                            class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-{{ $statusColor }}-500 bg-{{ $statusColor }}-100 border border-{{ $statusColor }}-500 rounded-full">
+                            <i class="fas fa-{{ $statusIcon }} text-lg"></i>
+                        </span>
+                        <div class="flex flex-col gap-y-2">
+                            <h4 class="text-xl font-semibold">Log Book Minggu Ke-{{ $index + 1 }}</h4>
+                            <p class="text-sm">
+                                {{ \Carbon\Carbon::parse($item->tanggal_mulai)->isoFormat('dddd D MMMM YYYY') }} -
+                                {{ \Carbon\Carbon::parse($item->tanggal_selesai)->isoFormat('dddd D MMMM YYYY') }}</p>
+                            <a href="{{ route('dosen.weekly_review', ['id' => $item->id]) }}"
+                                class="text-white h-fit w-fit bg-gray-500 hover:bg-{{ $statusColor }}-600 focus:ring-4 focus:ring-{{ $statusColor }}-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                Periksa Laporan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+
+
     </div>
 </div>

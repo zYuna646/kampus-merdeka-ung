@@ -73,7 +73,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/programs_pamong', function () {
                 return view('admin.pamong.programs_pamong');
             });
-            Route::get('/program_details_pamong/{lowongan_id}/{lokasi_id}', [GuruController::class, 'programDetail'])->name('guru.program.detail');
+            Route::get('/program_details_pamong/{lowongan_id}', [GuruController::class, 'programDetail'])->name('guru.program.detail');
             Route::get('/daily_logbook_pamong/${id}', [GuruController::class, 'dailyBook'])->name('guru.daily.log');
             Route::get('/daily_review_pamong/{id}', [GuruController::class, 'dailyReview'])->name('guru.daily.review');
             Route::get('/get-peserta/{id}', [GuruController::class, 'getPesertaDetail'])->name('guru.getPeserta');
@@ -87,7 +87,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/programs_dpl', function () {
                 return view('admin.dpl.programs_dpl');
             });
-            Route::get('/program_details_dpl/{lowongan_id}/{lokasi_id}', [DosenController::class, 'programDetail'])->name('dosen.program.detail');
+            Route::get('/program_details_dpl/{lowongan_id}', [DosenController::class, 'programDetail'])->name('dosen.program.detail');
             Route::get('/weekly_review_dpl/{id}', [DosenController::class, 'dailyBook'])->name('dosen.weekly_review');
             Route::get('/get-peserta/{id}', [DosenController::class, 'getPesertaDetail'])->name('dosen.getPeserta');
             Route::post('/weekly_review_dpl/{id}', [DosenController::class, 'weeklyBook'])->name('dosen.weekly_review.submit');

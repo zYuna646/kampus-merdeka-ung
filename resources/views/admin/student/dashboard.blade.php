@@ -158,6 +158,14 @@
                             <p class="text-sm">{{ $data['programTransaction']->lowongan->code }}</p>
                         </div>
                         <div class="flex flex-col">
+                            <span class="text-xs text-slate-500">Tahun Akademik: </span>
+                            <p class="text-sm">{{ $data['programTransaction']->lowongan->tahun_akademik }}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs text-slate-500">Semester: </span>
+                            <p class="text-sm">{{ $data['programTransaction']->lowongan->semester }}</p>
+                        </div>
+                        <div class="flex flex-col">
                             <span class="text-xs text-slate-500">Priode Kegiatan: </span>
                             @php
                                 $tanggalMulai = \Carbon\Carbon::parse(

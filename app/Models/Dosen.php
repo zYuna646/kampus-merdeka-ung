@@ -34,6 +34,6 @@ class Dosen extends Model
 
     public function dpl()
     {
-        return $this->hasOne(DPL::class);
+        return $this->hasMany(DPL::class);
     }
 }
