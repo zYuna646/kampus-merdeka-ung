@@ -44,7 +44,14 @@ class MahasiswaController extends Controller
 
     public function rancangan(Request $request, $id)
     {
+        $request->validate([
+            'rancangan' => 'required|exists:program_transactions,id',
+        ]);
         $programTransaction = ProgramTransaction::find($id);
+        $programTransaction->rancangan = $request->rancangan;
+        $programTransaction->status_rancangan_pamong = 'proses';
+        $programTransaction->status_rancangan_dpl = 'proses';
+
         return redirect()->back();
     }
 

@@ -108,14 +108,15 @@
                     </div>
                     <hr>
                     <div class="flex flex-col gap-y-2">
-                        <form action="" method="POST">
+                        <form action="{{ route('student.rancangan.submit', ['id' => $data['programTransaction']->id]) }}" method="POST">
+                            @csrf
                             <div class="relative mb-2">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                     <span>
                                         <i class="fas fa-link text-lg text-slate-500"></i>
                                     </span>
                                 </div>
-                                <input type="text" id="input-group-1"
+                                <input type="text" id="input-group-1" name="rancangan"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 xl:text-sm text-xs rounded-md w-full pl-12 py-2"
                                     placeholder="http://">
                             </div>
@@ -125,6 +126,7 @@
                             </button>
                         </form>
                     </div>
+
 
                 </div>
                 @if (

@@ -57,6 +57,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/daily_form/{id}', [MahasiswaController::class, 'dailyLogForm'])->name('student.daily_logbookForm');
             Route::post('/daily_form/{id}', [MahasiswaController::class, 'dailyLog'])->name('student.daily_logbookForm.edit');
             Route::post('/weekly_form/{id}', [MahasiswaController::class, 'weeklyLog'])->name('student.weekly_logbookForm.edit');
+            Route::post('/rancangan/{id}', [MahasiswaController::class, 'rancangan'])->name('student.rancangan.submit');
 
             Route::get('/weekly_form', [
                 function () {
