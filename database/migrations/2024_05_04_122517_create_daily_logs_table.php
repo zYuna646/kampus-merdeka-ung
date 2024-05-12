@@ -24,7 +24,7 @@ return new class extends Migration
         });
 
 
-        Schema::create('daily_log_activity', function (Blueprint $table) {
+        Schema::create('activity_log_daily_log', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
@@ -38,7 +38,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('daily_log_activity');
+        Schema::dropIfExists('activity_log_daily_log');
         Schema::dropIfExists('daily_log');
     }
 };

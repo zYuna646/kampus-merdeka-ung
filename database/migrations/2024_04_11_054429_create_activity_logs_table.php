@@ -20,8 +20,8 @@ return new class extends Migration
             $table->decimal('presentase');
             $table->text('hambatan');
             $table->text('solusi');
-            $table->dateTime('jam_mulai');
-            $table->dateTime('jam_selesai');
+            $table->time('jam_mulai');
+            $table->time('jam_selesai');
             $table->timestamps();
         });
     }

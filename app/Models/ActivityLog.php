@@ -12,7 +12,7 @@ class ActivityLog extends Model
     protected $fillable = [
         'desc',
         'rencana',
-        'presentasi',
+        'presentase',
         'hambatan',
         'solusi',
         'jam_mulai',

@@ -25,4 +25,9 @@ class Guru extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function mitra()
+    {
+        return $this->hasMany(MitraTransaction::class);
+    }
+
 }

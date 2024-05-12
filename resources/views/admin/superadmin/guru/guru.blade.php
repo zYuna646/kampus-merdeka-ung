@@ -63,11 +63,11 @@
                 </div>
             </div>
             <!-- Tombol Export -->
-            <button type="button"
+            <a type="button"  href="{{route('admin.guru.export')}}"
                 class="text-white h-full bg-color-warning-500 hover:bg-color-warning-600 focus:ring-4 focus:ring-color-warning-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                 <span class=""><i class="fas fa-file-import text-sm me-2"></i></span>
                 Export
-            </button>
+        </a>
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">

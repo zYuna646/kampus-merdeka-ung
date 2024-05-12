@@ -73,41 +73,54 @@
             <div class="col-span-12">
                 <div class="flex gap-x-2 items-center text-color-primary-500">
                     <span class=""><i class="fas fa-book text-lg"></i></span>
-                    <p class="text-lg font-semibold">Kampus Mengajar</p>
+                    <p class="text-lg font-semibold">{{ $data['dpl']->lowongan->program->name }}</p>
                 </div>
             </div>
-            <div class="mt-4 col-span-12 flex gap-x-4">
+            <form action="{{ route('dosen.program.detail', ['lowongan_id' => $data['dpl']->lowongan->id]) }}"
+                class="mt-4 col-span-12 flex gap-x-4">
                 <label for="username" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white sr-only">Masukan
                     Nama
                     Pengguna</label>
-                <input type="text" id="username" placeholder="Cari Nama Mahasiswa, Nim"
+                <input type="text" id="username" name="search" placeholder="Cari Nama Mahasiswa, Nim"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
-                <button type="button"
+                <button type="submit"
                     class="px-5 py-2.5 w-fit text-sm font-medium text-white inline-flex items-center bg-color-primary-500 rounded-lg text-center ">
                     <span class=""><i class="fas fa-search text-lg "></i></span>
                 </button>
-            </div>
+            </form>
         </div>
 
         <div class="col-span-12 lg:col-span-4">
             <!-- Tampilkan daftar peserta -->
-            @foreach ($data['peserta'] as $item)
+            @foreach ($data['peserta'] as $peserta)
                 <div class="max-h-[42rem] overflow-y-auto flex flex-col p-2">
                     <div class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
-                        onclick="showPesertaDetail({{ $item->id }})">
+                        onclick="showPesertaDetail({{ $peserta->id }})">
                         <div class="w-16 rounded-full">
-                            <img src="/images/avatar/avatar.jpg" alt="" class="rounded-full">
+                            <img src="/images/avatar/placeholder.jpg" alt="" class="rounded-full">
                         </div>
                         <div>
-                            <p class="font-semibold text-sm">{{ $item->mahasiswa->name }}</p>
-                            <p class="text-sm">{{ $item->mahasiswa->nim }}</p>
+                            <p class="font-semibold text-sm">{{ $peserta->mahasiswa->name }}</p>
+                            <p class="text-sm">{{ $peserta->mahasiswa->nim }}</p>
+                            <p class="text-sm">{{ $peserta->lokasi->name }}</p>
                         </div>
-                        <span
-                            class="w-6 h-6 bg-color-danger-500 rounded-full absolute -top-2 -right-2 inline-flex justify-center items-center text-white text-xs">2</span>
+                        @if ($peserta->weeklyLog()->where('status', 'proses')->count() != 0)
+                            <span
+                                class="w-6 h-6 bg-color-danger-500 rounded-full absolute -top-2 -right-2 inline-flex justify-center items-center text-white text-xs">{{ $peserta->weeklyLog()->where('status', 'proses')->count() }}
+                            </span>
+                        @endif
+
                     </div>
                 </div>
             @endforeach
+            <!-- Tampilkan pagination links -->
+            <div class="mt-4 flex flex-col items-center">
+                {{ $data['peserta']->links() }}
+            </div>
+
         </div>
+
+
 
         <!-- Kolom kanan dengan detail peserta -->
         <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">

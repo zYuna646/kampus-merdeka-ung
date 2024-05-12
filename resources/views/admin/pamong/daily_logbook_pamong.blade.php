@@ -22,7 +22,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                    <a href="{{route('guru.program.detail', ['lowongan_id' => $data->programTransaction->lowongan->id, 'lokasi_id' => $data->programTransaction->lokasi->id]) }}"
+                        <a href="{{ route('guru.program.detail', ['lowongan_id' => $data->programTransaction->lowongan->id, 'lokasi_id' => $data->programTransaction->lokasi->id]) }}"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-color-primary-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Program</a>
                     </div>
                 </li>
@@ -34,7 +34,8 @@
                                 d="m1 9 4-4-4-4" />
                         </svg>
                         <a href="#"
-                            class="ms-1 text-sm font-medium text-gray-700 hover:text-color-primary-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Log Book</a>
+                            class="ms-1 text-sm font-medium text-gray-700 hover:text-color-primary-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Log
+                            Book</a>
                     </div>
                 </li>
             </ol>
@@ -43,7 +44,7 @@
             <div
                 class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300">
                 <div class="w-16 rounded-full">
-                    <img src="/images/avatar/avatar.jpg" alt="" class="rounded-full">
+                    <img src="/images/avatar/placeholder.jpg" alt="" class="rounded-full">
                 </div>
                 <div>
                     <p class="font-semibold text-sm">{{ $data->programTransaction->mahasiswa->name }}</p>
@@ -162,39 +163,65 @@
                                 <i class="fas fa-chevron-down text-lg"></i>
                             </div>
                         </button>
-                        @if ($item->desc)
-                            <div class="mt-4 flex-col gap-y-4 hidden detailContainer">
-                                <div>
-                                    <span class="font-semibold text-sm">Deskripsi Kegiatan:</span>
-                                    <p class="text-xs mt-2">{{ json_decode($item->desc)->deskripsi }}</p>
+                        <div class="mt-4 flex-col gap-y-4 hidden detailContainer">
+                            <label for="">Dokumentasi</label>
+                            <form action="" class="flex items-center w-full gap-x-2">
+                                <div class="relative w-full ">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                        <span>
+                                            <i class="fas fa-link text-lg text-slate-500"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" id="input-group-1"
+                                        class="bg-gray-50 border block border-gray-300 text-gray-900  text-xs rounded-md w-full ps-12 p-4  "
+                                        placeholder="https://kampusmerdeka.kemdikbud.go.id/program/magang-mandiri/browse/185c2258-bf50-4211-b460-4ed6f1db081c/95ff7b3f-1a14-40f3-b142-0cdc24aa5d9a"
+                                        disabled value={{$item->dokumentasi}}>
                                 </div>
-                                <div>
-                                    <span class="font-semibold text-sm mb-4">Rencana Kegiatan:</span>
-                                    <p class="text-xs mt-2">{{ json_decode($item->desc)->rencana }}</p>
-                                </div>
-                                <div>
-                                    <span class="font-semibold text-sm">Persentase Pencapaian:</span>
-                                    <p class="font-semibold">{{ json_decode($item->desc)->persentase }}</p>
-                                </div>
-                                <div>
-                                    <span class="font-semibold text-sm">Hambatan Kegiatan:</span>
-                                    <p class="text-xs mt-2">{{ json_decode($item->desc)->hambatan }}</p>
-                                </div>
-                                <div>
-                                    <span class="font-semibold text-sm">Rencana Solusi:</span>
-                                    <p class="text-xs mt-2">{{ json_decode($item->desc)->solusi }}</p>
-                                </div>
-                                <hr class="mt-4 mb-4">
-                                @if ($item->status == 'proses')
-                                    <button type="button"
-                                        class="text-white h-fit w-fit bg-color-success-500 hover:bg-success-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                        onclick="window.location='{{ route('guru.daily.review', ['id' => $item->id]) }}'">
-                                        Periksa
-                                    </button>
-                                @endif
+                                <a href="{{$item->dokumentasi}}" target="_blank" rel="noopener noreferrer"
+                                    class="text-white bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-3.5 me-2">
+                                    Lihat
+                                </a>
+                            </form>
+                            <br>
+                            <table id="table_config" class="w-full ">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Deskripsi</th>
+                                        <th>Rencana</th>
+                                        <th>Presentase</th>
+                                        <th>Hambatan</th>
+                                        <th>Solusi</th>
+                                        <th>Jam Mulai</th>
+                                        <th>Jam Selesai</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($item->activity as $data)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $data->desc }}</td>
+                                            <td>{{ $data->rencana }}</td>
+                                            <td>{{ $data->presentase }}%</td>
+                                            <td>{{ $data->hambatan }}</td>
+                                            <td>{{ $data->solusi }}</td>
+                                            <td>{{ $data->jam_mulai }}</td>
+                                            <td>{{ $data->jam_selesai }}</td>
 
-                            </div>
-                        @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <hr class="mt-4 mb-4">
+                            @if ($item->status == 'proses')
+                                <button type="button"
+                                    class="text-white h-fit w-fit bg-color-success-500 hover:bg-success-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                                    onclick="window.location='{{ route('guru.daily.review', ['id' => $item->id]) }}'">
+                                    Periksa
+                                </button>
+                            @endif
+
+                        </div>
 
                     </div>
                 @endforeach
@@ -221,5 +248,11 @@
                 detailContainer.classList.add('hidden');
             }
         };
+    </script>
+    <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table_config').DataTable();
+        });
     </script>
 @endsection

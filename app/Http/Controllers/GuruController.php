@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MitraExport;
 use App\Imports\GuruImport;
 use App\Models\DailyLog;
 use App\Models\Guru;
 use App\Models\Lokasi;
+use App\Models\MitraTransaction;
 use App\Models\ProgramTransaction;
 use App\Models\Role;
 use App\Models\User;
@@ -32,33 +34,17 @@ class GuruController extends Controller
     public function dashboard()
     {
         try {
-            $dpl = Auth::user()->guru;
-            $uniqueProgramTransactions = collect([]);
+            $dpl = Auth::user()->guru->mitra;
 
-            // Gunakan koleksi untuk menyimpan id program transaksi yang sudah ditemukan
-            $foundIds = [];
-
-            foreach ($dpl->lokasis as $lokasi) {
-                foreach ($lokasi->programTransaction as $program) {
-                    // Periksa apakah program transaksi sudah ada dalam koleksi
-                    if (!in_array($program->id, $foundIds)) {
-                        // Jika belum, tambahkan ke koleksi unik
-                        $uniqueProgramTransactions->push($program);
-                        // Tambahkan id program transaksi ke dalam array foundIds
-                        $foundIds[] = $program->id;
-                    }
-                }
-            }
         } catch (\Throwable $th) {
             // Tangani kesalahan jika diperlukan
             $dpl = '';
-            $uniqueProgramTransactions = '';
         }
 
 
         $data = [
-            'dpl' => $dpl,
-            'program' => $uniqueProgramTransactions
+            'program' => $dpl,
+            'mitra' => Auth::user()->guru->mitra()->latest()->first()
         ];
 
         return view('admin.pamong.dashboard_pamong')->with('data', $data);
@@ -77,8 +63,7 @@ class GuruController extends Controller
         }
         if ($request->msg) {
             $daily->msg = $request->input('msg');
-        }else
-        {
+        } else {
             $daily->msg = '';
         }
 
@@ -98,15 +83,38 @@ class GuruController extends Controller
         return view('admin.pamong.peserta_detail', ['peserta' => $peserta]);
     }
 
-    public function programDetail($lowongan_id, $lokasi_id)
+    public function programDetail(Request $request, $lowongan_id, )
     {
         // Ambil data peserta berdasarkan lowongan_id dan lokasi_id
-        $peserta = ProgramTransaction::where('lowongan_id', $lowongan_id)
-            ->where('lokasi_id', $lokasi_id)
-            ->get();
+        $mitra = MitraTransaction::where('lowongan_id', $lowongan_id)
+            ->where('guru_id', Auth::user()->guru->id)
+            ->first();
+
+        if ($request->search) {
+            $searchTerm = $request->input('search');
+            $isAllNumber = is_numeric($searchTerm);
+            // dd($isAllNumber); // Anda dapat menggunakan ini untuk debugging
+            if ($isAllNumber) {
+                // Jika nilai search adalah angka, cari berdasarkan NIM
+                $peserta = $mitra->mahasiswa()->whereHas('mahasiswa', function ($query) use ($searchTerm) {
+                    $query->where('nim', 'like', '%' . $searchTerm . '%');
+                })->paginate(5);
+            } else {
+                // Jika nilai search bukan angka, cari berdasarkan nama
+                $peserta = $mitra->mahasiswa()->whereHas('mahasiswa', function ($query) use ($searchTerm) {
+                    $query->where('name', 'like', '%' . $searchTerm . '%');
+                })->paginate(5);
+            }
+
+
+        } else {
+            // Jika tidak ada pencarian, ambil semua data mahasiswa yang terkait dengan DPL
+            $peserta = $mitra->mahasiswa()->paginate(5);
+        }
 
         $data = [
-            'peserta' => $peserta
+            'peserta' => $peserta,
+            'mitra' => $mitra,
         ];
 
         return view('admin.pamong.program_details_pamong', compact('data'));
@@ -116,6 +124,25 @@ class GuruController extends Controller
     {
         $weeklyLog = WeeklyLog::find($id);
         return view('admin.pamong.daily_logbook_pamong')->with('data', $weeklyLog);
+    }
+
+    public function rancangan(Request $request, $id)
+    {
+        $peserta = ProgramTransaction::find($id);
+        if ($request->status == 'terima') {
+            $peserta->status_rancangan_pamong = 'terima';
+        } else {
+            $peserta->status_rancangan_pamong = 'tolak';
+        }
+
+        // Pastikan properti 'msg' ada dalam request sebelum mencoba mengaksesnya
+        if ($request->msg) {
+            $peserta->msg_pamong = $request->msg;
+        } else {
+            $peserta->msg_pamong = '';
+        }
+        $peserta->save();
+        return redirect()->back();
     }
 
     public function dailyReview($id)
@@ -133,6 +160,11 @@ class GuruController extends Controller
     {
         $lokasi = Lokasi::all();
         return view('admin.superadmin.guru.add')->with('data', $lokasi);
+    }
+
+    public function export()
+    {
+        return Excel::download(new MitraExport, 'mitra.xlsx');
     }
 
     /**

@@ -32,21 +32,39 @@
             <div class="col-span-2">
                 <img src="/images/avatar/mitra.png" alt="" class="w-16">
             </div>
-            <div class="col-span-12 mt-4">
+            {{-- <div class="col-span-12 mt-4">
                 <h4 class="font-semibold text-lg">Lorem ipsum dolor, sit amet</h4>
-            </div>
+            </div> --}}
             <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500 mt-2">
                 <span class=""><i class="fas fa-book text-sm"></i></span>
-                <p class="text-sm font-semibold">Kampus Mengajar</p>
+                <p class="text-sm font-semibold">{{ $data['mitra']->lowongan->program->name }}</p>
             </div>
             <div class="col-span-12 mt-4 flex flex-col gap-y-2">
                 <div class="flex flex-col">
                     <span class="text-xs text-slate-500">Kode Kegiatan: </span>
-                    <p class="text-sm">541341243</p>
+                    <p class="text-sm">{{ $data['mitra']->lowongan->code }}</p>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs text-slate-500">Tahun Akademik: </span>
+                    <p class="text-sm">{{ $data['mitra']->lowongan->tahun_akademik }}</p>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xs text-slate-500">Semester: </span>
+                    <p class="text-sm">{{ $data['mitra']->lowongan->semester }}</p>
                 </div>
                 <div class="flex flex-col">
                     <span class="text-xs text-slate-500">Priode Kegiatan: </span>
-                    <p class="text-sm">14 Agu 2023 - 31 Des 2023 <span class="text-slate-500">(5 bulan)</span></p>
+                    @php
+                        $tanggalMulai = \Carbon\Carbon::parse($data['mitra']->lowongan->tanggal_mulai);
+                        $tanggalSelesai = \Carbon\Carbon::parse($data['mitra']->lowongan->tanggal_selesai);
+                        $selisihBulan = $tanggalMulai->diffInMonths($tanggalSelesai);
+                    @endphp
+
+                    <p class="text-sm">
+                        {{ $tanggalMulai->isoFormat('D MMM YYYY') }} -
+                        {{ $tanggalSelesai->isoFormat('D MMM YYYY') }}
+                        <span class="text-slate-500">({{ $selisihBulan }} bulan)</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -55,40 +73,48 @@
             <div class="col-span-12">
                 <div class="flex gap-x-2 items-center text-color-primary-500">
                     <span class=""><i class="fas fa-book text-lg"></i></span>
-                    <p class="text-lg font-semibold">Kampus Mengajar</p>
+                    <p class="text-lg font-semibold">{{ $data['mitra']->lowongan->program->name }}</p>
                 </div>
             </div>
-            <div class="mt-4 col-span-12 flex gap-x-4">
+            <form action="{{ route('guru.program.detail', ['lowongan_id' => $data['mitra']->lowongan->id]) }}"
+                class="mt-4 col-span-12 flex gap-x-4">
                 <label for="username" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white sr-only">Masukan
                     Nama
                     Pengguna</label>
-                <input type="text" id="username" placeholder="Cari Nama Mahasiswa, Nim"
+                <input type="text" id="username" name="search" placeholder="Cari Nama Mahasiswa, Nim"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
-                <button type="button"
+                <button type="submit"
                     class="px-5 py-2.5 w-fit text-sm font-medium text-white inline-flex items-center bg-color-primary-500 rounded-lg text-center ">
                     <span class=""><i class="fas fa-search text-lg "></i></span>
                 </button>
-            </div>
+            </form>
         </div>
 
         <div class="lg:col-span-4 col-span-12">
             <!-- Tampilkan daftar peserta -->
             @foreach ($data['peserta'] as $item)
                 <div class="max-h-[42rem] overflow-y-auto flex flex-col p-2">
-                    <div
-                        class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
-                        onclick="showPesertaDetail({{$item->id}})">
+                    <div class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
+                        onclick="showPesertaDetail({{ $item->id }})">
                         <div class="w-16 rounded-full">
-                            <img src="/images/avatar/avatar.jpg" alt="" class="rounded-full">
+                            <img src="/images/avatar/placeholder.jpg" alt="" class="rounded-full">
                         </div>
                         <div>
-                            <p class="font-semibold text-sm">{{$item->mahasiswa->name}}</p>
-                            <p class="text-sm">{{$item->mahasiswa->nim}}</p>
+                            <p class="font-semibold text-sm">{{ $item->mahasiswa->name }}</p>
+                            <p class="text-sm">{{ $item->mahasiswa->nim }}</p>
+                            <p class="text-sm">{{ $item->lokasi->name }}</p>
                         </div>
-                        <span class="w-6 h-6 bg-color-danger-500 rounded-full absolute -top-2 -right-2 inline-flex justify-center items-center text-white text-xs">2</span>
+                        @if ($item->dailyLog()->where('status', 'proses')->count() != 0)
+                            <span
+                                class="w-6 h-6 bg-color-danger-500 rounded-full absolute -top-2 -right-2 inline-flex justify-center items-center text-white text-xs">{{ $item->dailyLog()->where('status', 'proses')->count() }}
+                            </span>
+                        @endif
                     </div>
                 </div>
             @endforeach
+            <div class="mt-4 flex flex-col items-center">
+                {{ $data['peserta']->links() }}
+            </div>
         </div>
 
         <!-- Kolom kanan dengan detail peserta -->

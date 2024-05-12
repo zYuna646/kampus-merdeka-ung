@@ -187,7 +187,7 @@
                     </div>
                     <hr class="col-span-12 mt-4">
                     <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                        <div class="flex items-center">
+                        {{-- <div class="flex items-center">
                             <span
                                 class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-warning-500 rounded-full ">
                                 <i class="fas fa-exclamation"></i>
@@ -200,7 +200,7 @@
                                 <i class="fas fa-check"></i>
                             </span>
                             <p class="text-sm font-semibold">Laporan Permohonan Disetujui</p>
-                        </div>
+                        </div> --}}
                     </div>
 
                     {{--
