@@ -51,10 +51,10 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             });
             Route::get('/program_history', function () {
                 return view('admin.student.program_history');
-            }) ->name('student.profile_setting');
+            })->name('student.profile_setting');
             Route::get('/profile_setting', function () {
                 return view('admin.student.profile_setting');
-            }) ->name('student.program_history');
+            })->name('student.program_history');
             Route::get('/weekly_logbook', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');
             Route::get('/daily_logbook/{id}', [MahasiswaController::class, 'dailyBook'])->name('student.daily_logbook');
             Route::get('/daily_form/{id}', [MahasiswaController::class, 'dailyLogForm'])->name('student.daily_logbookForm');
@@ -132,15 +132,17 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::prefix('/dosen')->group(function () {
                 Route::get('/', [DosenController::class, 'index'])->name('admin.dosen');
                 Route::post('/import', [DosenController::class, 'import'])->name('admin.dosen.import');
+                Route::get('/export', [DosenController::class, 'export'])->name('admin.dosen.export');
             });
 
             Route::prefix('/student')->group(function () {
                 Route::get('/', [MahasiswaController::class, 'index'])->name('admin.student');
+                Route::get('/export', [MahasiswaController::class, 'export'])->name('admin.student.export');
                 Route::post('/import', [MahasiswaController::class, 'import'])->name('admin.student.import');
             });
 
             Route::prefix('/mitra')->group(function () {
-            Route::get('/export', [GuruController::class, 'export'])->name('admin.guru.export');
+                Route::get('/export', [GuruController::class, 'export'])->name('admin.guru.export');
                 Route::get('/', [GuruController::class, 'index'])->name('admin.guru');
                 Route::get('/add', [GuruController::class, 'create'])->name('admin.guru.add');
                 Route::post('/add', [GuruController::class, 'store'])->name('admin.guru.store');

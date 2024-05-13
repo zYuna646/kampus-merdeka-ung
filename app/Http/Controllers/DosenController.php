@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DosenExport;
 use App\Imports\DosenImport;
 use App\Models\Dosen;
 use App\Models\DPL;
@@ -33,6 +34,11 @@ class DosenController extends Controller
     public function create()
     {
         return view('dosens.create');
+    }
+
+    public function export()
+    {
+        return Excel::download(new DosenExport, 'dosen.xlsx');
     }
 
     public function dashboard()

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\MahasiswaImport;
+use App\Exports\MahasiswaExport;
 use App\Models\ActivityLog;
 use App\Models\DailyLog;
 use App\Models\Mahasiswa;
@@ -91,6 +91,11 @@ class MahasiswaController extends Controller
     {
         $weeklyLog = WeeklyLog::find($id);
         return view('admin.student.daily_logbook')->with('data', $weeklyLog);
+    }
+
+    public function export()
+    {
+        return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
     }
     public function dailyLogForm($id)
     {
