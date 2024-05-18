@@ -32,7 +32,6 @@
   <div class="max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
     <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
       <img src="/images/avatar/km_colored.png" alt="" class="rounded-xl w-4/6">
-      
     </div>
     <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4">
       <h2 class="text-xl lg:text-4xl font-bold">Kampus <span class="text-color-primary-500">Merdeka</span></h2>

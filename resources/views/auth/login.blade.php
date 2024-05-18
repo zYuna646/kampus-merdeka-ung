@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <div class="w-full flex-[1]">
+  <div class="w-full flex-[1] hidden lg:block">
 
   </div>
   <div class="w-full h-screen absolute">
@@ -74,7 +74,6 @@
 
       </div>
     </div>
-
 
   </div>
 </section>
