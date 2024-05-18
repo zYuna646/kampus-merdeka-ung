@@ -36,6 +36,12 @@ Route::get('/dashboard_operator', function () {
 Route::get('/home', function () {
     return view('landing.home');
 })->name('home');
+Route::get('/berita', function () {
+    return view('landing.news');
+})->name('berita');
+Route::get('/infografis', function () {
+    return view('landing.infographic');
+})->name('infografis');
 
 Route::get('/get-provinsi', [WilayahController::class, 'getProvinsi'])->name('getProvinsi');
 Route::get('/get-kabupaten/{idProvinsi}', [WilayahController::class, 'getKabupaten'])->name('getKabupaten');
