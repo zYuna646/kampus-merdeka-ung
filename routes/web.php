@@ -30,6 +30,12 @@ Route::get('/', function () {
 Route::get('/dashboard_operator', function () {
     return view('admin.operator.dashboard_operator');
 });
+Route::get('/dashboard_operator', function () {
+    return view('admin.operator.dashboard_operator');
+});
+Route::get('/home', function () {
+    return view('landing.home');
+})->name('home');
 
 Route::get('/get-provinsi', [WilayahController::class, 'getProvinsi'])->name('getProvinsi');
 Route::get('/get-kabupaten/{idProvinsi}', [WilayahController::class, 'getKabupaten'])->name('getKabupaten');

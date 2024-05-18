@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.dataTables.css" />
     <link href="https://unpkg.com/multiple-select@1.7.0/dist/multiple-select.min.css" rel="stylesheet">
     <script src="https://unpkg.com/multiple-select@1.7.0/dist/multiple-select.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
