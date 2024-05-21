@@ -24,7 +24,9 @@ class PesertaImport implements ToCollection, WithHeadingRow
         $tmp = null; // Initialize $tmp with null
         foreach ($collection as $index => $row) {
             try {
-
+                if (!$row['nim']) {
+                    continue;
+                }
                 // Menambahkan tanda titik koma dan tanda kutip pada NIP
                 if ($row['lokasi']) {
                     $lokasi = Lokasi::where('name', $row['lokasi'])->first(); // Menambahkan metode first()
@@ -99,6 +101,7 @@ class PesertaImport implements ToCollection, WithHeadingRow
 
             } catch (\Throwable $th) {
                 // Handle the error here
+                dd($row);
                 \Log::error('Error importing row: ' . $th->getMessage());
                 dd($th); // Also log and dd here to ensure value is not null
             }

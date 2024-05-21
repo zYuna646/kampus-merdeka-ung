@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\MahasiswaExport;
+use App\Imports\MahasiswaImport;
 use App\Models\ActivityLog;
 use App\Models\DailyLog;
 use App\Models\Mahasiswa;
