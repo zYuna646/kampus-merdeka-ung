@@ -30,8 +30,8 @@
 </section>
 <section class=" min-h-screen bg-white flex items-center justify-center flex-wrap">
   <div class="max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
-    <div class="col-span-6 lg:col-span-3">
-      <img src="/images/hero-image/rektorat2.jpg" alt="" class="rounded-xl w-full">
+    <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
+      <img src="/images/avatar/km_colored.png" alt="" class="rounded-xl w-4/6">
     </div>
     <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4">
       <h2 class="text-xl lg:text-4xl font-bold">Kampus <span class="text-color-primary-500">Merdeka</span></h2>
@@ -59,6 +59,9 @@
       </p>
     </div>
   </div>
+</section>
+<section>
+
 </section>
 <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 gap-4 py-16 lg:py-24">
   <div class="col-span-12 lg:col-span-8 px-2">
