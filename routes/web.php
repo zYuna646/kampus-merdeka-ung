@@ -23,17 +23,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
 
-Route::get('/', function () {
-    return view('admin.student.kampus_merdeka');
-});
 
 Route::get('/dashboard_operator', function () {
     return view('admin.operator.dashboard_operator');
 });
-Route::get('/dashboard_operator', function () {
-    return view('admin.operator.dashboard_operator');
-});
-Route::get('/home', function () {
+
+Route::get('/', function () {
     return view('landing.home');
 })->name('home');
 Route::get('/berita', function () {

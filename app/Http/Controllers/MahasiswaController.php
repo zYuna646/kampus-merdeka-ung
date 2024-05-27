@@ -114,6 +114,7 @@ class MahasiswaController extends Controller
         $dailyLog = DailyLog::find($id);
         $dailyLog->status = 'proses';
         $dailyLog->dokumentasi = $request->dokumentasi;
+        $dailyLog->activity()->delete();
         for ($i = 1; $i <= $request->jumlah; $i++) {
             $activity = ActivityLog::create([
                 'desc' => $request['deskripsi' . $i],
