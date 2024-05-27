@@ -78,9 +78,8 @@
                             Dokumentasi
                         </label>
                         <input type="text" name="dokumentasi" id="dokumentasi" placeholder="http://example.com"
-                            class="w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                            class="w-full p-3 xl:p-4 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs xl:text-sm" />
                     </div>
-
 
 
                     <button type="submit"
