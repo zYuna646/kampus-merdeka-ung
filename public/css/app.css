@@ -713,6 +713,9 @@ video {
 .mt-4 {
   margin-top: 1rem;
 }
+.mt-6 {
+  margin-top: 1.5rem;
+}
 .block {
   display: block;
 }
@@ -1339,6 +1342,9 @@ video {
 .to-zinc-700 {
   --tw-gradient-to: #3f3f46 var(--tw-gradient-to-position);
 }
+.bg-cover {
+  background-size: cover;
+}
 .bg-clip-border {
   background-clip: border-box;
 }
@@ -1784,10 +1790,6 @@ video {
 }
 .brightness-50 {
   --tw-brightness: brightness(.5);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-.brightness-\[\.2\] {
-  --tw-brightness: brightness(.2);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .transition-all {

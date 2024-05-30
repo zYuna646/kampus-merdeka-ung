@@ -37,6 +37,9 @@ Route::get('/berita', function () {
 Route::get('/infografis', function () {
     return view('landing.infographic');
 })->name('infografis');
+Route::get('/detail_news', function () {
+    return view('landing.detail_news');
+})->name('detail_news');
 
 Route::get('/get-provinsi', [WilayahController::class, 'getProvinsi'])->name('getProvinsi');
 Route::get('/get-kabupaten/{idProvinsi}', [WilayahController::class, 'getKabupaten'])->name('getKabupaten');

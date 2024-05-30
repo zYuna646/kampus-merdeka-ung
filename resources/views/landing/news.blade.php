@@ -3,9 +3,19 @@
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 gap-4 py-32 lg:py-36">
   <div class="col-span-12 lg:col-span-8 px-2">
-    <h2 class="text-2xl font-semibold text-color-primary-500 px-4">
-      Semua Berita
-    </h2>
+    <div>
+      <h2 class="text-2xl font-semibold text-color-primary-500 px-4">
+        Semua Berita
+      </h2>
+    </div>
+    <div class="flex items-center justify-center gap-x-4 px-4 mt-6 mb-2">
+      <input name="dosen_id" id="lokasi"
+        class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+      <button type="button" id="add_repeater"
+        class="text-white w-fit h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-4 col-span-12">
+        <span><i class="fas fa-search"></i></span>
+      </button>
+    </div>
     <div class="grid grid-flow-row">
       <div class="p-4 grid grid-cols-12 lg:gap-4 gap-2">
         <div class="col-span-12 lg:col-span-6">

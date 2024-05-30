@@ -2,21 +2,8 @@
 
 @section('main')
 <section class="h-screen w-full relative flex items-center justify-center">
-  <div class="swiper h-full">
-    <!-- Additional required wrapper -->
-    <div class="swiper-wrapper h-full">
-      <!-- Slides -->
-      <div class="swiper-slide h-full ">
-        <div class="h-full">
-          <img src="/images/hero-image/rektorat.jpg" alt="" class="object-cover w-full h-full brightness-[.2]">
-        </div>
-      </div>
-      <div class="swiper-slide h-full">
-        <div class="h-full">
-          <img src="/images/hero-image/rektorat2.jpg" alt="" class="object-cover w-full h-full brightness-[.2]">
-        </div>
-      </div>
-    </div>
+  <div class="h-full w-full brightness-50 bg-cover">
+    <img src="/images/hero-image/rektorat2.jpg" alt="" class="w-full h-full object-cover">
   </div>
   <div class="flex flex-col gap-y-2 absolute z-10 text-white w-full max-w-screen-xl px-8">
     <h1 class="text-3xl md:text-4xl lg:text-6xl font-bold">Kampus <span class="text-color-primary-500">Merdeka</span>
@@ -28,37 +15,73 @@
     </p>
   </div>
 </section>
-<section class=" min-h-screen bg-white flex items-center justify-center flex-wrap">
-  <div class="max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
-    <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
-      <img src="/images/avatar/km_colored.png" alt="" class="rounded-xl w-4/6">
-    </div>
-    <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4">
-      <h2 class="text-xl lg:text-4xl font-bold">Kampus <span class="text-color-primary-500">Merdeka</span></h2>
-      <p class="text-xs lg:text-xl font-semibold">Program persiapan karier yang komprehensif untuk mempersiapkan
-        generasi terbaik
-        Indonesia</p>
-      <p class="text-xs lg:text-sm max-w-lg">Kampus Merdeka adalah bagian dari kebijakan Merdeka Belajar oleh
-        Kementerian Pendidikan,
-        Kebudayaan, Riset, dan
-        Teknologi (Kemendikbudristek) yang memberikan seluruh mahasiswa
-        <span class="font-semibold text-color-primary-500">
-          kesempatan untuk mengasah kemampuan sesuai
-          bakat
-          dan minat
-        </span>
-        dengan
-        <span class="font-semibold text-color-primary-500">
-          terjun langsung ke dunia kerja
-        </span>
-        sebagai
-        <span class="font-semibold text-color-primary-500">
-          langkah persiapan
-          karier.
-        </span>
-      </p>
+<section class="min-h-screen w-full max-w-screen-xl mx-auto  bg-white flex items-center justify-center flex-wrap">
+  <div class="swiper h-full">
+    <div class="swiper-wrapper h-full">
+      <div class="swiper-slide h-full max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
+        <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
+          <img src="/images/avatar/iisma_hero.png" alt="" class="rounded-xl w-4/6">
+        </div>
+        <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4">
+          <h2 class="text-xl lg:text-4xl font-bold">IISMA<span class="text-color-primary-500"></span></h2>
+          <p class="text-xs lg:text-xl font-semibold">Perluas wawasan dan koneksi melalui Pertukaran Mahasiswa secara
+            Internasional</p>
+          <p class="text-xs lg:text-sm max-w-lg">Indonesian International Student Mobility Awards (IISMA) is a
+            scholarship scheme by the Ministry of Education, Culture, Research, and Technology of the Republic of
+            Indonesia to fund Indonesian students for a one semester-mobility program at top universities and reputable
+            industries overseas.
+          </p>
+        </div>
+      </div>
+      <div class="swiper-slide h-full max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
+        <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
+          <img src="/images/avatar/kampus_mengajar_hero.png" alt="" class="rounded-xl w-4/6">
+        </div>
+        <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4">
+          <h2 class="text-xl lg:text-4xl font-bold">Kampus <span class="text-color-primary-500">Mengajar</span></h2>
+          <p class="text-xs lg:text-xl font-semibold">Bantu tingkatkan kualitas
+            pengajaran pendidikan
+            dasar melalui Kampus Mengajar</p>
+          <p class="text-xs lg:text-sm max-w-lg">
+            Kampus Mengajar merupakan kanal pembelajaran yang memberikan kesempatan kepada mahasiswa untuk belajar di
+            luar kampus selama satu semester guna melatih kemampuan menyelesaikan permasalahan yang kompleks dengan
+            menjadi mitra guru untuk berinovasi dalam pembelajaran, pengembangan strategi, dan model pembelajaran yang
+            kreatif, inovatif, dan menyenangkan.
+          </p>
+        </div>
+      </div>
+      <div class="swiper-slide h-full max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
+        <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
+          <img src="/images/avatar/msib_hero.png" alt="" class="rounded-xl w-4/6">
+        </div>
+        <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4">
+          <h2 class="text-xl lg:text-4xl font-bold">Magang<span class="text-color-primary-500">MSIB</span></h2>
+          <p class="text-xs lg:text-xl font-semibold">Rasakan pengalaman
+            dunia kerja dengan terjun
+            langsung melalui Magang MSIB</p>
+          <p class="text-xs lg:text-sm max-w-lg">Magang MSIB adalah program magang yang diawasi langsung oleh
+            Kemendikbudristek selama 1 (satu) semester untuk mendapatkan pengalaman kerja dan pengetahuan tentang
+            praktik terbaik dari industri yang kamu minati!
+          </p>
+        </div>
+      </div>
+      <div class="swiper-slide h-full max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
+        <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
+          <img src="/images/avatar/msib_hero.png" alt="" class="rounded-xl w-4/6">
+        </div>
+        <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4">
+          <h2 class="text-xl lg:text-4xl font-bold">Studi <span class="text-color-primary-500">Independen</span></h2>
+          <p class="text-xs lg:text-xl font-semibold">Riset kolaboratif bersama perusahaan ternama
+            melalui Studi Independen</p>
+          <p class="text-xs lg:text-sm max-w-lg">Studi Independen adalah program yang memberikan kesempatan kepada
+            mahasiswa untuk mempelajari kompetensi yang spesifik dan praktis langsung dari para pakarnya selama 1 (satu)
+            semester melalui aktivitas pembelajaran dan praktik langsung.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
+
 </section>
 <section>
 
@@ -124,7 +147,8 @@
             <img src="/images/hero-image/image.png" alt="" class="rounded-md w-full h-24 object-cover">
           </div>
           <div class="col-span-6 flex flex-col gap-y-2">
-            <a href="" class="text-sm font-semibold news-title">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</a>
+            <a href="" class="text-sm font-semibold news-title">Lorem ipsum dolor sit amet consectetur, adipisicing
+              elit.</a>
             <p class="text-sm text-slate-500">14 Juni 2023</p>
           </div>
         </div>
@@ -150,7 +174,7 @@
           </button>
         </div>
       </div>
-    </div>  
+    </div>
   </div>
 </section>
 
