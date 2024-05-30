@@ -73,7 +73,7 @@
                     <div id="kegiatan-container" class="col-span-12">
 
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 col-span-12">
                         <label for="dokumentasi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                             Dokumentasi
                         </label>

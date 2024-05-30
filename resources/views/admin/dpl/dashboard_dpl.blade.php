@@ -140,7 +140,7 @@
                     <hr class="col-span-12 mt-4">
                     <div class="col-span-12 mt-4 flex gap-x-1">
                         <a href="{{ route('dosen.program.detail', ['lowongan_id' => $data['program']->lowongan->id]) }}"
-                            class="text-white h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 inline-block">
+                            class="text-white bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 inline-block">
                              Detail Program
                          </a>
 
