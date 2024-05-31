@@ -9,7 +9,7 @@
       </h2>
     </div>
     <div class="flex items-center justify-center gap-x-4 px-4 mt-6 mb-2">
-      <input name="dosen_id" id="lokasi"
+      <input name="dosen_id" id="lokasi" placeholder="Cari Berita"
         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
       <button type="button" id="add_repeater"
         class="text-white w-fit h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-4 col-span-12">

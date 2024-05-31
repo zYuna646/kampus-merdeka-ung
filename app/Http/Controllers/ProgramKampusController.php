@@ -29,7 +29,7 @@ class ProgramKampusController extends Controller
      */
     public function create()
     {
-        return view('program_kampuses.create');
+        return view('admin.superadmin.campus_merdeka_program.add');
     }
 
     /**

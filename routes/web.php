@@ -119,22 +119,26 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::prefix('/faculties')->group(function () {
                 Route::get('/', [FakultasController::class, 'index'])->name('admin.faculties');
                 Route::post('/import', [FakultasController::class, 'import'])->name('admin.faculties.import');
+                Route::get('/add', [FakultasController::class, 'create'])->name('admin.faculties.add');
             });
 
             Route::prefix('/departement')->group(function () {
                 Route::get('/', [JurusanController::class, 'index'])->name('admin.departement');
                 Route::post('/import', [JurusanController::class, 'import'])->name('admin.departement.import');
+                Route::get('/add', [JurusanController::class, 'create'])->name('admin.departement.add');
 
             });
 
             Route::prefix('/study_program')->group(function () {
                 Route::get('/', [StudiController::class, 'index'])->name('admin.study_program');
                 Route::post('/import', [StudiController::class, 'import'])->name('admin.study_program.import');
+                Route::get('/add', [StudiController::class, 'create'])->name('admin.study_program.add');
             });
 
             Route::prefix('/campus_merdeka_program')->group(function () {
                 Route::get('/', [ProgramKampusController::class, 'index'])->name('admin.campus_merdeka_program');
                 Route::post('/import', [ProgramKampusController::class, 'import'])->name('admin.campus_merdeka_program.import');
+                Route::get('/add', [ProgramKampusController::class, 'create'])->name('admin.campus_merdeka_program.add');
             });
 
             /* MBKM */
@@ -143,12 +147,14 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [DosenController::class, 'index'])->name('admin.dosen');
                 Route::post('/import', [DosenController::class, 'import'])->name('admin.dosen.import');
                 Route::get('/export', [DosenController::class, 'export'])->name('admin.dosen.export');
+                Route::get('/add', [DosenController::class, 'create'])->name('admin.dosen.add');
             });
 
             Route::prefix('/student')->group(function () {
                 Route::get('/', [MahasiswaController::class, 'index'])->name('admin.student');
                 Route::get('/export', [MahasiswaController::class, 'export'])->name('admin.student.export');
                 Route::post('/import', [MahasiswaController::class, 'import'])->name('admin.student.import');
+                Route::get('/add', [MahasiswaController::class, 'create'])->name('admin.student.add');
             });
 
             Route::prefix('/mitra')->group(function () {

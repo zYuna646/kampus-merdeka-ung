@@ -27,7 +27,7 @@ class FakultasController extends Controller
      */
     public function create()
     {
-        return view('fakultases.create');
+        return view('admin.superadmin.faculties.add');
     }
 
     /**

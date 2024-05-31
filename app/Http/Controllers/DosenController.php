@@ -7,6 +7,7 @@ use App\Imports\DosenImport;
 use App\Models\Dosen;
 use App\Models\DPL;
 use App\Models\ProgramTransaction;
+use App\Models\Studi;
 use App\Models\WeeklyLog;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -33,7 +34,11 @@ class DosenController extends Controller
      */
     public function create()
     {
-        return view('dosens.create');
+        $studi = Studi::all()->toArray();
+        $data = [
+            'studi' => $studi
+        ];
+        return view('admin.superadmin.dosen.add')->with('data', $data);
     }
 
     public function export()

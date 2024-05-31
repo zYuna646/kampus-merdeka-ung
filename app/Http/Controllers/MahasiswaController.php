@@ -11,6 +11,7 @@ use App\Models\ProgramTransaction;
 use App\Models\WeeklyLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Studi;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -192,7 +193,11 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswas.create');
+        $studi = Studi::all()->toArray();
+        $data = [
+            'studi' => $studi
+        ];
+        return view('admin.superadmin.student.add')->with('data', $data);
     }
 
     /**

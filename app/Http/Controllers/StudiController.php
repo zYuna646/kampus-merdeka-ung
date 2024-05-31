@@ -6,6 +6,7 @@ use App\Imports\StudiImport;
 use App\Models\Studi;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Jurusan;
 
 
 class StudiController extends Controller
@@ -28,7 +29,11 @@ class StudiController extends Controller
      */
     public function create()
     {
-        return view('studis.create');
+        $jurusan = Jurusan::all()->toArray();
+        $data = [
+            'jurusan' => $jurusan
+        ];
+        return view('admin.superadmin.study_program.add')->with('data', $data);
     }
 
     /**

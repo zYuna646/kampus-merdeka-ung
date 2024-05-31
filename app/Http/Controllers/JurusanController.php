@@ -6,6 +6,7 @@ use App\Imports\JurusanImport;
 use App\Models\Jurusan;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Fakultas;
 
 
 class JurusanController extends Controller
@@ -27,8 +28,12 @@ class JurusanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('jurusans.create');
+    {   
+        $fakultas = Fakultas::all()->toArray();
+        $data = [
+            'fakultas' => $fakultas
+        ];
+        return view('admin.superadmin.departement.add')->with('data', $data);
     }
 
     /**

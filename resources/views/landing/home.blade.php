@@ -3,7 +3,7 @@
 @section('main')
 <section class="h-screen w-full relative flex items-center justify-center">
   <div class="h-full w-full brightness-50 bg-cover">
-    <img src="/images/hero-image/rektorat2.jpg" alt="" class="w-full h-full object-cover">
+    <img src="/images/hero-image/rektorat2.jpg" alt="" class="w-full h-full object-cover brightness-50">
   </div>
   <div class="flex flex-col gap-y-2 absolute z-10 text-white w-full max-w-screen-xl px-8">
     <h1 class="text-3xl md:text-4xl lg:text-6xl font-bold">Kampus <span class="text-color-primary-500">Merdeka</span>
@@ -55,7 +55,7 @@
           <img src="/images/avatar/msib_hero.png" alt="" class="rounded-xl w-4/6">
         </div>
         <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4">
-          <h2 class="text-xl lg:text-4xl font-bold">Magang<span class="text-color-primary-500">MSIB</span></h2>
+          <h2 class="text-xl lg:text-4xl font-bold">Magang <span class="text-color-primary-500">MSIB</span></h2>
           <p class="text-xs lg:text-xl font-semibold">Rasakan pengalaman
             dunia kerja dengan terjun
             langsung melalui Magang MSIB</p>

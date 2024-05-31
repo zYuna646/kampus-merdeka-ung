@@ -6,11 +6,14 @@
         <h1 class="lg:text-xl font-semibold">Program Kampus Merdeka</h1>
         <div class="inline-flex">
             <!-- Tombol Import -->
-            <button type="button" id="importBtn"
-                class="text-white h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+            <x-button_md type="button" class="me-2" onclick="window.location.href='{{ route('admin.campus_merdeka_program.add') }}'">
+                <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
+                Tambah Data
+            </x-button_md>
+            <x-button_md type="button" id="importBtn">
                 <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
                 Import
-            </button>
+            </x-button_md>
             <!-- Modal Form Import -->
             <div id="importModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
                 <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -42,26 +45,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                <button type="submit"
-                                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-color-primary-500 text-base font-medium text-white hover:bg-color-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-color-primary-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-x-2">
+                                <x-button_md type="submit" color="primary" class="">
                                     Import Data
-                                </button>
-                                <button type="button" id="cancelImport"
-                                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                </x-button_md>
+                                <x-button_md type="button" id="cancelImport" color="danger-outlined">
                                     Batal
-                                </button>
+                                </x-button_md>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
             <!-- Tombol Export -->
-            <button type="button"
-                class="text-white h-full bg-color-warning-500 hover:bg-color-warning-600 focus:ring-4 focus:ring-color-warning-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+            <x-button_md type="button" color="warning" class="ms-2">
                 <span class=""><i class="fas fa-file-import text-sm me-2"></i></span>
                 Export
-            </button>
+            </x-button_md>
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl " id="wrapper">
@@ -80,18 +80,9 @@
                     <td>{{ $item['name'] }}</td>
                     <td>
                         <div class="relative inline-block text-left">
-                            <button type="button" id="dropdownMenuButton{{ $item->id }}"
-                                class="inline-flex justify-center items-center w-full rounded-md px-2 py-1 bg-blue-500 text-white hover:bg-blue-600"
-                                aria-expanded="false" aria-haspopup="true">
-                                <!-- Tanda tiga titik vertikal (ellipsis) -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M4 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-
+                            <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">
+                                <span><i class="fas fa-ellipsis-h"></i></span>
+                            </x-button_sm>
                             <div id="dropdownMenu{{ $item->id }}"
                                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                                 role="menu" aria-orientation="vertical"
