@@ -139,6 +139,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [ProgramKampusController::class, 'index'])->name('admin.campus_merdeka_program');
                 Route::post('/import', [ProgramKampusController::class, 'import'])->name('admin.campus_merdeka_program.import');
                 Route::get('/add', [ProgramKampusController::class, 'create'])->name('admin.campus_merdeka_program.add');
+                Route::get('/edit', [ProgramKampusController::class, 'edit'])->name('admin.campus_merdeka_program.edit');
             });
 
             /* MBKM */

@@ -28,7 +28,6 @@ class GuruController extends Controller
     {
         $gurus = Guru::all();
         return view('admin.superadmin.guru.guru')->with('data', $gurus);
-
     }
 
     public function dashboard()
