@@ -74,9 +74,10 @@ class FakultasController extends Controller
      * @param  \App\Models\Fakultas  $fakultas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Fakultas $fakultas)
+    public function edit($id)
     {
-        return view('fakultases.edit', compact('fakultas'));
+        $fakultas = Fakultas::find($id);
+        return view('fakultases.edit', compact($fakultas));
     }
 
     /**
