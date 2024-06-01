@@ -97,7 +97,7 @@
                                         <i class="w-4 h-4 fas fa-info-circle"></i>
                                         Detail
                                     </a>
-                                    <a href="{{ route('admin.guru.edit', $item->id) }}"
+                                    <a href="{{ route('admin.departement.edit', $item->id) }}"
                                         class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                                         role="menuitem">
                                         <i class="fas fa-pen w-4 h-4"></i>

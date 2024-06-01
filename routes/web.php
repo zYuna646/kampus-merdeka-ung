@@ -120,15 +120,17 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [FakultasController::class, 'index'])->name('admin.faculties');
                 Route::post('/import', [FakultasController::class, 'import'])->name('admin.faculties.import');
                 Route::get('/add', [FakultasController::class, 'create'])->name('admin.faculties.add');
+                Route::post('/add', [FakultasController::class, 'store'])->name('admin.faculties.store');
                 Route::get('/edit/{id}', [FakultasController::class, 'edit'])->name('admin.faculties.edit');
                 Route::post('/update/{id}', [FakultasController::class, 'update'])->name('admin.faculties.update');
-
             });
 
             Route::prefix('/departement')->group(function () {
                 Route::get('/', [JurusanController::class, 'index'])->name('admin.departement');
                 Route::post('/import', [JurusanController::class, 'import'])->name('admin.departement.import');
                 Route::get('/add', [JurusanController::class, 'create'])->name('admin.departement.add');
+                Route::get('/edit/{id}', [JurusanController::class, 'edit'])->name('admin.departement.edit');
+                Route::post('/update/{id}', [JurusanController::class, 'update'])->name('admin.departement.update');
 
             });
 
@@ -136,13 +138,17 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [StudiController::class, 'index'])->name('admin.study_program');
                 Route::post('/import', [StudiController::class, 'import'])->name('admin.study_program.import');
                 Route::get('/add', [StudiController::class, 'create'])->name('admin.study_program.add');
+                Route::get('/edit', [StudiController::class, 'edit'])->name('admin.study_program.edit');
+                Route::get('/update/{id}', [StudiController::class, 'update'])->name('admin.study_program.update');
             });
 
             Route::prefix('/campus_merdeka_program')->group(function () {
                 Route::get('/', [ProgramKampusController::class, 'index'])->name('admin.campus_merdeka_program');
                 Route::post('/import', [ProgramKampusController::class, 'import'])->name('admin.campus_merdeka_program.import');
                 Route::get('/add', [ProgramKampusController::class, 'create'])->name('admin.campus_merdeka_program.add');
-                Route::get('/edit', [ProgramKampusController::class, 'edit'])->name('admin.campus_merdeka_program.edit');
+                Route::post('/add', [ProgramKampusController::class, 'store'])->name('admin.campus_merdeka_program.store');
+                Route::get('/edit/{id}', [ProgramKampusController::class, 'edit'])->name('admin.campus_merdeka_program.edit');
+                Route::post('/update/{id}', [ProgramKampusController::class, 'update'])->name('admin.campus_merdeka_program.update');
             });
 
             /* MBKM */
@@ -176,8 +182,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [DPLController::class, 'index'])->name('admin.dpl');
                 Route::get('/add', [DPLController::class, 'create'])->name('admin.dpl.add');
                 Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
-                Route::got('/edit/{id}', [DPLController::class, 'edit'])->name('admin.dpl.store');
-                Route::got('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.store');
+                Route::get('/edit/{id}', [DPLController::class, 'edit'])->name('admin.dpl.store');
+                Route::get('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.store');
                 Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
                 Route::post('/import', [DPLController::class, 'import'])->name('admin.dpl.import');
             });

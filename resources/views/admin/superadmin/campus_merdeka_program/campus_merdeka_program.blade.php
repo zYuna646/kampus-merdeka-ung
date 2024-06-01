@@ -2,11 +2,19 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+    @if (session('success'))
+    <x-alerts color="info" :text="session('success')" />
+    @endif
+
+    @if (session('error'))
+    <x-alerts color="info" :text="session('error')" />
+    @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="lg:text-xl font-semibold">Program Kampus Merdeka</h1>
         <div class="inline-flex">
             <!-- Tombol Import -->
-            <x-button_md type="button" class="me-2" onclick="window.location.href='{{ route('admin.campus_merdeka_program.add') }}'">
+            <x-button_md type="button" class="me-2"
+                onclick="window.location.href='{{ route('admin.campus_merdeka_program.add') }}'">
                 <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
                 Tambah Data
             </x-button_md>
@@ -94,7 +102,7 @@
                                         <i class="w-4 h-4 fas fa-info-circle"></i>
                                         Detail
                                     </a>
-                                    <a href="{{ route('admin.guru.edit', $item->id) }}"
+                                    <a href="{{ route('admin.campus_merdeka_program.edit', $item->id) }}"
                                         class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                                         role="menuitem">
                                         <i class="fas fa-pen w-4 h-4"></i>

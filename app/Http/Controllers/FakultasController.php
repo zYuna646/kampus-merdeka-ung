@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\FakultasImport;
 use App\Models\Fakultas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 class FakultasController extends Controller
@@ -40,14 +41,16 @@ class FakultasController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:fakultases',
-            'code' => 'required|unique:fakultases',
+            'code' => 'required|unique:fakultas',
         ]);
 
-        Fakultas::create($request->all());
+        Fakultas::create([
+            'name' => $request->name,
+            'code' => $request->code,
+            'slug' => Str::slug($request->name),
+        ]);
 
-        return redirect()->route('fakultases.index')
-            ->with('success', 'Fakultas created successfully.');
+        return redirect()->route('admin.faculties')->with('success', 'Fakultas created successfully.');
     }
 
     public function import()
@@ -77,7 +80,7 @@ class FakultasController extends Controller
     public function edit($id)
     {
         $fakultas = Fakultas::find($id);
-        return view('fakultases.edit', compact($fakultas));
+        return view('admin.superadmin.faculties.edit', compact('fakultas'));
     }
 
     /**
@@ -87,17 +90,17 @@ class FakultasController extends Controller
      * @param  \App\Models\Fakultas  $fakultas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fakultas $fakultas)
+    public function update(Request $request, $id)
     {
+        $fakultas = Fakultas::find($id);
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:fakultases,slug,' . $fakultas->id,
-            'code' => 'required|unique:fakultases,code,' . $fakultas->id,
+            'code' => 'required|unique:fakultas,code,' . $fakultas->code,
         ]);
 
         $fakultas->update($request->all());
-
-        return redirect()->route('fakultases.index')
+        $fakultas->slug=Str::slug($request->name);
+        return redirect()->route('admin.faculties')
             ->with('success', 'Fakultas updated successfully');
     }
 

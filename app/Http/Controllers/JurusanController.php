@@ -7,6 +7,7 @@ use App\Models\Jurusan;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Fakultas;
+use Illuminate\Support\Str;
 
 
 class JurusanController extends Controller
@@ -81,9 +82,11 @@ class JurusanController extends Controller
      * @param  \App\Models\Jurusan  $jurusan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jurusan $jurusan)
+    public function edit($id)
     {
-        return view('jurusans.edit', compact('jurusan'));
+        $jurusan = Jurusan::find($id);
+        $fakultases = Fakultas::all();
+        return view('admin.superadmin.departement.edit', compact('jurusan', 'fakultases'));
     }
 
     /**
@@ -93,21 +96,19 @@ class JurusanController extends Controller
      * @param  \App\Models\Jurusan  $jurusan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jurusan $jurusan)
+    public function update(Request $request, $id)
     {
+        $jurusan = Jurusan::find($id);
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:jurusans,slug,' . $jurusan->id,
-            'code' => 'required|unique:jurusans,code,' . $jurusan->id,
             'fakultas_id' => 'required|exists:fakultases,id',
         ]);
-
+    
         $jurusan->update($request->all());
-
-        return redirect()->route('jurusans.index')
+        $jurusan->slug = Str::slug($request->name);
+        return redirect()->route('admin.departement')
             ->with('success', 'Jurusan updated successfully');
     }
-
     /**
      * Remove the specified resource from storage.
      *
