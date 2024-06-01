@@ -99,7 +99,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 return view('admin.dpl.programs_dpl');
             });
             Route::get('/program_details_dpl/{lowongan_id}', [DosenController::class, 'programDetail'])->name('dosen.program.detail');
-            Route::get('/weekly_review_dpl/{id}', [DosenController::class, 'dailyBook'])->name('dosen.weekly_review');
+        Route::get('/weekly_review_dpl/{id}', [DosenController::class, 'dailyBook'])->name('dosen.weekly_review');
             Route::get('/get-peserta/{id}', [DosenController::class, 'getPesertaDetail'])->name('dosen.getPeserta');
             Route::post('/weekly_review_dpl/{id}', [DosenController::class, 'weeklyBook'])->name('dosen.weekly_review.submit');
             Route::post('/rancangan/{id}', [DosenController::class, 'rancangan'])->name('dosen.rancangan.submit');
@@ -120,6 +120,9 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [FakultasController::class, 'index'])->name('admin.faculties');
                 Route::post('/import', [FakultasController::class, 'import'])->name('admin.faculties.import');
                 Route::get('/add', [FakultasController::class, 'create'])->name('admin.faculties.add');
+                Route::get('/edit/{id}', [FakultasController::class, 'edit'])->name('admin.faculties.edit');
+                Route::post('/update/{id}', [FakultasController::class, 'update'])->name('admin.faculties.update');
+
             });
 
             Route::prefix('/departement')->group(function () {
@@ -171,6 +174,9 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::prefix('/dpl')->group(function () {
                 Route::get('/', [DPLController::class, 'index'])->name('admin.dpl');
                 Route::get('/add', [DPLController::class, 'create'])->name('admin.dpl.add');
+                Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
+                Route::got('/edit/{id}', [DPLController::class, 'edit'])->name('admin.dpl.store');
+                Route::got('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.store');
                 Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
                 Route::post('/import', [DPLController::class, 'import'])->name('admin.dpl.import');
             });
