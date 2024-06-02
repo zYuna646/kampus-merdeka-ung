@@ -10,14 +10,24 @@
         <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Fakultas</label>
         <input type="text" name="name" id="nama" placeholder="Masukan Nama Fakultas"
           class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-          value="{{ $fakultas->name }}">
+          value="{{ old('name',$fakultas->name) }}">
+          @error('name')
+          <div class="invalid-feedback text-red-400">
+              {{ $message }}
+          </div>
+          @enderror
 
       </div>
       <div class="mb-4">
         <label for="code" class="block text-sm font-medium text-gray-700 mb-2">Kode Fakultas</label>
         <input type="text" name="code" id="code" placeholder="Masukan Kode Fakultas"
           class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-          value="{{ $fakultas->code }}">
+          value="{{ old('code', $fakultas->code) }}">
+          @error('code')
+          <div class="invalid-feedback text-red-400">
+              {{ $message }}
+          </div>
+          @enderror
 
       </div>
       <x-button_md color="primary" class="w-full" type="submit">

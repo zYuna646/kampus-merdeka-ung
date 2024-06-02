@@ -31,7 +31,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
                 <input type="text" name="lokasi" id="lokasi"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
@@ -40,7 +40,7 @@
                     {{ $message }}
                 </div>
                 @enderror
-            </div>
+            </div> --}}
 
             <div class="mb-4">
                 <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Provinsi</label>

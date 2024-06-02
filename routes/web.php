@@ -128,6 +128,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [FakultasController::class, 'store'])->name('admin.faculties.store');
                 Route::get('/edit/{id}', [FakultasController::class, 'edit'])->name('admin.faculties.edit');
                 Route::post('/update/{id}', [FakultasController::class, 'update'])->name('admin.faculties.update');
+                Route::delete('/delete/{id}', [FakultasController::class, 'destroy'])->name('admin.faculties.delete');
+
             });
 
             Route::prefix('/departement')->group(function () {
@@ -137,6 +139,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [JurusanController::class, 'store'])->name('admin.departement.store');
                 Route::get('/edit/{id}', [JurusanController::class, 'edit'])->name('admin.departement.edit');
                 Route::post('/update/{id}', [JurusanController::class, 'update'])->name('admin.departement.update');
+                Route::delete('/delete/{id}', [JurusanController::class, 'destroy'])->name('admin.departement.delete');
+
 
             });
 
@@ -147,6 +151,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [StudiController::class, 'store'])->name('admin.study_program.store');
                 Route::get('/edit/{id}', [StudiController::class, 'edit'])->name('admin.study_program.edit');
                 Route::post('/update/{id}', [StudiController::class, 'update'])->name('admin.study_program.update');
+                Route::delete('/delete/{id}', [StudiController::class, 'destroy'])->name('admin.study_program.delete');
+
             });
 
             Route::prefix('/campus_merdeka_program')->group(function () {
@@ -156,6 +162,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [ProgramKampusController::class, 'store'])->name('admin.campus_merdeka_program.store');
                 Route::get('/edit/{id}', [ProgramKampusController::class, 'edit'])->name('admin.campus_merdeka_program.edit');
                 Route::post('/update/{id}', [ProgramKampusController::class, 'update'])->name('admin.campus_merdeka_program.update');
+                Route::delete('/delete/{id}', [ProgramKampusController::class, 'destroy'])->name('admin.campus_merdeka_program.delete');
             });
 
             /* MBKM */
@@ -215,6 +222,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/import', [LokasiController::class, 'import'])->name('admin.location.import');
                 Route::get('/edit/{id}', [LokasiController::class, 'edit'])->name('admin.location.edit');
                 Route::post('/update/{id}', [LokasiController::class, 'update'])->name('admin.location.update');
+                Route::delete('/delete/{id}', [LokasiController::class, 'destroy'])->name('admin.location.delete');
+
             });
 
             Route::prefix('/lowongan')->group(function () {
