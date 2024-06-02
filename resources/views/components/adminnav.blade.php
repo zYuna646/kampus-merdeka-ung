@@ -196,24 +196,7 @@
                     <!-- Isi dropdown Laporan di sini -->
                 </div>
             </li>
-            <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
-                <div class="inline-flex items-center gap-x-2  text-slate-500">
-                    <i class="fas fa-columns"></i>
-                    Infografis
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div
-                    class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
-                    <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
-                        <i class="fas fa-file"></i>
-                        <p class="w-full">Program MBKM</p>
-                    </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
-                        <i class="fas fa-file"></i>
-                        Perserta MBKM
-                    </div>
-                </div>
-            </li>
+           
         </div>
         <button class=" px-4 py-2.5 lg:hidden block text-slate-500 rounded-lg" onclick="handleMenuClick()">
             <i class="fas fa-bars"></i>
@@ -322,12 +305,6 @@
             <a href=" " class="flex items-center gap-x-2 ">
                 <i class="fas fa-file"></i>
                 Laporan
-            </a>
-        </li>
-        <li class="p-4 flex items-center  text-color-primary-500 rounded-xl">
-            <a href=" " class="flex items-center gap-x-2 ">
-                <i class="fas fa-file"></i>
-                Infografis
             </a>
         </li>
     </div>

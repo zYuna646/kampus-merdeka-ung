@@ -40,6 +40,11 @@ Route::get('/infografis', function () {
 Route::get('/detail_news', function () {
     return view('landing.detail_news');
 })->name('detail_news');
+Route::get('/sample', function () {
+    return view('admin.superadmin.profile');
+});
+
+
 
 Route::get('/get-provinsi', [WilayahController::class, 'getProvinsi'])->name('getProvinsi');
 Route::get('/get-kabupaten/{idProvinsi}', [WilayahController::class, 'getKabupaten'])->name('getKabupaten');
