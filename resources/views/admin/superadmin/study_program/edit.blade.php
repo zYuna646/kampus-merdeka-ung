@@ -2,52 +2,54 @@
 
 @section('main')
 <section class="max-w-screen-lg mx-auto min-h-screen flex flex-col py-12 px-4 lg:px-12 gap-4">
-    <div class="bg-white p-6 rounded-xl mt-32">
-        <h2 class="text-xl font-semibold mb-4">Tambah Program Studi</h2>
-        <form action="{{ route('admin.study_program.store') }}" method="POST">
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
-                <input type="text" name="name" id="nama" placeholder="Masukan Nama Program Studi"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    >
-                @error('name')
-                <div class="invalid-feedback text-red-400">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-            <div class="mb-4">
-                <label for="code" class="block text-sm font-medium text-gray-700 mb-2">Code Jurusan</label>
-                <input type="number" name="code" id="code" placeholder="Masukan Nama Jurusan"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                @error('code')
-                <div class="invalid-feedback text-red-400">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-            <div class="mb-4">
-                @csrf
-                <label for="jurusan_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Jurusan</label>
-                <select type="text" name="jurusan_id" id="jurusan_id" placeholder="Masukan Nama Jurusan"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
-                    @foreach ($jurusans as $jurusan)
-                    <option value="{{ $jurusan->id }}">{{ $jurusan->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <x-button_md color="primary" class="w-full" type="submit">
-                Kirim
-            </x-button_md>
-        </form>
-    </div>
+  <div class="bg-white p-6 rounded-xl mt-32">
+    <h2 class="text-xl font-semibold mb-4">Edit Program Studi</h2>
+    <form action="{{ route('admin.study_program.update', $studi->id) }}" method="POST">
+      <div class="mb-4">
+        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
+        <input type="text" name="name" id="nama" placeholder="Masukan Nama Program Studi"
+          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+          value="{{ $studi->name }}">
+        @error('name')
+        <div class="invalid-feedback text-red-400">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-4">
+        <label for="code" class="block text-sm font-medium text-gray-700 mb-2">Code Jurusan</label>
+        <input type="number" name="code" id="code" placeholder="Masukan Nama Jurusan"
+          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+          value="{{ $studi->code }}">
+        @error('code')
+        <div class="invalid-feedback text-red-400">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-4">
+        @csrf
+        <label for="jurusan_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Jurusan</label>
+        <select type="text" name="jurusan_id" id="jurusan_id" placeholder="Masukan Nama Jurusan"
+          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+          required>
+          @foreach ($jurusans as $jurusan)
+          <option value="{{ $jurusan->id }}" {{ $jurusan->id === $studi->jurusan_id ? 'selected' : '' }}>{{
+            $jurusan->name }}</option>
+          @endforeach
+        </select>
+      </div>
+      <x-button_md color="primary" class="w-full" type="submit">
+        Kirim
+      </x-button_md>
+    </form>
+  </div>
 </section>
 @endsection
 
 @section('scripts')
 <script>
-    // Function to fetch provinces and populate the province dropdown
+  // Function to fetch provinces and populate the province dropdown
     function fetchProvinces() {
         fetch("{{ route('getProvinsi') }}")
             .then(response => response.json())
@@ -80,7 +82,7 @@
 </script>
 
 <script>
-    // Function to fetch cities based on selected province and populate the city dropdown
+  // Function to fetch cities based on selected province and populate the city dropdown
     function fetchCities(provinsiId) {
         console.log(provinsiId);
 
@@ -117,7 +119,7 @@
 </script>
 
 <script>
-    // Function to fetch districts based on selected city and populate the district dropdown
+  // Function to fetch districts based on selected city and populate the district dropdown
     function fetchDistricts(kabupatenId) {
         fetch(`/get-kecamatan/${kabupatenId}`)
             .then(response => response.json())
@@ -152,7 +154,7 @@
 </script>
 
 <script>
-    // Function to fetch villages based on selected district and populate the village dropdown
+  // Function to fetch villages based on selected district and populate the village dropdown
     function fetchVillages(kecamatanId) {
         fetch(`/get-kelurahan/${kecamatanId}`)
             .then(response => response.json())

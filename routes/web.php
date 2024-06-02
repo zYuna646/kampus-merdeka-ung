@@ -129,6 +129,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [JurusanController::class, 'index'])->name('admin.departement');
                 Route::post('/import', [JurusanController::class, 'import'])->name('admin.departement.import');
                 Route::get('/add', [JurusanController::class, 'create'])->name('admin.departement.add');
+                Route::post('/add', [JurusanController::class, 'store'])->name('admin.departement.store');
                 Route::get('/edit/{id}', [JurusanController::class, 'edit'])->name('admin.departement.edit');
                 Route::post('/update/{id}', [JurusanController::class, 'update'])->name('admin.departement.update');
 
@@ -138,8 +139,9 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [StudiController::class, 'index'])->name('admin.study_program');
                 Route::post('/import', [StudiController::class, 'import'])->name('admin.study_program.import');
                 Route::get('/add', [StudiController::class, 'create'])->name('admin.study_program.add');
-                Route::get('/edit', [StudiController::class, 'edit'])->name('admin.study_program.edit');
-                Route::get('/update/{id}', [StudiController::class, 'update'])->name('admin.study_program.update');
+                Route::post('/add', [StudiController::class, 'store'])->name('admin.study_program.store');
+                Route::get('/edit/{id}', [StudiController::class, 'edit'])->name('admin.study_program.edit');
+                Route::post('/update/{id}', [StudiController::class, 'update'])->name('admin.study_program.update');
             });
 
             Route::prefix('/campus_merdeka_program')->group(function () {
@@ -200,6 +202,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [LokasiController::class, 'create'])->name('admin.location.add');
                 Route::post('/add', [LokasiController::class, 'store'])->name('admin.location.store');
                 Route::post('/import', [LokasiController::class, 'import'])->name('admin.location.import');
+                Route::get('/edit/{id}', [LokasiController::class, 'edit'])->name('admin.location.edit');
+                Route::post('/update/{id}', [LokasiController::class, 'update'])->name('admin.location.update');
             });
 
             Route::prefix('/lowongan')->group(function () {

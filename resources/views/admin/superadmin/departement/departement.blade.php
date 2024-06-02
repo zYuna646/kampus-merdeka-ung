@@ -2,12 +2,20 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+    @if (session('success'))
+    <x-alerts color="info" :text="session('success')" />
+    @endif
+
+    @if (session('error'))
+    <x-alerts color="info" :text="session('error')" />
+    @endif
     <div class="flex justify-between lg:flex-row flex-col gap-y-4  lg:items-center">
         <h1 class="text-xl font-semibold">Jurusan</h1>
         <div class="inline-flex">
             <!-- Tombol Import -->
-            
-            <x-button_md type="button" class="me-2" onclick="window.location.href='{{ route('admin.departement.add') }}'">
+
+            <x-button_md type="button" class="me-2"
+                onclick="window.location.href='{{ route('admin.departement.add') }}'">
                 <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
                 tambah Data
             </x-button_md>
