@@ -53,9 +53,8 @@ class LokasiController extends Controller
             'provinsi_id' => 'required',
             'kelurahan_id' => 'required',
             'name' => 'required',
-            'lokasi' => 'required',
         ]);
-        $data = $request->all();
+       
         Lokasi::create([
             'program_id' => $request->program_id,
             'kecamatan_id' => $request->kecamatan_id,
@@ -63,7 +62,6 @@ class LokasiController extends Controller
             'provinsi_id' => $request->provinsi_id,
             'kelurahan_id' => $request->kelurahan_id,
             'name' => $request->name,
-            'lokasi' => $request->lokasi,
         ]);
 
         return redirect()->route('admin.location')->with('success', 'Lokasi created successfully.');
@@ -117,12 +115,12 @@ class LokasiController extends Controller
             'kecamatan_id' => 'required',
             'kabupaten_id' => 'required',
             'provinsi_id' => 'required',
-            'lokasi' => 'required',
+            'name' => 'required',
         ]);
 
         $lokasi->update($request->all());
 
-        return redirect()->route('lokasis.index')
+        return redirect()->route('admin.location')
             ->with('success', 'Lokasi updated successfully');
     }
 
@@ -132,11 +130,12 @@ class LokasiController extends Controller
      * @param  \App\Models\Lokasi  $lokasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lokasi $lokasi)
+    public function destroy($id)
     {
-        $lokasi->delete();
 
-        return redirect()->route('lokasis.index')
+        Lokasi::find($id)->delete();
+
+        return redirect()->route('admin.location')
             ->with('success', 'Lokasi deleted successfully');
     }
 }

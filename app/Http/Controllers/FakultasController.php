@@ -44,10 +44,22 @@ class FakultasController extends Controller
             'code' => 'required|unique:fakultas',
         ]);
 
+        $slug = Str::slug($request->name);
+
+        // Check if the slug already exists and belongs to a different record
+        $existingSlug = Fakultas::where('slug', $slug)
+            ->exists();
+
+        // If the slug exists, return with an error
+        if ($existingSlug) {
+            return redirect()->route('admin.faculties')
+                ->with('error', 'Sudah ada nama yang sama');
+        }
+
         Fakultas::create([
             'name' => $request->name,
             'code' => $request->code,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug
         ]);
 
         return redirect()->route('admin.faculties')->with('success', 'Fakultas created successfully.');
@@ -95,11 +107,23 @@ class FakultasController extends Controller
         $fakultas = Fakultas::find($id);
         $request->validate([
             'name' => 'required',
-            'code' => 'required|unique:fakultas,code,' . $fakultas->code,
+            'code' => 'required|unique:fakultas,code,' . $fakultas->id,
         ]);
+        $slug = Str::slug($request->name);
+    
+        // Check if the slug already exists and belongs to a different record
+        $existingSlug = Fakultas::where('slug', $slug)
+                                      ->where('id', '!=', $fakultas->id)
+                                      ->exists();
+    
+        // If the slug exists, return with an error
+        if ($existingSlug) {
+            return redirect()->route('admin.faculties')
+                ->with('error', 'Sudah ada nama program yang sama');
+        }
 
-        $fakultas->update($request->all());
-        $fakultas->slug=Str::slug($request->name);
+        $fakultas->update($request->except('slug'));
+        $fakultas->slug = Str::slug($request->name);
         return redirect()->route('admin.faculties')
             ->with('success', 'Fakultas updated successfully');
     }
@@ -110,11 +134,12 @@ class FakultasController extends Controller
      * @param  \App\Models\Fakultas  $fakultas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fakultas $fakultas)
+    public function destroy($id)
     {
-        $fakultas->delete();
 
-        return redirect()->route('fakultases.index')
+        Fakultas::find($id)->delete();
+
+        return redirect()->route('admin.faculties')
             ->with('success', 'Fakultas deleted successfully');
     }
 }

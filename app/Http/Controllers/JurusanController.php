@@ -48,11 +48,23 @@ class JurusanController extends Controller
             'fakultas_id' => 'required|exists:fakultas,id',
         ]);
 
+        $slug = Str::slug($request->name);
+
+        // Check if the slug already exists and belongs to a different record
+        $existingSlug = Jurusan::where('slug', $slug)
+            ->exists();
+
+        // If the slug exists, return with an error
+        if ($existingSlug) {
+            return redirect()->route('admin.departement')
+                ->with('error', 'Sudah ada nama yang sama');
+        }
+
         Jurusan::create([
             'name' => $request->name,
             'code' => $request->code,
             'fakultas_id' => $request->fakultas_id,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
         ]);
 
         return redirect()->route('admin.departement')
@@ -102,11 +114,25 @@ class JurusanController extends Controller
         $jurusan = Jurusan::find($id);
         $request->validate([
             'name' => 'required',
-            'code' => 'required|unique:jurusans',
+            'code' => 'required|unique:jurusans,code,' . $jurusan->id,
             'jurusan_id' => 'required|exists:jurusan,id',
         ]);
+
+        $slug = Str::slug($request->name);
     
-        $jurusan->update($request->all());
+        // Check if the slug already exists and belongs to a different record
+        $existingSlug = Jurusan::where('slug', $slug)
+                                      ->where('id', '!=', $jurusan->id)
+                                      ->exists();
+    
+        // If the slug exists, return with an error
+        if ($existingSlug) {
+            return redirect()->route('admin.departement')
+                ->with('error', 'Sudah ada nama program yang sama');
+        }
+
+    
+        $jurusan->update($request->except('slug'));
         $jurusan->slug = Str::slug($request->name);
         return redirect()->route('admin.departement')
             ->with('success', 'Jurusan updated successfully');
@@ -117,11 +143,11 @@ class JurusanController extends Controller
      * @param  \App\Models\Jurusan  $jurusan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jurusan $jurusan)
+    public function destroy($id)
     {
-        $jurusan->delete();
+        Jurusan::find($id)->delete(); 
 
-        return redirect()->route('jurusans.index')
+        return redirect()->route('admin.departement')
             ->with('success', 'Jurusan deleted successfully');
     }
 }

@@ -49,11 +49,23 @@ class StudiController extends Controller
             'jurusan_id' => 'required|exists:jurusans,id',
         ]);
 
+        $slug = Str::slug($request->name);
+
+        // Check if the slug already exists and belongs to a different record
+        $existingSlug = Studi::where('slug', $slug)
+            ->exists();
+
+        // If the slug exists, return with an error
+        if ($existingSlug) {
+            return redirect()->route('admin.study_program')
+                ->with('error', 'Sudah ada nama yang sama');
+        }
+
         Studi::create([
             'name' => $request->name,
             'code' => $request->code,
             'jurusan_id' => $request->jurusan_id,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
         ]);
 
     return redirect()->route('admin.study_program')
@@ -107,6 +119,19 @@ class StudiController extends Controller
             'jurusan_id' => 'required|exists:jurusans,id',
         ]);
 
+        $slug = Str::slug($request->name);
+    
+        // Check if the slug already exists and belongs to a different record
+        $existingSlug = Studi::where('slug', $slug)
+                                      ->where('id', '!=', $studi->id)
+                                      ->exists();
+    
+        // If the slug exists, return with an error
+        if ($existingSlug) {
+            return redirect()->route('admin.study_program')
+                ->with('error', 'Sudah ada nama program yang sama');
+        }
+
         $studi->update($request->all());
         $studi->slug = Str::slug($request->name);
         return redirect()->route('admin.study_program')
@@ -119,11 +144,11 @@ class StudiController extends Controller
      * @param  \App\Models\Studi  $studi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Studi $studi)
+    public function destroy($id)
     {
-        $studi->delete();
+        Studi::find($id)->delete();
 
-        return redirect()->route('studis.index')
+        return redirect()->route('admin.study_program')
             ->with('success', 'Studi deleted successfully');
     }
 }

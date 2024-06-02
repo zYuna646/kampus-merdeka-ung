@@ -47,10 +47,22 @@ class ProgramKampusController extends Controller
             'code' => 'required|unique:program_kampuses',
         ]);
 
+        $slug = Str::slug($request->name);
+    
+        // Check if the slug already exists and belongs to a different record
+        $existingSlug = ProgramKampus::where('slug', $slug)
+                                      ->exists();
+    
+        // If the slug exists, return with an error
+        if ($existingSlug) {
+            return redirect()->route('admin.campus_merdeka_program')
+                ->with('error', 'Sudah ada nama program yang sama');
+        }
+
         ProgramKampus::create([
             'name' => $request->name,
             'code' => $request->code,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
         ]);
 
         return redirect()->route('admin.campus_merdeka_program')
@@ -96,17 +108,36 @@ class ProgramKampusController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $programKampus = ProgramKampus::find($id);
+    
         $request->validate([
             'name' => 'required',
-            'code' => 'required|unique:program_kampuses,code,' . $programKampus->code,
+            'code' => 'required|unique:program_kampuses,code,' . $programKampus->id, // Exclude current code
         ]);
-
-        $programKampus->update($request->all());
-        $programKampus->slug=Str::slug($request->name);
+    
+        // Generate slug from the name
+        $slug = Str::slug($request->name);
+    
+        // Check if the slug already exists and belongs to a different record
+        $existingSlug = ProgramKampus::where('slug', $slug)
+                                      ->where('id', '!=', $programKampus->id)
+                                      ->exists();
+    
+        // If the slug exists, return with an error
+        if ($existingSlug) {
+            return redirect()->route('admin.campus_merdeka_program')
+                ->with('error', 'Sudah ada nama program yang sama');
+        }
+    
+        // Update other fields excluding slug
+        $programKampus->update($request->except('slug'));
+    
+        // Update slug separately
+        $programKampus->slug = $slug;
+        $programKampus->save();
+    
         return redirect()->route('admin.campus_merdeka_program')
-            ->with('success', 'ProgramKampus updated successfully');
+            ->with('success', 'Program Kampus updated successfully');
     }
     /**
      * Remove the specified resource from storage.
@@ -114,11 +145,11 @@ class ProgramKampusController extends Controller
      * @param  \App\Models\ProgramKampus  $programKampus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProgramKampus $programKampus)
+    public function destroy($id)
     {
-        $programKampus->delete();
+        ProgramKampus::find($id)->delete();
 
-        return redirect()->route('program_kampuses.index')
-            ->with('success', 'ProgramKampus deleted successfully');
+        return redirect()->route('admin.campus_merdeka_program')
+            ->with('success', 'Program Kampus deleted successfully');
     }
 }

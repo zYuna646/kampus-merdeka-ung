@@ -7,7 +7,7 @@
     @endif
 
     @if (session('error'))
-    <x-alerts color="info" :text="session('error')" />
+    <x-alerts color="danger" :text="session('error')" />
     @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="lg:text-xl font-semibold">Program Kampus Merdeka</h1>
@@ -108,7 +108,7 @@
                                         <i class="fas fa-pen w-4 h-4"></i>
                                         Update
                                     </a>
-                                    <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST" role="none"
+                                    <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}" method="POST" role="none"
                                         style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
