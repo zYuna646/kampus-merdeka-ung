@@ -160,6 +160,9 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/import', [DosenController::class, 'import'])->name('admin.dosen.import');
                 Route::get('/export', [DosenController::class, 'export'])->name('admin.dosen.export');
                 Route::get('/add', [DosenController::class, 'create'])->name('admin.dosen.add');
+                Route::post('/add', [DosenController::class, 'store'])->name('admin.dosen.store');
+                Route::get('/edit/{id}', [DosenController::class, 'edit'])->name('admin.dosen.edit');
+                Route::post('/update/{id}', [DosenController::class, 'update'])->name('admin.dosen.update');
             });
 
             Route::prefix('/student')->group(function () {
@@ -167,6 +170,9 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/export', [MahasiswaController::class, 'export'])->name('admin.student.export');
                 Route::post('/import', [MahasiswaController::class, 'import'])->name('admin.student.import');
                 Route::get('/add', [MahasiswaController::class, 'create'])->name('admin.student.add');
+                Route::post('/add', [MahasiswaController::class, 'store'])->name('admin.student.store');
+                Route::get('/edit/{id}', [MahasiswaController::class, 'edit'])->name('admin.student.edit');
+                Route::post('/update/{id}', [MahasiswaController::class, 'update'])->name('admin.student.update');
             });
 
             Route::prefix('/mitra')->group(function () {

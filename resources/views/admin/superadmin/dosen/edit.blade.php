@@ -2,57 +2,59 @@
 
 @section('main')
 <section class="max-w-screen-lg mx-auto min-h-screen flex flex-col py-12 px-4 lg:px-12 gap-4">
-    <div class="bg-white p-6 rounded-xl mt-32">
-        <h2 class="text-xl font-semibold mb-4">Tambah Dosen</h2>
-        <form action="{{ route('admin.dosen.store') }}" method="POST">
-            <div class="mb-4">
-                <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">NIDN</label>
-                <input type="number" name="nidn" id="nidn" placeholder="Masukan NIDN"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                @error('nidn')
-                <div class="invalid-feedback text-red-400">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-            <div class="mb-4">
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Dosen</label>
-                <input type="text" name="name" id="nama" placeholder="Masukan Nama Dosen"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
-                @error('name')
-                <div class="invalid-feedback text-red-400">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-            <div class="mb-4">
-                @csrf
-                <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
-                <select type="text" name="studi_id" id="nama" placeholder="Masukan Nama Program Studi"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
-                    @foreach ($data['studi'] as $studi)
-                    <option value="{{ $studi['id'] }}">{{ $studi['name']}}</option>
-                    @endforeach
-                </select>
-                @error('prodi')
-                <div class="invalid-feedback text-red-400">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-            <x-button_md color="primary" class="w-full" type="submit">
-                Kirim
-            </x-button_md>
-        </form>
-    </div>
+  <div class="bg-white p-6 rounded-xl mt-32">
+    <h2 class="text-xl font-semibold mb-4">Tambah Dosen</h2>
+    <form action="{{ route('admin.dosen.store') }}" method="POST">
+      <div class="mb-4">
+        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">NIDN</label>
+        <input type="number" name="nidn" id="nidn" placeholder="Masukan NIDN"
+          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+          value="{{ $dosen->nidn }}">
+        @error('nidn')
+        <div class="invalid-feedback text-red-400">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Dosen</label>
+        <input type="text" name="name" id="nama" placeholder="Masukan Nama Dosen"
+          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+          value="{{ $dosen->name }}">
+        @error('name')
+        <div class="invalid-feedback text-red-400">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-4">
+        @csrf
+        <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
+        <select type="text" name="studi_id" id="nama" placeholder="Masukan Nama Program Studi"
+          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+          required>
+          @foreach ($data['studi'] as $studi)
+          <option value="{{ $studi['id'] }}" {{ $studi['id']===$dosen->studi_id ? 'selected' : '' }}>{{ $studi['name']}}
+          </option>
+          @endforeach
+        </select>
+        @error('studi_id')
+        <div class="invalid-feedback text-red-400">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <x-button_md color="primary" class="w-full" type="submit">
+        Kirim
+      </x-button_md>
+    </form>
+  </div>
 </section>
 @endsection
 
 @section('scripts')
 <script>
-    // Function to fetch provinces and populate the province dropdown
+  // Function to fetch provinces and populate the province dropdown
     function fetchProvinces() {
         fetch("{{ route('getProvinsi') }}")
             .then(response => response.json())
@@ -85,7 +87,7 @@
 </script>
 
 <script>
-    // Function to fetch cities based on selected province and populate the city dropdown
+  // Function to fetch cities based on selected province and populate the city dropdown
     function fetchCities(provinsiId) {
         console.log(provinsiId);
 
@@ -122,7 +124,7 @@
 </script>
 
 <script>
-    // Function to fetch districts based on selected city and populate the district dropdown
+  // Function to fetch districts based on selected city and populate the district dropdown
     function fetchDistricts(kabupatenId) {
         fetch(`/get-kecamatan/${kabupatenId}`)
             .then(response => response.json())
@@ -157,7 +159,7 @@
 </script>
 
 <script>
-    // Function to fetch villages based on selected district and populate the village dropdown
+  // Function to fetch villages based on selected district and populate the village dropdown
     function fetchVillages(kecamatanId) {
         fetch(`/get-kelurahan/${kecamatanId}`)
             .then(response => response.json())
