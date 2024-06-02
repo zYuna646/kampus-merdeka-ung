@@ -1,4 +1,4 @@
-@props(['color' => 'primary', 'type' => 'button'])
+@props(['color' => 'primary', 'type' => 'submit'])
 
 @php
 $colorClasses = [

@@ -6,6 +6,8 @@ use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
 use App\Models\ActivityLog;
 use App\Models\DailyLog;
+use App\Models\Role;
+use App\Models\User;
 use App\Models\Mahasiswa;
 use App\Models\ProgramTransaction;
 use App\Models\WeeklyLog;
@@ -213,12 +215,24 @@ class MahasiswaController extends Controller
             'name' => 'required',
             'studi_id' => 'required|exists:studis,id',
             'angkatan' => 'required|integer',
-            'user_id' => 'required|exists:users,id',
         ]);
 
-        Mahasiswa::create($request->all());
+        $role = Role::where('slug', 'mahasiswa')->first();
+        $user = User::create([
+            'username' => $request->nim,
+            'password' => bcrypt($request->nim),
+            'role_id' => $role->id,
+        ]);
 
-        return redirect()->route('mahasiswas.index')
+        Mahasiswa::create([
+            'nim' => $request->nim,
+            'name' => $request->name,
+            'studi_id' => $request->studi_id,
+            'angkatan' => $request->angkatan,
+            'user_id' => $user->id
+        ]);
+
+        return redirect()->route('admin.student')
             ->with('success', 'Mahasiswa created successfully.');
     }
 
@@ -246,9 +260,14 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mahasiswa $mahasiswa)
-    {
-        return view('mahasiswas.edit', compact('mahasiswa'));
+    public function edit($id)
+    {   
+        $studi = Studi::all()->toArray();
+        $data = [
+            'studi' => $studi
+        ];
+        $mahasiswa = Mahasiswa::find($id);
+        return view('admin.superadmin.student.edit', compact('mahasiswa', 'data'));
     }
 
     /**

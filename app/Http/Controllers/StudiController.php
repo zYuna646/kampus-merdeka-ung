@@ -7,6 +7,8 @@ use App\Models\Studi;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Jurusan;
+use Illuminate\Support\Str;
+
 
 
 class StudiController extends Controller
@@ -29,11 +31,8 @@ class StudiController extends Controller
      */
     public function create()
     {
-        $jurusan = Jurusan::all()->toArray();
-        $data = [
-            'jurusan' => $jurusan
-        ];
-        return view('admin.superadmin.study_program.add')->with('data', $data);
+        $jurusans = Jurusan::all();
+        return view('admin.superadmin.study_program.add', compact('jurusans'));
     }
 
     /**
@@ -46,14 +45,18 @@ class StudiController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:studis',
-            'code' => 'required',
+            'code' => 'required|unique:studis',
             'jurusan_id' => 'required|exists:jurusans,id',
         ]);
 
-        Studi::create($request->all());
+        Studi::create([
+            'name' => $request->name,
+            'code' => $request->code,
+            'jurusan_id' => $request->jurusan_id,
+            'slug' => Str::slug($request->name),
+        ]);
 
-        return redirect()->route('studis.index')
+    return redirect()->route('admin.study_program')
             ->with('success', 'Studi created successfully.');
     }
 
@@ -81,9 +84,11 @@ class StudiController extends Controller
      * @param  \App\Models\Studi  $studi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Studi $studi)
+    public function edit($id)
     {
-        return view('studis.edit', compact('studi'));
+        $studi = Studi::find($id);
+        $jurusans = Jurusan::all();
+        return view('admin.superadmin.study_program.edit', compact('studi', 'jurusans'));
     }
 
     /**
@@ -93,18 +98,18 @@ class StudiController extends Controller
      * @param  \App\Models\Studi  $studi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Studi $studi)
+    public function update(Request $request,  $id)
     {
+        $studi = Studi::find($id);
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:studis,slug,' . $studi->id,
             'code' => 'required',
             'jurusan_id' => 'required|exists:jurusans,id',
         ]);
 
         $studi->update($request->all());
-
-        return redirect()->route('studis.index')
+        $studi->slug = Str::slug($request->name);
+        return redirect()->route('admin.study_program')
             ->with('success', 'Studi updated successfully');
     }
 

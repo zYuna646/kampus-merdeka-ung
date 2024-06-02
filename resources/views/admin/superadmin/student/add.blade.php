@@ -4,29 +4,53 @@
 <section class="max-w-screen-lg mx-auto min-h-screen flex flex-col py-12 px-4 lg:px-12 gap-4">
     <div class="bg-white p-6 rounded-xl mt-32">
         <h2 class="text-xl font-semibold mb-4">Tambah Mahasiswa</h2>
-        <form action="{{ route('admin.location.store') }}" method="POST">
+        <form action="{{ route('admin.student.store') }}" method="POST">
+            @csrf
             <div class="mb-4">
-                <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">NIM</label>
-                <input type="number" name="name" id="nama" placeholder="Masukan NIDN"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
+                <label for="nim" class="block text-sm font-medium text-gray-700 mb-2">NIM</label>
+                <input type="number" name="nim" id="nim" placeholder="Masukan NIM"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                @error('nim')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <div class="mb-4">
-                <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Mahasiswa</label>
-                <input type="text" name="name" id="nama" placeholder="Masukan Nama Dosen"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Mahasiswa</label>
+                <input type="text" name="name" id="name" placeholder="Masukan Nama Dosen"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                @error('name')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <div class="mb-4">
-              @csrf
-                <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
-                <select type="text" name="name" id="nama" placeholder="Masukan Nama Program Studi"
+                <label for="angkatan" class="block text-sm font-medium text-gray-700 mb-2">Angkatan</label>
+                <input type="number" min="2000" max="3000" name="angkatan" id="angkatan" placeholder="2000"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                @error('angkatan')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-4">
+                @csrf
+                <label for="studi_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
+                <select type="text" name="studi_id" id="studi_id" placeholder="Masukan Nama Program Studi"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
+                    >
                     @foreach ($data['studi'] as $studi)
-                        <option value="">{{ $studi['name']}}</option>
+                    <option value="{{ $studi['id'] }}">{{ $studi['name']}}</option>
                     @endforeach
                 </select>
+                @error('studi_id')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <x-button_md color="primary" class="w-full" type="submit">
                 Kirim

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exports\DosenExport;
 use App\Imports\DosenImport;
 use App\Models\Dosen;
+use App\Models\Role;
+use App\Models\User;
 use App\Models\DPL;
 use App\Models\ProgramTransaction;
 use App\Models\Studi;
@@ -162,16 +164,28 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'nidn' => 'required|unique:dosens',
             'name' => 'required',
             'studi_id' => 'required|exists:studis,id',
-            'user_id' => 'required|exists:users,id',
         ]);
 
-        Dosen::create($request->all());
+        $role = Role::where('slug', 'dosen')->first();
+        $user = User::create([
+            'username' => $request->nidn,
+            'password' => bcrypt($request->nidn), // Gunakan NIDN sebagai password
+            'role_id' => $role->id,
+        ]);
 
-        return redirect()->route('dosens.index')
+        Dosen::create([
+            'nidn' => $request->nidn,
+            'name' => $request->name,
+            'studi_id' => $request->studi_id,
+            'user_id' => $user->id,
+        ]);
+        
+        return redirect()->route('admin.dosen')
             ->with('success', 'Dosen created successfully.');
     }
 
@@ -199,9 +213,14 @@ class DosenController extends Controller
      * @param  \App\Models\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dosen $dosen)
+    public function edit($id)
     {
-        return view('dosens.edit', compact('dosen'));
+        $studi = Studi::all()->toArray();
+        $data = [
+            'studi' => $studi
+        ];
+        $dosen =  Dosen::find($id);
+        return view('admin.superadmin.dosen.edit', compact('dosen', 'data'));
     }
 
     /**
@@ -211,18 +230,17 @@ class DosenController extends Controller
      * @param  \App\Models\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dosen $dosen)
+    public function update(Request $request, $id)
     {
+        $dosen = Dosen::find($id);
         $request->validate([
             'nidn' => 'required|unique:dosens,nidn,' . $dosen->id,
             'name' => 'required',
             'studi_id' => 'required|exists:studis,id',
-            'user_id' => 'required|exists:users,id',
         ]);
 
         $dosen->update($request->all());
-
-        return redirect()->route('dosens.index')
+        return redirect()->route('admin.dosen')
             ->with('success', 'Dosen updated successfully');
     }
 

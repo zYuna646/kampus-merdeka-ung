@@ -56,7 +56,15 @@ class LokasiController extends Controller
             'lokasi' => 'required',
         ]);
         $data = $request->all();
-        Lokasi::create($data);
+        Lokasi::create([
+            'program_id' => $request->program_id,
+            'kecamatan_id' => $request->kecamatan_id,
+            'kabupaten_id' => $request->kabupaten_id,
+            'provinsi_id' => $request->provinsi_id,
+            'kelurahan_id' => $request->kelurahan_id,
+            'name' => $request->name,
+            'lokasi' => $request->lokasi,
+        ]);
 
         return redirect()->route('admin.location')->with('success', 'Lokasi created successfully.');
     }
@@ -85,9 +93,14 @@ class LokasiController extends Controller
      * @param  \App\Models\Lokasi  $lokasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lokasi $lokasi)
+    public function edit($id)
     {
-        return view('lokasis.edit', compact('lokasi'));
+        $lokasi = Lokasi::find($id);
+        $program = ProgramKampus::all()->toArray(); // Mengubah koleksi menjadi array
+        $data = [
+            'program' => $program // Menyimpan array program dalam 'program' di dalam array $data
+        ];
+        return view('admin.superadmin.location.edit', compact('lokasi', 'data'));
     }
 
     /**

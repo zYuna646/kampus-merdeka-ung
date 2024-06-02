@@ -2,6 +2,13 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+    @if (session('success'))
+    <x-alerts color="info" :text="session('success')" />
+    @endif
+
+    @if (session('error'))
+    <x-alerts color="info" :text="session('error')" />
+    @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="text-xl font-semibold">Dosen</h1>
         <div class="inline-flex">
@@ -96,7 +103,7 @@
                                         <i class="w-4 h-4 fas fa-info-circle"></i>
                                         Detail
                                     </a>
-                                    <a href="{{ route('admin.guru.edit', $item->id) }}"
+                                    <a href="{{ route('admin.dosen.edit', $item->id) }}"
                                         class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                                         role="menuitem">
                                         <i class="fas fa-pen w-4 h-4"></i>

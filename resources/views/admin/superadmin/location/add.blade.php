@@ -15,54 +15,86 @@
                     <option value="{{ $program['id'] }}">{{ $program['name'] }}</option>
                     @endforeach
                 </select>
+                @error('program_id')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <div class="mb-4">
                 <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama</label>
                 <input type="text" name="name" id="nama"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                @error('name')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <div class="mb-4">
                 <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
-                <input type="text" name="lokasi" id="nama"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
+                <input type="text" name="lokasi" id="lokasi"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                @error('lokasi')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Provinsi</label>
                 <select name="provinsi_id" id="provinsi"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                     <option value="">Pilih Provinsi</option>
                 </select>
+                @error('provinsi_id')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="kabupaten" class="block text-sm font-medium text-gray-700 mb-2">Kabupaten/Kota</label>
                 <select name="kabupaten_id" id="kabupaten"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required disabled>
+                    disabled>
                     <option value="">Pilih Kabupaten/Kota</option>
                 </select>
+                @error('kabupaten_id')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="kecamatan" class="block text-sm font-medium text-gray-700 mb-2">Kecamatan</label>
                 <select name="kecamatan_id" id="kecamatan"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required disabled>
+                    disabled>
                     <option value="">Pilih Kecamatan</option>
                 </select>
+                @error('kecamatan_id')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="kelurahan" class="block text-sm font-medium text-gray-700 mb-2">Kelurahan</label>
                 <select name="kelurahan_id" id="kelurahan"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required disabled>
+                    disabled>
                     <option value="">Pilih Kelurahan</option>
                 </select>
+                @error('kelurahan_id')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <x-button_md color="primary" class="w-full" type="submit">

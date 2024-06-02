@@ -6,6 +6,8 @@ use App\Imports\ProgramKampusImport;
 use App\Models\ProgramKampus;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
+
 
 
 class ProgramKampusController extends Controller
@@ -42,12 +44,16 @@ class ProgramKampusController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:program_kampuses',
+            'code' => 'required|unique:program_kampuses',
         ]);
 
-        ProgramKampus::create($request->all());
+        ProgramKampus::create([
+            'name' => $request->name,
+            'code' => $request->code,
+            'slug' => Str::slug($request->name),
+        ]);
 
-        return redirect()->route('program_kampuses.index')
+        return redirect()->route('admin.campus_merdeka_program')
             ->with('success', 'ProgramKampus created successfully.');
     }
 
@@ -75,11 +81,10 @@ class ProgramKampusController extends Controller
      * @param  \App\Models\ProgramKampus  $programKampus
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        $program = ProgramKampus::all();
-        dd($program);
-        // return view('admin.superadmin.campus_merdeka_program.edit', compact('programKampus'));
+        $program = ProgramKampus::find($id);
+        return view('admin.superadmin.campus_merdeka_program.edit', compact('program'));
     }
 
     /**
@@ -89,19 +94,20 @@ class ProgramKampusController extends Controller
      * @param  \App\Models\ProgramKampus  $programKampus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProgramKampus $programKampus)
+    public function update(Request $request, $id)
     {
+
+        $programKampus = ProgramKampus::find($id);
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:program_kampuses,slug,' . $programKampus->id,
+            'code' => 'required|unique:program_kampuses,code,' . $programKampus->code,
         ]);
 
         $programKampus->update($request->all());
-
-        return redirect()->route('program_kampuses.index')
+        $programKampus->slug=Str::slug($request->name);
+        return redirect()->route('admin.campus_merdeka_program')
             ->with('success', 'ProgramKampus updated successfully');
     }
-
     /**
      * Remove the specified resource from storage.
      *
