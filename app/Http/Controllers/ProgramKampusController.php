@@ -75,9 +75,11 @@ class ProgramKampusController extends Controller
      * @param  \App\Models\ProgramKampus  $programKampus
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProgramKampus $programKampus)
+    public function edit()
     {
-        return view('program_kampuses.edit', compact('programKampus'));
+        $program = ProgramKampus::all();
+        dd($program);
+        // return view('admin.superadmin.campus_merdeka_program.edit', compact('programKampus'));
     }
 
     /**
