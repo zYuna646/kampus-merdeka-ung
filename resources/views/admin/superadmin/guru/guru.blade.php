@@ -2,10 +2,17 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+    @if (session('success'))
+    <x-alerts color="info" :text="session('success')" />
+    @endif
+
+    @if (session('error'))
+    <x-alerts color="info" :text="session('error')" />
+    @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="text-xl font-semibold">Mitra</h1>
         <div class="inline-flex flex-wrap">
-            <x-button_md type="button"  class="me-2" onclick="window.location.href='{{ route('admin.guru.add') }}'">
+            <x-button_md type="button" class="me-2" onclick="window.location.href='{{ route('admin.guru.add') }}'">
                 <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
                 Tambah Data
             </x-button_md>
@@ -57,7 +64,8 @@
                 </div>
             </div>
             <!-- Tombol Export -->
-            <x-button_md type="button" color="warning" class="ms-2" onclick="window.location.href='{{ route('admin.guru.export') }}'">
+            <x-button_md type="button" color="warning" class="ms-2"
+                onclick="window.location.href='{{ route('admin.guru.export') }}'">
                 <span class=""><i class="fas fa-file-import text-sm me-2"></i></span>
                 Export
             </x-button_md>

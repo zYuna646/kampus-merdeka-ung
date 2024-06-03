@@ -11,9 +11,9 @@
     @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="lg:text-xl font-semibold">Program Kampus Merdeka</h1>
-        <div class="inline-flex">
+        <div class="inline-flex flex-wrap gap-2">
             <!-- Tombol Import -->
-            <x-button_md type="button" class="me-2"
+            <x-button_md type="button" class=""
                 onclick="window.location.href='{{ route('admin.campus_merdeka_program.add') }}'">
                 <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
                 Tambah Data
@@ -66,70 +66,72 @@
                 </div>
             </div>
             <!-- Tombol Export -->
-            <x-button_md type="button" color="warning" class="ms-2">
-                <span class=""><i class="fas fa-file-import text-sm me-2"></i></span>
+            <x-button_md type="button" color="warning" class="">
+                <span class=""><i class="fas fa-file-import text-sm "></i></span>
                 Export
             </x-button_md>
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl " id="wrapper">
-        <table id="table_config" class="l">
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Nama</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $item)
-                <tr>
-                    <td>{{ $item['code'] }}</td>
-                    <td>{{ $item['name'] }}</td>
-                    <td>
-                        <div class="relative inline-block text-left">
-                            <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">
-                                <span><i class="fas fa-ellipsis-h"></i></span>
-                            </x-button_sm>
-                            <div id="dropdownMenu{{ $item->id }}"
-                                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
-                                role="menu" aria-orientation="vertical"
-                                aria-labelledby="dropdownMenuButton{{ $item->id }}">
-                                <div class="py-1" role="none">
-                                    <a href="{{ route('admin.guru.show', $item->id) }}"
-                                        class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                        role="menuitem">
-                                        <i class="w-4 h-4 fas fa-info-circle"></i>
-                                        Detail
-                                    </a>
-                                    <a href="{{ route('admin.campus_merdeka_program.edit', $item->id) }}"
-                                        class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
-                                        role="menuitem">
-                                        <i class="fas fa-pen w-4 h-4"></i>
-                                        Update
-                                    </a>
-                                    <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}" method="POST" role="none"
-                                        style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            onclick="return confirm('Are you sure you want to delete?')"
-                                            class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
+        <div class="overflowx">
+            <table id="table_config" class="l">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Nama</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $item)
+                    <tr>
+                        <td>{{ $item['code'] }}</td>
+                        <td>{{ $item['name'] }}</td>
+                        <td>
+                            <div class="relative inline-block text-left">
+                                <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">
+                                    <span><i class="fas fa-ellipsis-h"></i></span>
+                                </x-button_sm>
+                                <div id="dropdownMenu{{ $item->id }}"
+                                    class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
+                                    role="menu" aria-orientation="vertical"
+                                    aria-labelledby="dropdownMenuButton{{ $item->id }}">
+                                    <div class="py-1" role="none">
+                                        <a href="{{ route('admin.guru.show', $item->id) }}"
+                                            class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
-                                            <i class="fas fa-trash w-4 h-4"></i>
-                                            Delete
-                                        </button>
-                                    </form>
+                                            <i class="w-4 h-4 fas fa-info-circle"></i>
+                                            Detail
+                                        </a>
+                                        <a href="{{ route('admin.campus_merdeka_program.edit', $item->id) }}"
+                                            class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
+                                            role="menuitem">
+                                            <i class="fas fa-pen w-4 h-4"></i>
+                                            Update
+                                        </a>
+                                        <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}"
+                                            method="POST" role="none" style="display: inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                onclick="return confirm('Are you sure you want to delete?')"
+                                                class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
+                                                role="menuitem">
+                                                <i class="fas fa-trash w-4 h-4"></i>
+                                                Delete
+                                            </button>
+                                        </form>
 
+                                    </div>
                                 </div>
-                            </div>
 
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
 <script>

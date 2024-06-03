@@ -175,26 +175,28 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => 'required|unique:gurus',
+            'nik' => 'required|unique:gurus',
             'name' => 'required',
             'lokasi_id' => 'required|exists:lokasis,id',
         ]);
         $role = Role::where('slug', 'guru')->first();
 
         $user = User::create([
-            'username' => $request->nip,
-            'password' => bcrypt($request->nip),
+            'username' => $request->nik,
+            'password' => bcrypt($request->nik),
             'role_id' => $role->id,
         ]);
 
 
         $guru = Guru::create([
-            'nip' => $request->nip,
-            'name' => $request->name,
+            'nik' => $request->nik,
+            'name' => $request->name,   
             'user_id' => $user->id,
         ]);
 
-        $guru->lokasis()->attach($request->input('lokasi_id'));
+        foreach ($request->lokasi_id as $value) {
+            $guru->lokasis()->attach($value);
+        }
 
         return redirect()->route('admin.guru')
             ->with('success', 'Guru created successfully.');
@@ -224,9 +226,12 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function edit(Guru $guru)
+    public function edit($id)
     {
-        return view('gurus.edit', compact('guru'));
+        $guru = Guru::findOrFail($id);
+        $lokasis = Lokasi::all(); // Fetch all Lokasi
+    
+        return view('admin.superadmin.guru.edit', compact('guru', 'lokasis'));
     }
 
     /**
@@ -236,20 +241,38 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Guru $guru)
+    public function update(Request $request, $id)
     {
+        // Retrieve the Guru instance by the provided id
+        $guru = Guru::findOrFail($id);
+    
+        // Validate the input
         $request->validate([
-            'nip' => 'required|unique:gurus,nip,' . $guru->id,
+            'nik' => 'required|unique:gurus,nik,' . $guru->id,
             'name' => 'required',
             'lokasi_id' => 'required|exists:lokasis,id',
-            'user_id' => 'required|exists:users,id',
         ]);
-
-        $guru->update($request->all());
-
-        return redirect()->route('gurus.index')
+    
+        // Update the Guru's attributes
+        $guru->update([
+            'nik' => $request->nik,
+            'name' => $request->name,
+        ]);
+    
+        // Optionally update the associated User
+        $guru->user->update([
+            'username' => $request->nik,
+            'password' => bcrypt($request->nik),
+        ]);
+    
+        // Update the many-to-many relationship with Lokasi
+        $guru->lokasis()->sync($request->lokasi_id);
+    
+        // Redirect with success message
+        return redirect()->route('admin.guru')
             ->with('success', 'Guru updated successfully');
     }
+    
 
     /**
      * Remove the specified resource from storage.

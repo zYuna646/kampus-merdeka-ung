@@ -195,7 +195,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/import', [GuruController::class, 'import'])->name('admin.guru.import');
                 Route::post('/delete', [GuruController::class, 'index'])->name('admin.guru.delete');
                 Route::get('/show', [GuruController::class, 'index'])->name('admin.guru.show');
-                Route::get('/edit', [GuruController::class, 'index'])->name('admin.guru.edit');
+                Route::get('/edit/{id}', [GuruController::class, 'edit'])->name('admin.guru.edit');
+                Route::post('/update/{id}', [GuruController::class, 'update'])->name('admin.guru.update');
             });
 
             Route::prefix('/dpl')->group(function () {

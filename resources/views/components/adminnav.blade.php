@@ -46,10 +46,12 @@
 
     @auth
     @if (Auth::user()->role->slug === 'admin')
+    {{-- desktop nav --}}
     <div class="w-full bg-white p-2">
         <div class="max-w-screen-xl hidden mx-auto text-black list-none lg:flex items-center p-2 gap-x-8 text-sm">
             <li class="p-2">
-                <div class="inline-flex items-center gap-x-2  text-slate-500">
+                <div
+                    class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.dashboard') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                     <a href="{{ route('admin.dashboard') }}">
                         <i class="fas fa-home"></i>
                         Beranda
@@ -64,35 +66,36 @@
                 </div>
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
-                    <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
+                    <div
+                        class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.campus_merdeka_program') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }} w-full">
                         <a href="{{ route('admin.campus_merdeka_program') }}">
 
                             <i class="fas fa-file"></i>
                             Program Kampus Merdeka
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.faculties') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.faculties') }}">
 
                             <i class="fas fa-file"></i>
                             Fakultas
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.departement') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.departement') }}">
 
                             <i class="fas fa-file"></i>
                             Jurusan
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.study_program') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.study_program') }}">
 
                             <i class="fas fa-file"></i>
                             Program Studi
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.location') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.location') }}">
 
                             <i class="fas fa-file"></i>
@@ -110,21 +113,21 @@
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
                     <!-- Isi dropdown Program KM di sini -->
-                    <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
+                    <div class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.dosen') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }} w-full">
                         <a href="{{ route('admin.dosen') }}">
 
                             <i class="fas fa-file"></i>
                             Dosen
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.student') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.student') }}">
 
                             <i class="fas fa-file"></i>
                             Mahasiswa
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.guru') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.guru') }}">
 
                             <i class="fas fa-file"></i>
@@ -153,36 +156,41 @@
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
                     <!-- Isi dropdown MBKM di sini -->
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.lowongan') }}">
 
                             <i class="fas fa-file"></i>
                             Lowongan
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.peserta') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.peserta') }}">
 
                             <i class="fas fa-file"></i>
                             Peserta
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.dpl') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.dpl') }}">
 
                             <i class="fas fa-file"></i>
                             DPL
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.pamong') }}">
 
                             <i class="fas fa-file"></i>
                             Pamong
                         </a>
                     </div>
+                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.pamong') }}">
 
-
+                            <i class="fas fa-file"></i>
+                            Operator
+                        </a>
+                    </div>
                 </div>
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
@@ -196,12 +204,14 @@
                     <!-- Isi dropdown Laporan di sini -->
                 </div>
             </li>
-           
+
         </div>
         <button class=" px-4 py-2.5 lg:hidden block text-slate-500 rounded-lg" onclick="handleMenuClick()">
             <i class="fas fa-bars"></i>
         </button>
     </div>
+    {{-- desktop nav end --}}
+    {{-- =============================================================> --}}
     {{-- mobile nav --}}
     <div class="absolute -translate-x-[100%] transition-transform z-[30] w-screen h-screen top-0 right-0 left-0 bottom-0 bg-white p-4 flex flex-col gap-y-2 text-sm overflow-y-auto"
         id="adminNav">
@@ -308,12 +318,14 @@
             </a>
         </li>
     </div>
+    {{-- mobile nav end --}}
     @endif
     @endauth
 
 
     @auth
     @if (Auth::user()->role->slug === 'mahasiswa')
+    {{-- desktop nav --}}
     <div class="w-full bg-white p-2">
         <div class="hidden lg:flex max-w-screen-xl mx-auto text-black list-none  items-center p-2 gap-x-8 text-sm">
             <li class="p-2">
@@ -355,6 +367,8 @@
             <i class="fas fa-bars"></i>
         </button>
     </div>
+    {{-- desktop nav end --}}
+    {{-- ==============================================================> --}}
     {{-- Mobile nav --}}
     <div class="absolute -translate-x-[100%] transition-transform z-[30] w-screen h-screen top-0 right-0 left-0 bottom-0 bg-white p-4 flex flex-col gap-y-2 text-sm"
         id="adminNav">
@@ -399,6 +413,7 @@
             </a>
         </li>
     </div>
+    {{-- mobile nav end --}}
     @endif
     @endauth
 

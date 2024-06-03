@@ -7,16 +7,25 @@
         <form action="{{ route('admin.guru.store') }}" method="POST">
             @csrf
             <div class="mb-4">
-                <label for="nip" class="block text-sm font-medium text-gray-700">NIP</label>
-                <input type="number" name="nip" id="nip" placeholder="Masukan NIP"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
+                <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
+                <input type="text" name="nik" id="nik" placeholder="Masukan NIP"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                @error('nik')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <div class="mb-4">
                 <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
                 <input type="text" name="name" id="nama" placeholder="Masukan Nama"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                     required>
+                @error('name')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <div class="mb-4">
@@ -26,6 +35,11 @@
                     <option value={{$item->id}}>{{$item->name}}</option>
                     @endforeach
                 </select>
+                @error('lokasi[]')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <x-button_md color="primary" class="w-full" type="submit">
                 Kirim

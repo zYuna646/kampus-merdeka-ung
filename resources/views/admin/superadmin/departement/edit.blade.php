@@ -13,8 +13,8 @@
           required value="{{ $jurusan->name }}">
       </div>
       <div class="mb-4">
-        <label for="code" class="block text-sm font-medium text-gray-700 mb-2">Code Jurusan</label>
-        <input type="number" name="code" id="code" placeholder="Masukan Nama Jurusan"
+        <label for="code" class="block text-sm font-medium text-gray-700 mb-2">Kode Jurusan</label>
+        <input type="text" name="code" id="code" placeholder="Masukan Nama Jurusan"
           class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" value="{{ $jurusan->code }}">
         @error('code')
         <div class="invalid-feedback text-red-400">

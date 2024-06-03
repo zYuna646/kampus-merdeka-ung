@@ -108,7 +108,7 @@ class FakultasController extends Controller
         $request->validate([
             'name' => 'required',
             'code' => 'required|unique:fakultas,code,' . $fakultas->id,
-        ]);
+        ]); 
         $slug = Str::slug($request->name);
     
         // Check if the slug already exists and belongs to a different record

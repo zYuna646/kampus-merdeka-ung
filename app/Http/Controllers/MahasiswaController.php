@@ -277,19 +277,24 @@ class MahasiswaController extends Controller
      * @param  \App\Models\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function update(Request $request, $id)
     {
+        $mahasiswa = Mahasiswa::find($id);
         $request->validate([
             'nim' => 'required|unique:mahasiswas,nim,' . $mahasiswa->id,
             'name' => 'required',
             'studi_id' => 'required|exists:studis,id',
             'angkatan' => 'required|integer',
-            'user_id' => 'required|exists:users,id',
+            ]);
+
+        $mahasiswa->update([
+            'nim' => $request->nim,
+            'name' => $request->name,
+            'studi_id' => $request->studi_id,
+            'angkatan' => $request->angkatan,
         ]);
 
-        $mahasiswa->update($request->all());
-
-        return redirect()->route('mahasiswas.index')
+        return redirect()->route('admin.student')
             ->with('success', 'Mahasiswa updated successfully');
     }
 
