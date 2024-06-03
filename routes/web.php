@@ -9,6 +9,7 @@ use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\PamongController;
 use App\Http\Controllers\ProgramKampusController;
 use App\Http\Controllers\ProgramTransactionController;
@@ -78,6 +79,12 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::post('/weekly_form/{id}', [MahasiswaController::class, 'weeklyLogSubmit'])->name('student.weekly_logbookForm.edit.submit');
             Route::post('/rancangan/{id}', [MahasiswaController::class, 'rancangan'])->name('student.rancangan.submit');
 
+        });
+    });
+
+    Route::middleware(['role:operator'])->group(function () {
+        Route::prefix('dashboard/operatort')->group(function () {
+            Route::get('/', [OperatorController::class, 'dashboard'])->name('operator.dashboard');
         });
     });
 

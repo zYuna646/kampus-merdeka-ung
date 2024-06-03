@@ -29,6 +29,13 @@ class ProgramTransactionController extends Controller
 
     }
 
+    public function peserta()
+    {
+        $programTransactions = ProgramTransaction::where('status_mahasiswa', false);
+        return view('admin.superadmin.programTransaction.programTransaction')->with('data', $programTransactions);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

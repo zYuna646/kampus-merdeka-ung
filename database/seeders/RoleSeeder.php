@@ -24,7 +24,12 @@ class RoleSeeder extends Seeder
 
         // Looping untuk membuat setiap role
         foreach ($roles as $role) {
-            Role::create($role);
+            // Role::create($role);
         }
+        Role::create([
+            'name' => 'Operator',
+            'slug'=> 'operator',
+        ]);
+    
     }
 }
