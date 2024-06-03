@@ -23,12 +23,8 @@
     <div class="p-6 bg-white grid grid-cols-12 gap-4 items-center rounded-xl shadow-sm border border-slate-200">
       <div class="relative col-span-3">
         <img src="/images/avatar/placeholder.jpg" alt="" class="w-20 rounded-full object-cover">
-        <button
-          class="absolute right-0 bottom-0 inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-gray-800 bg-white hover:bg-slate-100 shadow-md border border-slate-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
-          <i class="fas fa-pencil-alt text-xs"></i>
-        </button>
       </div>
-      <div class="flex flex-col col-span-8">
+      <div class="flex flex-col col-span-9">
         @auth
         <p class="font-semibold text-base uppercase">Mohamad Rafiq Daud</p>
         <span class="text-xs text-slate-500">Role</span>

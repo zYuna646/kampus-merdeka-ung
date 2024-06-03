@@ -58,5 +58,10 @@ class AuthController extends Controller
 
         return redirect('/login')->with('success', 'Anda telah berhasil keluar.'); // Mengarahkan pengguna ke halaman login dengan pesan sukses
     }
+    
+
+    public function userProfile(){
+        return view('admin.profile_setting');
+    }
 
 }

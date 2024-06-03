@@ -58,6 +58,7 @@ Route::get('/get-kelurahan/{idKelurahan}', [WilayahController::class, 'getKelura
 Route::middleware([AuthenticateMiddleware::class])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile', [AuthController::class, 'userProfile'])->name('profile');
 
 
     Route::middleware(['role:mahasiswa'])->group(function () {
@@ -69,10 +70,10 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             });
             Route::get('/program_history', function () {
                 return view('admin.student.program_history');
-            })->name('student.profile_setting');
-            Route::get('/profile_setting', function () {
-                return view('admin.student.profile_setting');
             })->name('student.program_history');
+            Route::get('/detail_history', function () {
+                return view('admin.student.detail_history');
+            })->name('student.detail_history');
             Route::get('/weekly_logbook', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');
             Route::get('/daily_logbook/{id}', [MahasiswaController::class, 'dailyBook'])->name('student.daily_logbook');
             Route::get('/daily_form/{id}', [MahasiswaController::class, 'dailyLogForm'])->name('student.daily_logbookForm');

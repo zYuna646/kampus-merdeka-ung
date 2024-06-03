@@ -24,10 +24,10 @@
                     @endauth
                 </p>
 
-                <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
+                <a href="{{ route('profile') }}" class="inline-flex items-center gap-x-2 text-slate-500 w-full">
                     <i class="fas fa-user-circle"></i> <!-- Mengubah ikon menjadi ikon profil -->
                     <p class="w-full">Profile</p>
-                </div>
+                </a>
                 <div class="inline-flex items-center gap-x-2 text-red-400">
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
