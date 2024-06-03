@@ -1367,6 +1367,9 @@ video {
 .to-zinc-700 {
   --tw-gradient-to: #3f3f46 var(--tw-gradient-to-position);
 }
+.to-slate-500 {
+  --tw-gradient-to: #64748b var(--tw-gradient-to-position);
+}
 .bg-cover {
   background-size: cover;
 }

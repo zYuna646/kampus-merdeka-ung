@@ -33,7 +33,7 @@
 
             <div class="mb-4">
                 <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
-                <select name="lokasi_id" lokasi"
+                <select name="lokasi_id"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                     required>
                     @foreach ($data['lokasi'] as $item)
@@ -43,10 +43,7 @@
                 </select>
             </div>
 
-            <button type="submit"
-                class="text-white w-full h-full bg-color-primary-500 hover:bg-color-primary-600  font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-2">
-                Kirim
-            </button>
+           <x-button_md color="primary" class="w-full" type="submit"></x-button_md>
         </form>
     </div>
 </section>

@@ -203,9 +203,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [DPLController::class, 'index'])->name('admin.dpl');
                 Route::get('/add', [DPLController::class, 'create'])->name('admin.dpl.add');
                 Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
-                Route::get('/edit/{id}', [DPLController::class, 'edit'])->name('admin.dpl.store');
-                Route::get('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.store');
-                Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
+                Route::get('/edit/{id}', [DPLController::class, 'edit'])->name('admin.dpl.edit');
+                Route::get('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.update');
                 Route::post('/import', [DPLController::class, 'import'])->name('admin.dpl.import');
             });
 
