@@ -37,6 +37,8 @@ class AuthController extends Controller
                     return redirect()->intended('/dashboard/student');
                 case 'guru':
                     return redirect()->intended('/dashboard/pamong');
+                case 'operator':
+                    return redirect()->intended('/dashboard/operator');
                 // Add more cases for other roles if needed
                 default:
                     return redirect()->intended('/dashboard_default');

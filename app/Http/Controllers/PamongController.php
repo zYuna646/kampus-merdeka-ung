@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Imports\PamongImport;
+use App\Models\Dosen;
+use App\Models\Lokasi;
 use App\Models\MitraTransaction;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;

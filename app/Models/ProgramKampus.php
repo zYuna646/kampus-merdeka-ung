@@ -13,6 +13,7 @@ class ProgramKampus extends Model
         'name',
         'slug',
         'code',
+        'content'
     ];
 
     public function lowongans()
