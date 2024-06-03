@@ -139,7 +139,8 @@
                 </div>
             </li>
             <li class=" p-2 relative cursor-pointer" onclick="openDropDown(this)">
-                <div class="inline-flex items-center gap-x-2  text-slate-500">
+                <div
+                    class="inline-flex items-center gap-x-2  {{ (Request::routeIs('admin.berita') || Request::routeIs('admin.kategori')) ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                     <i class="fas fa-columns"></i>
                     Website
                     <i class="fas fa-chevron-down"></i>
@@ -147,16 +148,16 @@
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
                     <div
-                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
-                        <a href="{{ route('admin.lowongan') }}">
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.berita') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.berita') }}">
 
                             <i class="fas fa-file"></i>
                             Berita
                         </a>
                     </div>
                     <div
-                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
-                        <a href="{{ route('admin.lowongan') }}">
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.kategori') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.kategori') }}">
 
                             <i class="fas fa-file"></i>
                             Kategori Berita
@@ -323,7 +324,7 @@
                 </div>
             </li>
             <li
-                class="p-4 flex items-center rounded-md {{ (Request::routeIs('admin.dosen') || Request::routeIs('admin.student') || Request::routeIs('admin.mitra')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                class="p-4 flex items-center rounded-md {{ (Request::routeIs('admin.berita') || Request::routeIs('admin.kategori')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
                 <div class="flex flex-col items-center w-full cursor-pointer" onclick="openDropDown(this)">
                     <div class="flex items-center justify-between w-full">
                         <div class="flex items-center gap-x-2">
@@ -334,13 +335,13 @@
                     </div>
                     <div
                         class="flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
-                        <a href="{{ route('admin.dosen') }}"
-                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.dosen') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.berita') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.berita') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                             <i class="fas fa-file"></i>
                             Berita
                         </a>
-                        <a href="{{ route('admin.student') }}"
-                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.student') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.kategori') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.kategori') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                             <i class="fas fa-file"></i>
                             Kategori
                         </a>
@@ -486,8 +487,7 @@
                     </div>
                 </div>
             </li>
-            <li
-                class="p-4 rounded-md flex items-center text-slate-500">
+            <li class="p-4 rounded-md flex items-center text-slate-500">
                 <a href="" class="flex items-center gap-x-2 ">
                     <i class="fas fa-home"></i>
                     Beranda

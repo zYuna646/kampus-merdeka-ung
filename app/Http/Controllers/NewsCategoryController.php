@@ -15,7 +15,7 @@ class NewsCategoryController extends Controller
     {
         // Mengambil semua data kategori berita
         $categories = CategoryNews::all();
-        return response()->json($categories);
+        return view('admin.superadmin.category.category')->with('data', $categories);
     }
 
     /**

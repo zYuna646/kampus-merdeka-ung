@@ -21,7 +21,7 @@
                 </select>
             </div>
             <div class="mb-4 flex flex-col gap-y-4">
-                <div class="flex items-end justify-between items-center">
+                <div class="flex items-end justify-between">
                     <p class="block text-sm font-medium text-gray-700">Tambah Mahasiswa</p>
                 
                     <x-button_sm color="primary" id="add_repeater">

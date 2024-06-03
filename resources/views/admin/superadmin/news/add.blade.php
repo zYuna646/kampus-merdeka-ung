@@ -18,13 +18,26 @@
         @enderror
       </div>
       <div class="mb-4">
+        <label for="kategori" class="block text-sm font-medium text-gray-700 mb-2">Kategori Berita</label>
+        <select type="text" name="kategori" id="kategori"
+          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+          value="{{ old('kategori') }}">
+          <option value="something">something</option>
+        </select>
+        @error('kategori')
+        <div class="invalid-feedback text-red-400">
+          {{ $message }}
+        </div>
+        @enderror
+      </div>
+      <div class="mb-4">
         <label for="code" class="block text-sm font-medium text-gray-700 mb-2">Gambar Berita</label>
         <input type="file" name="gambar" id="code" placeholder="Masukan Kode Fakultas"
           class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
           value="{{ old('code') }}">
       </div>
       <div class="mb-4">
-        <textarea id="myeditorinstance">Hello, World!</textarea>
+        <textarea id="myeditorinstance"></textarea>
       </div>
       <x-button_md color="primary" class="w-full" type="submit">
         Kirim

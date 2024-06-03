@@ -15,6 +15,7 @@ use App\Http\Controllers\ProgramKampusController;
 use App\Http\Controllers\ProgramTransactionController;
 use App\Http\Controllers\StudiController;
 use App\Http\Controllers\WilayahController;
+use App\Http\Controllers\NewsController;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\roleMiddleware;
 use App\Models\ProgramTransaction;
@@ -245,6 +246,18 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [ProgramTransactionController::class, 'create'])->name('admin.peserta.add');
                 Route::post('/add', [ProgramTransactionController::class, 'store'])->name('admin.peserta.store');
                 Route::post('/import', [ProgramTransactionController::class, 'import'])->name('admin.peserta.import');
+            });
+
+            Route::prefix('/berita')->group(function () {
+                Route::get('/', [NewsController::class, 'index'])->name('admin.berita');
+                Route::get('/add', [NewsController::class, 'create'])->name('admin.berita.add');
+                Route::post('/add', [NewsController::class, 'index'])->name('admin.berita.store');
+            });
+
+            Route::prefix('/kategori')->group(function () {
+                Route::get('/', [NewsController::class, 'index'])->name('admin.kategori');
+                Route::get('/add', [NewsController::class, 'create'])->name('admin.kategori.add');
+                Route::post('/add', [NewsController::class, 'store'])->name('admin.kategori.store');
             });
 
         });

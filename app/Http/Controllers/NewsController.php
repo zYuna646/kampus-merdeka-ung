@@ -14,7 +14,7 @@ class NewsController extends Controller
     {
         // Mengambil semua data berita
         $news = News::all();
-        return response()->json($news);
+        return view('admin.superadmin.news.news')->with('data', $news);
     }
 
     /**
@@ -22,17 +22,24 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi data
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'category_id' => 'required|integer|exists:categories,id', // Asumsi ada tabel categories
+        
+        $request->validate([
+            'judul' => 'required|unique:dosens',
+            'kategori' => 'required',
+            'gambar' => 'required|exists:studis,id',
+            'content' => 'required|exists:studis,id',
         ]);
 
-        // Membuat berita baru
-        $news = News::create($validatedData);
 
-        return response()->json($news, 201);
+        Dosen::create([
+            'judul' => $request->nidn,
+            'kategori' => $request->name,
+            'gambar' => $request->name,
+            'content' => $request->studi_id,
+        ]);
+        
+        return redirect()->route('admin.dosen')
+            ->with('success', 'Dosen created successfully.');
     }
 
     /**
@@ -44,6 +51,13 @@ class NewsController extends Controller
         $news = News::findOrFail($id);
         return response()->json($news);
     }
+
+    public function create()
+    {
+        return view('admin.superadmin.news.add');
+    }
+
+    
 
     /**
      * Update the specified resource in storage.
