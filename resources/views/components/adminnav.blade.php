@@ -59,7 +59,8 @@
                 </div>
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
-                <div class="inline-flex items-center gap-x-2  text-slate-500">
+                <div
+                    class="inline-flex items-center gap-x-2 {{ (Request::routeIs('admin.campus_merdeka_program') || Request::routeIs('admin.faculties') || Request::routeIs('admin.departement') || Request::routeIs('admin.study_program') || Request::routeIs('admin.location')) ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                     <i class="fas fa-box"></i>
                     Master
                     <i class="fas fa-chevron-down"></i>
@@ -69,43 +70,44 @@
                     <div
                         class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.campus_merdeka_program') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }} w-full">
                         <a href="{{ route('admin.campus_merdeka_program') }}">
-
                             <i class="fas fa-file"></i>
                             Program Kampus Merdeka
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.faculties') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.faculties') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.faculties') }}">
-
                             <i class="fas fa-file"></i>
                             Fakultas
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.departement') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.departement') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.departement') }}">
-
                             <i class="fas fa-file"></i>
                             Jurusan
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.study_program') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.study_program') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.study_program') }}">
-
                             <i class="fas fa-file"></i>
                             Program Studi
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.location') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.location') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.location') }}">
-
                             <i class="fas fa-file"></i>
                             Lokasi
                         </a>
                     </div>
                 </div>
             </li>
+
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
-                <div class="inline-flex items-center gap-x-2  text-slate-500">
+                <div
+                    class="inline-flex items-center gap-x-2 {{ (Request::routeIs('admin.dosen') || Request::routeIs('admin.student') || Request::routeIs('admin.guru')) ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                     <i class="fas fa-columns"></i>
                     Pengguna
                     <i class="fas fa-chevron-down"></i>
@@ -113,30 +115,30 @@
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
                     <!-- Isi dropdown Program KM di sini -->
-                    <div class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.dosen') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }} w-full">
+                    <div
+                        class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.dosen') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }} w-full">
                         <a href="{{ route('admin.dosen') }}">
-
                             <i class="fas fa-file"></i>
                             Dosen
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.student') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.student') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.student') }}">
-
                             <i class="fas fa-file"></i>
                             Mahasiswa
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.guru') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2 {{ Request::routeIs('admin.guru') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.guru') }}">
-
                             <i class="fas fa-file"></i>
                             Guru
                         </a>
                     </div>
                 </div>
             </li>
-            <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
+            <li class=" p-2 relative cursor-pointer" onclick="openDropDown(this)">
                 <div class="inline-flex items-center gap-x-2  text-slate-500">
                     <i class="fas fa-columns"></i>
                     Website
@@ -144,11 +146,27 @@
                 </div>
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
-                    <!-- Isi dropdown Website di sini -->
+                    <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.lowongan') }}">
+
+                            <i class="fas fa-file"></i>
+                            Berita
+                        </a>
+                    </div>
+                    <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.lowongan') }}">
+
+                            <i class="fas fa-file"></i>
+                            Kategori Berita
+                        </a>
+                    </div>
                 </div>
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
-                <div class="inline-flex items-center gap-x-2  text-slate-500">
+                <div
+                    class="inline-flex items-center gap-x-2 {{ (Request::routeIs('admin.lowongan') || Request::routeIs('admin.peserta') || Request::routeIs('admin.dpl') || Request::routeIs('admin.pamong')) || Request::routeIs('admin.pamong') ?  'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                     <i class="fas fa-columns"></i>
                     MBKM
                     <i class="fas fa-chevron-down"></i>
@@ -156,35 +174,40 @@
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
                     <!-- Isi dropdown MBKM di sini -->
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.lowongan') }}">
 
                             <i class="fas fa-file"></i>
                             Lowongan
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.peserta') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.peserta') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.peserta') }}">
 
                             <i class="fas fa-file"></i>
                             Peserta
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.dpl') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.dpl') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.dpl') }}">
 
                             <i class="fas fa-file"></i>
                             DPL
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.pamong') }}">
 
                             <i class="fas fa-file"></i>
                             Pamong
                         </a>
                     </div>
-                    <div class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.pamong') }}">
 
                             <i class="fas fa-file"></i>
@@ -221,106 +244,151 @@
                 <i class="fas fa-times text-lg"></i>
             </button>
         </div>
-        <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg">
-            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-x-2 ">
-                <i class="fas fa-home"></i>
-                Beranda
-            </a>
-        </li>
-        <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg ">
-            <div href=" " class="flex flex-col items-center w-full" onclick="openDropDown(this)">
-                <div class="flex items-center justify-between w-full">
-                    <div class="flex items-center gap-x-2">
-                        <i class="fas fa-box"></i>
-                        Master
+        <ul>
+            <li
+                class="p-4 rounded-md flex items-center {{ Request::routeIs('admin.mbkm') ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-x-2 ">
+                    <i class="fas fa-home"></i>
+                    Beranda
+                </a>
+            </li>
+            <li
+                class="p-4 flex items-center rounded-md {{ (Request::routeIs('admin.campus_merdeka_program') || Request::routeIs('admin.faculties') || Request::routeIs('admin.departement') || Request::routeIs('admin.study_program') || Request::routeIs('admin.location')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                <div class="flex flex-col items-center w-full cursor-pointer" onclick="openDropDown(this)">
+                    <div class="flex items-center justify-between w-full">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-box"></i>
+                            Master
+                        </div>
+                        <span><i class="fas fa-chevron-down"></i></span>
                     </div>
-                    <span><i class="fas fa-chevron-down"></i></span>
-                </div>
-                <div
-                    class=" flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
-                    <a href="{{ route('admin.campus_merdeka_program') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Porgram Kampus Merdeka
-                    </a>
-                    <a href="{{ route('admin.faculties') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Fakultas
-                    </a>
-                    <a href="{{ route('admin.departement') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Jurusan
-                    </a>
-                    <a href="{{ route('admin.study_program') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Program Studi
-                    </a>
-                </div>
-            </div>
-        </li>
-        <li class="p-4 flex items-center  text-color-primary-500 rounded-xl">
-            <a href=" " class="flex items-center gap-x-2 ">
-                <i class="fas fa-file"></i>
-                Program KM
-            </a>
-        </li>
-        <li class="p-4 flex items-center  text-color-primary-500 rounded-xl">
-            <a href=" " class="flex items-center gap-x-2 ">
-                <i class="fas fa-file"></i>
-                Webiste
-            </a>
-        </li>
-        <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg ">
-            <div href=" " class="flex flex-col items-center w-full" onclick="openDropDown(this)">
-                <div class="flex items-center justify-between w-full">
-                    <div class="flex items-center gap-x-2">
-                        <i class="fas fa-box"></i>
-                        MBKM
+                    <div
+                        class="flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
+                        <a href="{{ route('admin.campus_merdeka_program') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.campus_merdeka_program') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Program Kampus Merdeka
+                        </a>
+                        <a href="{{ route('admin.faculties') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.faculties') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Fakultas
+                        </a>
+                        <a href="{{ route('admin.departement') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.departement') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Jurusan
+                        </a>
+                        <a href="{{ route('admin.study_program') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.study_program') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Program Studi
+                        </a>
+                        <a href="{{ route('admin.location') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.location') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Program Studi
+                        </a>
                     </div>
-                    <span><i class="fas fa-chevron-down"></i></span>
                 </div>
-                <div
-                    class=" flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
-                    <a href="{{ route('admin.dosen') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Dosen
-                    </a>
-                    <a href="{{ route('admin.student') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Mahasiswa
-                    </a>
-                    <a href="{{ route('admin.guru') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Guru
-                    </a>
-                    <a href="{{ route('admin.location') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Lokasi
-                    </a>
-                    <a href="{{ route('admin.dpl') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        DPL
-                    </a>
-                    <a href="{{ route('admin.lowongan') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Lowongan
-                    </a>
-                    <a href="{{ route('admin.peserta') }}" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        Peserta
-                    </a>
+            </li>
+            <li
+                class="p-4 flex items-center rounded-md {{ (Request::routeIs('admin.dosen') || Request::routeIs('admin.student') || Request::routeIs('admin.mitra')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                <div class="flex flex-col items-center w-full cursor-pointer" onclick="openDropDown(this)">
+                    <div class="flex items-center justify-between w-full">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-box"></i>
+                            Pengguna
+                        </div>
+                        <span><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div
+                        class="flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
+                        <a href="{{ route('admin.dosen') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.dosen') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Dosen
+                        </a>
+                        <a href="{{ route('admin.student') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.student') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Mahasiswa
+                        </a>
+                        <a href="{{ route('admin.student') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.student') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Guru
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li class="p-4 flex items-center  text-color-primary-500 rounded-xl">
-            <a href=" " class="flex items-center gap-x-2 ">
-                <i class="fas fa-file"></i>
-                Laporan
-            </a>
-        </li>
+            </li>
+            <li
+                class="p-4 flex items-center rounded-md {{ (Request::routeIs('admin.dosen') || Request::routeIs('admin.student') || Request::routeIs('admin.mitra')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                <div class="flex flex-col items-center w-full cursor-pointer" onclick="openDropDown(this)">
+                    <div class="flex items-center justify-between w-full">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-box"></i>
+                            Website
+                        </div>
+                        <span><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div
+                        class="flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
+                        <a href="{{ route('admin.dosen') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.dosen') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Berita
+                        </a>
+                        <a href="{{ route('admin.student') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.student') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Kategori
+                        </a>
+                    
+                    </div>
+                </div>
+            </li>
+            <li
+                class="p-4 flex items-center {{ (Request::routeIs('admin.lowongan') || Request::routeIs('admin.peserta') || Request::routeIs('admin.dpl') || Request::routeIs('admin.pamong') || Request::routeIs('admin.operator')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                <div class="flex flex-col items-center w-full cursor-pointer" onclick="openDropDown(this)">
+                    <div class="flex items-center justify-between w-full">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-box"></i>
+                            MBKM
+                        </div>
+                        <span><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div
+                        class="flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
+                        <a href="{{ route('admin.lowongan') }}" class="flex items-center gap-x-2 {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Lowongan
+                        </a>
+                        <a href="{{ route('admin.peserta') }}" class="flex items-center gap-x-2 {{ Request::routeIs('admin.peserta') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Peserta
+                        </a>
+                        <a href="{{ route('admin.dpl') }}" class="flex items-center gap-x-2 {{ Request::routeIs('admin.dpl') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            DPL
+                        </a>
+                        <a href="{{ route('admin.pamong') }}" class="flex items-center gap-x-2 {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Pamong
+                        </a>
+                        <a href="{{ route('admin.pamong') }}" class="flex items-center gap-x-2 {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            Operator
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
     {{-- mobile nav end --}}
-    @endif
     @endauth
+    @endif
+
 
 
     @auth
@@ -422,50 +490,46 @@
 
 <script>
     const openDropDown = (element) => {
-        // Temukan kontainer dropdown yang merupakan anak langsung dari elemen yang diklik
-        const dropdownMenu = element.querySelector('.dropdown_menu');
+    const dropdownMenu = element.querySelector('.dropdown_menu');
 
-        // Periksa apakah dropdownMenu memiliki kelas 'hidden'
-        if (dropdownMenu.classList.contains('hidden')) {
-            // Jika memiliki kelas 'hidden', hapus kelas tersebut
-            dropdownMenu.classList.remove('hidden');
-            dropdownMenu.classList.add('flex');
-        } else {
-            // Jika tidak memiliki kelas 'hidden', tambahkan kelas tersebut
-            dropdownMenu.classList.remove('flex');
-            dropdownMenu.classList.add('hidden');
-        }
-    };
+    if (dropdownMenu.classList.contains('hidden')) {
+        dropdownMenu.classList.remove('hidden');
+        dropdownMenu.classList.add('flex');
+    } else {
+        dropdownMenu.classList.remove('flex');
+        dropdownMenu.classList.add('hidden');
+    }
+};
 
-    function handleMenuClick () {
-        const naruto = document.getElementById('adminNav')
+function handleMenuClick() {
+    const naruto = document.getElementById('adminNav');
 
-        if (naruto.classList.contains('-translate-x-[100%]')){
-            naruto.classList.remove('-translate-x-[100%]');
-            naruto.classList.add('-translate-x-0');
-        } else {
-            naruto.classList.remove('-translate-x-0');
-            naruto.classList.add('-translate-x-[100%]');
-        }
+    if (naruto.classList.contains('-translate-x-[100%]')) {
+        naruto.classList.remove('-translate-x-[100%]');
+        naruto.classList.add('-translate-x-0');
+    } else {
+        naruto.classList.remove('-translate-x-0');
+        naruto.classList.add('-translate-x-[100%]');
+    }
 
-        if (!isDropdownClicked) {
+    // Tutup semua dropdown ketika menu diakses
+    const allDropdowns = document.querySelectorAll('.dropdown_menu');
+    allDropdowns.forEach(function(dropdown) {
+        dropdown.classList.remove('flex');
+        dropdown.classList.add('hidden');
+    });
+}
+
+document.addEventListener('click', function(event) {
+    const isDropdownClick = event.target.closest('.dropdown_menu') !== null;
+    const isToggleClick = event.target.closest('[onclick="openDropDown(this)"]') !== null;
+
+    if (!isDropdownClick && !isToggleClick) {
         const allDropdowns = document.querySelectorAll('.dropdown_menu');
         allDropdowns.forEach(function(dropdown) {
             dropdown.classList.remove('flex');
             dropdown.classList.add('hidden');
         });
     }
-    }
-
-    document.addEventListener('click', function(event) {
-        const isOutsideDropdown = !event.target.closest('.relative');
-
-        if (isOutsideDropdown) {
-            const allDropdowns = document.querySelectorAll('.dropdown_menu');
-            allDropdowns.forEach(function(dropdown) {
-                dropdown.classList.remove('flex');
-                dropdown.classList.add('hidden');
-            });
-        }
-    });
+});
 </script>
