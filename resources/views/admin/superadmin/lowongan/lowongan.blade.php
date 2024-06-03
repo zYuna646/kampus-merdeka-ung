@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl " id="wrapper">
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto lg:overflow-visible">
             <table id="table_config" class="">
                 <thead>
                     <tr>

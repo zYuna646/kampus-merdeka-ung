@@ -16,6 +16,7 @@ use App\Http\Controllers\ProgramTransactionController;
 use App\Http\Controllers\StudiController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NewsCategoryController;
 use App\Http\Middleware\AuthenticateMiddleware;
 use App\Http\Middleware\roleMiddleware;
 use App\Models\ProgramTransaction;
@@ -255,9 +256,11 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             });
 
             Route::prefix('/kategori')->group(function () {
-                Route::get('/', [NewsController::class, 'index'])->name('admin.kategori');
-                Route::get('/add', [NewsController::class, 'create'])->name('admin.kategori.add');
-                Route::post('/add', [NewsController::class, 'store'])->name('admin.kategori.store');
+                Route::get('/', [NewsCategoryController::class, 'index'])->name('admin.kategori');
+                Route::get('/add', [NewsCategoryController::class, 'create'])->name('admin.kategori.add');
+                Route::post('/add', [NewsCategoryController::class, 'store'])->name('admin.kategori.store');
+                Route::get('/edit/{id}', [NewsCategoryController::class, 'edit'])->name('admin.kategori.edit');
+                Route::post('/update/{id}', [NewsCategoryController::class, 'update'])->name('admin.kategori.update');
             });
 
         });

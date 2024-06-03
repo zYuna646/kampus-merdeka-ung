@@ -1079,6 +1079,9 @@ video {
 .overflow-y-auto {
   overflow-y: auto;
 }
+.overflow-y-visible {
+  overflow-y: visible;
+}
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2331,6 +2334,10 @@ video {
     align-items: flex-start;
   }
 
+  .sm\:overflow-x-auto {
+    overflow-x: auto;
+  }
+
   .sm\:p-0 {
     padding: 0px;
   }
@@ -2487,6 +2494,10 @@ video {
 
   .lg\:gap-4 {
     gap: 1rem;
+  }
+
+  .lg\:overflow-visible {
+    overflow: visible;
   }
 
   .lg\:bg-color-primary-500 {

@@ -18,23 +18,39 @@ class NewsCategoryController extends Controller
         return view('admin.superadmin.category.category')->with('data', $categories);
     }
 
+    public function create()
+    {
+        return view('admin.superadmin.category.add');
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         // Validasi data
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
         // Membuat slug dari name
-        $validatedData['slug'] = Str::slug($validatedData['name']);
+        $slug = Str::slug($request->name);
 
+        $existingSlug = CategoryNews::where('slug', $slug)
+        ->exists();
         // Membuat kategori berita baru
-        $category = CategoryNews::create($validatedData);
+        if ($existingSlug) {
+            return redirect()->route('admin.kategori')
+                ->with('error', 'Sudah ada nama yang sama');
+        }
+        
+        CategoryNews::create([
+            'name' => $request->name,
+            'slug' => $slug,
+        ]);
 
-        return response()->json($category, 201);
+        return redirect()->route('admin.kategori')
+        ->with('success', 'Dosen created successfully.');
     }
 
     /**
@@ -47,26 +63,35 @@ class NewsCategoryController extends Controller
         return response()->json($category);
     }
 
+    public function edit($id){
+        $data = CategoryNews::find($id);
+        return view('admin.superadmin.category.edit', compact('data'));
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
+        $category = CategoryNews::find($id);
         // Validasi data
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'sometimes|required|string|max:255',
         ]);
 
-        // Mengupdate data kategori berita
-        $category = CategoryNews::findOrFail($id);
-        
-        if ($request->has('name')) {
-            $validatedData['slug'] = Str::slug($validatedData['name']);
+        $slug = Str::slug($request->name);
+
+        $existingSlug = CategoryNews::where('slug', $slug)->where('id', '!=', $category->id)->exists();
+
+        if ($existingSlug) {
+            return redirect()->route('admin.kategori')
+                ->with('error', 'Sudah ada nama program yang sama');
         }
+        // Mengupdate data kategori berita
+        $category->update($request->all());
+        $category->slug = Str::slug($request->name);
 
-        $category->update($validatedData);
-
-        return response()->json($category);
+        return redirect()->route('admin.kategori')
+        ->with('success', 'Studi updated successfully');
     }
 
     /**

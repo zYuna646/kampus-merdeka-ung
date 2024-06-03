@@ -13,7 +13,7 @@
     <h1 class="text-xl font-semibold">Berita</h1>
     <div class="inline-flex">
       <!-- Tombol Import -->
-      <x-button_md type="button" class="me-2" onclick="window.location.href='{{ route('admin.berita.add') }}'">
+      <x-button_md type="button" class="me-2" onclick="window.location.href='{{ route('admin.kategori.add') }}'">
         <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
         Tambah Data
       </x-button_md>
@@ -76,7 +76,7 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Judul</th>
+            <th>Nama Kategori</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -85,7 +85,7 @@
 
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $item['judul'] }}</td>
+            <td>{{ $item['name'] }}</td>
             <td>
               <div class="relative inline-block text-left">
                 <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">
@@ -102,7 +102,7 @@
                       <i class="w-4 h-4 fas fa-info-circle"></i>
                       Detail
                     </a>
-                    <a href="{{ route('admin.dosen.edit', $item->id) }}"
+                    <a href="{{ route('admin.kategori.edit', $item->id) }}"
                       class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                       role="menuitem">
                       <i class="fas fa-pen w-4 h-4"></i>
