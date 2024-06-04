@@ -82,8 +82,9 @@ class DPLController extends Controller
      * @param  \App\Models\DPL  $dpl
      * @return \Illuminate\Http\Response
      */
-    public function edit(DPL $dpl)
+    public function edit($id)
     {
+        $dpl = DPL::find($id);
         return view('admin.superadmin.dpl.edit', compact('dpl'));
     }
 

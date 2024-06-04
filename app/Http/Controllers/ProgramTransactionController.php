@@ -32,7 +32,8 @@ class ProgramTransactionController extends Controller
     public function peserta()
     {
         $programTransactions = ProgramTransaction::where('status_mahasiswa', false);
-        return view('admin.superadmin.programTransaction.programTransaction')->with('data', $programTransactions);
+        
+        return view('admin.superadmin.peminat.peminat')->with('data', $programTransactions);
 
     }
 
@@ -220,9 +221,18 @@ class ProgramTransactionController extends Controller
      * @param  \App\Models\ProgramTransaction  $programTransaction
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProgramTransaction $programTransaction)
+    public function edit($id)
     {
-        return view('program_transactions.edit', compact('programTransaction'));
+        $program = Lowongan::all();
+        $mahasiswa = Mahasiswa::all();
+        $lokasi = Lokasi::all();
+        $data = [
+            'program' => $program,
+            'mahasiswa' => $mahasiswa,
+            'lokasi' => $lokasi
+        ];
+        $peserta = ProgramTransaction::find($id);
+        return view('admin.superadmin.programTransaction.edit', compact('data', 'peserta'));
     }
 
     /**
