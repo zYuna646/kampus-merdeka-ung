@@ -6,6 +6,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DPLController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\LowonganController;
@@ -32,18 +33,10 @@ Route::get('/dashboard_operator', function () {
     return view('admin.operator.dashboard_operator');
 });
 
-Route::get('/', function () {
-    return view('landing.home');
-})->name('home');
-Route::get('/berita', function () {
-    return view('landing.news');
-})->name('berita');
-Route::get('/infografis', function () {
-    return view('landing.infographic');
-})->name('infografis');
-Route::get('/detail_news', function () {
-    return view('landing.detail_news');
-})->name('detail_news');
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/berita', [HomeController::class, 'berita'])->name('berita');
+Route::get('/infografis', [HomeController::class, 'infografis'])->name('infografis');
+Route::get('/detail_news/{id}', [HomeController::class, 'detail_news'])->name('detail_news');
 Route::get('/sample', function () {
     return view('admin.superadmin.profile');
 });

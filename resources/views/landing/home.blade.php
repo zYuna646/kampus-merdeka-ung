@@ -10,8 +10,7 @@
     </h1>
     <p class="text-lg">Universitas Negeri Gorontalo</p>
     <p class="text-sm max-w-sm">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi recusandae dolore illum minima suscipit, iste
-      amet atque omnis illo saepe.
+      Website Resmi Kampus Merdeka Universitas Negeri Gorontalo 
     </p>
   </div>
 </section>
@@ -98,18 +97,14 @@
         </div>
         <div class="col-span-12 lg:col-span-6 flex flex-col justify-between py-2 gap-y-4">
           <div class="flex flex-col gap-y-4">
-            <a href="" class="font-semibold lg:text-lg news-title">Lorem ipsum dolor, sit amet consectetur adipisicing
-              elit.
-              Magnam,
-              ut.</a>
-            <p class="text-xs lg:text-sm">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus incidunt
-              nemo
-              laborum possimus eius
-              maxime.</p>
+            <a href="" class="font-semibold lg:text-lg news-title">{{$data['news']->title}}</a>
+            <p class="text-xs lg:text-sm">{!! ($data['news']->content) !!}</p>
+
           </div>
           <div>
-            <p class="text-sm text-slate-500">Feb 4, 2024</p>
-            <a href="" class="uppercase font-semibold text-sm text-color-primary-500">communication</a>
+            <p class="text-sm text-slate-500">{{ Carbon\Carbon::parse($data['news']->created_at)->format('Y-m-d') }}
+            </p>
+            <a href="" class="uppercase font-semibold text-sm text-color-primary-500">{{$data['news']->category->name}}</a>
           </div>
         </div>
       </div>
@@ -137,7 +132,7 @@
         </div>
       </div>
     </div>
-    <div>
+    {{-- <div>
       <h2 class="font-semibold text-lg px-4">
         Berita Terpopuler
       </h2>
@@ -153,7 +148,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
     <div>
       <h2 class="font-semibold text-lg px-4">
         Download

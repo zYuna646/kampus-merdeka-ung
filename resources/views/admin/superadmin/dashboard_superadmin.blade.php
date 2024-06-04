@@ -18,24 +18,24 @@
     <div
       class="col-span-12 lg:col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
-        <p class="text-sm font-semibold uppercase">Peserta MBKM</p>
-        <span class="text-4xl font-semibold ">3</span>
+        <p class="text-sm font-semibold uppercase">Mahasiswa</p>
+        <span class="text-4xl font-semibold ">{{$data['mahasiswa']}}</span>
       </div>
       <i class="fas fa-users text-4xl"></i>
     </div>
     <div
       class="col-span-12 lg:col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
-        <p class="text-sm font-semibold uppercase">MITRA</p>
-        <span class="text-4xl font-semibold ">3</span>
+        <p class="text-sm font-semibold uppercase">Mitra</p>
+        <span class="text-4xl font-semibold ">{{$data['mitra']}}</span>
       </div>
       <i class="fas fa-users text-4xl"></i>
     </div>
     <div
       class="col-span-12 lg:col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
-        <p class="text-sm font-semibold uppercase">DPL</p>
-        <span class="text-4xl font-semibold ">3</span>
+        <p class="text-sm font-semibold uppercase">Dosen</p>
+        <span class="text-4xl font-semibold ">{{$data['dosen']}}</span>
       </div>
       <i class="fas fa-book text-4xl"></i>
     </div>

@@ -134,10 +134,6 @@ class DosenController extends Controller
     public function weeklyBook(Request $request, $id)
     {
         // Validate the request data
-        $request->validate([
-            'msg' => 'string', // You can adjust this validation rule according to your requirements
-        ]);
-
 
         // Find the WeeklyLog instance
         $weeklyLog = WeeklyLog::find($id);
