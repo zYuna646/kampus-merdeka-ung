@@ -24,13 +24,15 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'judul' => 'required|unique:news,title',
-            'kategori' => 'required|exists:category_news,id',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'judul' => 'required',
+            'kategori' => 'required',
+            'gambar' => 'required',
             'content' => 'required',
         ]);
     
+        
 
         if ($request->hasFile('gambar')) {
             $path = $request->file('gambar')->store('cover', 'public');
@@ -44,7 +46,7 @@ class NewsController extends Controller
         ]);
     
         
-        return redirect()->route('admin.news')
+        return redirect()->route('admin.berita')
             ->with('success', 'Dosen created successfully.');
     }
 

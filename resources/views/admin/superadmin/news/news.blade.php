@@ -77,6 +77,7 @@
           <tr>
             <th>No</th>
             <th>Judul</th>
+            <th>Kategori</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -85,7 +86,8 @@
 
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $item['judul'] }}</td>
+            <td>{{ $item['title'] }}</td>
+            <td>{{$item->category->name}}</td>
             <td>
               <div class="relative inline-block text-left">
                 <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">

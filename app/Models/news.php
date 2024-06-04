@@ -15,4 +15,9 @@ class news extends Model
         'category_id',
         'cover',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryNews::class);
+    }
 }
