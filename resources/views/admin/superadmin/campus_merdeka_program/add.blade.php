@@ -9,8 +9,7 @@
             <div class="mb-4">
                 <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Nama Program</label>
                 <input type="text" name="name" id="nama" placeholder="Masukan Nama Program"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    >
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                 @error('name')
                 <div class="invalid-feedback text-red-400">
                     {{ $message }}
@@ -27,6 +26,9 @@
                     {{ $message }}
                 </div>
                 @enderror
+            </div>
+            <div class="mb-4">
+                <textarea id="myeditorinstance" name="content"></textarea>
             </div>
             <x-button_md color="primary" class="w-full" type="submit">
                 Kirim

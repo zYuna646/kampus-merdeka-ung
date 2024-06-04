@@ -221,6 +221,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [PamongController::class, 'index'])->name('admin.pamong');
                 Route::get('/add', [PamongController::class, 'create'])->name('admin.pamong.add');
                 Route::post('/add', [PamongController::class, 'store'])->name('admin.pamong.store');
+                Route::get('/edit/{id}', [PamongController::class, 'edit'])->name('admin.pamong.edit');
+                Route::post('/udpate/{id}', [PamongController::class, 'edit'])->name('admin.pamong.update');
                 Route::post('/import', [PamongController::class, 'import'])->name('admin.pamong.import');
             });
 
@@ -239,6 +241,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [LowonganController::class, 'index'])->name('admin.lowongan');
                 Route::get('/add', [LowonganController::class, 'create'])->name('admin.lowongan.add');
                 Route::post('/add', [LowonganController::class, 'store'])->name('admin.lowongan.store');
+                Route::get('/edit/{id}', [LowonganController::class, 'edit'])->name('admin.lowongan.edit');
                 Route::post('/import', [LowonganController::class, 'import'])->name('admin.lowongan.import');
             });
 
@@ -246,7 +249,13 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'index'])->name('admin.peserta');
                 Route::get('/add', [ProgramTransactionController::class, 'create'])->name('admin.peserta.add');
                 Route::post('/add', [ProgramTransactionController::class, 'store'])->name('admin.peserta.store');
+                Route::get('/edit/{id}', [ProgramTransactionController::class, 'edit'])->name('admin.peserta.edit');
+                Route::get('/update/{id}', [ProgramTransactionController::class, 'update'])->name('admin.peserta.udpate');
                 Route::post('/import', [ProgramTransactionController::class, 'import'])->name('admin.peserta.import');
+            });
+
+            Route::prefix('/peminat')->group(function () {
+                Route::get('/', [ProgramTransactionController::class, 'peserta'])->name('admin.peminat');
             });
 
             Route::prefix('/berita')->group(function () {
@@ -261,6 +270,12 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [NewsCategoryController::class, 'store'])->name('admin.kategori.store');
                 Route::get('/edit/{id}', [NewsCategoryController::class, 'edit'])->name('admin.kategori.edit');
                 Route::post('/update/{id}', [NewsCategoryController::class, 'update'])->name('admin.kategori.update');
+            });
+
+            Route::prefix('/operator')->group(function () {
+                Route::get('/', [OperatorController::class, 'index'])->name('admin.operator');
+                Route::get('/add', [OperatorController::class, 'create'])->name('admin.operator.add');
+                Route::post('/add', [OperatorController::class, 'store'])->name('admin.operator.store');
             });
 
         });

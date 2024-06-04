@@ -88,9 +88,10 @@ class LowonganController extends Controller
      * @param  \App\Models\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lowongan $lowongan)
+    public function edit($id)
     {
-        return view('lowongans.edit', compact('lowongan'));
+        $lowongan = Lowongan::find($id);
+        return view('admin.superadmin.lowongan.edit', compact('lowongan'));
     }
 
     /**

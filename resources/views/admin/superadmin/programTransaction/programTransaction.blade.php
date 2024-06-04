@@ -5,9 +5,13 @@
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="text-xl font-semibold">Peserta</h1>
         <div class="inline-flex flex-wrap gap-2">
+            <x-button_md type="button" onclick="window.location.href='{{ route('admin.peserta.add') }}'">
+                <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
+                Tambah Data
+            </x-button_md>
             <x-button_md type="button" id="importBtn">
                 <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
-                Verifikasi 
+                Import Data
             </x-button_md>
 
             <!-- Modal Form Import -->
@@ -82,7 +86,7 @@
                         <td>{{ $item->lowongan->tahun_akademik }}</td>
                         <td>{{ $item->lowongan->semester }}</td>
 
-                        
+
                         <td>{{ $item->lokasi->name }}</td>
                         <td>
                             <div class="relative inline-block text-left">
@@ -96,15 +100,33 @@
                                     aria-labelledby="dropdownMenuButton{{ $item->id }}">
                                     <div class="py-1" role="none">
                                         <a href="{{ route('admin.guru.show', $item->id) }}"
-                                            class="flex items-center gap-x-2 px-4 py-2 text-sm text-color-success-500 hover:bg-gray-100 hover:text-gray-900"
+                                            class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
-                                            <i class="w-4 h-4 fas fa-check"></i>
-                                            Verifikasi
+                                            <i class="w-4 h-4 fas fa-info-circle"></i>
+                                            Detail
                                         </a>
-                                    </div>
-                                </div>
+                                        <a href="{{ route('admin.peserta.edit', $item->id) }}"
+                                            class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
+                                            role="menuitem">
+                                            <i class="fas fa-pen w-4 h-4"></i>
+                                            Update
+                                        </a>
+                                        <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST"
+                                            role="none" style="display: inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                onclick="return confirm('Are you sure you want to delete?')"
+                                                class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
+                                                role="menuitem">
+                                                <i class="fas fa-trash w-4 h-4"></i>
+                                                Delete
+                                            </button>
+                                        </form>
 
-                            </div>
+                                    </div>
+
+                                </div>
                         </td>
                     </tr>
                     @endforeach

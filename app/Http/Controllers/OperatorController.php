@@ -18,6 +18,7 @@ class OperatorController extends Controller
         // Mengambil semua data operator
         $role = Role::where('slug', 'operator')->first();
         $operators = User::where('role_id', $role->id)->get();
+        return view('admin.superadmin.operator.operator')->with('data', $operators);
     }
 
     public function dashboard()

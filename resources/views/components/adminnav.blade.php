@@ -136,6 +136,13 @@
                             Guru
                         </a>
                     </div>
+                    <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.operator') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.operator') }}">
+                            <i class="fas fa-file"></i>
+                            Operator
+                        </a>
+                    </div>
                 </div>
             </li>
             <li class=" p-2 relative cursor-pointer" onclick="openDropDown(this)">
@@ -184,6 +191,14 @@
                         </a>
                     </div>
                     <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.peminat') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.peminat') }}">
+
+                            <i class="fas fa-file"></i>
+                            Peminat
+                        </a>
+                    </div>
+                    <div
                         class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.peserta') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.peserta') }}">
 
@@ -207,14 +222,7 @@
                             Pamong
                         </a>
                     </div>
-                    <div
-                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.pamong') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
-                        <a href="{{ route('admin.pamong') }}">
 
-                            <i class="fas fa-file"></i>
-                            Operator
-                        </a>
-                    </div>
                 </div>
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
