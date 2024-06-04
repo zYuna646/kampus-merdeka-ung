@@ -252,7 +252,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::prefix('/berita')->group(function () {
                 Route::get('/', [NewsController::class, 'index'])->name('admin.berita');
                 Route::get('/add', [NewsController::class, 'create'])->name('admin.berita.add');
-                Route::post('/add', [NewsController::class, 'index'])->name('admin.berita.store');
+                Route::post('/add', [NewsController::class, 'store'])->name('admin.berita.store');
             });
 
             Route::prefix('/kategori')->group(function () {

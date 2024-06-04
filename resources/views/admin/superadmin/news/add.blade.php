@@ -4,7 +4,7 @@
 <section class="max-w-screen-lg mx-auto min-h-screen flex flex-col py-12 px-4 lg:px-12 gap-4">
   <div class="bg-white p-6 rounded-xl mt-32">
     <h2 class="text-xl font-semibold mb-4">Tambah Berita</h2>
-    <form action="{{ route('admin.faculties.store') }}" method="POST">
+    <form action="{{ route('admin.berita.store') }}" method="POST">
       @csrf
       <div class="mb-4">
         <label for="judul" class="block text-sm font-medium text-gray-700 mb-2">Judul Berita</label>
@@ -39,7 +39,7 @@
           value="{{ old('code') }}">
       </div>
       <div class="mb-4">
-        <textarea id="myeditorinstance"></textarea>
+        <textarea id="myeditorinstance" name="content"></textarea>
       </div>
       <x-button_md color="primary" class="w-full" type="submit">
         Kirim

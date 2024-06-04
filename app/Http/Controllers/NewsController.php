@@ -24,27 +24,27 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $validatedData = $request->validate([
-            'judul' => 'required|unique:dosens',
-            'kategori' => 'required',
-            'gambar' => 'required|exists:category_news,id',
-            'content' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        $request->validate([
+            'judul' => 'required|unique:news,title',
+            'kategori' => 'required|exists:category_news,id',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'content' => 'required',
         ]);
+    
 
         if ($request->hasFile('gambar')) {
-            $path = $request->file('gambar')->store('cober', 'public');
-            $validatedData['gambar'] = $path;
+            $path = $request->file('gambar')->store('cover', 'public');
         }
 
         News::create([
-            'title' => $validatedData['judul'],
-            'content' => $validatedData['content'],
-            'cover' => $validatedData['gambar'],
-            'category_id' => $validatedData['category_id'],
+            'title' => $request->judul,
+            'content' => $request->content,
+            'cover' => $path,
+            'category_id' => $request->kategori,
         ]);
+    
         
-        return redirect()->route('admin.dosen')
+        return redirect()->route('admin.news')
             ->with('success', 'Dosen created successfully.');
     }
 
