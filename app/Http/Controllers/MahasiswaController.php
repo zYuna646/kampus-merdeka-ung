@@ -6,6 +6,7 @@ use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
 use App\Models\ActivityLog;
 use App\Models\DailyLog;
+use App\Models\Lowongan;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Mahasiswa;
@@ -137,6 +138,22 @@ class MahasiswaController extends Controller
 
         // Redirect atau kembalikan ke halaman yang sesuai
         return redirect()->route('student.weekly_logbook')->with('success', 'Daily log berhasil disimpan');
+    }
+
+    public function register($id)
+    {
+        $lowongan = Lowongan::find($id);
+        $currentDate = \Carbon\Carbon::now();
+        
+        if (!($lowongan->pendaftaran_mulai <= $currentDate && $currentDate <= $lowongan->pendaftaran_selesai)) {
+            return; // Or some other action, like return a response or an error message
+        }
+        $mahasiswa = Auth::user()->mahasiswa;
+        ProgramTransaction::create([
+            'lowongan_id' => $lowongan->id,
+            'mahasiswa_id' => $mahasiswa->id
+        ]);
+        
     }
 
     public function weeklyLogSubmit(Request $request, $id)

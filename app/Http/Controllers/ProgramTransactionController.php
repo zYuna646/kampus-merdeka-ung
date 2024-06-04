@@ -62,6 +62,67 @@ class ProgramTransactionController extends Controller
         return view('admin.dpl.peserta_detail', ['peserta' => $peserta]);
     }
 
+    public function verifikasi(Request $request, $id)
+    {
+        $request->validate([
+            'lokasi_id' => 'required|exists:lokasis,id',
+        ]);
+        $mahasiswa = ProgramTransaction::find($id);
+        $mahasiswa->lokasi_id = $request->lokasi_id;
+        $mahasiswa->save();
+        $program = $mahasiswa;
+
+        if ($program->lowongan->isLogBook) {
+            $startDate = Carbon::parse($program->lowongan->tanggal_mulai); // Tanggal awal
+            $endDate = Carbon::parse($program->lowongan->tanggal_selesai);
+            $st = $startDate->copy(); // Create a separate copy of $startDate for $st
+            $e_d = $startDate->endOfWeek()->copy(); // Create a separate copy for $e_d
+            $wk = WeeklyLog::create([
+                'program_transaction_id' => $program->id,
+                'start_date' => $st, // Start date
+                'end_date' => $e_d, // End date
+                'desc' => ''
+            ]);
+
+
+            $tmp_date = $startDate->copy()->addWeek()->startOfWeek();
+            while ($tmp_date->lte($endDate)) {
+                // Buat weekly log untuk minggu ini
+
+                $tmp_end_week = $tmp_date->copy()->endOfWeek();
+                if ($tmp_end_week->gte($endDate)) {
+                    $tmp_end_week = $endDate;
+                }
+
+                WeeklyLog::create([
+                    'program_transaction_id' => $program->id,
+                    'start_date' => $tmp_date->copy()->startOfWeek(), // Start date
+                    'end_date' => $tmp_end_week, // End date
+                    'desc' => ''
+
+                ]);
+
+                // Lanjutkan ke minggu berikutnya
+                $tmp_date->addWeek();
+            }
+
+            foreach ($program->weeklyLog as $key => $item) {
+                $startDate = Carbon::parse($item->start_date); // Konversi ke objek Carbon
+                $endDate = Carbon::parse($item->end_date); // Konversi ke objek Carbon
+                while ($startDate <= $endDate) {
+                    DailyLog::create([
+                        'program_transaction_id' => $program->id,
+                        'desc' => '',
+                        'date' => $startDate,
+                        'weekly_log_id' => $item->id,
+                    ]);
+
+                    $startDate->addDay(); // Perbaikan sintaks
+                }
+            }
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -78,52 +139,56 @@ class ProgramTransactionController extends Controller
 
         $program = ProgramTransaction::create($request->all());
 
-        $startDate = Carbon::parse($program->lowongan->tanggal_mulai); // Tanggal awal
-        $endDate = Carbon::parse($program->lowongan->tanggal_selesai);
-        $st = $startDate->copy(); // Create a separate copy of $startDate for $st
-        $e_d = $startDate->endOfWeek()->copy(); // Create a separate copy for $e_d
-        $wk = WeeklyLog::create([
-            'program_transaction_id' => $program->id,
-            'start_date' => $st, // Start date
-            'end_date' => $e_d, // End date
-            'desc' => ''
-        ]);
-
-
-        $tmp_date = $startDate->copy()->addWeek()->startOfWeek();
-        while ($tmp_date->lte($endDate)) {
-            // Buat weekly log untuk minggu ini
-
-            $tmp_end_week = $tmp_date->copy()->endOfWeek();
-            if ($tmp_end_week->gte($endDate)) {
-                $tmp_end_week = $endDate;
-            }
-
-            WeeklyLog::create([
+        $lowongan = Lowongan::find($request->lokasi_id);
+        if ($lowongan->isLogBook) {
+            $startDate = Carbon::parse($program->lowongan->tanggal_mulai); // Tanggal awal
+            $endDate = Carbon::parse($program->lowongan->tanggal_selesai);
+            $st = $startDate->copy(); // Create a separate copy of $startDate for $st
+            $e_d = $startDate->endOfWeek()->copy(); // Create a separate copy for $e_d
+            $wk = WeeklyLog::create([
                 'program_transaction_id' => $program->id,
-                'start_date' => $tmp_date->copy()->startOfWeek(), // Start date
-                'end_date' => $tmp_end_week, // End date
+                'start_date' => $st, // Start date
+                'end_date' => $e_d, // End date
                 'desc' => ''
-
             ]);
 
-            // Lanjutkan ke minggu berikutnya
-            $tmp_date->addWeek();
-        }
 
-        foreach ($program->weeklyLog as $key => $item) {
-            $startDate = Carbon::parse($item->start_date); // Konversi ke objek Carbon
-            $endDate = Carbon::parse($item->end_date); // Konversi ke objek Carbon
-            while ($startDate <= $endDate) {
-                DailyLog::create([
+            $tmp_date = $startDate->copy()->addWeek()->startOfWeek();
+            while ($tmp_date->lte($endDate)) {
+                // Buat weekly log untuk minggu ini
+
+                $tmp_end_week = $tmp_date->copy()->endOfWeek();
+                if ($tmp_end_week->gte($endDate)) {
+                    $tmp_end_week = $endDate;
+                }
+
+                WeeklyLog::create([
                     'program_transaction_id' => $program->id,
-                    'desc' => '',
-                    'date' => $startDate,
-                    'weekly_log_id' => $item->id,
+                    'start_date' => $tmp_date->copy()->startOfWeek(), // Start date
+                    'end_date' => $tmp_end_week, // End date
+                    'desc' => ''
+
                 ]);
 
-                $startDate->addDay(); // Perbaikan sintaks
+                // Lanjutkan ke minggu berikutnya
+                $tmp_date->addWeek();
             }
+
+            foreach ($program->weeklyLog as $key => $item) {
+                $startDate = Carbon::parse($item->start_date); // Konversi ke objek Carbon
+                $endDate = Carbon::parse($item->end_date); // Konversi ke objek Carbon
+                while ($startDate <= $endDate) {
+                    DailyLog::create([
+                        'program_transaction_id' => $program->id,
+                        'desc' => '',
+                        'date' => $startDate,
+                        'weekly_log_id' => $item->id,
+                    ]);
+
+                    $startDate->addDay(); // Perbaikan sintaks
+                }
+            }
+
         }
 
         return redirect()->route('admin.peserta')

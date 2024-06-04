@@ -71,6 +71,8 @@
                         <th>NIM</th>
                         <th>Nama</th>
                         <th>Program</th>
+                        <th>Tahun Akademik</th>
+                        <th>Semester</th>
                         <th>Lokasi</th>
                         <th>Aksi</th>
                     </tr>
@@ -81,6 +83,10 @@
                         <td>{{ $item->mahasiswa->nim }}</td>
                         <td>{{ $item->mahasiswa->name }}</td>
                         <td>{{ $item->lowongan->program->name }}</td>
+                        <td>{{ $item->lowongan->tahun_akademik }}</td>
+                        <td>{{ $item->lowongan->semester }}</td>
+
+                        
                         <td>{{ $item->lokasi->name }}</td>
                         <td>
                             <div class="relative inline-block text-left">
