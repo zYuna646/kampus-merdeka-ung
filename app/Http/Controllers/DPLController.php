@@ -84,7 +84,7 @@ class DPLController extends Controller
      */
     public function edit(DPL $dpl)
     {
-        return view('dpls.edit', compact('dpl'));
+        return view('admin.superadmin.dpl.edit', compact('dpl'));
     }
 
     /**
