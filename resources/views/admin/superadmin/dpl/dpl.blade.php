@@ -70,7 +70,9 @@
                     <tr>
                         <th>NIDN</th>
                         <th>Nama</th>
-                        <th>Code Lowongan</th>
+                        <th>Program</th>
+                        <th>Tahun Akademik</th>
+                        <th>Semester</th>
                         <th>Program Studi</th>
                         <th>Mahasiswa</th>
                         <th>Aksi</th>
@@ -81,7 +83,10 @@
                     <tr>
                         <td>{{ $item->dosen->nidn }}</td>
                         <td>{{ $item->dosen->name }}</td>
-                        <td>{{ $item->lowongan->code }}</td>
+                        <td>{{ $item->lowongan->program->name }}</td>
+                        <td>{{ $item->lowongan->tahun_akademik }}</td>
+                        <td>{{ $item->lowongan->semester }}</td>
+
                         <td>{{ $item->dosen->studi->name }}</td>
                         <td>
                             <ul>

@@ -70,7 +70,9 @@
                     <tr>
                         <th>NIK</th>
                         <th>Nama</th>
-                        <th>Code Lowongan</th>
+                        <th>Program</th>
+                        <th>Tahun Akademik</th>
+                        <th>Semester</th>
                         <th>Mahasiswa</th>
                         <th>Aksi</th>
                     </tr>
@@ -80,7 +82,10 @@
                     <tr>
                         <td>{{ $item->guru->nik }}</td>
                         <td>{{ $item->guru->name }}</td>
-                        <td>{{ $item->lowongan->code }}</td>
+                        <td>{{ $item->lowongan->program->name }}</td>
+                        <td>{{ $item->lowongan->tahun_akademik }}</td>
+                        <td>{{ $item->lowongan->semester }}</td>
+
                         <td>
                             <ul>
                                 @foreach ($item->mahasiswa as $index => $m)

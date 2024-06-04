@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DPLController;
 use App\Http\Controllers\FakultasController;
@@ -125,9 +126,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::prefix('dashboard/admin')->group(function () {
 
-            Route::get('/', function () {
-                return view('admin.superadmin.dashboard_superadmin');
-            })->name('admin.dashboard');
+            Route::get('/',[dashboardController::class, 'admin'])->name('admin.dashboard');
 
             /* DATA MASTER */
 

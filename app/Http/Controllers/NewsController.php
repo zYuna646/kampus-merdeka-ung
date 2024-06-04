@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryNews;
 use Illuminate\Http\Request;
 use App\Models\News; 
 use Illuminate\Support\Facades\Storage;// Asumsi kita memiliki model News
@@ -59,7 +60,8 @@ class NewsController extends Controller
 
     public function create()
     {
-        return view('admin.superadmin.news.add');
+        $category = CategoryNews::all();
+        return view('admin.superadmin.news.add')->with('data', $category);
     }
 
     
