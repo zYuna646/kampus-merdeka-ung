@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\News; // Asumsi kita memiliki model News
+use App\Models\News; 
+use Illuminate\Support\Facades\Storage;// Asumsi kita memiliki model News
 
 class NewsController extends Controller
 {
@@ -23,19 +24,23 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         
-        $request->validate([
+        $validatedData = $request->validate([
             'judul' => 'required|unique:dosens',
             'kategori' => 'required',
-            'gambar' => 'required|exists:studis,id',
-            'content' => 'required|exists:studis,id',
+            'gambar' => 'required|exists:category_news,id',
+            'content' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        if ($request->hasFile('gambar')) {
+            $path = $request->file('gambar')->store('cober', 'public');
+            $validatedData['gambar'] = $path;
+        }
 
-        Dosen::create([
-            'judul' => $request->nidn,
-            'kategori' => $request->name,
-            'gambar' => $request->name,
-            'content' => $request->studi_id,
+        News::create([
+            'title' => $validatedData['judul'],
+            'content' => $validatedData['content'],
+            'cover' => $validatedData['gambar'],
+            'category_id' => $validatedData['category_id'],
         ]);
         
         return redirect()->route('admin.dosen')
@@ -68,12 +73,28 @@ class NewsController extends Controller
         $validatedData = $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'content' => 'sometimes|required|string',
-            'category_id' => 'sometimes|required|integer|exists:categories,id', // Asumsi ada tabel categories
+            'gambar' => 'required|exists:category_news,id',
+            'kategori' => 'required|exists:category_news,id', // Asumsi ada tabel categories
         ]);
 
         // Mengupdate data berita
         $news = News::findOrFail($id);
-        $news->update($validatedData);
+        if ($request->hasFile('gambar')) {
+            // Menghapus gambar cover lama
+            if ($news->cover_image) {
+                Storage::disk('public')->delete($news->cover);
+            }
+
+            $path = $request->file('gambar')->store('cover', 'public');
+            $validatedData['gambar'] = $path;
+            $news->cover = $path;
+        }
+
+        $news->update([
+            'title' => $validatedData['judul'],
+            'content' => $validatedData['content'],
+            'category_id' => $validatedData['category_id'],
+        ]);
 
         return response()->json($news);
     }
