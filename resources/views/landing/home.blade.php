@@ -31,6 +31,11 @@
             Indonesia to fund Indonesian students for a one semester-mobility program at top universities and reputable
             industries overseas.
           </p>
+          <div class="mt-2">
+            <x-button_md color="primary" onclick="window.location.href='{{ route('program') }}'">
+              Lihat Detail  
+            </x-button_md>
+          </div>
         </div>
       </div>
       <div class="swiper-slide h-full max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
@@ -48,6 +53,11 @@
             menjadi mitra guru untuk berinovasi dalam pembelajaran, pengembangan strategi, dan model pembelajaran yang
             kreatif, inovatif, dan menyenangkan.
           </p>
+          <div class="mt-2">
+            <x-button_md color="primary" onclick="window.location.href='{{ route('program') }}'">
+              Lihat Detail  
+            </x-button_md>
+          </div>
         </div>
       </div>
       <div class="swiper-slide h-full max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
@@ -63,7 +73,13 @@
             Kemendikbudristek selama 1 (satu) semester untuk mendapatkan pengalaman kerja dan pengetahuan tentang
             praktik terbaik dari industri yang kamu minati!
           </p>
+          <div class="mt-2">
+            <x-button_md color="primary" onclick="window.location.href='{{ route('program') }}'">
+              Lihat Detail  
+            </x-button_md>
+          </div>
         </div>
+        
       </div>
       <div class="swiper-slide h-full max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
         <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
@@ -77,6 +93,11 @@
             mahasiswa untuk mempelajari kompetensi yang spesifik dan praktis langsung dari para pakarnya selama 1 (satu)
             semester melalui aktivitas pembelajaran dan praktik langsung.
           </p>
+          <div class="mt-2">
+            <x-button_md color="primary" onclick="window.location.href='{{ route('program') }}'">
+              Lihat Detail  
+            </x-button_md>
+          </div>
         </div>
       </div>
     </div>

@@ -44,6 +44,9 @@ Route::get('/infografis', function () {
 Route::get('/detail_news', function () {
     return view('landing.detail_news');
 })->name('detail_news');
+Route::get('/program', function () {
+    return view('landing.program');
+})->name('program');
 Route::get('/sample', function () {
     return view('admin.superadmin.profile');
 });

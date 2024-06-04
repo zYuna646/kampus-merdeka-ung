@@ -26,7 +26,7 @@
       <p class="text-sm font-semibold">Ops!, Kamu Belum Menyelesaikan Program Apapun</p>
     </div> --}}
     <div class="grid grid-flow-row p-4 divide-y-2 gap-4">
-      <div class="flex lg:flex-row flex-col gap-y-6 justify-between border-b lg:items-center  p-4 mb-2 ">
+      <div class="flex lg:flex-row flex-col gap-y-6 justify-between  border-b lg:items-center lg:p-4 pb-4 mb-2 ">
         <div>
           <div class="flex flex-col gap-y-4">
             <div class="flex items-start gap-x-4">

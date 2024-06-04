@@ -255,7 +255,7 @@
         </div>
         <ul>
             <li
-                class="p-4 rounded-md flex items-center {{ Request::routeIs('admin.mbkm') ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                class="p-4 rounded-md flex items-center {{ Request::routeIs('admin.dashboard') ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-x-2 ">
                     <i class="fas fa-home"></i>
                     Beranda
@@ -358,7 +358,7 @@
                 </div>
             </li>
             <li
-                class="p-4 flex items-center {{ (Request::routeIs('admin.lowongan') || Request::routeIs('admin.peserta') || Request::routeIs('admin.dpl') || Request::routeIs('admin.pamong') || Request::routeIs('admin.operator')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                class="p-4 flex items-center rounded-md {{ (Request::routeIs('admin.lowongan') || Request::routeIs('admin.peserta') || Request::routeIs('admin.peminat') || Request::routeIs('admin.dpl') || Request::routeIs('admin.pamong') || Request::routeIs('admin.operator')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
                 <div class="flex flex-col items-center w-full cursor-pointer" onclick="openDropDown(this)">
                     <div class="flex items-center justify-between w-full">
                         <div class="flex items-center gap-x-2">
@@ -373,6 +373,11 @@
                             class="flex items-center gap-x-2 {{ Request::routeIs('admin.lowongan') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                             <i class="fas fa-file"></i>
                             Lowongan
+                        </a>
+                        <a href="{{ route('admin.peminat') }}"
+                            class="flex items-center gap-x-2 {{ Request::routeIs('admin.peminat') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                            <i class="fas fa-file"></i>
+                            peminat
                         </a>
                         <a href="{{ route('admin.peserta') }}"
                             class="flex items-center gap-x-2 {{ Request::routeIs('admin.peserta') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
@@ -471,7 +476,7 @@
                 </a>
             </li>
             <li
-                class="p-4 flex items-center rounded-md {{ (Request::routeIs('student.weekly_logbook') || Request::routeIs('student.history_program')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
+                class="p-4 flex items-center rounded-md {{ (Request::routeIs('student.weekly_logbook') || Request::routeIs('student.program_history')) ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
                 <div class="flex flex-col items-center w-full cursor-pointer" onclick="openDropDown(this)">
                     <div class="flex items-center justify-between w-full">
                         <div class="flex items-center gap-x-2">
@@ -495,10 +500,11 @@
                     </div>
                 </div>
             </li>
-            <li class="p-4 rounded-md flex items-center text-slate-500">
+            <li
+                class="p-4 rounded-md flex items-cente {{ Request::routeIs('student.dashboard') ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
                 <a href="" class="flex items-center gap-x-2 ">
-                    <i class="fas fa-home"></i>
-                    Beranda
+                    <i class="fas fa-file"></i>
+                    Laporan
                 </a>
             </li>
         </ul>
