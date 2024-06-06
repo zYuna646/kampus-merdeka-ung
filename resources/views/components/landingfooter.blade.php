@@ -10,7 +10,7 @@
       <p class="text-xs lg:text-sm">Jl. Jend. Sudirmar, No.06 Kota Gorontalo</p>
       <p class="text-xs lg:text-sm">Laman: <a href="" class="underline text-color-primary-500">http://lp3m.ung.ac.id</a>
       </p>
-      <p class="text-xs lg:text-sm">Email: lp3m@ung.ac.id</p>
+      <p class="text-xs lg:text-sm">Email: lpmpp@ung.ac.id</p>
     </div>
     <div class="col-span-12 lg:col-span-4 flex items-center gap-4">
       <div class="inline-flex items-center gap-x-2">
