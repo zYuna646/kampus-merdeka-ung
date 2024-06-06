@@ -97,12 +97,14 @@
                                     role="menu" aria-orientation="vertical"
                                     aria-labelledby="dropdownMenuButton{{ $item->id }}">
                                     <div class="py-1" role="none">
-                                        <a href="{{ route('admin.guru.show', $item->id) }}"
-                                            class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                        <button data-id="{{ $item->id }}" data-code="{{ $item->code }}"
+                                            data-name="{{ $item->name }}" data-content="{{ $item->content }}" onclick="modalOpen(this)"
+                                            class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>
                                             Detail
-                                        </a>
+                                        </button>
+
                                         <a href="{{ route('admin.campus_merdeka_program.edit', $item->id) }}"
                                             class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                                             role="menuitem">
@@ -127,6 +129,23 @@
 
                             </div>
                         </td>
+                        <div id="modal{{ $item->id }}"
+                            class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+                            <div class="max-w-lg w-full p-6 bg-white rounded-xl">
+                                <div class="w-full inline-flex items-center justify-between">
+                                    <p class="text-lg font-semibold">Detail</p>
+                                    <button class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                                        onclick="closeModal('{{ $item->id }}')">
+                                        <i class="fas fa-times text-lg"></i>
+                                    </button>
+                                </div>
+                                <div id="modalContent{{ $item->id }}" class="w-full flex flex-col gap-y-4 mt-2">
+                                    <!-- Detail data akan ditampilkan di sini -->
+    
+
+                                </div>
+                            </div>
+                        </div>
                     </tr>
                     @endforeach
                 </tbody>
@@ -158,24 +177,58 @@
             fileLabel.innerHTML = `<i class="fas fa-file-export text-sm me-2"></i>Pilih File Excel (.xls, .xlsx)`;
         }
     }
+
+    function modalOpen(button) {
+        const id = button.getAttribute('data-id');
+        const code = button.getAttribute('data-code');
+        const name = button.getAttribute('data-name');
+        const content = button.getAttribute('data-content');
+
+        const modal = document.getElementById('modal' + id);
+        const modalContent = document.getElementById('modalContent' + id);
+
+        modalContent.innerHTML = `
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold ">Kode Program</p>
+                <p class="">${code}</p>
+            </div>
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold ">Nama Program</p>
+                <p class="">${name}</p>
+            </div>
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold ">Detail Program</p>
+                <p class="">${content}</p>
+            </div>  
+        `;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeModal(id) {
+        const modal = document.getElementById('modal' + id);
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
 </script>
 <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
 <script>
-    $(document).ready( function () {
-    $('#table_config').DataTable();
-} );
+    $(document).ready(function () {
+        $('#table_config').DataTable();
+    });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const dropdownButtons = document.querySelectorAll('[id^="dropdownMenuButton"]');
-        dropdownButtons.forEach(function(button) {
-            button.addEventListener('click', function(event) {
+        dropdownButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
                 const dropdownId = this.getAttribute('id').replace('dropdownMenuButton', '');
                 const dropdownMenu = document.getElementById('dropdownMenu' + dropdownId);
                 const isExpanded = this.getAttribute('aria-expanded') === 'true';
 
                 // Menutup semua dropdown yang sedang terbuka
-                document.querySelectorAll('.origin-top-right').forEach(function(dropdown) {
+                document.querySelectorAll('.origin-top-right').forEach(function (dropdown) {
                     dropdown.classList.add('hidden');
                 });
 
@@ -193,11 +246,11 @@
         });
 
         // Menutup dropdown saat dokumen diklik
-        document.addEventListener('click', function() {
-            document.querySelectorAll('.origin-top-right').forEach(function(dropdown) {
+        document.addEventListener('click', function () {
+            document.querySelectorAll('.origin-top-right').forEach(function (dropdown) {
                 dropdown.classList.add('hidden');
             });
-            dropdownButtons.forEach(function(button) {
+            dropdownButtons.forEach(function (button) {
                 button.setAttribute('aria-expanded', 'false');
             });
         });

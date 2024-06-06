@@ -45,6 +45,7 @@ class ProgramKampusController extends Controller
         $request->validate([
             'name' => 'required',
             'code' => 'required|unique:program_kampuses',
+            'content' => 'required',
         ]);
 
         $slug = Str::slug($request->name);
@@ -63,6 +64,7 @@ class ProgramKampusController extends Controller
             'name' => $request->name,
             'code' => $request->code,
             'slug' => $slug,
+            'content' => $request->content,
         ]);
 
         return redirect()->route('admin.campus_merdeka_program')

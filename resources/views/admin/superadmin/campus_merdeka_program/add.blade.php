@@ -29,6 +29,11 @@
             </div>
             <div class="mb-4">
                 <textarea id="myeditorinstance" name="content"></textarea>
+                @error('content')
+                <div class="invalid-feedback text-red-400">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <x-button_md color="primary" class="w-full" type="submit">
                 Kirim
