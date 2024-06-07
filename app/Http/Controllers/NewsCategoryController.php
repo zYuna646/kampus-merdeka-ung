@@ -91,7 +91,7 @@ class NewsCategoryController extends Controller
         $category->slug = Str::slug($request->name);
 
         return redirect()->route('admin.kategori')
-        ->with('success', 'Studi updated successfully');
+        ->with('success', 'News Category updated successfully');
     }
 
     /**

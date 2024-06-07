@@ -86,7 +86,6 @@
               Daftar
             </x-button_md>
           </div>
-
         </div>
       </div>
     </div>

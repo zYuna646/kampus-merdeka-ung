@@ -171,11 +171,11 @@
                                     <hr class="w-full">
                                     <div class="w-full inline-flex mt-4 gap-x-1">
                                         <x-button_sm class="inline-flex items-center gap-x-2" color="info"
-                                            onclick="window.location.href='{{ route('admin.dosen.edit', $item->id) }}'">
+                                            onclick="window.location.href='{{ route('admin.dpl.edit', $item->id) }}'">
                                             <span><i class="fas fa-edit"></i></span>
                                             Edit
                                         </x-button_sm>
-                                        <form action="{{ route('admin.departement.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.dpl.delete', $item->id) }}" method="POST"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')

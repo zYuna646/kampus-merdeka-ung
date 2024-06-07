@@ -33,4 +33,9 @@ class HomeController extends Controller
     {
         return view('landing.detail_news');
     }
+
+    public function program()
+    {
+        return view('landing.programs');
+    }
 }

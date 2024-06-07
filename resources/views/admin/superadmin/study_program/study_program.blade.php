@@ -156,7 +156,7 @@
                                             <span><i class="fas fa-edit"></i></span>
                                             Edit
                                         </x-button_sm>
-                                        <form action="{{ route('admin.departement.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.study_program.delete', $item->id) }}" method="POST"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')

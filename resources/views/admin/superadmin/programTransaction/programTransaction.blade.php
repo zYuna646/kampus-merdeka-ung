@@ -122,7 +122,7 @@
                                             Update
                                         </a>
                                         <form action="{{ route('admin.peserta.delete', $item->id) }}" method="POST"
-                                            class="w-full" role="none" style="display: inline-block;">
+                                            class="w-full" class="w-full" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -159,7 +159,7 @@
                                     <hr class="w-full">
                                     <div class="w-full inline-flex mt-4 gap-x-1">
                                         <x-button_sm class="inline-flex items-center gap-x-2" color="info"
-                                            onclick="window.location.href='{{ route('admin.dosen.edit', $item->id) }}'">
+                                            onclick="window.location.href='{{ route('admin.peserta.edit', $item->id) }}'">
                                             <span><i class="fas fa-edit"></i></span>
                                             Edit
                                         </x-button_sm>

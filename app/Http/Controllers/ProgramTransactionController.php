@@ -292,6 +292,6 @@ class ProgramTransactionController extends Controller
     {
         ProgramTransaction::find($id)->delete();
         return redirect()->route('admin.peserta')
-            ->with('success', 'ProgramTransaction deleted successfully');
+            ->with('success', 'Peserta deleted successfully');
     }
 }

@@ -145,8 +145,8 @@ class PamongController extends Controller
      */
     public function destroy($id)
     {
-        
-        return redirect()->route('dpls.index')
-            ->with('success', 'DPL deleted successfully');
+        MitraTransaction::find( $id )->delete();
+        return redirect()->route('admin.pamong')
+            ->with('success', 'Pamong deleted successfully');
     }
 }
