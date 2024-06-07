@@ -14,7 +14,7 @@
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                     required>
                     @foreach ($data['pamong'] as $item)
-                    <option value="{{ $item->id }}">{{ $item->nik . ' - ' . $item->name }}</option>
+                        <option value="{{ $item->id }}">{{ $item->nik . ' - ' . $item->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -25,15 +25,16 @@
                     required>
                     <option value="" selected disabled>Pilih Program</option>
                     @foreach ($data['program'] as $item)
-                    <option value="{{ $item->id }}">{{$item->program->name . ' (' . $item->tahun_akademik . ') - ' . $item->semester }}
-                    </option>
+                        <option value="{{ $item->id }}">
+                            {{ $item->program->name . ' (' . $item->tahun_akademik . ') - ' . $item->semester }}
+                        </option>
                     @endforeach
                 </select>
             </div>
             <div id="repeater_section" class="mb-4 flex flex-col gap-y-4 hidden">
                 <div class="flex items-end justify-between">
                     <p class="block text-sm font-medium text-gray-700">Tambah Mahasiswa</p>
-                
+
                     <x-button_sm color="primary" id="add_repeater">
                         <span><i class="fas fa-plus"></i></span>
                     </x-button_sm>
@@ -60,7 +61,7 @@
 </section>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         function initializeSelect2() {
             $('.js-example-basic-single').select2();
         }
@@ -70,7 +71,7 @@
         let repeaterIndex = 2; // Start index for repeater items
 
         // Function to add repeater item
-        $('#add_repeater').click(function () {
+        $('#add_repeater').click(function() {
             const repeaterItem = `<div class="p-6 bg-slate-100 rounded-md repeater_item">
                 <label for="mahasiswa_${repeaterIndex}" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa ${repeaterIndex}</label>
                 <select id="mahasiswa_${repeaterIndex}" name="mahasiswa[]" class="js-example-basic-single mahasiswa-dropdown w-full" required>
@@ -84,44 +85,54 @@
             initializeSelect2(); // Initialize Select2 for the newly added element
 
             // Fetch students for the newly added repeater item
-            fetchMahasiswa($('#program').val(), $('#mahasiswa_' + repeaterIndex));
-            
+            fetchMahasiswa($('#program').val(), $('#dosen').val(), $('#mahasiswa_' + repeaterIndex));
+
             repeaterIndex++;
         });
 
         // Function to remove repeater item
-        $(document).on('click', '.remove_repeater', function () {
+        $(document).on('click', '.remove_repeater', function() {
             $(this).closest('.repeater_item').remove();
         });
 
         // Fetch students based on the selected program
-        $('#program').change(function () {
+        $('#program').change(function() {
             const programId = $(this).val();
             if (programId) {
-                fetchMahasiswa(programId, $('.mahasiswa-dropdown'));
+                fetchMahasiswa(programId, $('#dosen').val(), $('.mahasiswa-dropdown'));
                 $('#repeater_section').removeClass('hidden');
             } else {
                 $('#repeater_section').addClass('hidden');
             }
         });
 
-        function fetchMahasiswa(programId, dropdown) {
+        function fetchMahasiswa(programId, pamongId, dropdown) {
             console.log(programId);
+            console.log(pamongId);
             $.ajax({
-                url: '{{ route("admin.peserta.lowongan") }}',
+                url: '{{ route('admin.peserta.lowongan') }}',
                 type: 'GET',
-                data: { program_id: programId },
-                success: function (response) {
+                data: {
+                    program_id: programId,
+                    pamong_id: pamongId // Pass selected pamong ID as lokasi_id
+                },
+                success: function(response) {
                     console.log(response);
-                    dropdown.each(function () {
-                        $(this).html('');
-                        $.each(response, function (key, student) {
-                            $(this).append(`<option value="${student.id}">${student.name + '( ' + student.nim + ')'}</option>`);
+                    dropdown.each(function() {
+                        $(this).html(''); // Clear existing options
+                        $.each(response, function(key, student) {
+                            $(this).append(
+                                `<option value="${student.id}">${student.name} (${student.nim})</option>`
+                            );
                         }.bind(this));
                     });
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error:", status, error);
                 }
             });
         }
+
     });
 </script>
 @endsection
