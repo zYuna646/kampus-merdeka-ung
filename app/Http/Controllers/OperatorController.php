@@ -52,6 +52,7 @@ class OperatorController extends Controller
             'role_id' => $role->id
         ]);
 
+        return redirect()->route('admin.operator')->with('success', 'Operator created successfully');
     }
 
     /**

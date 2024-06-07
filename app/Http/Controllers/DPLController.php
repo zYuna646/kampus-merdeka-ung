@@ -35,10 +35,13 @@ class DPLController extends Controller
     {
         $lokasi = Lokasi::all();
         $dosen = Dosen::all();
+        $dosen = Dosen::all();
+        $lowongan = Lowongan::all();
 
         $data = [
             'lokasi' => $lokasi,
-            'dosen' => $dosen
+            'dosen' => $dosen,
+            'program' => $lowongan 
         ];
         return view('admin.superadmin.dpl.add')->with('data', $data);;
     }
