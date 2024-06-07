@@ -20,6 +20,18 @@
                     <!-- Ganti dengan data lokasi yang sesuai -->
                 </select>
             </div>
+           <div class="mb-4">
+                <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Program</label>
+                <select name="lowongan_id" id="lokasi"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required>
+                    @foreach ($data['program'] as $item)
+                    <option value="{{ $item->id }}" {{ $item->id === $peserta->program_id }}>{{$item->program->name . ' (' . $item->tahun_akademik . ')' }}
+                    </option>
+                    @endforeach
+                    <!-- Ganti dengan data lokasi yang sesuai -->
+                </select>
+            </div>
             <div class="mb-4 flex flex-col gap-y-4">
                 <div class="flex items-end justify-between">
                     <p class="block text-sm font-medium text-gray-700">Tambah Mahasiswa</p>
@@ -47,14 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-4">
-                <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
-                <select multiple="multiple" class="js-example-basic-multiple w-full" name="lokasi_id[]">
-                    @foreach ($data['lokasi'] as $item)
-                    <option value={{$item->id}}>{{$item->name}}</option>
-                    @endforeach
-                </select>
-            </div>
+          
 
             <x-button_md class="w-full" type="submit" type="submit">
                 Kirim

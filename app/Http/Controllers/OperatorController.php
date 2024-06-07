@@ -6,7 +6,8 @@ use App\Models\Lowongan;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Operator; // Asumsi kita memiliki model Operator
+use App\Models\Operator; 
+use Illuminate\Support\ViewErrorBag;// Asumsi kita memiliki model Operator
 
 class OperatorController extends Controller
 {
@@ -24,6 +25,11 @@ class OperatorController extends Controller
     public function dashboard()
     {
         $program = Lowongan::all();
+    }
+
+    public function create()
+    {
+        return view('admin.superadmin.operator.add');
     }
 
     /**
@@ -46,6 +52,7 @@ class OperatorController extends Controller
             'role_id' => $role->id
         ]);
 
+        return redirect()->route('admin.operator')->with('success', 'Operator created successfully');
     }
 
     /**

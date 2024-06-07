@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Imports\DPLImport;
 use App\Models\Dosen;
 use App\Models\Lokasi;
+use App\Models\Lowongan;
+use App\Models\Mahasiswa;
+use App\Models\ProgramTransaction;
 use Illuminate\Http\Request;
 use App\Models\DPL;
 use Maatwebsite\Excel\Facades\Excel;
@@ -32,10 +35,13 @@ class DPLController extends Controller
     {
         $lokasi = Lokasi::all();
         $dosen = Dosen::all();
+        $dosen = Dosen::all();
+        $lowongan = Lowongan::all();
 
         $data = [
             'lokasi' => $lokasi,
-            'dosen' => $dosen
+            'dosen' => $dosen,
+            'program' => $lowongan 
         ];
         return view('admin.superadmin.dpl.add')->with('data', $data);;
     }
@@ -92,7 +98,15 @@ class DPLController extends Controller
             'dosen' => $dosen
         ];
         $dpl = DPL::find($id);
-        return view('admin.superadmin.dpl.edit', compact('dpl', 'data'));
+        $data = [
+            'dpl' => $dpl,
+            'dosen' => Dosen::all(),
+            'mahasiswa' => ProgramTransaction::where('lowongan_id', $dpl->lowongan->id)->get(),
+            'lokasi' => Lokasi::all(),
+            'lowongan' => Lowongan::all(),
+            'program' => Lowongan::all(),
+        ];
+        return view('admin.superadmin.dpl.edit')->with('data', $data);
     }
 
     /**
@@ -102,13 +116,18 @@ class DPLController extends Controller
      * @param  \App\Models\DPL  $dpl
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DPL $dpl)
+    public function update(Request $request, $id)
     {
         // Validate the request...
-
-        $dpl->update($request->all());
-
-        return redirect()->route('dpls.index')
+        $request->validate([
+            'mahasiswa' => 'required',
+        ]);
+        $dpl = DPL::find($id);
+        $dpl->mahasiswa()->detach();
+        foreach ($request->mahasiswa as $key => $value) {
+            $dpl->mahasiswa()->attach($value);
+        }
+        return redirect()->route('admin.dpl')
             ->with('success', 'DPL updated successfully');
     }
 

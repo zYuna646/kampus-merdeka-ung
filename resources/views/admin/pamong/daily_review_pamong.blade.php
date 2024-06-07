@@ -162,7 +162,7 @@
                     </div>
                 </div>
                 <div class="mt-4 flex flex-col gap-y-4">
-                    <table id="table_config_{{ $item->id }}" class="w-full text-sm">
+                    <table id="table_config" class="w-full text-sm">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -199,9 +199,7 @@
 <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
 <script>
     $(document).ready(function() {
-    $('table[id^="table_config_"]').each(function() {
-        $(this).DataTable();
-    });
-});
+            $('#table_config').DataTable();
+        });
 </script>
 @endsection

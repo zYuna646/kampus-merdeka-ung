@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name'); // Kolom nama peran
             $table->string('slug')->unique();
             $table->string('code')->unique(); // Kolom slug peran
-            $table->text('content')->nullable();
+          
              // Kolom slug peran
             $table->timestamps(); // Kolom waktu pembuatan dan pembaruan
         });

@@ -7,7 +7,7 @@
     @endif
 
     @if (session('error'))
-    <x-alerts color="info" :text="session('error')" />
+    <x-alerts color="danger" :text="session('error')" />
     @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="text-xl font-semibold">Peserta</h1>

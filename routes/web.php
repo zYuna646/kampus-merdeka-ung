@@ -6,6 +6,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DPLController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\LowonganController;
@@ -32,26 +33,13 @@ Route::get('/dashboard_operator', function () {
     return view('admin.operator.dashboard_operator');
 });
 
-Route::get('/', function () {
-    return view('landing.home');
-})->name('home');
-Route::get('/berita', function () {
-    return view('landing.news');
-})->name('berita');
-Route::get('/infografis', function () {
-    return view('landing.infographic');
-})->name('infografis');
-Route::get('/detail_news', function () {
-    return view('landing.detail_news');
-})->name('detail_news');
-Route::get('/program', function () {
-    return view('landing.program');
-})->name('program');
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/berita', [HomeController::class, 'berita'])->name('berita');
+Route::get('/infografis', [HomeController::class, 'infografis'])->name('infografis');
+Route::get('/detail_news/{id}', [HomeController::class, 'detail_news'])->name('detail_news');
 Route::get('/sample', function () {
     return view('admin.superadmin.profile');
 });
-
-
 
 Route::get('/get-provinsi', [WilayahController::class, 'getProvinsi'])->name('getProvinsi');
 Route::get('/get-kabupaten/{idProvinsi}', [WilayahController::class, 'getKabupaten'])->name('getKabupaten');
@@ -218,7 +206,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [DPLController::class, 'create'])->name('admin.dpl.add');
                 Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
                 Route::get('/edit/{id}', [DPLController::class, 'edit'])->name('admin.dpl.edit');
-                Route::get('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.update');
+                Route::post('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.update');
                 Route::delete('/delete/{id}', [DPLController::class, 'destroy'])->name('admin.dpl.delete');
                 Route::post('/import', [DPLController::class, 'import'])->name('admin.dpl.import');
             });
@@ -228,8 +216,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [PamongController::class, 'create'])->name('admin.pamong.add');
                 Route::post('/add', [PamongController::class, 'store'])->name('admin.pamong.store');
                 Route::get('/edit/{id}', [PamongController::class, 'edit'])->name('admin.pamong.edit');
-                Route::post('/udpate/{id}', [PamongController::class, 'edit'])->name('admin.pamong.update');
-                Route::post('/delete/{id}', [PamongController::class, 'destroy'])->name('admin.pamong.delete');
+                Route::post('/udpate/{id}', [PamongController::class, 'update'])->name('admin.pamong.update');
                 Route::post('/import', [PamongController::class, 'import'])->name('admin.pamong.import');
             });
 
@@ -255,11 +242,11 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
 
             Route::prefix('/peserta')->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'index'])->name('admin.peserta');
+                Route::get('/get/lokasi', [ProgramTransactionController::class, 'getLokasi'])->name('admin.peserta.lokasi');
                 Route::get('/add', [ProgramTransactionController::class, 'create'])->name('admin.peserta.add');
                 Route::post('/add', [ProgramTransactionController::class, 'store'])->name('admin.peserta.store');
                 Route::get('/edit/{id}', [ProgramTransactionController::class, 'edit'])->name('admin.peserta.edit');
-                Route::get('/update/{id}', [ProgramTransactionController::class, 'update'])->name('admin.peserta.udpate');
-                Route::delete('/delete/{id}', [ProgramTransactionController::class, 'destroy'])->name('admin.peserta.delete');
+                Route::post('/update/{id}', [ProgramTransactionController::class, 'update'])->name('admin.peserta.update');
                 Route::post('/import', [ProgramTransactionController::class, 'import'])->name('admin.peserta.import');
             });
 

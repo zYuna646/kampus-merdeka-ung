@@ -93,6 +93,7 @@ class LowonganController extends Controller
         $program = ProgramKampus::all();
         $data = [
             'program' => $program,
+            'lowongan' => Lowongan::find($id),
         ];
         $lowongan = Lowongan::find($id);
         return view('admin.superadmin.lowongan.edit', compact('lowongan', 'data'));

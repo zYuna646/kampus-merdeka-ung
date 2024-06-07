@@ -26,19 +26,19 @@
       </div>
       <div class="flex flex-col col-span-9">
         @auth
-        <p class="font-semibold text-base uppercase">Mohamad Rafiq Daud</p>
-        <span class="text-xs text-slate-500">Role</span>
+        <p class="font-semibold text-base uppercase">{{ Auth::user()->username }}</p>
+        <span class="text-xs text-slate-500">{{Auth::user()->role->name}}</span>
         @endauth
-        <span class="text-slate-500 text-sm">Universitas Negeri Gorontalo</span>
+        {{-- <span class="text-slate-500 text-sm">Universitas Negeri Gorontalo</span> --}}
       </div>
     </div>
     <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
       <div class="p-6">
         <div class="grid grid-flow-row divide-y-[1px]">
-          <button class="flex items-center gap-4 font-semibold pb-4 section-button" data-section="profile">
+          {{-- <button class="flex items-center gap-4 font-semibold pb-4 section-button" data-section="profile">
             <span><i class="fas fa-cog text-base"></i></span>
             <p class="text-sm">Pengaturan Profil</p>
-          </button>
+          </button> --}}
           <button class="flex items-center gap-4 font-semibold py-4 section-button" data-section="account">
             <span><i class="fas fa-user text-base"></i></span>
             <p class="text-sm">Pengaturan Akun</p>
@@ -56,7 +56,7 @@
   </div>
 
   <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
-    <div id="profile"
+    {{-- <div id="profile"
       class="section-content bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col gap-y-2 hidden">
       <h3 class="py-4 text-lg font-semibold">Pengaturan Profil</h3>
       <hr>
@@ -101,7 +101,7 @@
           Simpan Perubahan
         </button>
       </div>
-    </div>
+    </div> --}}
 
     <div id="account"
       class="section-content bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col gap-y-2 hidden">
@@ -110,14 +110,15 @@
       <div class="flex flex-col py-2">
         <div class="mb-4">
           <label for="username" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">username</label>
-          <input type="text" name="username" id="username" placeholder="username"
+          <input type="text" name="username" id="username" placeholder="username" value={{Auth::user()->username}}
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
         </div>
-        <div class="mb-4">
+
+        {{-- <div class="mb-4">
           <label for="email" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">email</label>
           <input type="email" name="email" id="email" placeholder="email"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-        </div>
+        </div> --}}
       </div>
       <hr>
       <div class="py-2">
