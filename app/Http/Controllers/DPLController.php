@@ -67,6 +67,7 @@ class DPLController extends Controller
             'lowongan_id' => 'required',
             'mahasiswa'=> 'required',
         ]);
+
         $isDpl = DPL::where('dosen_id', $request->dosen_id)->where('lowongan_id', $request->lowongan_id)->first();
         if ($isDpl) {
             return redirect()->route('admin.dpl')->with('error', 'DPL Sudah Ada.');
@@ -75,7 +76,6 @@ class DPLController extends Controller
             'dosen_id' => $request->dosen_id,
             'lowongan_id' => $request->lowongan_id,
         ]);
-
         foreach ($request->mahasiswa as $key => $value) {
             $dpl->mahasiswa()->attach($value);
         }
