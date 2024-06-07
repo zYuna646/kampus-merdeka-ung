@@ -23,7 +23,7 @@
                     <select name="lowongan_id" id="lokasi"
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                         required>
-                        <option selected value="{{  $data['dpl']->lowongan->id  }}" >{{  $data['dpl']->lowongan->name . ' (' .   $data['dpl']->lowongan->tahun_akademik . ')' }}
+                        <option selected value="{{  $data['dpl']->lowongan->id  }}" >{{  $data['dpl']->lowongan->program->name . ' (' .   $data['dpl']->lowongan->tahun_akademik . ') - ' . $data['dpl']->lowongan->semester }}
                         </option>
                         <!-- Ganti dengan data lokasi yang sesuai -->
                     </select>
