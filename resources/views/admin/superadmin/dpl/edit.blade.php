@@ -14,9 +14,17 @@
                     <select name="dosen_id" id="lokasi"
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                         required>
-                        @foreach ($data['dosen'] as $item)
-                            <option value="{{ $item->id }}">{{ $item->nidn . ' - ' . $item->name }}  {{ $data['dpl']->id == $item->id ? 'selected' : '' }}</option>
-                        @endforeach
+                        <option selected value="{{ $data['dpl']->dosen->id }}">{{ $data['dpl']->dosen->nidn . ' - ' . $data['dpl']->dosen->name }}</option>
+                        <!-- Ganti dengan data lokasi yang sesuai -->
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Program</label>
+                    <select name="lowongan_id" id="lokasi"
+                        class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                        required>
+                        <option selected value="{{  $data['dpl']->lowongan->id  }}" >{{  $data['dpl']->lowongan->name . ' (' .   $data['dpl']->lowongan->tahun_akademik . ')' }}
+                        </option>
                         <!-- Ganti dengan data lokasi yang sesuai -->
                     </select>
                 </div>

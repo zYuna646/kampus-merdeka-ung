@@ -1,4 +1,4 @@
-+@extends('layout.admin')
+@extends('layout.admin')
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">

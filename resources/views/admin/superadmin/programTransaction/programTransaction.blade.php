@@ -2,6 +2,13 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+    @if (session('success'))
+    <x-alerts color="info" :text="session('success')" />
+    @endif
+
+    @if (session('error'))
+    <x-alerts color="danger" :text="session('error')" />
+    @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="text-xl font-semibold">Peserta</h1>
         <div class="inline-flex flex-wrap gap-2">

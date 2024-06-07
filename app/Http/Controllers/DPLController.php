@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\DPLImport;
 use App\Models\Dosen;
 use App\Models\Lokasi;
+use App\Models\Lowongan;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\DPL;
@@ -98,6 +99,7 @@ class DPLController extends Controller
             'dosen' => Dosen::all(),
             'mahasiswa' => Mahasiswa::all(),
             'lokasi' => Lokasi::all(),
+            'program' => Lowongan::all(),
         ];
         return view('admin.superadmin.dpl.edit')->with('data', $data);
     }

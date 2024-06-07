@@ -238,10 +238,11 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
 
             Route::prefix('/peserta')->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'index'])->name('admin.peserta');
+                Route::get('/get/lokasi', [ProgramTransactionController::class, 'getLokasi'])->name('admin.peserta.lokasi');
                 Route::get('/add', [ProgramTransactionController::class, 'create'])->name('admin.peserta.add');
                 Route::post('/add', [ProgramTransactionController::class, 'store'])->name('admin.peserta.store');
                 Route::get('/edit/{id}', [ProgramTransactionController::class, 'edit'])->name('admin.peserta.edit');
-                Route::get('/update/{id}', [ProgramTransactionController::class, 'update'])->name('admin.peserta.udpate');
+                Route::post('/update/{id}', [ProgramTransactionController::class, 'update'])->name('admin.peserta.update');
                 Route::post('/import', [ProgramTransactionController::class, 'import'])->name('admin.peserta.import');
             });
 

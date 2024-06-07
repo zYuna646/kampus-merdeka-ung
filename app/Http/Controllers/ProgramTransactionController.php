@@ -37,6 +37,11 @@ class ProgramTransactionController extends Controller
 
     }
 
+    public function getLokasi(Request $request)
+    {
+        $peserta = ProgramTransaction::where('lokasi_id', false);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -242,19 +247,20 @@ class ProgramTransactionController extends Controller
      * @param  \App\Models\ProgramTransaction  $programTransaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProgramTransaction $programTransaction)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'program_id' => 'required|exists:program_kampuses,id',
-            'lokasi_id' => 'required|exists:lokasis,id',
-            'guru_id' => 'required|exists:gurus,id',
-            'dosen_id' => 'required|exists:dosens,id',
-            'mahasiswa_id' => 'required|exists:mahasiswas,id',
+            'lowongan_id' => 'required',
+            'mahasiswa_id' => 'required',
+            'lokasi_id' => 'required',
         ]);
 
-        $programTransaction->update($request->all());
+        $programTransaction = ProgramTransaction::find($id);
+        $programTransaction->lowongan_id = $request->lowongan_id;
+        $programTransaction->lokasi_id = $request->lokasi_id;
+        $programTransaction->save();
 
-        return redirect()->route('program_transactions.index')
+        return redirect()->route('admin.peserta')
             ->with('success', 'ProgramTransaction updated successfully');
     }
 

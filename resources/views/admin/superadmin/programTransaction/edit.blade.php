@@ -4,7 +4,7 @@
 <section class="max-w-screen-lg mx-auto min-h-screen flex flex-col py-12 px-4 lg:px-12 gap-4">
     <div class="bg-white p-6 rounded-xl mt-32">
         <h2 class="text-xl font-semibold mb-4">Edit Peserta</h2>
-        <form action="{{ route('admin.peserta.edit', $peserta->id) }}" method="POST">
+        <form action="{{ route('admin.peserta.update', $peserta->id) }}" method="POST">
             @csrf
             <div class="mb-4">
                 <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Program</label>
@@ -21,12 +21,10 @@
 
             <div class="mb-4">
                 <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa</label>
-                <select name="mahasiswa_id" id="lokasi"
+                <select name="mahasiswa_id" id="lokasi" 
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
-                    @foreach ($data['mahasiswa'] as $item)
-                    <option value="{{ $item->id }}">{{ $item->nim . ' - ' . $item->name }}</option>
-                    @endforeach
+                    required >
+                    <option value="{{ $peserta->mahasiswa->id }}" selected>{{ $peserta->mahasiswa->nim . ' - ' . $peserta->mahasiswa->name }}</option>
                     <!-- Ganti dengan data lokasi yang sesuai -->
                 </select>
             </div>
@@ -37,7 +35,7 @@
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                     required>
                     @foreach ($data['lokasi'] as $item)
-                    <option value="{{ $item->id }}">{{$item->name }}</option>
+                    <option value="{{ $item->id }}" {{ $item->id == $peserta->lokasi->id ? 'selected' : '' }}>{{$item->name }}</option>
                     @endforeach
                     <!-- Ganti dengan data lokasi yang sesuai -->
                 </select>
