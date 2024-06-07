@@ -127,11 +127,10 @@ class LowonganController extends Controller
      * @param  \App\Models\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lowongan $lowongan)
+    public function destroy($id)
     {
-        $lowongan->delete();
-
-        return redirect()->route('lowongans.index')
+        Lowongan::find($id)->delete();
+        return redirect()->route('admin.lowongan')
             ->with('success', 'Lowongan deleted successfully');
     }
 }

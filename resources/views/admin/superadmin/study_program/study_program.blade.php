@@ -160,7 +160,7 @@
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger">
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
                                                 <span><i class="fas fa-trash"></i></span>
                                                 Hapus
                                             </x-button_sm>

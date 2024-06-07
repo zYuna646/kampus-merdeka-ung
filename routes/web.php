@@ -187,6 +187,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [DosenController::class, 'store'])->name('admin.dosen.store');
                 Route::get('/edit/{id}', [DosenController::class, 'edit'])->name('admin.dosen.edit');
                 Route::post('/update/{id}', [DosenController::class, 'update'])->name('admin.dosen.update');
+                Route::delete('/delete/{id}', [DosenController::class, 'destroy'])->name('admin.dosen.delete');
             });
 
             Route::prefix('/student')->group(function () {
@@ -197,6 +198,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [MahasiswaController::class, 'store'])->name('admin.student.store');
                 Route::get('/edit/{id}', [MahasiswaController::class, 'edit'])->name('admin.student.edit');
                 Route::post('/update/{id}', [MahasiswaController::class, 'update'])->name('admin.student.update');
+                Route::delete('/delete/{id}', [MahasiswaController::class, 'destroy'])->name('admin.student.delete');
             });
 
             Route::prefix('/mitra')->group(function () {
@@ -205,7 +207,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [GuruController::class, 'create'])->name('admin.guru.add');
                 Route::post('/add', [GuruController::class, 'store'])->name('admin.guru.store');
                 Route::post('/import', [GuruController::class, 'import'])->name('admin.guru.import');
-                Route::post('/delete', [GuruController::class, 'index'])->name('admin.guru.delete');
+                Route::delete('/delete/{id}', [GuruController::class, 'destroy'])->name('admin.guru.delete');
                 Route::get('/show', [GuruController::class, 'index'])->name('admin.guru.show');
                 Route::get('/edit/{id}', [GuruController::class, 'edit'])->name('admin.guru.edit');
                 Route::post('/update/{id}', [GuruController::class, 'update'])->name('admin.guru.update');
@@ -217,6 +219,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
                 Route::get('/edit/{id}', [DPLController::class, 'edit'])->name('admin.dpl.edit');
                 Route::get('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.update');
+                Route::delete('/delete/{id}', [DPLController::class, 'destroy'])->name('admin.dpl.delete');
                 Route::post('/import', [DPLController::class, 'import'])->name('admin.dpl.import');
             });
 
@@ -226,6 +229,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [PamongController::class, 'store'])->name('admin.pamong.store');
                 Route::get('/edit/{id}', [PamongController::class, 'edit'])->name('admin.pamong.edit');
                 Route::post('/udpate/{id}', [PamongController::class, 'edit'])->name('admin.pamong.update');
+                Route::post('/delete/{id}', [PamongController::class, 'destroy'])->name('admin.pamong.delete');
                 Route::post('/import', [PamongController::class, 'import'])->name('admin.pamong.import');
             });
 
@@ -246,6 +250,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [LowonganController::class, 'store'])->name('admin.lowongan.store');
                 Route::get('/edit/{id}', [LowonganController::class, 'edit'])->name('admin.lowongan.edit');
                 Route::post('/import', [LowonganController::class, 'import'])->name('admin.lowongan.import');
+                Route::delete('/delete/{id}', [LowonganController::class, 'destroy'])->name('admin.lowongan.delete');
             });
 
             Route::prefix('/peserta')->group(function () {
@@ -254,6 +259,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [ProgramTransactionController::class, 'store'])->name('admin.peserta.store');
                 Route::get('/edit/{id}', [ProgramTransactionController::class, 'edit'])->name('admin.peserta.edit');
                 Route::get('/update/{id}', [ProgramTransactionController::class, 'update'])->name('admin.peserta.udpate');
+                Route::delete('/delete/{id}', [ProgramTransactionController::class, 'destroy'])->name('admin.peserta.delete');
                 Route::post('/import', [ProgramTransactionController::class, 'import'])->name('admin.peserta.import');
             });
 
@@ -265,6 +271,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [NewsController::class, 'index'])->name('admin.berita');
                 Route::get('/add', [NewsController::class, 'create'])->name('admin.berita.add');
                 Route::post('/add', [NewsController::class, 'store'])->name('admin.berita.store');
+                Route::delete('/delete/{id}', [NewsController::class, 'destroy'])->name('admin.berita.delete');
             });
 
             Route::prefix('/kategori')->group(function () {
@@ -273,6 +280,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [NewsCategoryController::class, 'store'])->name('admin.kategori.store');
                 Route::get('/edit/{id}', [NewsCategoryController::class, 'edit'])->name('admin.kategori.edit');
                 Route::post('/update/{id}', [NewsCategoryController::class, 'update'])->name('admin.kategori.update');
+                Route::delete('/delete/{id}', [NewsCategoryController::class, 'destroy'])->name('admin.kategori.delete');
             });
 
             Route::prefix('/operator')->group(function () {

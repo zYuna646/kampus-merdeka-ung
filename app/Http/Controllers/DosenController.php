@@ -250,11 +250,11 @@ class DosenController extends Controller
      * @param  \App\Models\Dosen  $dosen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dosen $dosen)
+    public function destroy($id)
     {
-        $dosen->delete();
+        Dosen::find($id)->delete();
 
-        return redirect()->route('dosens.index')
+        return redirect()->route('admin.dosen')
             ->with('success', 'Dosen deleted successfully');
     }
 }

@@ -108,7 +108,7 @@
                       <i class="fas fa-pen w-4 h-4"></i>
                       Update
                     </a>
-                    <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST" role="none"
+                    <form action="{{ route('admin.kategori.delete', $item->id) }}" method="POST" role="none" class="w-full"
                       style="display: inline-block;">
                       @csrf
                       @method('DELETE')

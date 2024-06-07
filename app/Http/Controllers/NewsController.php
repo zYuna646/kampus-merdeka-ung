@@ -112,6 +112,6 @@ class NewsController extends Controller
         $news = News::findOrFail($id);
         $news->delete();
 
-        return response()->json(null, 204);
+        return redirect()->route('admin.berita')->with('success', 'Berita deleted successfully');
     }
 }

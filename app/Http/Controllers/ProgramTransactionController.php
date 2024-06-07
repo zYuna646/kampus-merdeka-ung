@@ -264,11 +264,10 @@ class ProgramTransactionController extends Controller
      * @param  \App\Models\ProgramTransaction  $programTransaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProgramTransaction $programTransaction)
+    public function destroy($id)
     {
-        $programTransaction->delete();
-
-        return redirect()->route('program_transactions.index')
+        ProgramTransaction::find($id)->delete();
+        return redirect()->route('admin.peserta')
             ->with('success', 'ProgramTransaction deleted successfully');
     }
 }

@@ -112,7 +112,7 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}"
+                                        <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}" class="w-full"
                                             method="POST" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -159,14 +159,7 @@
                                             method="POST" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            {{-- <button type="submit"
-                                                onclick="return confirm('Are you sure you want to delete?')"
-                                                class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
-                                                role="menuitem">
-                                                <i class="fas fa-trash w-4 h-4"></i>
-                                                Delete
-                                            </button> --}}
-                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger">
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
                                                 <span><i class="fas fa-trash"></i></span>
                                                 Hapus
                                             </x-button_sm>

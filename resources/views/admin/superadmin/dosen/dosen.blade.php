@@ -112,7 +112,7 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.dosen.delete', $item->id) }}" method="POST" class="w-full"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -155,11 +155,11 @@
                                             <span><i class="fas fa-edit"></i></span>
                                             Edit
                                         </x-button_sm>
-                                        <form action="{{ route('admin.departement.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.dosen.delete', $item->id) }}" method="POST"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger">
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
                                                 <span><i class="fas fa-trash"></i></span>
                                                 Hapus
                                             </x-button_sm>

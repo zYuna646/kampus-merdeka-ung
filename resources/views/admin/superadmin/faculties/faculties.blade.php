@@ -110,7 +110,7 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.faculties.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.faculties.delete', $item->id) }}" method="POST" class="w-full"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -157,7 +157,7 @@
                                             method="POST" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger">
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
                                                 <span><i class="fas fa-trash"></i></span>
                                                 Hapus
                                             </x-button_sm>

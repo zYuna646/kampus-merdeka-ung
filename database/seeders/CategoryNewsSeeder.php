@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class CategoryNewsSeeder extends Seeder
 {
-    /**
+    /**a
      * Run the database seeds.
      *
      * @return void
