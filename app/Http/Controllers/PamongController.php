@@ -72,7 +72,7 @@ class PamongController extends Controller
             'guru_id'=> $request->pamong_id,
             'lowongan_id' => $request->lowongan_id,
         ]);
-        foreach ($pamong as $key => $value) {
+        foreach ($request->mahasiswa as $key => $value) {
             $pamong->mahasiswa()->attach($value);
         }
 
