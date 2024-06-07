@@ -99,26 +99,31 @@ class LowonganController extends Controller
         return view('admin.superadmin.lowongan.edit', compact('lowongan', 'data'));
     }
 
-    /**
+/**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Lowongan  $lowongan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lowongan $lowongan)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'program_id' => 'required|exists:program_kampuses,id',
             'tahun_akademik' => 'required',
             'semester' => 'required',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date',
+            'pendaftaran_mulai' => 'required|date',
+            'pendaftaran_selesai' => 'required|date',
         ]);
 
-        $lowongan->update($request->all());
-
-        return redirect()->route('lowongans.index')
+        $lowongan = Lowongan::find($id);
+        $lowongan->program_id = $request->program_id;
+        $lowongan->semester = $request->semester;
+        $lowongan->tahun_akademik = $request->tahun_akademik;
+        $lowongan->tanggal_mulai = $request->pendaftaran_mulai;
+        $lowongan->tanggal_selesai = $request->pendaftaran_selesai;
+        $lowongan->save();
+        return redirect()->route('admin.lowongan')
             ->with('success', 'Lowongan updated successfully');
     }
 

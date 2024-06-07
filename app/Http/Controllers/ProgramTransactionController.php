@@ -47,6 +47,19 @@ class ProgramTransactionController extends Controller
         return response()->json($mahasiswaList);
     }
 
+    public function getLowongan(Request $request)
+    {
+        $mahasiswa = ProgramTransaction::where('lowongan_id', $request->program_id)
+                        ->with('mahasiswa') // Include the mahasiswa relation
+                        ->get()
+                        ->map(function($transaction) {
+                            return $transaction->mahasiswa; // Extract the mahasiswa from each transaction
+                        });
+    
+        return response()->json($mahasiswa);
+    }
+    
+
     /**
      * Show the form for creating a new resource.
      *

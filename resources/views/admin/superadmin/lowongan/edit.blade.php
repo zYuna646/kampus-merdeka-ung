@@ -4,7 +4,7 @@
     <section class="max-w-screen-lg mx-auto min-h-screen flex flex-col py-12 px-4 lg:px-12 gap-4">
         <div class="bg-white p-6 rounded-xl mt-32">
             <h2 class="text-xl font-semibold mb-4">Edit Lowongan</h2>
-            <form action="{{ route('admin.lowongan.store') }}" method="POST">
+            <form action="{{ route('admin.lowongan.update', $data['lowongan']->id) }}" method="POST">
                 @csrf
                 <div class="mb-4">
                     <label for="program" class="block text-sm font-medium text-gray-700 mb-2">Program</label>
@@ -52,10 +52,11 @@
                     <select name="semester" id="semester"
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                         required>
-                        <option {{$data['lowongan']->semester == 'Genap'? 'selected' : ''}} value="Genap">Genap</option>
-                        <option  {{$data['lowongan']->semester != 'Genap'? 'selected' : ''}} value="Genap">Ganjil</option>
+                        <option {{$data['lowongan']->semester == 'Genap' ? 'selected' : ''}} value="Genap">Genap</option>
+                        <option {{$data['lowongan']->semester == 'Ganjil' ? 'selected' : ''}} value="Ganjil">Ganjil</option>
                     </select>
                 </div>
+                
                 <div class="mb-4">
                   <label for="pendaftaran_mulai" class="block text-sm font-medium text-gray-700 mb-2">Pendaftaran Mulai</label>
                   <input type="datetime-local" name="pendaftaran_mulai" id="pendaftaran_mulai"
