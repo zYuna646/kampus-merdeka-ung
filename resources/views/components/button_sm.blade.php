@@ -36,7 +36,7 @@ hover:text-white',
 $class = $colorClasses[$color] ?? 'text-slate-800 bg-white hover:bg-gray-100';
 @endphp
 
-<button type="{{ $type }}" {{ $attributes->merge(['class' => 'px-3 py-2 text-sm font-medium text-center rounded-lg
+<button type="{{ $type }}" {{ $attributes->merge(['class' => 'px-3 py-2 text-xs font-medium text-center rounded-lg
     transition-color duration-300 ' .
     $class]) }}>
     {{ $slot }}

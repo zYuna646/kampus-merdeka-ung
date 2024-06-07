@@ -26,7 +26,12 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $gurus = Guru::all();
+        $gurus = Guru::with([
+            'lokasis.provinsi', 
+            'lokasis.kabupaten', 
+            'lokasis.kecamatan', 
+            'lokasis.kelurahan'
+        ])->get();
         return view('admin.superadmin.guru.guru')->with('data', $gurus);
     }
 

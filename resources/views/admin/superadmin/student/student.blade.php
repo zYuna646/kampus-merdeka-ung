@@ -64,7 +64,7 @@
                 </div>
             </div>
             <!-- Tombol Export -->
-            <x-button_md type="button" color="warning" 
+            <x-button_md type="button" color="warning"
                 onclick="window.location.href='{{ route('admin.student.export') }}'">
                 <span class=""><i class="fas fa-file-import text-sm me-2"></i></span>
                 Export
@@ -73,7 +73,7 @@
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
         <div class="overflow-x-auto lg:overflow-visible">
-            <table id="table_config" class="">
+            <table id="table_config" class="stripe">
                 <thead>
                     <tr>
                         <th>NIM</th>
@@ -101,12 +101,16 @@
                                     role="menu" aria-orientation="vertical"
                                     aria-labelledby="dropdownMenuButton{{ $item->id }}">
                                     <div class="py-1" role="none">
-                                        <a href="{{ route('admin.guru.show', $item->id) }}"
-                                            class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                        <button data-id="{{ $item->id }}" data-nim="{{ $item->nim }}"
+                                            data-name="{{ $item->name }}" data-studi="{{ $item->studi->name }}"
+                                            data-jurusan="{{ $item->studi->jurusan->name }}"
+                                            data-fakultas="{{ $item->studi->jurusan->fakultas->name }}"
+                                            data-angkatan="{{ $item->angkatan }}" onclick="modalOpen(this)"
+                                            class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>
                                             Detail
-                                        </a>
+                                        </button>
                                         <a href="{{ route('admin.student.edit', $item->id) }}"
                                             class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                                             role="menuitem">
@@ -131,7 +135,45 @@
 
                             </div>
                         </td>
+                        <div id="modal{{ $item->id }}"
+                            class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+                            <div class="max-w-lg w-full px-4">
+                                <div class=" w-full p-6 bg-white rounded-xl">
+                                    <div class="w-full inline-flex items-center justify-between">
+                                        <p class="text-lg font-semibold">Detail</p>
+                                        <button class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                                            onclick="closeModal('{{ $item->id }}')">
+                                            <i class="fas fa-times text-lg"></i>
+                                        </button>
+                                    </div>
+                                    <hr class="w-full mt-4">
+                                    <div id="modalContent{{ $item->id }}"
+                                        class="w-full flex flex-col gap-y-4 mt-2 mb-4 maxh">
+                                        <!-- Detail data akan ditampilkan di sini -->
 
+
+                                    </div>
+                                    <hr class="w-full">
+                                    <div class="w-full inline-flex mt-4 gap-x-1">
+                                        <x-button_sm class="inline-flex items-center gap-x-2" color="info"
+                                            onclick="window.location.href='{{ route('admin.dosen.edit', $item->id) }}'">
+                                            <span><i class="fas fa-edit"></i></span>
+                                            Edit
+                                        </x-button_sm>
+                                        <form action="{{ route('admin.departement.delete', $item->id) }}" method="POST"
+                                            role="none" style="display: inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger">
+                                                <span><i class="fas fa-trash"></i></span>
+                                                Hapus
+                                            </x-button_sm>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </tr>
                     @endforeach
                 </tbody>
@@ -163,6 +205,50 @@
             } else {
                 fileLabel.innerHTML = `<i class="fas fa-file-export text-sm me-2"></i>Pilih File Excel (.xls, .xlsx)`;
             }
+        }
+        function modalOpen(button) {
+            const id = button.getAttribute('data-id');
+            const nim = button.getAttribute('data-nim');
+            const name = button.getAttribute('data-name');
+            const studi = button.getAttribute('data-studi');
+            const jurusan = button.getAttribute('data-jurusan');
+            const fakultas = button.getAttribute('data-fakultas');
+            const angkatan = button.getAttribute('data-angkatan');
+            
+            const modal = document.getElementById('modal' + id);
+            const modalContent = document.getElementById('modalContent' + id);
+
+            modalContent.innerHTML = `
+                <div class="flex flex-col gap-y-px">
+                    <p class="font-semibold ">NIM</p>
+                    <p class="">${nim}</p>
+                </div>
+                <div class="flex flex-col gap-y-px">
+                    <p class="font-semibold ">Nama Mahasiswa</p>
+                    <p class="">${name}</p>
+                </div> 
+                <div class="flex flex-col gap-y-px">
+                    <p class="font-semibold ">Program Studi</p>
+                    <p class="">${studi}</p>
+                </div> 
+                <div class="flex flex-col gap-y-px">
+                    <p class="font-semibold ">Angkatan</p>
+                    <p class="">${jurusan}</p>
+                </div> 
+                <div class="flex flex-col gap-y-px">
+                    <p class="font-semibold ">Angkatan</p>
+                    <p class="">${fakultas}</p>
+                </div> 
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById('modal' + id);
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
         }
 </script>
 <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
