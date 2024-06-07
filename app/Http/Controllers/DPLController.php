@@ -99,6 +99,7 @@ class DPLController extends Controller
             'dosen' => Dosen::all(),
             'mahasiswa' => Mahasiswa::all(),
             'lokasi' => Lokasi::all(),
+            'lowongan' => Lowongan::all(),
             'program' => Lowongan::all(),
         ];
         return view('admin.superadmin.dpl.edit')->with('data', $data);

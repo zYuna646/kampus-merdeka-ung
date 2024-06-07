@@ -39,7 +39,12 @@ class ProgramTransactionController extends Controller
 
     public function getLokasi(Request $request)
     {
-        $peserta = ProgramTransaction::where('lokasi_id', false);
+        $lowonganId = $request->query('lowongan_id');
+        $programTransactions = ProgramTransaction::where('lowongan_id', $lowonganId)->with('mahasiswa')->get();
+        $mahasiswaList = $programTransactions->map(function ($transaction) {
+            return $transaction->mahasiswa;
+        });
+        return response()->json($mahasiswaList);
     }
 
     /**
