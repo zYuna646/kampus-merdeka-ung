@@ -36,9 +36,10 @@ Route::get('/dashboard_operator', function () {
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/berita', [HomeController::class, 'berita'])->name('berita');
 Route::get('/infografis', [HomeController::class, 'infografis'])->name('infografis');
+Route::get('/program', [HomeController::class, 'program'])->name('program');
 Route::get('/detail_news/{id}', [HomeController::class, 'detail_news'])->name('detail_news');
 Route::get('/sample', function () {
-    return view('admin.superadmin.profile');
+    return view('document');
 });
 
 Route::get('/get-provinsi', [WilayahController::class, 'getProvinsi'])->name('getProvinsi');
@@ -217,6 +218,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [PamongController::class, 'store'])->name('admin.pamong.store');
                 Route::get('/edit/{id}', [PamongController::class, 'edit'])->name('admin.pamong.edit');
                 Route::post('/udpate/{id}', [PamongController::class, 'update'])->name('admin.pamong.update');
+                Route::delete('/delete/{id}', [PamongController::class, 'destroy'])->name('admin.pamong.delete');
                 Route::post('/import', [PamongController::class, 'import'])->name('admin.pamong.import');
             });
 
@@ -247,6 +249,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [ProgramTransactionController::class, 'store'])->name('admin.peserta.store');
                 Route::get('/edit/{id}', [ProgramTransactionController::class, 'edit'])->name('admin.peserta.edit');
                 Route::post('/update/{id}', [ProgramTransactionController::class, 'update'])->name('admin.peserta.update');
+                Route::delete('/delete/{id}', [ProgramTransactionController::class, 'destroy'])->name('admin.peserta.delete');
                 Route::post('/import', [ProgramTransactionController::class, 'import'])->name('admin.peserta.import');
             });
 
@@ -274,6 +277,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [OperatorController::class, 'index'])->name('admin.operator');
                 Route::get('/add', [OperatorController::class, 'create'])->name('admin.operator.add');
                 Route::post('/add', [OperatorController::class, 'store'])->name('admin.operator.store');
+                Route::get('/edit/{id}', [OperatorController::class, 'edit'])->name('admin.operator.edit');
+                Route::post('/update/{id}', [OperatorController::class, 'update'])->name('admin.operator.update');
             });
 
         });

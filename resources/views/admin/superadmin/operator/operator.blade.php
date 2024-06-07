@@ -74,13 +74,50 @@
     <table id="table_config" class="w-full">
       <thead>
         <tr>
-          <th>Code</th>
-          <th>Nama</th>
+          <th>No</th>
+          <th>Username</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
+        @foreach ($data as $item)
+        <tr>
+          <td>{{ $loop->iteration }}</td>
+          <td>{{ $item['username'] }}</td>
+          <td>
+            <div class="relative inline-block text-left">
+              <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">
+                <span><i class="fas fa-ellipsis-h"></i></span>
+              </x-button_sm>
+              <div id="dropdownMenu{{ $item->id }}"
+                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
+                role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
+                <div class="py-1" role="none">
+                  <a href="{{ route('admin.operator.edit', $item->id) }}"
+                    class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
+                    role="menuitem">
+                    <i class="fas fa-pen w-4 h-4"></i>
+                    Update
+                  </a>
+                  <form action="{{ route('admin.study_program.delete', $item->id) }}" method="POST" role="none"
+                    style="display: inline-block;" class="w-full">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete?')"
+                      class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
+                      role="menuitem">
+                      <i class="fas fa-trash w-4 h-4"></i>
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              </div>
 
+            </div>
+          </td>
+     
+        </tr>
+        @endforeach
       </tbody>
     </table>
   </div>

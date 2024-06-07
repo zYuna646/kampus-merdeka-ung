@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Operator; 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ViewErrorBag;// Asumsi kita memiliki model Operator
 
 class OperatorController extends Controller
@@ -39,22 +40,22 @@ class OperatorController extends Controller
     {
         // Validasi data
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'password' => 'required|string|min:6',
         ]);
-
+    
         $role = Role::where('slug', 'operator')->first();
-
+    
         // Membuat operator baru
         $operator = User::create([
-            'name' => $validatedData['name'],
+            'username' => $validatedData['username'], // Menggunakan 'username' dari form
             'password' => bcrypt($validatedData['password']),
             'role_id' => $role->id
         ]);
-
+    
         return redirect()->route('admin.operator')->with('success', 'Operator created successfully');
     }
-
+    
     /**
      * Display the specified resource.
      */
@@ -62,6 +63,14 @@ class OperatorController extends Controller
     {
         // Menampilkan detail operator berdasarkan ID
         $operator = User::findOrFail($id);
+        
+    }
+
+    public function edit($id)
+    {
+        // Menampilkan detail operator berdasarkan ID
+        $operator = User::findOrFail($id);
+        return view('admin.superadmin.operator.edit', compact('operator'));
     }
 
     /**
@@ -71,19 +80,30 @@ class OperatorController extends Controller
     {
         // Validasi data
         $validatedData = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'password' => 'string|min:6',
+            'username' => 'required|string|max:255',
+            'old_password' => 'nullable|string',
+            'password' => 'nullable|string|min:6|confirmed',
         ]);
-
-        // Mengupdate data operator
+    
+        // Cari operator berdasarkan ID
         $operator = User::findOrFail($id);
-        $operator->update($validatedData);
-
-        if ($request->has('password')) {
-            $operator->password = bcrypt($request->password);
-            $operator->save();
+    
+        // Update data operator
+        $operator->username = $validatedData['username'];
+    
+        // Jika password lama diisi, periksa kesesuaiannya
+        if (!empty($validatedData['old_password'])) {
+            if (!Hash::check($validatedData['old_password'], $operator->password)) {
+                return back()->withErrors(['old_password' => 'Password lama tidak cocok.']);
+            }
+    
+            // Jika password lama cocok, update password baru
+            $operator->password = bcrypt($validatedData['password']);
         }
-
+    
+        $operator->save();
+    
+        return redirect()->route('admin.operator')->with('success', 'Operator updated successfully');
     }
 
     /**

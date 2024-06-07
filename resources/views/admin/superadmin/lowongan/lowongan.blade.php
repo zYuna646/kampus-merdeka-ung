@@ -131,7 +131,7 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.lowongan.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.lowongan.delete', $item->id) }}" method="POST" class="w-full"
                                             class="w-full" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -174,7 +174,7 @@
                                             <span><i class="fas fa-edit"></i></span>
                                             Edit
                                         </x-button_sm>
-                                        <form action="{{ route('admin.faculties.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.lowongan.delete', $item->id) }}" method="POST"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')

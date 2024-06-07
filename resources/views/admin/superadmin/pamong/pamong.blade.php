@@ -2,6 +2,13 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+    @if (session('success'))
+    <x-alerts color="info" :text="session('success')" />
+    @endif
+
+    @if (session('error'))
+    <x-alerts color="info" :text="session('error')" />
+    @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="text-xl font-semibold">Pamong</h1>
         <div class="inline-flex flex-wrap gap-2">
@@ -122,7 +129,7 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.pamong.delete', $item->id) }}" method="POST" class="w-full"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -161,15 +168,15 @@
                                     <hr class="w-full">
                                     <div class="w-full inline-flex mt-4 gap-x-1">
                                         <x-button_sm class="inline-flex items-center gap-x-2" color="info"
-                                            onclick="window.location.href='{{ route('admin.dosen.edit', $item->id) }}'">
+                                            onclick="window.location.href='{{ route('admin.pamong.edit', $item->id) }}'">
                                             <span><i class="fas fa-edit"></i></span>
                                             Edit
                                         </x-button_sm>
-                                        <form action="{{ route('admin.departement.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.pamong.delete', $item->id) }}" method="POST"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger">
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
                                                 <span><i class="fas fa-trash"></i></span>
                                                 Hapus
                                             </x-button_sm>

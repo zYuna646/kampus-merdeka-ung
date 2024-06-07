@@ -22,7 +22,7 @@
         <input type="password" name="password" id="password"
           class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
           value="{{ old('password') }}" />
-        @error('kategori')
+        @error('password')
         <div class="invalid-feedback text-red-400">
           {{ $message }}
         </div>
