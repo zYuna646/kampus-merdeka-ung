@@ -19,6 +19,18 @@ class NewsController extends Controller
         return view('admin.superadmin.news.news')->with('data', $news);
     }
 
+    public function news()
+    {
+        $news = News::all();
+        return view('')->with('data', $news);
+    }
+
+    public function showNews($id)
+    {
+        $news = News::find($id);
+        return view('')->with('data', $news);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

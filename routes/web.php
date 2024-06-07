@@ -230,7 +230,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/edit/{id}', [LokasiController::class, 'edit'])->name('admin.location.edit');
                 Route::post('/update/{id}', [LokasiController::class, 'update'])->name('admin.location.update');
                 Route::delete('/delete/{id}', [LokasiController::class, 'destroy'])->name('admin.location.delete');
-
             });
 
             Route::prefix('/lowongan')->group(function () {
@@ -238,6 +237,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [LowonganController::class, 'create'])->name('admin.lowongan.add');
                 Route::post('/add', [LowonganController::class, 'store'])->name('admin.lowongan.store');
                 Route::get('/edit/{id}', [LowonganController::class, 'edit'])->name('admin.lowongan.edit');
+                Route::post('/update/{id}', [LowonganController::class, 'update'])->name('admin.lowongan.update');
                 Route::post('/import', [LowonganController::class, 'import'])->name('admin.lowongan.import');
                 Route::delete('/delete/{id}', [LowonganController::class, 'destroy'])->name('admin.lowongan.delete');
             });
@@ -245,12 +245,14 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::prefix('/peserta')->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'index'])->name('admin.peserta');
                 Route::get('/get/lokasi', [ProgramTransactionController::class, 'getLokasi'])->name('admin.peserta.lokasi');
+                Route::get('/get/lowongan', [ProgramTransactionController::class, 'getLowongan'])->name('admin.peserta.lowongan');
                 Route::get('/add', [ProgramTransactionController::class, 'create'])->name('admin.peserta.add');
                 Route::post('/add', [ProgramTransactionController::class, 'store'])->name('admin.peserta.store');
                 Route::get('/edit/{id}', [ProgramTransactionController::class, 'edit'])->name('admin.peserta.edit');
                 Route::post('/update/{id}', [ProgramTransactionController::class, 'update'])->name('admin.peserta.update');
                 Route::delete('/delete/{id}', [ProgramTransactionController::class, 'destroy'])->name('admin.peserta.delete');
                 Route::post('/import', [ProgramTransactionController::class, 'import'])->name('admin.peserta.import');
+                Route::delete('/delete/{id}', [ProgramTransactionController::class, 'destroy'])->name('admin.peserta.delete');
             });
 
             Route::prefix('/peminat')->group(function () {

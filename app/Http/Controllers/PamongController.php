@@ -6,6 +6,7 @@ use App\Imports\PamongImport;
 use App\Models\Dosen;
 use App\Models\Guru;
 use App\Models\Lokasi;
+use App\Models\Lowongan;
 use App\Models\MitraTransaction;
 use App\Models\ProgramTransaction;
 use Illuminate\Http\Request;
@@ -33,11 +34,11 @@ class PamongController extends Controller
     public function create()
     {
         $lokasi = Lokasi::all();
-        $dosen = Dosen::all();
 
         $data = [
             'lokasi' => $lokasi,
-            'dosen' => $dosen
+            'pamong' => Guru::all(),
+            'program' => Lowongan::all(),
         ];
         return view('admin.superadmin.pamong.add')->with('data', $data);;
     }
@@ -58,12 +59,26 @@ class PamongController extends Controller
     public function store(Request $request)
     {
         // Validate the request...
-        $dpl = MitraTransaction::create($request->only(['dosen_id']));
+        $request->validate([
+            'pamong_id' => 'required',
+            'lowongan_id' => 'required',
+            'mahasiswa'=> 'required',
+        ]);
+        $isDpl = MitraTransaction::where('guru_id', $request->pamong_id)->where('lowongan_id', $request->lowongan_id)->first();
+        if ($isDpl) {
+            return redirect()->route('admin.pamong')->with('error', 'Pamong Sudah Ada.');
+        }
+        $pamong = MitraTransaction::create([
+            'guru_id'=> $request->pamong_id,
+            'lowongan_id' => $request->lowongan_id,
+        ]);
+        foreach ($pamong as $key => $value) {
+            $pamong->mahasiswa()->attach($value);
+        }
 
         // Attach multiple locations
-        $dpl->lokasis()->attach($request->input('lokasi_id'));
 
-        return redirect()->route('admin.dpl')->with('success', 'DPL created successfully.');
+        return redirect()->route('admin.pamong')->with('success', 'Pamong created successfully.');
     }
 
 

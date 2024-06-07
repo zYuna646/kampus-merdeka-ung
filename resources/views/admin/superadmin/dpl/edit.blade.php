@@ -79,7 +79,7 @@
                 const repeaterItem = `<div class="p-6 bg-slate-100 rounded-md repeater_item">
                 <label for="mahasiswa_${repeaterIndex}" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa ${repeaterIndex}</label>
                 <select id="mahasiswa_${repeaterIndex}"
-                     name="lokasi_id[]"
+                     name="mahasiswa[]"
                     class="js-example-basic-single w-full "
                     required>
                     @foreach ($data['lokasi'] as $item)
