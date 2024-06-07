@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Imports\PamongImport;
 use App\Models\Dosen;
+use App\Models\Guru;
 use App\Models\Lokasi;
 use App\Models\MitraTransaction;
+use App\Models\ProgramTransaction;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -85,11 +87,14 @@ class PamongController extends Controller
     public function edit($id)
     {
         $lokasi = Lokasi::all();
-        $dosen = Dosen::all();
+        $pamong = MitraTransaction::find( $id );
+        $lokasiIds = $pamong->guru->lokasis->pluck('id'); // Assuming 'lokasis' is the relationship between Guru and Lokasi
+        $mahasiswa = ProgramTransaction::whereIn('lokasi_id', $lokasiIds)->get();
 
         $data = [
             'lokasi' => $lokasi,
-            'dosen' => $dosen
+            'pamong' => $pamong,
+            'mahasiswa' => $mahasiswa
         ];
         return view('admin.superadmin.pamong.edit', compact('data'));
     }
@@ -101,13 +106,19 @@ class PamongController extends Controller
      * @param  \App\Models\DPL  $dpl
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DPL $dpl)
+    public function update(Request $request, $id)
     {
         // Validate the request...
+        $request->validate([
+            'mahasiswa' => 'required',
+        ]);
+        $pamong = MitraTransaction::find( $id );
+        $pamong->mahasiswa()->detach();
+        foreach ($request->mahasiswa as $key => $value) {
+            $pamong->mahasiswa()->attach( $value );
+        }
 
-        $dpl->update($request->all());
-
-        return redirect()->route('dpls.index')
+        return redirect()->route('admin.pamong')
             ->with('success', 'DPL updated successfully');
     }
 

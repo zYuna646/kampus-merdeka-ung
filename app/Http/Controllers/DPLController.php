@@ -7,6 +7,7 @@ use App\Models\Dosen;
 use App\Models\Lokasi;
 use App\Models\Lowongan;
 use App\Models\Mahasiswa;
+use App\Models\ProgramTransaction;
 use Illuminate\Http\Request;
 use App\Models\DPL;
 use Maatwebsite\Excel\Facades\Excel;
@@ -97,7 +98,7 @@ class DPLController extends Controller
         $data = [
             'dpl' => $dpl,
             'dosen' => Dosen::all(),
-            'mahasiswa' => Mahasiswa::all(),
+            'mahasiswa' => ProgramTransaction::where('lowongan_id', $dpl->lowongan->id)->get(),
             'lokasi' => Lokasi::all(),
             'lowongan' => Lowongan::all(),
             'program' => Lowongan::all(),
@@ -112,13 +113,18 @@ class DPLController extends Controller
      * @param  \App\Models\DPL  $dpl
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DPL $dpl)
+    public function update(Request $request, $id)
     {
         // Validate the request...
-
-        $dpl->update($request->all());
-
-        return redirect()->route('dpls.index')
+        $request->validate([
+            'mahasiswa' => 'required',
+        ]);
+        $dpl = DPL::find($id);
+        $dpl->mahasiswa()->detach();
+        foreach ($request->mahasiswa as $key => $value) {
+            $dpl->mahasiswa()->attach($value);
+        }
+        return redirect()->route('admin.dpl')
             ->with('success', 'DPL updated successfully');
     }
 

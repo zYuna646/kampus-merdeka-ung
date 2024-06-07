@@ -204,7 +204,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [DPLController::class, 'create'])->name('admin.dpl.add');
                 Route::post('/add', [DPLController::class, 'store'])->name('admin.dpl.store');
                 Route::get('/edit/{id}', [DPLController::class, 'edit'])->name('admin.dpl.edit');
-                Route::get('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.update');
+                Route::post('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.update');
                 Route::post('/import', [DPLController::class, 'import'])->name('admin.dpl.import');
             });
 
@@ -213,7 +213,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/add', [PamongController::class, 'create'])->name('admin.pamong.add');
                 Route::post('/add', [PamongController::class, 'store'])->name('admin.pamong.store');
                 Route::get('/edit/{id}', [PamongController::class, 'edit'])->name('admin.pamong.edit');
-                Route::post('/udpate/{id}', [PamongController::class, 'edit'])->name('admin.pamong.update');
+                Route::post('/udpate/{id}', [PamongController::class, 'update'])->name('admin.pamong.update');
                 Route::post('/import', [PamongController::class, 'import'])->name('admin.pamong.import');
             });
 
