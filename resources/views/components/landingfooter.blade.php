@@ -6,7 +6,7 @@
       <img src="/images/avatar/km_white.png" alt="" class="w-10 lg:w-16">
     </div>
     <div class="col-span-12 lg:col-span-4 flex flex-col gap-y-2">
-      <h3 class="font-semibold text-sm lg:text-base">LP3M Universitas Negeri Gorontalo</h3>
+      <h3 class="font-semibold text-sm lg:text-base">LPMPP Universitas Negeri Gorontalo</h3>
       <p class="text-xs lg:text-sm">Jl. Jend. Sudirmar, No.06 Kota Gorontalo</p>
       <p class="text-xs lg:text-sm">Laman: <a href="" class="underline text-color-primary-500">http://lp3m.ung.ac.id</a>
       </p>
