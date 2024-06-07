@@ -41,8 +41,6 @@ Route::get('/sample', function () {
     return view('admin.superadmin.profile');
 });
 
-
-
 Route::get('/get-provinsi', [WilayahController::class, 'getProvinsi'])->name('getProvinsi');
 Route::get('/get-kabupaten/{idProvinsi}', [WilayahController::class, 'getKabupaten'])->name('getKabupaten');
 Route::get('/get-kecamatan/{idKabupaten}', [WilayahController::class, 'getKecamatan'])->name('getKecamatan');

@@ -13,7 +13,7 @@
     <h1 class="text-xl font-semibold">Operator</h1>
     <div class="inline-flex">
       <!-- Tombol Import -->
-      <x-button_md type="button" class="me-2" onclick="window.location.href='{{ route('admin.faculties.add') }}'">
+      <x-button_md type="button" class="me-2" onclick="window.location.href='{{ route('admin.operator.add') }}'">
         <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
         Tambah Data
       </x-button_md>

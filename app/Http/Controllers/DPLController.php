@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\DPLImport;
 use App\Models\Dosen;
 use App\Models\Lokasi;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\DPL;
 use Maatwebsite\Excel\Facades\Excel;
@@ -85,7 +86,13 @@ class DPLController extends Controller
     public function edit($id)
     {
         $dpl = DPL::find($id);
-        return view('admin.superadmin.dpl.edit', compact('dpl'));
+        $data = [
+            'dpl' => $dpl,
+            'dosen' => Dosen::all(),
+            'mahasiswa' => Mahasiswa::all(),
+            'lokasi' => Lokasi::all(),
+        ];
+        return view('admin.superadmin.dpl.edit')->with('data', $data);
     }
 
     /**
