@@ -53,7 +53,7 @@ class ProgramTransactionController extends Controller
                         ->with('mahasiswa') // Include the mahasiswa relation
                         ->get()
                         ->map(function($transaction) {
-                            return $transaction->mahasiswa; // Extract the mahasiswa from each transaction
+                            return ['id' => $transaction->id,'name' => $transaction->mahasiswa->name, 'nim' => $transaction->mahasiswa->nim]; // Extract the mahasiswa from each transaction
                         });
     
         return response()->json($mahasiswa);
