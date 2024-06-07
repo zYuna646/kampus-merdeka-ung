@@ -37,7 +37,7 @@ class PamongController extends Controller
             'lokasi' => $lokasi,
             'dosen' => $dosen
         ];
-        return view('admin.superadmin.dpl.add')->with('data', $data);;
+        return view('admin.superadmin.pamong.add')->with('data', $data);;
     }
     public function import()
     {
@@ -84,8 +84,14 @@ class PamongController extends Controller
      */
     public function edit($id)
     {
-        $dpl = DPL::find($id);
-        return view('admin.superadmin.pamong.edit', compact('dpl'));
+        $lokasi = Lokasi::all();
+        $dosen = Dosen::all();
+
+        $data = [
+            'lokasi' => $lokasi,
+            'dosen' => $dosen
+        ];
+        return view('admin.superadmin.pamong.edit', compact('data'));
     }
 
     /**

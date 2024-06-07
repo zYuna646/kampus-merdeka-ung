@@ -84,7 +84,14 @@ class DPLController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+    
     {
+        $lokasi = Lokasi::all();
+        $dosen = Dosen::all();
+        $data = [
+            'lokasi' => $lokasi,
+            'dosen' => $dosen
+        ];
         $dpl = DPL::find($id);
         $data = [
             'dpl' => $dpl,
