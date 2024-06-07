@@ -2,6 +2,13 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+    @if (session('success'))
+    <x-alerts color="info" :text="session('success')" />
+    @endif
+
+    @if (session('error'))
+    <x-alerts color="info" :text="session('error')" />
+    @endif
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="text-xl font-semibold">Lowongan</h1>
         <div class="inline-flex flex-wrap gap-2">
@@ -103,20 +110,29 @@
                                     role="menu" aria-orientation="vertical"
                                     aria-labelledby="dropdownMenuButton{{ $item->id }}">
                                     <div class="py-1" role="none">
-                                        <a href="{{ route('admin.guru.show', $item->id) }}"
-                                            class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                        <button data-id="{{ $item->id }}" data-code="{{ $item->code }}"
+                                            data-logbook="{{ $item->isLogBook }}"
+                                            data-program="{{ $item->program->name }}"
+                                            data-tahun_akademik="{{ $item->tahun_akademik }}"
+                                            data-semester="{{ $item->semester }}"
+                                            data-pendaftaran_mulai="{{ $item->pendaftaran_mulai }}"
+                                            data-pendaftaran_selesai="{{ $item->pendaftaran_selesai }}"
+                                            data-tanggal_mulai="{{ $item->tanggal_mulai }}"
+                                            data-tanggal_selesai="{{ $item->tanggal_selesai }}"
+                                            onclick="modalOpen(this)"
+                                            class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>
                                             Detail
-                                        </a>
+                                        </button>
                                         <a href="{{ route('admin.lowongan.edit', $item->id) }}"
                                             class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                                             role="menuitem">
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST"
-                                            role="none" style="display: inline-block;">
+                                        <form action="{{ route('admin.lowongan.delete', $item->id) }}" method="POST"
+                                            class="w-full" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -133,6 +149,45 @@
 
                             </div>
                         </td>
+                        <div id="modal{{ $item->id }}"
+                            class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+                            <div class="max-w-lg w-full px-4">
+                                <div class=" w-full p-6 bg-white rounded-xl">
+                                    <div class="w-full inline-flex items-center justify-between">
+                                        <p class="text-lg font-semibold">Detail</p>
+                                        <button class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                                            onclick="closeModal('{{ $item->id }}')">
+                                            <i class="fas fa-times text-lg"></i>
+                                        </button>
+                                    </div>
+                                    <hr class="w-full mt-4">
+                                    <div id="modalContent{{ $item->id }}"
+                                        class="w-full flex flex-col gap-y-4 mt-2 mb-4 maxh">
+                                        <!-- Detail data akan ditampilkan di sini -->
+
+
+                                    </div>
+                                    <hr class="w-full">
+                                    <div class="w-full inline-flex mt-4 gap-x-1">
+                                        <x-button_sm class="inline-flex items-center gap-x-2" color="info"
+                                            onclick="window.location.href='{{ route('admin.lowongan.edit', $item->id) }}'">
+                                            <span><i class="fas fa-edit"></i></span>
+                                            Edit
+                                        </x-button_sm>
+                                        <form action="{{ route('admin.faculties.delete', $item->id) }}" method="POST"
+                                            role="none" style="display: inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
+                                                <span><i class="fas fa-trash"></i></span>
+                                                Hapus
+                                            </x-button_sm>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </tr>
                     @endforeach
                 </tbody>
@@ -164,6 +219,68 @@
             } else {
                 fileLabel.innerHTML = `<i class="fas fa-file-export text-sm me-2"></i>Pilih File Excel (.xls, .xlsx)`;
             }
+        }
+
+        function modalOpen(button) {
+        
+        const id = button.getAttribute('data-id');
+        const code = button.getAttribute('data-code');
+        const logbook = button.getAttribute('data-logbook');
+        const program = button.getAttribute('data-program');
+        const tahun_akademik = button.getAttribute('data-tahun_akademik');
+        const semester = button.getAttribute('data-semester');
+        const pendaftaran_mulai = button.getAttribute('data-pendaftaran_mulai');
+        const pendaftaran_selesai = button.getAttribute('data-pendaftaran_selesai');
+        const tanggal_mulai = button.getAttribute('data-tanggal_mulai');
+        const tanggal_selesai = button.getAttribute('data-tanggal_selesai');
+
+        const modal = document.getElementById('modal' + id);
+        const modalContent = document.getElementById('modalContent' + id);
+
+        let logbookHtml = '';
+        if (logbook == 1) {
+            logbookHtml = `
+                <div class="inline-flex py-1 px-2 text-color-info-500 bg-color-info-100 text-sm font-semibold w-fit rounded-md">
+                    Log Book Aktif
+                </div>`;
+        }
+
+        modalContent.innerHTML = `
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold">Kode Lowongan</p>
+                <p class="">${code}</p>
+            </div>
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold">Nama Program</p>
+                <p class="">${program}</p>
+            </div>
+            ${logbookHtml}
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold">Tahun Akademik</p>
+                <ul class="flex flex-col gap-y-2 lower-case">${tahun_akademik}</ul>
+            </div>
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold">Semester</p>
+                <ul class="flex flex-col gap-y-2 lower-case">${semester}</ul>
+            </div>
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold">Periode Pendaftaran</p>
+                <ul class="flex flex-col gap-y-2 lower-case">${pendaftaran_mulai} - ${pendaftaran_selesai}</ul>
+            </div>
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold">Periode Lowongan</p>
+                <ul class="flex flex-col gap-y-2 lower-case">${tanggal_mulai} - ${tanggal_selesai}</ul>
+            </div>
+        `;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById('modal' + id);
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
         }
 </script>
 <script>

@@ -134,11 +134,10 @@ class DPLController extends Controller
      * @param  \App\Models\DPL  $dpl
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DPL $dpl)
+    public function destroy($id)
     {
-        $dpl->delete();
-
-        return redirect()->route('dpls.index')
+        DPL::find($id)->delete();
+        return redirect()->route('admin.dpl')
             ->with('success', 'DPL deleted successfully');
     }
 }

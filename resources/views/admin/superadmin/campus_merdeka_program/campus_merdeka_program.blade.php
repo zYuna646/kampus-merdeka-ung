@@ -74,7 +74,7 @@
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl " id="wrapper">
         <div class="overflow-x-auto lg:overflow-visible">
-            <table id="table_config" class="l">
+            <table id="table_config" class="l stripe">
                 <thead>
                     <tr>
                         <th>Code</th>
@@ -98,7 +98,8 @@
                                     aria-labelledby="dropdownMenuButton{{ $item->id }}">
                                     <div class="py-1" role="none">
                                         <button data-id="{{ $item->id }}" data-code="{{ $item->code }}"
-                                            data-name="{{ $item->name }}" data-content="{{ $item->content }}" onclick="modalOpen(this)"
+                                            data-name="{{ $item->name }}" data-content="{{ $item->content }}"
+                                            onclick="modalOpen(this)"
                                             class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>
@@ -111,7 +112,7 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}"
+                                        <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}" class="w-full"
                                             method="POST" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -131,20 +132,42 @@
                         </td>
                         <div id="modal{{ $item->id }}"
                             class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
-                            <div class="max-w-lg w-full p-6 bg-white rounded-xl">
-                                <div class="w-full inline-flex items-center justify-between">
-                                    <p class="text-lg font-semibold">Detail</p>
-                                    <button class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
-                                        onclick="closeModal('{{ $item->id }}')">
-                                        <i class="fas fa-times text-lg"></i>
-                                    </button>
-                                </div>
-                                <div id="modalContent{{ $item->id }}" class="w-full flex flex-col gap-y-4 mt-2">
-                                    <!-- Detail data akan ditampilkan di sini -->
-    
+                            <div class="max-w-lg w-full px-4">
+                                <div class=" w-full p-6 bg-white rounded-xl">
+                                    <div class="w-full inline-flex items-center justify-between">
+                                        <p class="text-lg font-semibold">Detail</p>
+                                        <button class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                                            onclick="closeModal('{{ $item->id }}')">
+                                            <i class="fas fa-times text-lg"></i>
+                                        </button>
+                                    </div>
+                                    <hr class="w-full mt-4">
+                                    <div id="modalContent{{ $item->id }}"
+                                        class="w-full flex flex-col gap-y-4 mt-2 mb-4 maxh">
+                                        <!-- Detail data akan ditampilkan di sini -->
 
+
+                                    </div>
+                                    <hr class="w-full">
+                                    <div class="w-full inline-flex mt-4 gap-x-1">
+                                        <x-button_sm class="inline-flex items-center gap-x-2" color="info"
+                                            onclick="window.location.href='{{ route('admin.campus_merdeka_program.edit', $item->id) }}'">
+                                            <span><i class="fas fa-edit"></i></span>
+                                            Edit
+                                        </x-button_sm>
+                                        <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}"
+                                            method="POST" role="none" style="display: inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
+                                                <span><i class="fas fa-trash"></i></span>
+                                                Hapus
+                                            </x-button_sm>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </tr>
                     @endforeach
@@ -196,9 +219,11 @@
                 <p class="font-semibold ">Nama Program</p>
                 <p class="">${name}</p>
             </div>
-            <div class="flex flex-col gap-y-px">
-                <p class="font-semibold ">Detail Program</p>
-                <p class="">${content}</p>
+            <div class="flex flex-col gap-y-2">
+                <p class="font-semibold">Detail Program</p>
+                <div class="max-h-56 overflow-y-auto text-xs">
+                    <p class="">${content}</p>
+                </div>
             </div>  
         `;
 

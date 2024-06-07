@@ -110,11 +110,11 @@
                       <i class="fas fa-pen w-4 h-4"></i>
                       Update
                     </a>
-                    <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST" role="none"
+                    <form action="{{ route('admin.berita.delete', $item->id) }}" method="POST" role="none" class="w-full"
                       style="display: inline-block;">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" onclick="return confirm('Are you sure you want to delete?')"
+                      <button type="submit" onclick="return confirm('Are you sure you want to delete?')" 
                         class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
                         role="menuitem">
                         <i class="fas fa-trash w-4 h-4"></i>

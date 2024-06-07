@@ -103,6 +103,6 @@ class NewsCategoryController extends Controller
         $category = CategoryNews::findOrFail($id);
         $category->delete();
 
-        return response()->json(null, 204);
+        return redirect()->route('admin.kategori')->with('success', 'Category deleted successfully');
     }
 }
