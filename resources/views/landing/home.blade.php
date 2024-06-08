@@ -15,6 +15,41 @@
         </p>
     </div>
 </section>
+<section class=" min-h-screen bg-neutral-950 flex items-center justify-center flex-wrap">
+    <div class="max-w-screen-xl mx-auto grid grid-cols-6 gap-12 px-6 items-center py-12 lg:py-0">
+        <div class="col-span-6 lg:col-span-3 flex items-center justify-center">
+            <img src="/images/avatar/km_colored.png" alt="" class="rounded-xl w-4/6">
+        </div>
+        <div class="col-span-6 lg:col-span-3 flex flex-col gap-y-4 text-white">
+            <h2 class="text-xl lg:text-4xl font-bold">Kampus <span class="text-color-primary-500">Merdeka</span></h2>
+            <p class="text-xs lg:text-xl font-semibold">Program persiapan karier yang komprehensif untuk mempersiapkan
+                generasi terbaik
+                Indonesia</p>
+            <p class="text-xs lg:text-sm max-w-lg">Kampus Merdeka adalah bagian dari kebijakan Merdeka Belajar oleh
+                Kementerian Pendidikan,
+                Kebudayaan, Riset, dan
+                Teknologi (Kemendikbudristek) yang memberikan seluruh mahasiswa
+                <span class="font-semibold text-color-primary-500">
+                    kesempatan untuk mengasah kemampuan sesuai
+                    bakat
+                    dan minat
+                </span>
+                dengan
+                <span class="font-semibold text-color-primary-500">
+                    terjun langsung ke dunia kerja
+                </span>
+                sebagai
+                <span class="font-semibold text-color-primary-500">
+                    langkah persiapan
+                    karier.
+                </span>
+            </p>
+            <x-button_md color="primary" class="w-fit" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/'">
+                Cari Tahu
+            </x-button_md>
+        </div>
+    </div>
+</section>
 <section class="min-h-screen w-full max-w-screen-xl mx-auto  bg-white flex items-center justify-center flex-wrap">
     <div class="swiper h-full">
         <div class="swiper-wrapper h-full">
@@ -123,13 +158,14 @@
         <div class="grid grid-flow-row">
             <div class="p-4 grid grid-cols-12 lg:gap-4 gap-2">
                 <div class="col-span-12 lg:col-span-6">
-                    <img src="/images/hero-image/image.png" alt="" class="rounded-lg w-full object-cover lg:h-56 h-36">
+                    <img src="{{ Storage::url($data['news']->cover) }}" alt=""
+                        class="rounded-lg w-full object-cover lg:h-56 h-36">
                 </div>
                 <div class="col-span-12 lg:col-span-6 flex flex-col justify-between py-2 gap-y-4">
                     <div class="flex flex-col gap-y-4">
-                        <a href="" class="font-semibold lg:text-lg news-title">{{ $data['news']->title }}</a>
-                        <p class="text-xs lg:text-sm">{!! $data['news']->content !!}</p>
-
+                        <a href="{{ route('detail_news', $data['news']->id) }}"
+                            class="font-semibold lg:text-lg news-title">{{ $data['news']->title }}</a>
+                        <p class="text-xs lg:text-sm truncate-text" data-text="{{ $data['news']->content }}"></p>
                     </div>
                     <div>
                         <p class="text-sm text-slate-500">
@@ -144,10 +180,9 @@
         @endif
 
         <div class="px-4">
-            <button type="submit"
-                class="text-white w-full lg:w-fit bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-4">
+            <x-button_md type="submit" class="w-fit" onclick="window.location.href='{{ route('berita') }}'">
                 Lihat Semua Berita
-            </button>
+            </x-button_md>
         </div>
 
     </div>
@@ -238,5 +273,22 @@
                 title.textContent = truncate(title.textContent, maxLength);
             });
         });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const truncateTextElements = document.querySelectorAll('.truncate-text');
+        const truncateTextLength = 200; // Set the length for truncating
+  
+        truncateTextElements.forEach(function(element) {
+            const fullText = element.getAttribute('data-text');
+            const plainText = fullText.replace(/<\/?[^>]+(>|$)/g, ""); // Remove HTML tags
+            if (plainText.length > truncateTextLength) {
+                const truncatedText = plainText.substring(0, truncateTextLength) + '...';
+                element.textContent = truncatedText;
+            } else {
+                element.textContent = plainText;
+            }
+        });
+    });
 </script>
 @endsection
