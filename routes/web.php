@@ -33,6 +33,10 @@ Route::get('/dashboard_operator', function () {
     return view('admin.operator.dashboard_operator');
 });
 
+Route::get('/lowongan_details', function () {
+    return view('admin.operator.detail_lowongan');
+});
+
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/berita', [HomeController::class, 'berita'])->name('berita');
 Route::get('/infografis', [HomeController::class, 'infografis'])->name('infografis');
@@ -263,6 +267,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [NewsController::class, 'index'])->name('admin.berita');
                 Route::get('/add', [NewsController::class, 'create'])->name('admin.berita.add');
                 Route::post('/add', [NewsController::class, 'store'])->name('admin.berita.store');
+                Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('admin.berita.edit');
+                Route::post('/update/{id}', [NewsController::class, 'update'])->name('admin.berita.update');
                 Route::delete('/delete/{id}', [NewsController::class, 'destroy'])->name('admin.berita.delete');
             });
 

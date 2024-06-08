@@ -34,7 +34,7 @@
                         <form action="{{ route('admin.campus_merdeka_program.import') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="bg-white pt-5 pb-4 sm:p-6 sm:pb-4">
                                 <div class="sm:flex sm:items-start">
                                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                         <h3 class="text-lg font-medium text-gray-900">Import Data</h3>
@@ -53,15 +53,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-x-2">
-                                <x-button_md type="submit" color="primary" class="">
+                        <hr class="w-full">
+                        <div class="p-4 px-6 inline-flex justify-between w-full">
+                            <div class="inline-flex items-center gap-x-2">
+                                <x-button_sm type="submit" color="primary" class="">
                                     Import Data
-                                </x-button_md>
-                                <x-button_md type="button" id="cancelImport" color="danger-outlined">
-                                    Batal
-                                </x-button_md>
+                                </x-button_sm>
+                                <x-button_sm class="inline-flex items-center gap-x-2" color="info">
+                                    <span><i class="fas fa-download"></i></span>
+                                    Template
+                                </x-button_sm>
                             </div>
+                            <div>
+                                <x-button_sm type="button" id="cancelImport" color="danger-outlined">
+                                    Batal
+                                </x-button_sm>
+                            </div>
+                        </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -112,8 +122,8 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}" class="w-full"
-                                            method="POST" role="none" style="display: inline-block;">
+                                        <form action="{{ route('admin.campus_merdeka_program.delete', $item->id) }}"
+                                            class="w-full" method="POST" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -159,7 +169,8 @@
                                             method="POST" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger"
+                                                type="submit">
                                                 <span><i class="fas fa-trash"></i></span>
                                                 Hapus
                                             </x-button_sm>

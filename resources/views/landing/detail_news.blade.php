@@ -4,10 +4,13 @@
 <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 gap-4 py-32 lg:py-36">
   <div class="col-span-12 lg:col-span-8 px-2">
     <div class="">
-      <img src="/images/hero-image/rektorat2.jpg" alt="" class="rounded-lg">
+      <img src="{{ Storage::url($data->cover) }}" alt="" class="rounded-lg w-full h-96 object-cover">
     </div>
-    <div class="mt-6">
-      Taruh disini Depe isi aa
+    <div class="mt-6 font-bold text-2xl">
+      <h1>{{ $data->title }} </h1>
+    </div>
+    <div class="mt-4">
+      {!! $data->content !!}
     </div>
   </div>
   <div class="col-span-12 lg:col-span-4 flex flex-col gap-y-4 px-2">
@@ -30,4 +33,7 @@
     </div>
   </div>
 </section>
+<script>
+
+</script>
 @endsection

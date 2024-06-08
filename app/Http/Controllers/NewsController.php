@@ -59,7 +59,7 @@ class NewsController extends Controller
     
         
         return redirect()->route('admin.berita')
-            ->with('success', 'Dosen created successfully.');
+            ->with('success', 'News created successfully.');
     }
 
     /**
@@ -87,34 +87,41 @@ class NewsController extends Controller
     {
         // Validasi data
         $validatedData = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
+            'judul' => 'sometimes|required|string|max:255',
             'content' => 'sometimes|required|string',
-            'gambar' => 'required|exists:category_news,id',
-            'kategori' => 'required|exists:category_news,id', // Asumsi ada tabel categories
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'kategori' => 'required|exists:category_news,id',
         ]);
 
         // Mengupdate data berita
         $news = News::findOrFail($id);
+
         if ($request->hasFile('gambar')) {
-            // Menghapus gambar cover lama
-            if ($news->cover_image) {
+            // Menghapus gambar cover lama jika ada
+            if ($news->cover) {
                 Storage::disk('public')->delete($news->cover);
             }
 
             $path = $request->file('gambar')->store('cover', 'public');
-            $validatedData['gambar'] = $path;
             $news->cover = $path;
         }
 
-        $news->update([
-            'title' => $validatedData['judul'],
-            'content' => $validatedData['content'],
-            'category_id' => $validatedData['category_id'],
-        ]);
+        $news->title = $validatedData['judul'] ?? $news->title;
+        $news->content = $validatedData['content'] ?? $news->content;
+        $news->category_id = $validatedData['kategori'];
 
-        return response()->json($news);
+        $news->save();
+
+        return redirect()->route('admin.berita')->with('success', 'Berita updated successfully.');
     }
 
+
+    public function edit($id)
+    {
+        $news = News::findOrFail($id);
+        $categories = CategoryNews::all();
+        return view('admin.superadmin.news.edit', compact('news', 'categories'));
+    }
     /**
      * Remove the specified resource from storage.
      */
