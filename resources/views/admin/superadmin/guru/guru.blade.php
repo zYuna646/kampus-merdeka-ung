@@ -171,7 +171,7 @@
                                             <span><i class="fas fa-edit"></i></span>
                                             Edit
                                         </x-button_sm>
-                                        <form action="{{ route('admin.gurup.delete', $item->id) }}" method="POST"
+                                        <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST"
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')

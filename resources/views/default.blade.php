@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Kampus Merdek UNG</title>
+    <title>Kampus Merdeka UNG</title>
 
     <!-- Fonts -->
     {{--

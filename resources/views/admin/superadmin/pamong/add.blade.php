@@ -9,10 +9,11 @@
         <form action="{{ route('admin.pamong.store') }}" method="POST">
             @csrf
             <div class="mb-4">
-                <label for="dosen" class="block text-sm font-medium text-gray-700 mb-2">Dosen</label>
+                <label for="dosen" class="block text-sm font-medium text-gray-700 mb-2">Pamong</label>
                 <select name="pamong_id" id="dosen"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                     required>
+                    <option value="" selected disabled>Pilih Pamong</option>
                     @foreach ($data['pamong'] as $item)
                         <option value="{{ $item->id }}">{{ $item->nik . ' - ' . $item->name }}</option>
                     @endforeach
@@ -95,29 +96,36 @@
             $(this).closest('.repeater_item').remove();
         });
 
-        // Fetch students based on the selected program
-        $('#program').change(function() {
-            const programId = $(this).val();
-            if (programId) {
-                fetchMahasiswa(programId, $('#dosen').val(), $('.mahasiswa-dropdown'));
+        // Check if both program and pamong are selected
+        function checkSelections() {
+            const programId = $('#program').val();
+            const pamongId = $('#dosen').val();
+            if (programId && pamongId) {
+                fetchMahasiswa(programId, pamongId, $('.mahasiswa-dropdown'));
                 $('#repeater_section').removeClass('hidden');
             } else {
                 $('#repeater_section').addClass('hidden');
             }
+        }
+
+        // Event listeners for program and pamong selection
+        $('#program').change(function() {
+            checkSelections();
+        });
+
+        $('#dosen').change(function() {
+            checkSelections();
         });
 
         function fetchMahasiswa(programId, pamongId, dropdown) {
-            console.log(programId);
-            console.log(pamongId);
             $.ajax({
                 url: '{{ route('admin.peserta.lowongan') }}',
                 type: 'GET',
                 data: {
                     program_id: programId,
-                    pamong_id: pamongId // Pass selected pamong ID as lokasi_id
+                    pamong_id: pamongId // Pass selected pamong ID as pamong_id
                 },
                 success: function(response) {
-                    console.log(response);
                     dropdown.each(function() {
                         $(this).html(''); // Clear existing options
                         $.each(response, function(key, student) {
@@ -132,7 +140,6 @@
                 }
             });
         }
-
     });
 </script>
 @endsection

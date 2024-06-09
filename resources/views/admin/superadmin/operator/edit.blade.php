@@ -17,16 +17,7 @@
         </div>
         @enderror
       </div>
-      <div class="mb-4">
-        <label for="old_password" class="block text-sm font-medium text-gray-700 mb-2">Password Lama</label>
-        <input type="password" name="old_password" id="old_password"
-          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-        @error('old_password')
-        <div class="invalid-feedback text-red-400">
-          {{ $message }}
-        </div>
-        @enderror
-      </div>
+      
       <div class="mb-4">
         <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password Baru</label>
         <input type="password" name="password" id="password"
