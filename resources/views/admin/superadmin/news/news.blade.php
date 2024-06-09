@@ -106,10 +106,8 @@
                 <div id="dropdownMenu{{ $item->id }}"
                   class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                   role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
-                  <div class="py-1" role="none">
-                    <button data-id="{{ $item->id }}" data-title="{{ $item->title }}" data-cover="{{ $item->cover }}"
-                      data-content="{{ $item->content }}" data-category="{{ $item->category->name }}"
-                      onclick="modalOpen(this)"
+                  {{-- <div class="py-1" role="none">
+                    <button type="button" onclick= data-id="{{ $item->id }}"
                       class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem">
                       <i class="w-4 h-4 fas fa-info-circle"></i>
@@ -133,7 +131,7 @@
                       </button>
                     </form>
 
-                  </div>
+                  </div> --}}
                 </div>
 
               </div>

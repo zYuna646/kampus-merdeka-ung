@@ -40,7 +40,7 @@ class ProgramTransactionController extends Controller
     public function getLokasi(Request $request)
     {
         $lowonganId = $request->query('lowongan_id');
-        $programTransactions = ProgramTransaction::where('lowongan_id', $lowonganId)->with('mahasiswa')->get();
+        $programTransactions = ProgramTransaction::where('lowongan_id', $lowonganId)->where('status_mahasiswa', true)->with('mahasiswa')->get();
         $mahasiswaList = $programTransactions->map(function ($transaction) {
             return $transaction->mahasiswa;
         });
@@ -49,7 +49,7 @@ class ProgramTransactionController extends Controller
 
     public function getLowongan(Request $request)
     {
-        $mahasiswa = ProgramTransaction::where('lowongan_id', $request->program_id)
+        $mahasiswa = ProgramTransaction::where('lowongan_id', $request->program_id)->where('status_mahasiswa', true)
                         ->with('mahasiswa') // Include the mahasiswa relation
                         ->get()
                         ->map(function($transaction) {
@@ -160,7 +160,11 @@ class ProgramTransactionController extends Controller
             'lokasi_id' => 'required|exists:lokasis,id',
             'mahasiswa_id' => 'required|exists:mahasiswas,id',
         ]);
-
+        $isProgram = ProgramTransaction::where('mahasiswa_id', $request->mahasiswa_id)->where('lowongan_id', $request->lowongan_id)->first();
+        if ($isProgram) {
+            return redirect()->route('admin.peserta')
+                ->with('error', 'Mahasiswa already exists');
+        }
         $program = ProgramTransaction::create($request->all());
 
         $lowongan = Lowongan::find($request->lowongan_id);
@@ -249,13 +253,14 @@ class ProgramTransactionController extends Controller
     {
         $program = Lowongan::all();
         $mahasiswa = Mahasiswa::all();
-        $lokasi = Lokasi::all();
+        $peserta = ProgramTransaction::find($id);
+
+        $lokasi = Lokasi::where('program_id', $peserta->lowongan->program->id)->get();
         $data = [
             'program' => $program,
             'mahasiswa' => $mahasiswa,
             'lokasi' => $lokasi
         ];
-        $peserta = ProgramTransaction::find($id);
         return view('admin.superadmin.programTransaction.edit', compact('data', 'peserta'));
     }
 

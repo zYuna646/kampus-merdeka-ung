@@ -69,7 +69,6 @@
             function initializeSelect2() {
                 $('.js-example-basic-multiple').select2();
             }
-
         initializeSelect2(); // Initialize on page load
 
             let repeaterIndex = 2; // Start index for repeater items

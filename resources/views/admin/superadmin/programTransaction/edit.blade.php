@@ -7,24 +7,24 @@
         <form action="{{ route('admin.peserta.update', $peserta->id) }}" method="POST">
             @csrf
             <div class="mb-4">
-                <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Program</label>
-                <select name="lowongan_id" id="lokasi"
+                <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa</label>
+                <select name="mahasiswa_id" id="lokasi" 
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required>
-                    @foreach ($data['program'] as $item)
-                    <option value="{{ $item->id }}" {{ $item->id === $peserta->program_id }}>{{$item->program->name . ' (' . $item->tahun_akademik . ')' }}
-                    </option>
-                    @endforeach
+                    required disabled >
+                    <option value="{{ $peserta->mahasiswa->id }}" selected>{{ $peserta->mahasiswa->nim . ' - ' . $peserta->mahasiswa->name }}</option>
                     <!-- Ganti dengan data lokasi yang sesuai -->
                 </select>
             </div>
 
             <div class="mb-4">
-                <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa</label>
-                <select name="mahasiswa_id" id="lokasi" 
+                <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Program</label>
+                <select name="lowongan_id" id="lokasi"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    required >
-                    <option value="{{ $peserta->mahasiswa->id }}" selected>{{ $peserta->mahasiswa->nim . ' - ' . $peserta->mahasiswa->name }}</option>
+                    required disabled>
+                    @foreach ($data['program'] as $item)
+                    <option value="{{ $item->id }}" {{ $item->id === $peserta->program_id }}>{{$item->program->name . ' (' . $item->tahun_akademik . ')' }}
+                    </option>
+                    @endforeach
                     <!-- Ganti dengan data lokasi yang sesuai -->
                 </select>
             </div>

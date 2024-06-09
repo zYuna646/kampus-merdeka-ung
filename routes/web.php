@@ -41,7 +41,7 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/berita', [HomeController::class, 'berita'])->name('berita');
 Route::get('/infografis', [HomeController::class, 'infografis'])->name('infografis');
 Route::get('/program', [HomeController::class, 'program'])->name('program');
-Route::get('/detail_news/{id}', [HomeController::class, 'detail_news'])->name('detail_news');
+Route::get('/detail_news/{id}', [HomeController::class, 'showNews'])->name('detail_news');
 Route::get('/sample', function () {
     return view('document');
 });
