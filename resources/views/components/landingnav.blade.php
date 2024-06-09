@@ -10,7 +10,9 @@
         <a href="{{ route('home') }}"
           class="p-2 {{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">Beranda</a>
       </li>
-      <li class="p-2 relative hover:cursor-pointer {{ Route::currentRouteNamed('infografis') ? 'font-semibold text-color-primary-500' : '' }}" onclick="openDropDown(this)">
+      <li
+        class="p-2 relative hover:cursor-pointer {{ Route::currentRouteNamed('infografis') ? 'font-semibold text-color-primary-500' : '' }}"
+        onclick="openDropDown(this)">
         <p class="">Infografis</p>
         <div
           class="absolute hidden top-full p-4 bg-white text-sm rounded-md shadow-lg border border-slate-200 flex-col gap-y-2 w-max dropdown_menu">
@@ -19,7 +21,9 @@
           </ul>
         </div>
       </li>
-      <li class="p-2 relative hover:cursor-pointer {{ Route::currentRouteNamed('berita') ? 'font-semibold text-color-primary-500' : '' }}" onclick="openDropDown(this)">
+      <li
+        class="p-2 relative hover:cursor-pointer {{ Route::currentRouteNamed('berita') ? 'font-semibold text-color-primary-500' : '' }}"
+        onclick="openDropDown(this)">
         <p>Berita</p>
         <div
           class="absolute hidden top-full p-4 bg-white text-sm rounded-md shadow-lg border border-slate-200 flex-col gap-y-2 w-max dropdown_menu">
@@ -72,7 +76,7 @@
           </div>
         </div>
       </li>
-      <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-l hover:cursor-pointerg"
+      <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg hover:cursor-pointerg"
         onclick="openDropDown(this)">
         <div class="flex flex-col items-center w-full">
           <div class="flex items-center justify-between w-full">
@@ -89,6 +93,12 @@
             </a>
           </div>
         </div>
+      </li>
+      <li class="flex items-center text-white rounded-lg">
+        <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2" onclick="window.location.href='{{ route('login') }}'">
+          <span><i class="fas fa-user"></i></span>
+          Masuk
+        </x-button_md>
       </li>
     </div>
   </nav>

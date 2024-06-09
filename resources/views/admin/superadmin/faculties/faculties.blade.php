@@ -52,14 +52,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-x-2">
-                                <x-button_md type="submit" color="primary" class="">
-                                    Import Data
-                                </x-button_md>
-                                <x-button_md type="button" id="cancelImport" color="danger-outlined">
-                                    Batal
-                                </x-button_md>
-                            </div>
+                            <<hr class="w-full">
+                                <div class="p-4 px-6 inline-flex justify-between w-full">
+                                    <div class="inline-flex items-center gap-x-2">
+                                        <x-button_sm type="submit" color="primary" class="">
+                                            Import Data
+                                        </x-button_sm>
+                                        <x-button_sm class="inline-flex items-center gap-x-2" color="info">
+                                            <span><i class="fas fa-download"></i></span>
+                                            Template
+                                        </x-button_sm>
+                                    </div>
+                                    <div>
+                                        <x-button_sm type="button" id="cancelImport" color="danger-outlined">
+                                            Batal
+                                        </x-button_sm>
+                                    </div>
+                                </div>
                         </form>
                     </div>
                 </div>
@@ -110,8 +119,8 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.faculties.delete', $item->id) }}" method="POST" class="w-full"
-                                            role="none" style="display: inline-block;">
+                                        <form action="{{ route('admin.faculties.delete', $item->id) }}" method="POST"
+                                            class="w-full" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -153,11 +162,12 @@
                                             <span><i class="fas fa-edit"></i></span>
                                             Edit
                                         </x-button_sm>
-                                        <form action="{{ route('admin.faculties.delete', $item->id) }}"
-                                            method="POST" role="none" style="display: inline-block;">
+                                        <form action="{{ route('admin.faculties.delete', $item->id) }}" method="POST"
+                                            role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger"
+                                                type="submit">
                                                 <span><i class="fas fa-trash"></i></span>
                                                 Hapus
                                             </x-button_sm>

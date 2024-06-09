@@ -25,7 +25,8 @@
                     required>
                     <option value="" selected disabled>Pilih Program</option>
                     @foreach ($data['program'] as $item)
-                    <option value="{{ $item->id }}">{{$item->program->name . ' (' . $item->tahun_akademik . ') - ' . $item->semester }}
+                    <option value="{{ $item->id }}">{{$item->program->name . ' (' . $item->tahun_akademik . ') - ' .
+                        $item->semester }}
                     </option>
                     @endforeach
                 </select>
@@ -33,7 +34,6 @@
             <div id="repeater_section" class="mb-4 flex flex-col gap-y-4 hidden">
                 <div class="flex items-end justify-between">
                     <p class="block text-sm font-medium text-gray-700">Tambah Mahasiswa</p>
-                
                     <x-button_sm color="primary" id="add_repeater">
                         <span><i class="fas fa-plus"></i></span>
                     </x-button_sm>
@@ -42,9 +42,12 @@
                     <div class="p-6 bg-slate-100 rounded-md repeater_item">
                         <label for="mahasiswa_1" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa
                             1</label>
-                        <select name="mahasiswa[]" class="js-example-basic-single mahasiswa-dropdown w-full text-sm"
-                            required>
-                        </select>
+                        <div class="w-full">
+                            <select name="mahasiswa[]" class="js-example-basic-single mahasiswa-dropdown w-full text-sm"
+                                required>
+                            </select>
+                        </div>
+
                         <button type="button"
                             class="remove_repeater text-white inline-flex items-center gap-x-2 w-fit bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-4">
                             <span><i class="fas fa-trash"></i></span> Hapus

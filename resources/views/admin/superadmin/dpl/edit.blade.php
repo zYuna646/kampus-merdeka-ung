@@ -82,9 +82,11 @@
                      name="mahasiswa[]"
                     class="js-example-basic-single w-full "
                     required>
-                    @foreach ($data['lokasi'] as $item)
-                    <option value={{ $item->id }}>{{ $item->name }}</option>
-                    @endforeach
+                     @foreach ($data['mahasiswa'] as $item)
+                                        <option value="{{ $item->id }}">
+                                            {{ $item->mahasiswa->name . '(' . $item->mahasiswa->nim . ')' }}
+                                        </option>
+                                    @endforeach
                 </select>
                 <button type="button" class="remove_repeater text-white inline-flex items-center gap-x-2 w-fit bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-4">
                     <span><i class="fas fa-trash"></i></span> Hapus

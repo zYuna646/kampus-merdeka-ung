@@ -43,6 +43,7 @@ class LowonganController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'program_id' => 'required|exists:program_kampuses,id',
             'tahun_akademik' => 'required',
@@ -65,7 +66,16 @@ class LowonganController extends Controller
         }
 
 
-        Lowongan::create($request->all());
+        Lowongan::create([
+            'program_id' => $request->program_id,
+            'tahun_akademik' => $request->tahun_akademik,
+            'semester' => $request->semester,
+            'pendaftaran_mulai'=> $request->pendaftaran_mulai,
+            'pendaftaran_selesai'=> $request->pendaftaran_selesai,
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai'=>$request->tanggal_selesai,
+            'isLogBook'=>$request->isLogBook,
+        ]);
 
         return redirect()->route('admin.lowongan')
             ->with('success', 'Lowongan created successfully.');

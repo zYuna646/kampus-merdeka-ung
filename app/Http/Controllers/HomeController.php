@@ -31,7 +31,8 @@ class HomeController extends Controller
 
     public function detail_news($id)
     {
-        return view('landing.detail_news');
+        $data = news::find($id);
+        return view('landing.detail_news', compact('data'));
     }
 
     public function program()

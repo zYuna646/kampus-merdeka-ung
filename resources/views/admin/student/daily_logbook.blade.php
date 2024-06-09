@@ -152,8 +152,8 @@
             <div class="mt-4 flex-col gap-y-4 hidden detailContainer">
                 @if ($item->status != 'belum')
                 <div>
-                    <label for="">Dokumentasi</label>
-                    <form action="" class="flex items-center w-full gap-x-2">
+                    <label for="" class="text-sm">Dokumentasi :</label>
+                    <form action="" class="flex items-center w-full gap-x-2 mt-2">
                         <div class="relative w-full ">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                 <span>
@@ -171,8 +171,8 @@
                         </a>
                     </form>
                     <br>
-                    <div class="overflow-x-auto">
-                        <table id="table_config_{{ $item->id }}" class="w-full text-sm">
+                    <div class="overflow-x-auto text-xs">
+                        <table id="table_config_{{ $item->id }}" class="w-full text-xs">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -208,12 +208,18 @@
 
 
                 <hr class="mt-4 mb-4">
+
+
+                @if ($item->status == 'terima')
+                <x-button_md class="" color="primary">
+                    download Log Book
+                </x-button_md>
+                @endif
                 @if ($item->status == 'belum')
-                <button type="button"
-                    class="text-white h-fit w-fit bg-color-success-500 hover:bg-success-danger-600 focus:ring-4 focus:ring-color-success-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                    onclick="window.location='{{ route('student.daily_logbookForm', ['id' => $item->id]) }}'">
+                <x-button_md onclick="window.location='{{ route('student.daily_logbookForm', ['id' => $item->id]) }}'"
+                    color="primary" class="w-fit">
                     Isi Log Book
-                </button>
+                </x-button_md>
                 @endif
                 @if ($item->status == 'tolak')
                 <div class="text-red-500 mb-2">

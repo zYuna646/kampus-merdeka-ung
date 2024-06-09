@@ -94,7 +94,7 @@
             <!-- Tampilkan daftar peserta -->
             @foreach ($data['peserta'] as $item)
                 <div class="max-h-[42rem] overflow-y-auto flex flex-col p-2">
-                    <div class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
+                    <div class="relative overflow-visible hover:cursor-pointer bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
                         onclick="showPesertaDetail({{ $item->id }})">
                         <div class="w-16 rounded-full">
                             <img src="/images/avatar/placeholder.jpg" alt="" class="rounded-full">

@@ -51,13 +51,22 @@
                   </div>
                 </div>
               </div>
-              <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse gap-x-2">
-                <x-button_md type="submit" color="primary" class="">
-                  Import Data
-                </x-button_md>
-                <x-button_md type="button" id="cancelImport" color="danger-outlined">
-                  Batal
-                </x-button_md>
+              <hr class="w-full">
+              <div class="p-4 px-6 inline-flex justify-between w-full">
+                <div class="inline-flex items-center gap-x-2">
+                  <x-button_sm type="submit" color="primary" class="">
+                    Import Data
+                  </x-button_sm>
+                  <x-button_sm class="inline-flex items-center gap-x-2" color="info">
+                    <span><i class="fas fa-download"></i></span>
+                    Template
+                  </x-button_sm>
+                </div>
+                <div>
+                  <x-button_sm type="button" id="cancelImport" color="danger-outlined">
+                    Batal
+                  </x-button_sm>
+                </div>
               </div>
             </form>
           </div>
@@ -98,23 +107,25 @@
                   class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                   role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                   <div class="py-1" role="none">
-                    <a href="{{ route('admin.guru.show', $item->id) }}"
-                      class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    <button data-id="{{ $item->id }}" data-title="{{ $item->title }}" data-cover="{{ $item->cover }}"
+                      data-content="{{ $item->content }}" data-category="{{ $item->category->name }}"
+                      onclick="modalOpen(this)"
+                      class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem">
                       <i class="w-4 h-4 fas fa-info-circle"></i>
                       Detail
-                    </a>
-                    <a href="{{ route('admin.dosen.edit', $item->id) }}"
+                    </button>
+                    <a href="{{ route('admin.berita.edit', $item->id) }}"
                       class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                       role="menuitem">
                       <i class="fas fa-pen w-4 h-4"></i>
                       Update
                     </a>
-                    <form action="{{ route('admin.berita.delete', $item->id) }}" method="POST" role="none" class="w-full"
-                      style="display: inline-block;">
+                    <form action="{{ route('admin.berita.delete', $item->id) }}" method="POST" role="none"
+                      class="w-full" style="display: inline-block;">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" onclick="return confirm('Are you sure you want to delete?')" 
+                      <button type="submit" onclick="return confirm('Are you sure you want to delete?')"
                         class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
                         role="menuitem">
                         <i class="fas fa-trash w-4 h-4"></i>
@@ -127,6 +138,44 @@
 
               </div>
             </td>
+            <div id="modal{{ $item->id }}"
+              class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+              <div class="max-w-lg w-full px-4">
+                <div class=" w-full p-6 bg-white rounded-xl">
+                  <div class="w-full inline-flex items-center justify-between">
+                    <p class="text-lg font-semibold">Detail</p>
+                    <button class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                      onclick="closeModal('{{ $item->id }}')">
+                      <i class="fas fa-times text-lg"></i>
+                    </button>
+                  </div>
+                  <hr class="w-full mt-4">
+                  <div id="modalContent{{ $item->id }}" class="w-full flex flex-col gap-y-4 mt-2 mb-4 maxh">
+                    <!-- Detail data akan ditampilkan di sini -->
+
+
+                  </div>
+                  <hr class="w-full">
+                  <div class="w-full inline-flex mt-4 gap-x-1">
+                    <x-button_sm class="inline-flex items-center gap-x-2 " color="info"
+                      onclick="window.location.href='{{ route('admin.berita.edit', $item->id) }}'">
+                      <span><i class="fas fa-edit"></i></span>
+                      Edit
+                    </x-button_sm>
+                    <form action="{{ route('admin.berita.delete', $item->id) }}" method="POST" role="none"
+                      style="display: inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
+                        <span><i class="fas fa-trash"></i></span>
+                        Hapus
+                      </x-button_sm>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </tr>
           @endforeach
         </tbody>
@@ -203,5 +252,47 @@
                 });
             });
         });
+
+        function modalOpen(button) {
+        const id = button.getAttribute('data-id');
+        const title = button.getAttribute('data-title');
+        const cover = button.getAttribute('data-cover');
+        const category = button.getAttribute('data-category');
+        const content = button.getAttribute('data-content');
+        const coverUrl = `{{ Storage::url('${cover}') }}`;
+
+        const modal = document.getElementById('modal' + id);
+        const modalContent = document.getElementById('modalContent' + id);
+
+        modalContent.innerHTML = `
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold ">Judul Berita</p>
+                <p class="">${title}</p>
+            </div>
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold ">Kategory</p>
+                <p class="">${category}</p>
+            </div>
+            <div class="flex flex-col gap-y-px">
+                <p class="font-semibold">Cover Gambar</p>
+                <img src="${coverUrl}" alt="Current Cover" class="mt-2 h-32 w-full object-cover rounded-lg">
+            </div>
+            <div class="flex flex-col gap-y-2">
+                <p class="font-semibold">Content</p>
+                <div class="max-h-56 overflow-y-auto text-xs">
+                    <p class="">${content}</p>
+                </div>
+            </div>  
+        `;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeModal(id) {
+        const modal = document.getElementById('modal' + id);
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
 </script>
 @endsection

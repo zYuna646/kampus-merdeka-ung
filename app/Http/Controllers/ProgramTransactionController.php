@@ -163,7 +163,7 @@ class ProgramTransactionController extends Controller
 
         $program = ProgramTransaction::create($request->all());
 
-        $lowongan = Lowongan::find($request->lokasi_id);
+        $lowongan = Lowongan::find($request->lowongan_id);
         if ($lowongan->isLogBook) {
             $startDate = Carbon::parse($program->lowongan->tanggal_mulai); // Tanggal awal
             $endDate = Carbon::parse($program->lowongan->tanggal_selesai);
@@ -173,7 +173,7 @@ class ProgramTransactionController extends Controller
                 'program_transaction_id' => $program->id,
                 'start_date' => $st, // Start date
                 'end_date' => $e_d, // End date
-                'desc' => ''
+                // 'desc' => ''
             ]);
 
 
@@ -190,7 +190,7 @@ class ProgramTransactionController extends Controller
                     'program_transaction_id' => $program->id,
                     'start_date' => $tmp_date->copy()->startOfWeek(), // Start date
                     'end_date' => $tmp_end_week, // End date
-                    'desc' => ''
+                    // 'desc' => ''
 
                 ]);
 
@@ -204,7 +204,8 @@ class ProgramTransactionController extends Controller
                 while ($startDate <= $endDate) {
                     DailyLog::create([
                         'program_transaction_id' => $program->id,
-                        'desc' => '',
+                        // 'desc' => '',
+                        'dokumentasi' => '',
                         'date' => $startDate,
                         'weekly_log_id' => $item->id,
                     ]);

@@ -80,12 +80,9 @@
                         <input type="text" name="dokumentasi" id="dokumentasi" placeholder="http://example.com"
                             class="w-full p-3 xl:p-4 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs xl:text-sm" />
                     </div>
-
-
-                    <button type="submit"
-                        class="text-white w-full h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-4">
-                        Kirim
-                    </button>
+                  <x-button_md class="w-full col-span-12" color="primary"> 
+                    Kirim
+                  </x-button_md>
                 </form>
             </div>
         </div>
