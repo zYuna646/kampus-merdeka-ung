@@ -75,6 +75,9 @@
           <tr>
             <th>NIM</th>
             <th>Nama</th>
+            <th>Program</th>
+            <th>Tahun Akademik</th>
+            <th>Semester</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -89,28 +92,110 @@
                 <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">
                   <span><i class="fas fa-ellipsis-h"></i></span>
                 </x-button_sm>
-
                 <div id="dropdownMenu{{ $item->id }}"
                   class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                   role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                   <div class="py-1" role="none">
-                    <a href="{{ route('admin.guru.show', $item->id) }}"
+                    <button onclick="modalOpen(this)"
                       class="flex items-center gap-x-2 px-4 py-2 text-sm text-color-success-500 hover:bg-gray-100 hover:text-gray-900"
                       role="menuitem">
                       <i class="w-4 h-4 fas fa-info-check"></i>
                       Verifikasi
-                    </a>
+                    </button>
                   </div>
-
                 </div>
             </td>
+            <div id="modal{{ $item->id }}"
+              class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+              <div class="max-w-lg w-full px-4">
+                <div class=" w-full p-6 bg-white rounded-xl">
+                  <div class="w-full inline-flex items-center justify-between">
+                    <p class="text-lg font-semibold">Detail</p>
+                    <button class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                      onclick="closeModal('{{ $item->id }}')">
+                      <i class="fas fa-times text-lg"></i>
+                    </button>
+                  </div>
+                  <hr class="w-full mt-4">
+                  <div id="modalContent{{ $item->id }}" class="w-full flex flex-col gap-y-4 mt-2 mb-4 maxh">
+                    <!-- Detail data akan ditampilkan di sini -->
+
+
+                  </div>
+                  <hr class="w-full">
+                  <div class="w-full inline-flex mt-4 gap-x-1">
+                    <x-button_sm class="inline-flex items-center gap-x-2" color="info"
+                      onclick="window.location.href='{{ route('admin.peserta.edit', $item->id) }}'">
+                      <span><i class="fas fa-edit"></i></span>
+                      Edit
+                    </x-button_sm>
+                    <form action="{{ route('admin.peserta.delete', $item->id) }}" method="POST" role="none"
+                      style="display: inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
+                        <span><i class="fas fa-trash"></i></span>
+                        Hapus
+                      </x-button_sm>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </tr>
           @endforeach
+          <tr>
+            <td>haha</td>
+            <td>eheh</td>
+            <td>hiih</td>
+            <td>hiih</td>
+            <td>hiih</td>
+            <td>
+              <div class="relative inline-block text-left">
+                <x-button_sm color="info" id="dropdownMenuButton1">
+                  <span><i class="fas fa-ellipsis-h"></i></span>
+                </x-button_sm>
+                <div id="dropdownMenu1"
+                  class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
+                  role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton1">
+                  <div class="py-1" role="none">
+                    <button onclick="modalOpen(this)"
+                      class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-color-success-500 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <i class="w-4 h-4 fas fa-check"></i>
+                      Verifikasi
+                    </button>
+                  </div>
+                </div>
+            </td>
+            <div id="modal1"
+              class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+              <div class="max-w-lg w-full px-4">
+                <div class=" w-full p-6 bg-white rounded-xl">
+                  <div class="w-full inline-flex items-center justify-between">
+                    <p class="text-lg font-semibold">Verifikasi Peminat</p>
+                    <button class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500" onclick="closeModal('1')">
+                      <i class="fas fa-times text-lg"></i>
+                    </button>
+                  </div>
+                  <hr class="w-full mt-4">
+                  <div id="modalContent1" class="w-full flex flex-col gap-y-4 mt-2 mb-4 maxh">
+                    <!-- Detail data akan ditampilkan di sini -->
+
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </tr>
         </tbody>
       </table>
     </div>
 
   </div>
+
 </section>
 <script>
   const importBtn = document.getElementById('importBtn');
@@ -135,6 +220,40 @@
             } else {
                 fileLabel.innerHTML = `<i class="fas fa-file-export text-sm me-2"></i>Pilih File Excel (.xls, .xlsx)`;
             }
+        }
+        function modalOpen(button) {
+            // const id = button.getAttribute('data-id');
+            
+            const modal = document.getElementById('modal1');
+            const modalContent = document.getElementById('modalContent1');
+
+            modalContent.innerHTML = `
+              <form action="" class="">
+                <div class="mb-4">
+                  <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+                  <select name="" id="lokasi"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    required>
+                    <option selected value="">
+                      Lokasi 1
+                    </option>
+                    <!-- Ganti dengan data lokasi yang sesuai -->
+                  </select>
+                </div>
+                <x-button_md class="w-full" color="primary" type="submit">
+                  Kirim
+                  </x-button_md>
+              </form>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById('modal1');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
         }
 </script>
 <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>

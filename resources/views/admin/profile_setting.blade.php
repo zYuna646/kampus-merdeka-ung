@@ -111,21 +111,50 @@
         <div class="mb-4">
           <label for="username" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">username</label>
           <input type="text" name="username" id="username" placeholder="username" value={{Auth::user()->username}}
-            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+          />
         </div>
+        @auth
+        @if (Auth::user()->role->slug === 'mahasiswa')
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Mahasiswa</label>
+          <input type="text" name="name" id="name" placeholder="Masukan Nama Dosen"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+            value="">
+        </div>
+        <div class="mb-4">
+          <label for="studi_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
+          <select type="text" name="studi_id" id="studi_id" placeholder="Masukan Nama Program Studi"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+            <option>Program Studi</option>
+          </select>
+        </div>
+        @endif
+        @endauth
 
-        {{-- <div class="mb-4">
-          <label for="email" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">email</label>
-          <input type="email" name="email" id="email" placeholder="email"
-            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-        </div> --}}
+        @auth
+        @if (Auth::user()->role->slug === 'dosen')
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Dosen</label>
+          <input type="text" name="name" id="name" placeholder="Masukan Nama Dosen"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+            value="">
+        </div>
+        <div class="mb-4">
+          <label for="studi_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
+          <select type="text" name="studi_id" id="studi_id" placeholder="Masukan Nama Program Studi"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+            <option>Program Studi</option>
+          </select>
+        </div>
+        @endif
+        @endauth
       </div>
       <hr>
       <div class="py-2">
-        <button type="button"
-          class="text-white h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+        <x-button_md class="" color="primary">
           Simpan Perubahan
-        </button>
+        </x-button_md>
       </div>
     </div>
 

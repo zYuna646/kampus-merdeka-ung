@@ -174,7 +174,7 @@
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
                 <div
-                    class="inline-flex items-center gap-x-2 {{ (Request::routeIs('admin.lowongan') || Request::routeIs('admin.peserta') || Request::routeIs('admin.dpl') || Request::routeIs('admin.pamong')) || Request::routeIs('admin.pamong') ?  'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    class="inline-flex items-center gap-x-2 {{ (Request::routeIs('admin.lowongan') || Request::routeIs('admin.peserta') || Request::routeIs('admin.dpl') || Request::routeIs('admin.pamong')) || Request::routeIs('admin.peminat') ?  'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                     <i class="fas fa-columns"></i>
                     MBKM
                     <i class="fas fa-chevron-down"></i>

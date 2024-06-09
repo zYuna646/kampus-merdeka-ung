@@ -39,4 +39,11 @@ class HomeController extends Controller
     {
         return view('landing.programs');
     }
+
+    public function showNews($id)
+    {
+        $data = News::findOrFail($id); // Ambil berita berdasarkan ID yang diberikan
+
+        return view('landing.detail_news', compact('data'));
+    }
 }
