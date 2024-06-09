@@ -70,7 +70,7 @@
                         and reputable
                         industries overseas.
                     </p>
-                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='{{ route('program') }}'">
+                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
                         Lihat Program
                     </x-button_md>
                 </div>
@@ -95,7 +95,7 @@
                         pembelajaran yang
                         kreatif, inovatif, dan menyenangkan.
                     </p>
-                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='{{ route('program') }}'">
+                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
                         Lihat Program
                     </x-button_md>
                 </div>
@@ -116,7 +116,7 @@
                         tentang
                         praktik terbaik dari industri yang kamu minati!
                     </p>
-                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='{{ route('program') }}'">
+                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
                         Lihat Program
                     </x-button_md>
                 </div>
@@ -137,7 +137,7 @@
                         selama 1 (satu)
                         semester melalui aktivitas pembelajaran dan praktik langsung.
                     </p>
-                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='{{ route('program') }}'">
+                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
                         Lihat Program
                     </x-button_md>
                 </div>

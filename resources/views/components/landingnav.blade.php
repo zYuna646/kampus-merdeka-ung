@@ -10,6 +10,10 @@
         <a href="{{ route('home') }}"
           class="p-2 {{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">Beranda</a>
       </li>
+      <li>
+        <a href="{{ route('program') }}"
+          class="p-2 {{ Route::currentRouteNamed('program') ? 'font-semibold text-color-primary-500' : '' }}">Program</a>
+      </li>
       <li
         class="p-2 relative hover:cursor-pointer {{ Route::currentRouteNamed('infografis') ? 'font-semibold text-color-primary-500' : '' }}"
         onclick="openDropDown(this)">
@@ -52,13 +56,22 @@
           <i class="fas fa-times text-lg"></i>
         </button>
       </div>
-      <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg">
+      <li
+        class="p-4 flex items-center {{ Route::currentRouteNamed('home') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }}  rounded-lg">
         <a href="{{ route('home') }}" class="flex items-center gap-x-2">
           <i class="fas fa-home"></i>
           Beranda
         </a>
       </li>
-      <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg hover:cursor-pointer"
+      <li
+        class="p-4 flex items-center {{ Route::currentRouteNamed('program') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg">
+        <a href="{{ route('program') }}" class="flex items-center gap-x-2">
+          <i class="fas fa-cog"></i>
+          Program
+        </a>
+      </li>
+      <li
+        class="p-4 flex items-center {{ Route::currentRouteNamed('infografis') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg hover:cursor-pointer"
         onclick="openDropDown(this)">
         <div class="flex flex-col items-center w-full">
           <div class="flex items-center justify-between w-full">
@@ -68,7 +81,8 @@
             </div>
             <span><i class="fas fa-chevron-down"></i></span>
           </div>
-          <div class="flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
+          <div
+            class="flex-col gap-y-2 p-4 bg-white {{ Route::currentRouteNamed('infografis') ? 'text-color-primary-500' : 'text-slate-500' }} rounded-lg hidden w-full mt-4 dropdown_menu">
             <a href="{{ route('infografis') }}" class="flex items-center gap-x-2">
               <i class="fas fa-file"></i>
               Peserta MBKM
@@ -76,7 +90,8 @@
           </div>
         </div>
       </li>
-      <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg hover:cursor-pointerg"
+      <li
+        class="p-4 flex items-center {{ Route::currentRouteNamed('berita') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg hover:cursor-pointer"
         onclick="openDropDown(this)">
         <div class="flex flex-col items-center w-full">
           <div class="flex items-center justify-between w-full">
@@ -86,7 +101,7 @@
             </div>
             <span><i class="fas fa-chevron-down"></i></span>
           </div>
-          <div class="flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
+          <div class="flex-col gap-y-2 p-4 bg-white {{ Route::currentRouteNamed('berita') ? 'text-color-primary-500' : 'text-slate-500' }} rounded-lg hidden w-full mt-4 dropdown_menu">
             <a href="{{ route('berita') }}" class="flex items-center gap-x-2">
               <i class="fas fa-file"></i>
               Semua Berita
@@ -95,7 +110,8 @@
         </div>
       </li>
       <li class="flex items-center text-white rounded-lg">
-        <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2" onclick="window.location.href='{{ route('login') }}'">
+        <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"
+          onclick="window.location.href='{{ route('login') }}'">
           <span><i class="fas fa-user"></i></span>
           Masuk
         </x-button_md>
