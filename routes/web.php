@@ -82,7 +82,9 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/get-lowongan/{id}', [OperatorController::class, 'getLowongan'])->name('operator.dashboard.getLowongan');
             Route::get('/lowongan_details/{id}', function () {
                 return view('admin.operator.detail_lowongan');
-            });
+            })->name('operator.dashboard.lowongan_detail');
+            Route::get('/get-peserta/{id}', [OperatorController::class, 'getPeserta'])->name('operator.dashboard.getPeserta');
+            Route::get('/weekly_review/{id}', [OperatorController::class, 'weeklyReview'])->name('operator.dashboard.weekly_review');
         });
        
     });
@@ -110,7 +112,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 return view('admin.dpl.programs_dpl');
             });
             Route::get('/program_details_dpl/{lowongan_id}', [DosenController::class, 'programDetail'])->name('dosen.program.detail');
-        Route::get('/weekly_review_dpl/{id}', [DosenController::class, 'dailyBook'])->name('dosen.weekly_review');
+            Route::get('/weekly_review_dpl/{id}', [DosenController::class, 'dailyBook'])->name('dosen.weekly_review');
             Route::get('/get-peserta/{id}', [DosenController::class, 'getPesertaDetail'])->name('dosen.getPeserta');
             Route::post('/weekly_review_dpl/{id}', [DosenController::class, 'weeklyBook'])->name('dosen.weekly_review.submit');
             Route::post('/rancangan/{id}', [DosenController::class, 'rancangan'])->name('dosen.rancangan.submit');
