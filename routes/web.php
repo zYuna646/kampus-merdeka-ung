@@ -82,9 +82,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/get-lowongan/{id}', [OperatorController::class, 'getLowongan'])->name('operator.dashboard.getLowongan');
             Route::get('/lowongan_details/{id}', function () {
                 return view('admin.operator.detail_lowongan');
-            })->name('operator.dashboard.lowongan_detail');
-            Route::get('/get-peserta/{id}', [OperatorController::class, 'getPeserta'])->name('operator.dashboard.getPeserta');
-            Route::get('/weekly_review/{id}', [OperatorController::class, 'weeklyReview'])->name('operator.dashboard.weekly_review');
+            })->name('operator.lowongan_detail');
         });
        
     });
