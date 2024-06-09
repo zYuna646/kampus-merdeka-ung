@@ -107,7 +107,7 @@
 
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
                 <div
-                    class="inline-flex items-center gap-x-2 {{ (Request::routeIs('admin.dosen') || Request::routeIs('admin.student') || Request::routeIs('admin.guru')) ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                    class="inline-flex items-center gap-x-2 {{ (Request::routeIs('admin.dosen') || Request::routeIs('admin.student') || Request::routeIs('admin.guru') || Request::routeIs('admin.operator')) ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                     <i class="fas fa-columns"></i>
                     Pengguna
                     <i class="fas fa-chevron-down"></i>
