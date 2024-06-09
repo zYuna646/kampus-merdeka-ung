@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lowongan;
 use App\Models\Program;
 use App\Models\ProgramKampus;
+use App\Models\ProgramTransaction;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,6 +37,12 @@ class OperatorController extends Controller
         return view('admin.operator.dashboard_operator')->with('data',$data);
     }
 
+    public function getPesertaDetail($id)
+    {
+        $peserta = ProgramTransaction::find($id);
+        return view('admin.operator.peserta_detail', ['peserta' => $peserta]);
+    }
+
     public function create()
     {
         return view('admin.superadmin.operator.add');
@@ -46,6 +53,12 @@ class OperatorController extends Controller
     {
         $data = Lowongan::find($id);
         return view('admin.operator.program_detail', compact('data'));
+}
+
+    public function detail_lowongan($id)
+    {
+        $data = Lowongan::find($id);
+        return view('admin.operator.detail_lowongan', compact('data'));
     }
 
     /**
