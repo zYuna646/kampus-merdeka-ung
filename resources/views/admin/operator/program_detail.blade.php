@@ -47,7 +47,7 @@
         </div>
         <hr class="col-span-12 mt-4">
         <div class="col-span-12 mt-4 flex gap-x-1">
-            <x-button_md color="primary" onClick="Window.location.href='{{route('operator.dashboard.lowongan_detail', $data->id)}}'">
+            <x-button_md color="primary" onclick="window.location.href='{{ route('operator.lowongan_detail', $data->id) }}'">
                 Detail Lowongan
             </x-button_md>
         </div>

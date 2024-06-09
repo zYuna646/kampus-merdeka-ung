@@ -30,7 +30,6 @@
                 <span class="text-xs text-slate-500"> {{ Auth::user()->dosen->studi->name }}</span>
                 <span class="text-slate-500 text-sm">Universitas Negeri Gorontalo</span>
                 @endauth
-
             </div>
         </div>
         <div class="p-6 w-full bg-white flex flex-col gap-4 rounded-xl shadow-sm border border-slate-200 mt-2">
