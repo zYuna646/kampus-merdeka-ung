@@ -41,4 +41,14 @@ class Lowongan extends Model
     {
         return $this->hasMany(ProgramTransaction::class);
     }
+
+    public function dpl()
+    {
+        return $this->hasMany(DPL::class);
+    }
+
+    public function pamong()
+    {
+        return $this->hasMany(MitraTransaction::class);
+    }
 }

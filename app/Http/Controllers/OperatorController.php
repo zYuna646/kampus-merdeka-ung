@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lowongan;
+use App\Models\Program;
+use App\Models\ProgramKampus;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,12 +27,25 @@ class OperatorController extends Controller
 
     public function dashboard()
     {
-        $program = Lowongan::all();
+        $program = ProgramKampus::all();
+        $lowongan = Lowongan::all();
+        $data = [
+            'program' => $program,
+            'lowongan' => $lowongan  
+        ];
+        return view('admin.operator.dashboard_operator')->with('data',$data);
     }
 
     public function create()
     {
         return view('admin.superadmin.operator.add');
+    }
+
+
+    public function getLowongan($id)
+    {
+        $data = Lowongan::find($id);
+        return view('admin.operator.program_detail', compact('data'));
     }
 
     /**
