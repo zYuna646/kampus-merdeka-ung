@@ -205,7 +205,7 @@
                     <p class="text-sm">
                         {{ \Carbon\Carbon::parse($item->tanggal_mulai)->isoFormat('dddd D MMMM YYYY') }} -
                         {{ \Carbon\Carbon::parse($item->tanggal_selesai)->isoFormat('dddd D MMMM YYYY') }}</p>
-                    <a href="{{ route('dosen.weekly_review', ['id' => $item->id]) }}"
+                    <a href="{{ route('operator.weeklyLogbook', ['id' => $item->id]) }}"
                         class="text-white h-fit w-fit bg-gray-500 hover:bg-{{ $statusColor }}-600 focus:ring-4 focus:ring-{{ $statusColor }}-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                         Periksa Laporan
                     </a>

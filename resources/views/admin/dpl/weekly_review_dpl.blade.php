@@ -44,7 +44,7 @@
         <div
             class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm  transition-all duration-300">
             <div class="w-16 rounded-full">
-                <img src="/images/avatar/avatar.jpg" alt="" class="rounded-full">
+                <img src="/images/avatar/placeholder.jpg" alt="" class="rounded-full">
             </div>
             <div>
                 <p class="font-semibold text-sm">{{ $data->programTransaction->mahasiswa->name }}</p>
@@ -263,8 +263,8 @@
                         </a>
                     </form>
                     <br>
-                    <div class="overflow-x-auto">
-                        <table id="table_config_{{ $item->id }}" class="w-full text-sm">
+                    <div class="overflow-x-auto text-xs">
+                        <table id="table_config_{{ $item->id }}" class="w-full text-xs">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -297,11 +297,12 @@
 
                     <hr class="mt-4 mb-4">
                     @if ($item->status == 'proses')
-                    <button type="button"
-                        class="text-white h-fit w-fit bg-color-success-500 hover:bg-success-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                    <x-button_md type="button"
+                        class=""
+                        color="primary"
                         onclick="window.location='{{ route('guru.daily.review', ['id' => $item->id]) }}'">
                         Periksa
-                    </button>
+                    </x-button_md>
                     @endif
 
                 </div>
