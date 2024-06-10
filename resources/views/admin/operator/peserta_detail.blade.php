@@ -81,38 +81,8 @@
             </div>
             <hr>
             <div>
-                <form id="reviewForm" action="{{ route('dosen.rancangan.submit', ['id' => $peserta->id]) }}"
-                    method="POST">
-                    @csrf
-                    <!-- Pastikan untuk menambahkan csrf token jika Anda menggunakan Laravel -->
-
-                    <div class="mb-4">
-                        <label for="solusi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
-                            Kirim Feedback (Isi Bagian Ini Jika Memilih Menolak Rancangan)
-                        </label>
-                        <textarea name="msg" id="solusi" placeholder="Feedback racangan kegiatan"
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"></textarea>
-                    </div>
-                    <input type="hidden" id="status" name="status" value="">
-
-                    <div>
-                        <a onclick="setStatus('terima')"
-                            class="text-white w-fit h-fit bg-color-success-500 hover:bg-color-success-600 focus:ring-4 focus:ring-color-success-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
-                            Setujui
-                        </a>
-                        <a onclick="setStatus('tolak')"
-                            class="text-white w-fit h-fit bg-color-danger-500 hover:bg-color-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
-                            Tolak
-                        </a>
-                    </div>
-                </form>
-
-                <script>
-                    function setStatus(status) {
-                            document.getElementById('status').value = status; // Set value based on button clicked
-                            document.getElementById('reviewForm').submit(); // Submit the form
-                        }
-                </script>
+              
+                
 
             </div>
         </div>
