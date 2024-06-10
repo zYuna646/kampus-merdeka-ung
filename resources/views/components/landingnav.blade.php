@@ -14,27 +14,13 @@
         <a href="{{ route('program') }}"
           class="p-2 {{ Route::currentRouteNamed('program') ? 'font-semibold text-color-primary-500' : '' }}">Program</a>
       </li>
-      <li
-        class="p-2 relative hover:cursor-pointer {{ Route::currentRouteNamed('infografis') ? 'font-semibold text-color-primary-500' : '' }}"
-        onclick="openDropDown(this)">
-        <p class="">Infografis</p>
-        <div
-          class="absolute hidden top-full p-4 bg-white text-sm rounded-md shadow-lg border border-slate-200 flex-col gap-y-2 w-max dropdown_menu">
-          <ul>
-            <li><a href="{{ route('infografis') }}" class="p-2">Peserta MBKM</a></li>
-          </ul>
-        </div>
+      <li>
+        <a href="{{ route('infografis') }}"
+          class="p-2 {{ Route::currentRouteNamed('program') ? 'font-semibold text-color-primary-500' : '' }}">Infografis</a>
       </li>
-      <li
-        class="p-2 relative hover:cursor-pointer {{ Route::currentRouteNamed('berita') ? 'font-semibold text-color-primary-500' : '' }}"
-        onclick="openDropDown(this)">
-        <p>Berita</p>
-        <div
-          class="absolute hidden top-full p-4 bg-white text-sm rounded-md shadow-lg border border-slate-200 flex-col gap-y-2 w-max dropdown_menu">
-          <ul>
-            <li><a href="{{ route('berita') }}" class="p-2">Semua Berita</a></li>
-          </ul>
-        </div>
+      <li>
+        <a href="{{ route('berita') }}"
+          class="p-2 {{ Route::currentRouteNamed('program') ? 'font-semibold text-color-primary-500' : '' }}">Berita</a>
       </li>
       <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
         <a href="{{ route('login') }}"
@@ -71,43 +57,18 @@
         </a>
       </li>
       <li
-        class="p-4 flex items-center {{ Route::currentRouteNamed('infografis') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg hover:cursor-pointer"
-        onclick="openDropDown(this)">
-        <div class="flex flex-col items-center w-full">
-          <div class="flex items-center justify-between w-full">
-            <div class="flex items-center gap-x-2">
-              <i class="fas fa-box"></i>
-              Infografis
-            </div>
-            <span><i class="fas fa-chevron-down"></i></span>
-          </div>
-          <div
-            class="flex-col gap-y-2 p-4 bg-white {{ Route::currentRouteNamed('infografis') ? 'text-color-primary-500' : 'text-slate-500' }} rounded-lg hidden w-full mt-4 dropdown_menu">
-            <a href="{{ route('infografis') }}" class="flex items-center gap-x-2">
-              <i class="fas fa-file"></i>
-              Peserta MBKM
-            </a>
-          </div>
-        </div>
+        class="p-4 flex items-center {{ Route::currentRouteNamed('infografis') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg">
+        <a href="{{ route('program') }}" class="flex items-center gap-x-2">
+          <i class="fas fa-chart-bar"></i>
+          Infografis
+        </a>
       </li>
       <li
-        class="p-4 flex items-center {{ Route::currentRouteNamed('berita') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg hover:cursor-pointer"
-        onclick="openDropDown(this)">
-        <div class="flex flex-col items-center w-full">
-          <div class="flex items-center justify-between w-full">
-            <div class="flex items-center gap-x-2">
-              <i class="fas fa-box"></i>
-              Berita
-            </div>
-            <span><i class="fas fa-chevron-down"></i></span>
-          </div>
-          <div class="flex-col gap-y-2 p-4 bg-white {{ Route::currentRouteNamed('berita') ? 'text-color-primary-500' : 'text-slate-500' }} rounded-lg hidden w-full mt-4 dropdown_menu">
-            <a href="{{ route('berita') }}" class="flex items-center gap-x-2">
-              <i class="fas fa-file"></i>
-              Semua Berita
-            </a>
-          </div>
-        </div>
+        class="p-4 flex items-center {{ Route::currentRouteNamed('berita') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg">
+        <a href="{{ route('program') }}" class="flex items-center gap-x-2">
+          <i class="fas fa-newspaper"></i>
+          Berita
+        </a>
       </li>
       <li class="flex items-center text-white rounded-lg">
         <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"

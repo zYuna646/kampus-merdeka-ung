@@ -161,8 +161,8 @@
                         <span class="text-sm text-slate-500">{{ $data->date }}</span>
                     </div>
                 </div>
-                <div class="mt-4 flex flex-col gap-y-4">
-                    <table id="table_config" class="w-full text-sm">
+                <div class="mt-4 flex flex-col gap-y-4 text-xs">
+                    <table id="table_config" class="w-full text-xs">
                         <thead>
                             <tr>
                                 <th>No.</th>

@@ -82,15 +82,15 @@
                 $iconClass = '';
                 switch ($dailyItem->status) {
                 case 'terima':
-                $colorClass = 'bg-green-500';
-                $iconClass = 'fas fa-check';
+                $colorClass = 'bg-color-success-500';
+                $iconClass = 'fas fa-check-circle';
                 break;
                 case 'proses':
-                $colorClass = 'bg-yellow-500';
+                $colorClass = 'bg-color-warning-500';
                 $iconClass = 'fas fa-hourglass-half';
                 break;
                 case 'tolak':
-                $colorClass = 'bg-red-500';
+                $colorClass = 'bg-color-danger-500';
                 $iconClass = 'fas fa-times';
                 break;
                 default:
@@ -113,7 +113,7 @@
     <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
         <div class="col-span-8 w-full flex flex-col gap-y-2">
             @foreach ($data->daily as $item)
-            <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow mb-4">
+            <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow">
                 <button class="w-full flex justify-between items-center" onclick="openDetails(this)">
                     <div class="flex gap-x-4 items-center">
                         @php
@@ -183,8 +183,8 @@
                         </a>
                     </form>
                     <br>
-                    <div class="overflow-x-auto">
-                        <table id="table_config_{{ $item->id }}" class="w-full text-sm">
+                    <div class="overflow-x-auto text-xs">
+                        <table id="table_config_{{ $item->id }}" class="w-full text-xs">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -215,13 +215,12 @@
                         </table>
                     </div>
 
-                    <hr class="mt-4 mb-4">
+                    <hr class="mt-2">
                     @if ($item->status == 'proses')
-                    <button type="button"
-                        class="text-white h-fit w-fit bg-color-success-500 hover:bg-success-danger-600 focus:ring-4 focus:ring-color-success-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                    <x-button_md type="button" class="" color="primary"
                         onclick="window.location='{{ route('guru.daily.review', ['id' => $item->id]) }}'">
                         Periksa
-                    </button>
+                    </x-button_md>
                     @endif
 
                 </div>

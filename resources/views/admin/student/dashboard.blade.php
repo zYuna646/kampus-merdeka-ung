@@ -33,9 +33,9 @@
             </div>
         </div>
         <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
-            <a href="#" class="w-full">
+            <div href="#" class="w-full">
                 <img class="rounded-t-lg w-full brightness-50" src="/images/hero-image/image.png" alt="" />
-            </a>
+            </div>
             <div class="p-6">
                 <div class="mb-8">
                     <div class="flex justify-between items-center">

@@ -96,9 +96,9 @@
             </div>
         </div>
     </div>
-    <div class="col-span-12 lg:col-span-8 w-full flex flex-col gap-y-2">
+    <div class="col-span-12 lg:col-span-8 w-full flex flex-col gap-y-4">
         @foreach ($data->daily as $item)
-        <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow mb-4 ">
+        <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow ">
             <button class="w-full flex justify-between items-center" onclick="openDetails(this)">
                 <div class="flex gap-x-4 items-center">
                     @php

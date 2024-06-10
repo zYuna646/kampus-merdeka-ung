@@ -460,15 +460,15 @@
                                             $iconClass = '';
                                             switch ($dailyItem->status) {
                                                 case 'terima':
-                                                    $colorClass = 'bg-green-500';
-                                                    $iconClass = 'fas fa-check';
+                                                    $colorClass = 'bg-color-success-500';
+                                                    $iconClass = 'fas fa-check-circle';
                                                     break;
                                                 case 'proses':
-                                                    $colorClass = 'bg-yellow-500';
+                                                    $colorClass = 'bg-color-warning-500';
                                                     $iconClass = 'fas fa-hourglass-half';
                                                     break;
                                                 case 'tolak':
-                                                    $colorClass = 'bg-red-500';
+                                                    $colorClass = 'bg-color-danger-500';
                                                     $iconClass = 'fas fa-times';
                                                     break;
                                                 default:

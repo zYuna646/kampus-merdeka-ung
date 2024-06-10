@@ -300,7 +300,7 @@
                     <x-button_md type="button"
                         class=""
                         color="primary"
-                        onclick="window.location='{{ route('guru.daily.review', ['id' => $item->id]) }}'">
+                        onclick="window.location='{{ route('dpl.weekly.review', ['id' => $item->id]) }}'">
                         Periksa
                     </x-button_md>
                     @endif

@@ -39,8 +39,7 @@
                 </div>
                 <div class="flex flex-col text-color-primary-500">
                     <p class="font-semibold">Mahasiswa Belum Mengupload Rancangan</p>
-                    <p class="text-sm">Anda bisa menyetujui ataupun menolak rancangan ketika mahasiswa sudah
-                        Mengupload Rancangan</p>
+                    <p class="text-sm">Berkas Rancngan akan di setujui oleh DPL dan pamong ketika berhasil di upload</p>
                 </div>
             </div>
 
@@ -57,7 +56,7 @@
 
                 <div class="flex flex-col text-color-primary-500">
                     <p class="font-semibold">Mahasiswa Sudah Mengupload Rancangan</p>
-                    <p class="text-sm">Lihat Detail Rancangan Mahasiswa, Dan Berikan Feedback Yang Sesuai </p>
+                    <p class="text-sm">Lihat berkas Rancangan mahasiswa melalui link di bawah </p>
                 </div>
             </div>
             <div class="flex flex-col gap-y-2">
@@ -80,40 +79,14 @@
                 </form>
             </div>
             <hr>
-            <div>
-                <form id="reviewForm" action="{{ route('dosen.rancangan.submit', ['id' => $peserta->id]) }}"
-                    method="POST">
-                    @csrf
-                    <!-- Pastikan untuk menambahkan csrf token jika Anda menggunakan Laravel -->
-
-                    <div class="mb-4">
-                        <label for="solusi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
-                            Kirim Feedback (Isi Bagian Ini Jika Memilih Menolak Rancangan)
-                        </label>
-                        <textarea name="msg" id="solusi" placeholder="Feedback racangan kegiatan"
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"></textarea>
-                    </div>
-                    <input type="hidden" id="status" name="status" value="">
-
-                    <div>
-                        <a onclick="setStatus('terima')"
-                            class="text-white w-fit h-fit bg-color-success-500 hover:bg-color-success-600 focus:ring-4 focus:ring-color-success-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
-                            Setujui
-                        </a>
-                        <a onclick="setStatus('tolak')"
-                            class="text-white w-fit h-fit bg-color-danger-500 hover:bg-color-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
-                            Tolak
-                        </a>
-                    </div>
-                </form>
-
-                <script>
-                    function setStatus(status) {
-                            document.getElementById('status').value = status; // Set value based on button clicked
-                            document.getElementById('reviewForm').submit(); // Submit the form
-                        }
-                </script>
-
+            <div class="flex items-start mt-2">
+                <span
+                    class=" inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-warning-500 rounded-full ">
+                    <i class="fas fa-exclamation"></i>
+                </span>
+                <div class="flex flex-col gap-y-2 max-w-[80%]">
+                    <p class="text-sm font-semibold ">Berkas rancangan berhasil di upload mahasiswa, menuggu di verifikasi oleh DPL dan Pamong</p>
+                </div>
             </div>
         </div>
         @elseif($peserta->status_rancangan_dpl == 'tolak')
@@ -125,8 +98,7 @@
                 </span>
                 <div class="flex flex-col text-color-primary-500">
                     <p class="font-semibold">Rancangan Ditolak</p>
-                    <p class="text-sm">Anda bisa menyetujui ataupun menolak rancangan ketika mahasiswa sudah
-                        Memperbarui Rancangan</p>
+                    <p class="text-sm">Berkas rancangan telah ditolak</p>
                 </div>
             </div>
 
@@ -138,9 +110,9 @@
                     class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-color-success-500 bg-color-success-100 border border-color-success-500 rounded-full ">
                     <i class="fas fa-check text-lg"></i>
                 </span>
-                <div class="flex flex-col text-color-primary-500">
-                    <p class="font-semibold">Rancangan DiTerima</p>
-                    <p class="text-sm">Lihat Detail Rancangan Mahasiswa</p>
+                <div class="flex flex-col text-color-success-500">
+                    <p class="font-semibold">Rancangan Diterima</p>
+                    <p class="text-sm">Lihat detail rancangan mahasiswa</p>
                 </div>
             </div>
             <div class="flex flex-col gap-y-2">
