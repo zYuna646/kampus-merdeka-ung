@@ -96,7 +96,7 @@
         $(document).on('click', '.remove_repeater', function () {
             $(this).closest('.repeater_item').remove();
         });
-
+ 
         // Fetch students based on the selected program
         $('#program').change(function () {
             const programId = $(this).val();

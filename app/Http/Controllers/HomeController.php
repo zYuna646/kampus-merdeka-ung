@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lowongan;
 use App\Models\news;
 use App\Models\ProgramKampus;
 use Illuminate\Http\Request;
@@ -25,12 +26,27 @@ class HomeController extends Controller
             ->with('latestNews', $latestNews);
     }
 
+    public function lowongan()
+    {
+        $currentDate = now();
+        $data = Lowongan::where('pendaftaran_mulai', '<=', $currentDate)
+            ->where('pendaftaran_selesai', '>=', $currentDate)
+            ->get();
+        return view('')->with('data', $data);
+    }
+
+    public function detail_lowongan($id)
+    {
+        $data = Lowongan::find($id);
+        return view('landing.detail_news', compact('data'));
+    }
+
     public function infografis()
     {
         $data = [
             'program' => ProgramKampus::all(),
         ];
-        return view('landing.infographic')->with('data' , $data);     
+        return view('landing.infographic')->with('data', $data);
     }
 
     public function detail_news($id)

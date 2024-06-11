@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lokasi;
 use App\Models\Lowongan;
 use App\Models\Program;
 use App\Models\ProgramKampus;
@@ -85,7 +86,12 @@ class OperatorController extends Controller
 
     public function detail_lowongan($id)
     {
-        $data = Lowongan::find($id);
+        $lowongan = Lowongan::find($id);
+        $data = [
+            'lowongan' => $lowongan,
+            'lokasi' => Lokasi::where('program_id', $lowongan->program->id)->get(),
+            'peserta' => $lowongan->programTransaction
+        ];
         return view('admin.operator.detail_lowongan', compact('data'));
     }
 
