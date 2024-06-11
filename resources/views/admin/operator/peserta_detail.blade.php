@@ -33,11 +33,11 @@
             <div class="flex lg:flex-row flex-col gap-y-4  gap-x-4">
                 <div>
                     <span
-                        class="inline-flex items-center justify-center  h-12 w-12 text-sm font-semibold text-color-primary-500 bg-color-primary-100 border border-color-primary-500 rounded-full ">
+                        class="inline-flex items-center justify-center  h-12 w-12 text-sm font-semibold text-color-danger-500 bg-color-danger-100 border border-color-danger-500 rounded-full ">
                         <i class="fas fa-exclamation text-lg"></i>
                     </span>
                 </div>
-                <div class="flex flex-col text-color-primary-500">
+                <div class="flex flex-col text-color-danger-500">
                     <p class="font-semibold">Mahasiswa Belum Mengupload Rancangan</p>
                     <p class="text-sm">Berkas Rancngan akan di setujui oleh DPL dan pamong ketika berhasil di upload</p>
                 </div>
@@ -49,12 +49,12 @@
             <div class="flex lg:flex-row flex-col gap-y-4  gap-x-4">
                 <div>
                     <span
-                        class="inline-flex items-center justify-center  h-12 w-12 text-sm font-semibold text-color-primary-500 bg-color-primary-100 border border-color-primary-500 rounded-full ">
+                        class="inline-flex items-center justify-center  h-12 w-12 text-sm font-semibold text-color-warning-500 bg-color-warning-100 border border-color-warning-500 rounded-full ">
                         <i class="fas fa-exclamation text-lg"></i>
                     </span>
                 </div>
 
-                <div class="flex flex-col text-color-primary-500">
+                <div class="flex flex-col text-color-warning-500">
                     <p class="font-semibold">Mahasiswa Sudah Mengupload Rancangan</p>
                     <p class="text-sm">Lihat berkas Rancangan mahasiswa melalui link di bawah </p>
                 </div>
@@ -85,7 +85,8 @@
                     <i class="fas fa-exclamation"></i>
                 </span>
                 <div class="flex flex-col gap-y-2 max-w-[80%]">
-                    <p class="text-sm font-semibold ">Berkas rancangan berhasil di upload mahasiswa, menuggu di verifikasi oleh DPL dan Pamong</p>
+                    <p class="text-sm font-semibold">Berkas rancangan berhasil di upload mahasiswa, menuggu di
+                        verifikasi oleh DPL dan Pamong</p>
                 </div>
             </div>
         </div>
@@ -145,40 +146,41 @@
         $statusIcon = '';
         switch ($item->status) {
         case 'terima':
-        $statusColor = 'success';
-        $statusIcon = 'check-circle';
+        $statusColor = 'color-success';
+        $statusIcon = 'fas fa-check-circle';
         break;
         case 'proses':
-        $statusColor = 'warning';
-        $statusIcon = 'spinner';
+        $statusColor = 'color-warning';
+        $statusIcon = 'fas fa-exclamation-circle';
         break;
         case 'tolak':
-        $statusColor = 'danger';
-        $statusIcon = 'times-circle';
+        $statusColor = 'color-warning';
+        $statusIcon = 'fas fa-times-circle';
         break;
         case 'belum':
         $statusColor = 'gray';
-        $statusIcon = 'clock';
+        $statusIcon = 'fas fa-clock';
         break;
         default:
-        $statusColor = 'primary';
-        $statusIcon = 'exclamation-circle';
+        $statusColor = 'color-warning';
+        $statusIcon = 'fas fa-exclamation-circle';
         break;
         }
         @endphp
-        <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <div class="grid grid-cols-12 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="flex lg:flex-row flex-col gap-y-4 gap-x-6 w-full col-span-12">
                 <span
                     class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-{{ $statusColor }}-500 bg-{{ $statusColor }}-100 border border-{{ $statusColor }}-500 rounded-full">
-                    <i class="fas fa-{{ $statusIcon }} text-lg"></i>
+                    <i class="{{ $statusIcon }} text-lg"></i>
                 </span>
                 <div class="flex flex-col gap-y-2">
-                    <h4 class="text-xl font-semibold">Log Book Minggu Ke-{{ $index + 1 }}</h4>
-                    <p class="text-sm">
+                    <h4 class="text-xl font-semibold text-{{ $statusColor }}-500">Log Book Minggu Ke-{{ $index + 1 }}
+                    </h4>
+                    <p class="text-sm text-{{ $statusColor }}-500">
                         {{ \Carbon\Carbon::parse($item->tanggal_mulai)->isoFormat('dddd D MMMM YYYY') }} -
                         {{ \Carbon\Carbon::parse($item->tanggal_selesai)->isoFormat('dddd D MMMM YYYY') }}</p>
                     <a href="{{ route('operator.weeklyLogbook', ['id' => $item->id]) }}"
-                        class="text-white h-fit w-fit bg-gray-500 hover:bg-{{ $statusColor }}-600 focus:ring-4 focus:ring-{{ $statusColor }}-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                        class="text-white h-fit w-fit bg-{{ $statusColor }}-500 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                         Periksa Laporan
                     </a>
                 </div>

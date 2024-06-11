@@ -42,8 +42,7 @@
     </div>
     <div class="col-span-12 lg:col-span-4 w-full">
         <div class="w-full bg-white p-6 rounded-lg shadow broder border-gray-200">
-
-            <div class="flex flex-col mt-4">
+            <div class="flex flex-col mt-4 w-full items-center">
                 @php
                 $startDate = \Carbon\Carbon::parse($data->start_date);
                 $endDate = \Carbon\Carbon::parse($data->end_date);
@@ -51,49 +50,52 @@
                 <p class="font-semibold text-lg">{{ $startDate->format('d') }} - {{ $endDate->format('d M Y') }}</p>
                 {{-- <span class="text-sm text-slate-500">Minggu Ke-10</span> --}}
             </div>
-            <hr class="mb-4 mt-4">
-            <div class="flex mt-4 justify-between">
-                @foreach ($data->daily as $dailyItem)
-                @php
-                // Mendapatkan inisial hari
-                $dayName = \Carbon\Carbon::parse($dailyItem->date)
-                ->locale('id')
-                ->isoFormat('dd');
+            <hr class="mb-2 mt-4">
+            <div class="flex items-center justify-center">
+                <div class="flex mt-4 items-center gap-x-2">
+                    @foreach ($data->daily as $dailyItem)
+                    @php
+                    // Mendapatkan inisial hari
+                    $dayName = \Carbon\Carbon::parse($dailyItem->date)
+                    ->locale('id')
+                    ->isoFormat('dd');
 
-                $dayInitial = substr($dayName, 0, 1);
+                    $dayInitial = substr($dayName, 0, 1);
 
-                // Menentukan warna dan ikon berdasarkan status
-                $colorClass = '';
-                $iconClass = '';
-                switch ($dailyItem->status) {
-                case 'terima':
-                $colorClass = 'bg-green-500';
-                $iconClass = 'fas fa-check';
-                break;
-                case 'proses':
-                $colorClass = 'bg-yellow-500';
-                $iconClass = 'fas fa-hourglass-half';
-                break;
-                case 'tolak':
-                $colorClass = 'bg-red-500';
-                $iconClass = 'fas fa-times';
-                break;
-                default:
-                $colorClass = 'bg-gray-500';
-                $iconClass = 'fas fa-minus';
-                }
-                @endphp
+                    // Menentukan warna dan ikon berdasarkan status
+                    $colorClass = '';
+                    $iconClass = '';
+                    switch ($dailyItem->status) {
+                    case 'terima':
+                    $colorClass = 'bg-color-success-500';
+                    $iconClass = 'fas fa-check-circle';
+                    break;
+                    case 'proses':
+                    $colorClass = 'bg-color-warning-500';
+                    $iconClass = 'fas fa-hourglass-half';
+                    break;
+                    case 'tolak':
+                    $colorClass = 'bg-color-danger-500';
+                    $iconClass = 'fas fa-times';
+                    break;
+                    default:
+                    $colorClass = 'bg-gray-500';
+                    $iconClass = 'fas fa-minus';
+                    }
+                    @endphp
 
-                <div class="flex flex-col items-center justify-center">
-                    <p>{{ $dayInitial }}</p>
-                    <span
-                        class="inline-flex items-center justify-center w-10 h-10 text-sm font-semibold text-white rounded-full {{ $colorClass }}">
-                        <i class="{{ $iconClass }} text-sm"></i>
-                    </span>
+                    <div class="flex flex-col items-center justify-center">
+                        <p>{{ $dayInitial }}</p>
+                        <span
+                            class="inline-flex items-center justify-center w-10 h-10 text-sm font-semibold text-white rounded-full {{ $colorClass }}">
+                            <i class="{{ $iconClass }} text-sm"></i>
+                        </span>
+                    </div>
+                    @endforeach
+
                 </div>
-                @endforeach
-
             </div>
+
         </div>
     </div>
     <div class="col-span-12 lg:col-span-8 w-full flex flex-col gap-y-4">
@@ -211,9 +213,7 @@
 
 
                 @if ($item->status == 'terima')
-                <x-button_md class="" color="primary">
-                    download Log Book
-                </x-button_md>
+
                 @endif
                 @if ($item->status == 'belum')
                 <x-button_md onclick="window.location='{{ route('student.daily_logbookForm', ['id' => $item->id]) }}'"

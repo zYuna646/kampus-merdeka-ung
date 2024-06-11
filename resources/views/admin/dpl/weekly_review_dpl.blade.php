@@ -1,11 +1,11 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl min-h-screen mx-auto grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-xl min-h-screen mx-auto grid grid-cols-12 py-32 px-4 lg:px-12 gap-4">
     <div class="flex col-span-12 mb-2 mt-2" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
             <li class="inline-flex items-center">
-                <a href="{{ route('student.dashboard') }}"
+                <a href="{{ route('dosen.dashboard') }}"
                     class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-color-primary-600 dark:text-gray-400 dark:hover:text-white">
                     <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor" viewBox="0 0 20 20">
@@ -80,16 +80,22 @@
 
                 <div class="inline-flex">
                     <!-- Button to set status to 'terima' -->
-                    <button type="button" onclick="setStatus('terima')"
+                    {{-- <button type="button" onclick="setStatus('terima')"
                         class="text-white w-full h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                         Setujui
-                    </button>
+                    </button> --}}
+                    <x-button_md color="success" onclick="setStatus('terima')" class="w-fit">
+                        Setujui
+                    </x-button_md>
 
                     <!-- Button to set status to 'tolak' -->
-                    <button type="button" onclick="setStatus('tolak')"
+                    {{-- <button type="button" onclick="setStatus('tolak')"
                         class="text-white w-full h-full bg-color-danger-500 hover:bg-color-danger-600 focus:ring-4 focus:ring-color-danger-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                         Tolak
-                    </button>
+                    </button> --}}
+                    <x-button_md color="danger" onclick="setStatus('tolak')" class="w-fit ms-2">
+                        Tolak
+                    </x-button_md>
                 </div>
 
             </form>
@@ -105,8 +111,8 @@
         </div>
     </div>
     <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
-        <div class="col-span-8 w-full flex flex-col gap-y-2">
-            <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow mb-4">
+        <div class="col-span-8 w-full flex flex-col gap-y-4">
+            <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow">
                 <button class="w-full flex justify-between items-center" onclick="openDetails(this)">
                     <div class="flex gap-x-4 items-center">
                         @php
@@ -143,7 +149,7 @@
                         <div class="flex flex-col justify-start items-start">
 
                             <p class="font-semibold"> {{ \Carbon\Carbon::parse($data->start_date)->format('d F Y') }} -
-                                {{ \Carbon\Carbon::parse($data->end_date)->format('d F Y') }}</p>
+                                {{ \Carbon\Carbon::parse($data->end_date)->format('d F Y') }} (Laporan Mingguan)</p>
 
 
                         </div>
@@ -155,8 +161,8 @@
                 <div class="mt-4 flex-col gap-y-4 hidden detailContainer">
 
                     <br>
-                    <div class="overflow-x-auto">
-                        <table id="weekly" class="w-full text-sm">
+                    <div class="overflow-x-auto text-xs">
+                        <table id="weekly" class="w-full text-xs">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -193,7 +199,7 @@
 
             </div>
             @foreach ($data->daily as $item)
-            <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow mb-4">
+            <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow ">
                 <button class="w-full flex justify-between items-center" onclick="openDetails(this)">
                     <div class="flex gap-x-4 items-center">
                         @php

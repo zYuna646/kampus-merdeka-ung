@@ -92,21 +92,14 @@
 
                 </div>
                 <div class="grid grid-flow-row divide-y-[1px]">
-                    <div class="flex items-center gap-4 font-semibold pb-4">
-                        <a href="{{ route('student.weekly_logbook') }}" class="flex items-center gap-2 ">
-                            <span><i class="fas fa-book text-base"></i></span>
-                            <span>Log Book</span>
-                        </a>
-                    </div>
-
                     {{-- <div class="flex items-center gap-4 font-semibold py-4">
                         <span class=""><i class="fas fa-clipboard-check text-xl"></i></span>
                         <p class="text-sm">Log Book Mingguan</p>
                     </div> --}}
-                    <div class="flex items-center gap-4 font-semibold py-4">
+                    <a href="{{ route('student.weekly_logbook') }}" class="flex items-center gap-4 font-semibold py-4">
                         <span class=""><i class="fas fa-print text-base"></i></span>
-                        <p class="text-sm">Dokumen</p>
-                    </div>
+                        <p class="text-sm">Log Book</p>
+                    </a>
                     <div class="flex items-center gap-4 font-semibold pt-4">
                         <span><i class="fas fa-sign-out-alt text-base"></i></span>
                         <a href="{{ route('logout') }}"
@@ -245,7 +238,7 @@
         </div>
         <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="col-span-12 flex flex-col gap-y-2">
-                <h4 class="text-xl font-semibold">Lokasi Kegiatan</h4>
+                <h4 class="text-xl font-semibold">Periode Kegiatan</h4>
                 <p class="text-sm">Kamu akan mengikuti kegiatan dari tanggal
                     {{ $tanggalMulai->isoFormat('D MMM YYYY') }} -
                     {{ $tanggalSelesai->isoFormat('D MMM YYYY') }}
