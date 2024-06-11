@@ -31,9 +31,16 @@ class HomeController extends Controller
         $currentDate = now();
         $data = Lowongan::where('pendaftaran_mulai', '<=', $currentDate)
             ->where('pendaftaran_selesai', '>=', $currentDate)
+            ->orderBy('program_id->name', 'asc') // Urutkan berdasarkan nama program
             ->get();
-        return view('')->with('data', $data);
+        $latestPrograms = Lowongan::where('pendaftaran_mulai', '<=', $currentDate)
+            ->where('pendaftaran_selesai', '>=', $currentDate)
+            ->orderBy('created_at', 'desc') // Urutkan berdasarkan tanggal pembuatan terbaru
+            ->take(3) // Ambil 3 program terbaru
+            ->get();
+        return view('landing.programs')->with(['data' => $data, 'latestPrograms' => $latestPrograms]);
     }
+    
 
     public function detail_lowongan($id)
     {

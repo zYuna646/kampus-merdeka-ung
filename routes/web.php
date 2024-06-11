@@ -34,7 +34,7 @@ Route::post('/login', [AuthController::class, 'authenticate']);
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/berita', [HomeController::class, 'berita'])->name('berita');
 Route::get('/infografis', [HomeController::class, 'infografis'])->name('infografis');
-Route::get('/program', [HomeController::class, 'program'])->name('program');
+Route::get('/program', [HomeController::class, 'lowongan'])->name('program');
 Route::get('/detail_news/{id}', [HomeController::class, 'showNews'])->name('detail_news');
 Route::get('/berita/kategori/{category}', [HomeController::class, 'newsByCategory'])->name('news_by_category');
 Route::get('/sample', function () {
