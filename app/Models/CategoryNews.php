@@ -12,4 +12,9 @@ class CategoryNews extends Model
         'name',
         'slug',
     ];
+
+    public function news()
+    {
+        return $this->hasMany(News::class, 'category_id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\news;
 use App\Models\ProgramKampus;
 use Illuminate\Http\Request;
+use App\Models\CategoryNews;
 
 class HomeController extends Controller
 {
@@ -45,5 +46,11 @@ class HomeController extends Controller
         $data = News::findOrFail($id); // Ambil berita berdasarkan ID yang diberikan
 
         return view('landing.detail_news', compact('data'));
+    }
+    public function newsByCategory($category)
+    {
+        $category = CategoryNews::where('name', $category)->firstOrFail();
+        $news = $category->news()->get();
+        return view('landing.news_by_category')->with('data', $news)->with('category', $category);
     }
 }
