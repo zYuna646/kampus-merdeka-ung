@@ -16,19 +16,21 @@
   <div class="col-span-12 lg:col-span-4 flex flex-col gap-y-4 px-2">
     <div>
       <h2 class="font-semibold text-lg px-4">
-        Berita Terpopuler
+        Berita Terbaru
       </h2>
       <div class="grid grid-flow-row divide-y-[1px]">
-        <div class="p-4 bg-white  grid grid-cols-12 gap-4">
+        @foreach ($latestNews as $item)
+        <a href="{{ route('detail_news', $item->id) }}" class="p-4 bg-white grid grid-cols-12 gap-4">
           <div class="col-span-6 rounded-lg">
-            <img src="/images/hero-image/image.png" alt="" class="rounded-md w-full h-24 object-cover">
+            <img src='{{ Storage::url($item->cover) }}' alt="" class="rounded-md w-full h-24 object-cover">
           </div>
           <div class="col-span-6 flex flex-col gap-y-2">
-            <a href="" class="text-sm font-semibold news-title">Lorem ipsum dolor sit amet consectetur, adipisicing
-              elit.</a>
-            <p class="text-sm text-slate-500">14 Juni 2023</p>
+            <p class="text-sm font-semibold news-title">{{ $item->title
+              }}</p>
+            <p class="text-sm text-slate-500">{{ Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}</p>
           </div>
-        </div>
+        </a>
+        @endforeach
       </div>
     </div>
   </div>

@@ -44,7 +44,8 @@
                     karier.
                 </span>
             </p>
-            <x-button_md color="primary" class="w-fit" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/'">
+            <x-button_md color="primary" class="w-fit"
+                onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/'">
                 Cari Tahu
             </x-button_md>
         </div>
@@ -70,7 +71,8 @@
                         and reputable
                         industries overseas.
                     </p>
-                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
+                    <x-button_md class="w-fit" color="primary"
+                        onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
                         Lihat Program
                     </x-button_md>
                 </div>
@@ -95,7 +97,8 @@
                         pembelajaran yang
                         kreatif, inovatif, dan menyenangkan.
                     </p>
-                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
+                    <x-button_md class="w-fit" color="primary"
+                        onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
                         Lihat Program
                     </x-button_md>
                 </div>
@@ -116,7 +119,8 @@
                         tentang
                         praktik terbaik dari industri yang kamu minati!
                     </p>
-                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
+                    <x-button_md class="w-fit" color="primary"
+                        onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
                         Lihat Program
                     </x-button_md>
                 </div>
@@ -137,7 +141,8 @@
                         selama 1 (satu)
                         semester melalui aktivitas pembelajaran dan praktik langsung.
                     </p>
-                    <x-button_md class="w-fit" color="primary" onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
+                    <x-button_md class="w-fit" color="primary"
+                        onclick="window.location.href='https://kampusmerdeka.kemdikbud.go.id/program'">
                         Lihat Program
                     </x-button_md>
                 </div>
@@ -154,30 +159,25 @@
         <h2 class="text-2xl font-semibold text-color-primary-500 px-4">
             Berita Terbaru
         </h2>
-        @if ($data['news'])
-        <div class="grid grid-flow-row">
-            <div class="p-4 grid grid-cols-12 lg:gap-4 gap-2">
-                <div class="col-span-12 lg:col-span-6">
-                    <img src="{{ Storage::url($data['news']->cover) }}" alt=""
-                        class="rounded-lg w-full object-cover lg:h-56 h-36">
+        @foreach ($latestNews as $news)
+        <div class="p-4 grid grid-cols-12 lg:gap-4 gap-2">
+            <a href="{{ route('detail_news', $news->id) }}" class="col-span-12 lg:col-span-6">
+                <img src="{{ Storage::url($news->cover) }}" alt="" class="rounded-lg w-full object-cover lg:h-56 h-36">
+            </a>
+            <div class="col-span-12 lg:col-span-6 flex flex-col justify-between py-2 gap-y-4">
+                <div class="flex flex-col gap-y-4">
+                    <a href="{{ route('detail_news', $news->id) }}" class="font-semibold lg:text-lg news-title">{{
+                        $news->title }}</a>
+                    <p class="text-xs lg:text-sm truncate-text" data-text="{{ $news->content }}"></p>
                 </div>
-                <div class="col-span-12 lg:col-span-6 flex flex-col justify-between py-2 gap-y-4">
-                    <div class="flex flex-col gap-y-4">
-                        <a href="{{ route('detail_news', $data['news']->id) }}"
-                            class="font-semibold lg:text-lg news-title">{{ $data['news']->title }}</a>
-                        <p class="text-xs lg:text-sm truncate-text" data-text="{{ $data['news']->content }}"></p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-slate-500">
-                            {{ Carbon\Carbon::parse($data['news']->created_at)->format('Y-m-d') }}
-                        </p>
-                        <a href="" class="uppercase font-semibold text-sm text-color-primary-500">{{
-                            $data['news']->category->name }}</a>
-                    </div>
+                <div>
+                    <p class="text-sm text-slate-500">{{ Carbon\Carbon::parse($news->created_at)->format('Y-m-d') }}</p>
+                    <a href="{{ route('news_by_category', $news->category->name) }}"
+                        class="uppercase font-semibold text-sm text-color-primary-500">{{ $news->category->name }}</a>
                 </div>
             </div>
         </div>
-        @endif
+        @endforeach
 
         <div class="px-4">
             <x-button_md type="submit" class="w-fit" onclick="window.location.href='{{ route('berita') }}'">

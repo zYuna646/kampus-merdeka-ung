@@ -11,15 +11,18 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $data = [
-            'news' => news::first(),
-        ];
-        return view('landing.home')->with('data', $data);
+        $latestNews = news::orderBy('created_at', 'desc')->take(3)->get(); // Fetch 3 latest news items
+        return view('landing.home')->with('latestNews', $latestNews);
     }
 
     public function berita()
     {
-        return view('landing.news')->with('data', news::all());
+        $newsByTitle = news::orderBy('title', 'asc')->get();
+        $latestNews = news::orderBy('created_at', 'desc')->take(5)->get(); // You can adjust the number of latest news items
+
+        return view('landing.news')
+            ->with('newsByTitle', $newsByTitle)
+            ->with('latestNews', $latestNews);
     }
 
     public function infografis()
@@ -33,7 +36,10 @@ class HomeController extends Controller
     public function detail_news($id)
     {
         $data = news::find($id);
-        return view('landing.detail_news', compact('data'));
+        $latestNews = news::orderBy('created_at', 'desc')->take(5)->get();
+        return view('landing.detail_news')
+            ->with('data', $data)
+            ->with('latestNews', $latestNews);
     }
 
     public function program()
@@ -43,14 +49,17 @@ class HomeController extends Controller
 
     public function showNews($id)
     {
-        $data = News::findOrFail($id); // Ambil berita berdasarkan ID yang diberikan
-
-        return view('landing.detail_news', compact('data'));
+        $data = news::find($id);
+        $latestNews = news::orderBy('created_at', 'desc')->take(5)->get();
+        return view('landing.detail_news')
+            ->with('data', $data)
+            ->with('latestNews', $latestNews);
     }
     public function newsByCategory($category)
     {
         $category = CategoryNews::where('name', $category)->firstOrFail();
         $news = $category->news()->get();
-        return view('landing.news_by_category')->with('data', $news)->with('category', $category);
+        $latestNews = news::orderBy('created_at', 'desc')->take(5)->get();
+        return view('landing.news_by_category')->with('data', $news)->with('category', $category)  ->with('latestNews', $latestNews);;
     }
 }

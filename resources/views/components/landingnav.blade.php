@@ -16,11 +16,11 @@
       </li>
       <li>
         <a href="{{ route('infografis') }}"
-          class="p-2 {{ Route::currentRouteNamed('program') ? 'font-semibold text-color-primary-500' : '' }}">Infografis</a>
+          class="p-2 {{ Route::currentRouteNamed('infografis') ? 'font-semibold text-color-primary-500' : '' }}">Infografis</a>
       </li>
       <li>
         <a href="{{ route('berita') }}"
-          class="p-2 {{ Route::currentRouteNamed('program') ? 'font-semibold text-color-primary-500' : '' }}">Berita</a>
+          class="p-2 {{ Route::currentRouteNamed('berita') ? 'font-semibold text-color-primary-500' : '' }}">Berita</a>
       </li>
       <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
         <a href="{{ route('login') }}"
