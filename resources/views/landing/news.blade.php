@@ -19,15 +19,14 @@
     <div class="grid grid-flow-row">
       @foreach ($data as $item)
       <div class="p-4 grid grid-cols-12 lg:gap-4 gap-2">
-        <div class="col-span-12 lg:col-span-6">
+        <a href="{{ route('detail_news', $item->id) }}" class="col-span-12 lg:col-span-6">
           <img src='{{ Storage::url($item->cover) }}' alt="" class="rounded-lg w-full object-cover lg:h-56 h-36">
-        </div>
+        </a>
         <div class="col-span-12 lg:col-span-6 flex flex-col justify-between py-2 gap-y-4">
-          <div class="flex flex-col gap-y-4">
-            <a href="{{ route('detail_news', $item->id) }}"
-              class="font-semibold lg:text-lg news-title">{{$item->title}}</a>
+          <a href="{{ route('detail_news', $item->id) }}" class="flex flex-col gap-y-4">
+            <p class="font-semibold lg:text-lg news-title">{{$item->title}}</p>
             <p class="text-xs lg:text-sm truncate-text" data-text="{{ $item->content }}"></p>
-          </div>
+          </a>
           <div>
             <p class="text-sm text-slate-500">{{ Carbon\Carbon::parse($item->created_at)->format('Y-m-d') }}</p>
             <a href="" class="uppercase font-semibold text-sm text-color-primary-500">{{ $item->category->name}}</a>
