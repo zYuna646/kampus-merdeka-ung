@@ -118,7 +118,7 @@
         </div>
 
     </div>
-    @if ($data['programTransaction'])
+    @if(!$data['programTransaction'])
     <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
         <div class="w-full flex flex-col items-center justify-center gap-y-2">
             <div class="w-56">
@@ -131,6 +131,10 @@
                 </x-button_md>
             </div>
         </div>
+    </div>
+    @endif
+    @if ($data['programTransaction'])
+    <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
         <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="col-span-2">
                 <img src="/images/avatar/ung.png" alt="" class="w-16">
