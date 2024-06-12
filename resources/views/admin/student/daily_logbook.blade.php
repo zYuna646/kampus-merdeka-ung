@@ -298,7 +298,7 @@
 
 
                 @if ($item->status == 'terima')
-                <x-button_md>
+                <x-button_md onclick="window.location='{{ route('student.download_daily', ['id' => $item->id])}}'">
                     Download LogBook
                 </x-button_md>
                 @endif

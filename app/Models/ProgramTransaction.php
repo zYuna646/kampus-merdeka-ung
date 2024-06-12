@@ -54,18 +54,8 @@ class ProgramTransaction extends Model
         return $this->belongsToMany(DPL::class);
     }
 
-    public function pamongs()
-    {
-        return $this->belongsToMany(MitraTransaction::class);
-    }
-
     public function pamong()
     {
-        return $this->hasOne(MitraTransaction::class);
-    }
-
-    public function dpl()
-    {
-        return $this->hasOne(DPL::class);
+        return $this->belongsToMany(MitraTransaction::class);
     }
 }
