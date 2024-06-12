@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl min-h-screen mx-auto grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-xl min-h-screen mx-auto grid grid-cols-12 py-32 px-4 lg:px-12 gap-4">
     <div class="flex col-span-12 mb-2 mt-2" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
             <li class="inline-flex items-center">
@@ -96,7 +96,7 @@
     </div>
     <div class="col-span-12 lg:col-span-4">
         <div class="max-h-[42rem] overflow-y-auto flex flex-col gap-y-2 no-scrollbar">
-            @foreach ($data->programTransaction as $peserta)
+            @foreach ($data['peserta'] as $peserta)
             <div class="relative hover:cursor-pointer overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
                 onclick="showPesertaDetail({{ $peserta->id }})">
                 <div class="w-16 rounded-full">

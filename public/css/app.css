@@ -819,9 +819,6 @@ video {
 .max-h-8 {
   max-height: 2rem;
 }
-.max-h-\[24rem\] {
-  max-height: 24rem;
-}
 .max-h-\[42rem\] {
   max-height: 42rem;
 }
@@ -869,6 +866,9 @@ video {
 }
 .w-52 {
   width: 13rem;
+}
+.w-56 {
+  width: 14rem;
 }
 .w-6 {
   width: 1.5rem;
@@ -1455,9 +1455,6 @@ video {
 }
 .p-4 {
   padding: 1rem;
-}
-.p-44 {
-  padding: 11rem;
 }
 .p-6 {
   padding: 1.5rem;

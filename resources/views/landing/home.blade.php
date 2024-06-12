@@ -11,7 +11,9 @@
         </h1>
         <p class="text-lg">Universitas Negeri Gorontalo</p>
         <p class="text-sm max-w-sm">
-            Website Resmi Kampus Merdeka Universitas Negeri Gorontalo
+            Pantau aktivitas mahasiswa MBKM di UNG dengan mudah! Dapatkan solusi terpadu untuk transparansi dan
+            kesuksesan program MBKM dalam satu platform resmi UNG. Pastikan kemajuan dan evaluasi kegiatan dengan
+            aplikasi monitoring inovatif kami.
         </p>
     </div>
 </section>

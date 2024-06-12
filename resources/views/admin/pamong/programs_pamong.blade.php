@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-32 px-4 lg:px-12 gap-4">
   <div class=" w-full flex items-end justify-center gap-x-4">
     <h1 class="font-semibold">Program</h1>
     <hr class="w-full">
