@@ -120,6 +120,17 @@
     </div>
     @if ($data['programTransaction'])
     <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
+        <div class="w-full flex flex-col items-center justify-center gap-y-2">
+            <div class="w-56">
+                <img src="/images/avatar/Search-for-Ideas.png" alt="">
+            </div>
+            <div class="max-w-sm flex flex-col gap-y-4 items-center">
+                <p class="text-center">Ups!! Saat ini kamu belum terdaftar di program manapun</p>
+                <x-button_md>
+                    Cari Program
+                </x-button_md>
+            </div>
+        </div>
         <div class="grid grid-cols-12 p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="col-span-2">
                 <img src="/images/avatar/ung.png" alt="" class="w-16">
@@ -246,7 +257,6 @@
                 </p>
             </div>
         </div>
-
     </div>
     @endif
 

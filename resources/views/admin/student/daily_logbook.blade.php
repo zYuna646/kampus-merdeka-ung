@@ -99,6 +99,91 @@
         </div>
     </div>
     <div class="col-span-12 lg:col-span-8 w-full flex flex-col gap-y-4">
+        @if ($data->status === 'terima')
+        <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow">
+            <button class="w-full flex justify-between items-center" onclick="openDetails(this)">
+                <div class="flex gap-x-4 items-center">
+                    @php
+                    $statusColor = '';
+                    $iconClass = '';
+
+                    switch ($data->status) {
+                    case 'terima':
+                    $statusColor = 'success';
+                    $iconClass = 'fas fa-check-circle';
+                    break;
+                    case 'proses':
+                    $statusColor = 'warning';
+                    $iconClass = 'fas fa-hourglass-half';
+                    break;
+                    case 'tolak':
+                    $statusColor = 'danger';
+                    $iconClass = 'fas fa-times-circle';
+                    break;
+                    case 'belum':
+                    $statusColor = 'primary';
+                    $iconClass = 'fas fa-question-circle';
+                    break;
+                    default:
+                    $statusColor = 'secondary';
+                    $iconClass = 'fas fa-exclamation-circle';
+                    break;
+                    }
+                    @endphp
+                    <span
+                        class="inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-white rounded-full bg-color-{{ $statusColor }}-500">
+                        <i class="{{ $iconClass }} text-lg"></i>
+                    </span>
+                    <div class="flex flex-col justify-start items-start">
+
+                        <p class="font-semibold"> {{ \Carbon\Carbon::parse($data->start_date)->format('d F Y') }} -
+                            {{ \Carbon\Carbon::parse($data->end_date)->format('d F Y') }}</p>
+
+
+                    </div>
+                </div>
+                <div>
+                    <i class="fas fa-chevron-down text-lg"></i>
+                </div>
+            </button>
+            <div class="mt-4 flex-col gap-y-4 hidden detailContainer">
+
+                <br>
+                <div class="overflow-x-auto text-xs">
+                    <table id="weekly" class="w-full text-xs">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Deskripsi</th>
+                                <th>Rencana</th>
+                                <th>Presentase</th>
+                                <th>Hambatan</th>
+                                <th>Solusi</th>
+                                <th>Jam Mulai</th>
+                                <th>Jam Selesai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($data->activity as $a)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $a->desc }}</td>
+                                <td>{{ $a->rencana }}</td>
+                                <td>{{ $a->presentase }}%</td>
+                                <td>{{ $a->hambatan }}</td>
+                                <td>{{ $a->solusi }}</td>
+                                <td>{{ $a->jam_mulai }}</td>
+                                <td>{{ $a->jam_selesai }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <hr class="mt-4 mb-4">
+            </div>
+        </div>
+        @endif
+
         @foreach ($data->daily as $item)
         <div class="p-8 bg-white w-full rounded-xl border border-gray-200 shadow ">
             <button class="w-full flex justify-between items-center" onclick="openDetails(this)">
@@ -213,7 +298,9 @@
 
 
                 @if ($item->status == 'terima')
-
+                <x-button_md>
+                    Download LogBook
+                </x-button_md>
                 @endif
                 @if ($item->status == 'belum')
                 <x-button_md onclick="window.location='{{ route('student.daily_logbookForm', ['id' => $item->id]) }}'"
@@ -261,6 +348,9 @@
 </script>
 <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
 <script>
+    $(document).ready(function() {
+            $('#weekly').DataTable();
+        });
     $(document).ready(function() {
     $('table[id^="table_config_"]').each(function() {
         $(this).DataTable();

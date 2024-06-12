@@ -32,22 +32,23 @@
             <div class="flex items-start gap-x-4">
               <img src="/images/avatar/ung.png" alt="" class="w-12">
               <div class="flex flex-col">
-                <p class="font-semibold">SDN 6 Telaga Jaya</p>
-                <p class="text-sm ">1 Juni 2023 - 3 Juni 2024</p>
-                <p class="text-xs text-slate-500">Bandung</p>
+                <p class="font-semibold inline-flex items-center gap-x-2">SDN 6 Telaga Jaya</p>
+                <p class="text-sm">1 Juni 2023 - 3 Juni 2024</p>
                 <div class="flex gap-x-2 items-center text-color-primary-500">
                   <span class=""><i class="fas fa-book text-sm"></i></span>
                   <p class="text-sm font-semibold">
                     Kampus Mengajar
                   </p>
                 </div>
+                <span
+                  class="py-1 px-2 rounded-md font-semibold bg-color-info-100 text-color-info-500 text-xs w-fit mt-3">Diterima</span>
+
               </div>
             </div>
           </div>
         </div>
         <div>
-          <a
-            href="{{ route('student.detail_history') }}"
+          <a href="{{ route('student.detail_history') }}"
             class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
             Lihat Detail
           </a>

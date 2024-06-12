@@ -118,9 +118,23 @@
         @if (Auth::user()->role->slug === 'mahasiswa')
         <div class="mb-4">
           <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Mahasiswa</label>
-          <input type="text" name="name" id="name" placeholder="Masukan Nama Dosen"
+          <input type="text" name="name" id="name" placeholder="Masukan Nama Mahasiswa"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
             value="">
+        </div>
+        <div class="mb-4">
+          <label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Nama Fakultas</label>
+          <select type="text" name="fakultas" id="fakultas" placeholder="Masukan Nama Fakultas"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+            <option>Fakultas</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="jurusan" class="block text-sm font-medium text-gray-700 mb-2">Nama Jurusan</label>
+          <select type="text" name="jurusan" id="jurusan" placeholder="Masukan Nama Jurusan"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+            <option>Jurusan</option>
+          </select>
         </div>
         <div class="mb-4">
           <label for="studi_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
@@ -141,10 +155,48 @@
             value="">
         </div>
         <div class="mb-4">
+          <label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Nama Fakultas</label>
+          <select type="text" name="fakultas" id="fakultas" placeholder="Masukan Nama Fakultas"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+            <option>Fakultas</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="jurusan" class="block text-sm font-medium text-gray-700 mb-2">Nama Jurusan</label>
+          <select type="text" name="jurusan" id="jurusan" placeholder="Masukan Nama Jurusan"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+            <option>Jurusan</option>
+          </select>
+        </div>
+        <div class="mb-4">
           <label for="studi_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Program Studi</label>
           <select type="text" name="studi_id" id="studi_id" placeholder="Masukan Nama Program Studi"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
             <option>Program Studi</option>
+          </select>
+        </div>
+        @endif
+        @endauth
+        @auth
+        @if (Auth::user()->role->slug === 'guru')
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama</label>
+          <input type="text" name="name" id="name" placeholder="Masukan Nama Pamong"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+            value="">
+        </div>
+        <div class="mb-4">
+          <label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+          <select type="text" disabled name="fakultas" id="fakultas" placeholder="Masukan Lokasi"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+            <option>Lokasi</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="jurusan" class="block text-sm font-medium text-gray-700 mb-2">Mitra</label>
+          <select type="text" disabled name="jurusan" id="jurusan" placeholder="Masukan Mitra"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+            <option>Mitra</option>
           </select>
         </div>
         @endif

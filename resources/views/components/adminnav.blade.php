@@ -445,12 +445,12 @@
                     </a>
                 </div>
             </li>
-            <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
+            {{-- <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
                 <div class="inline-flex items-center gap-x-2  text-slate-500">
                     <i class="fas fa-file"></i>
                     laporan
                 </div>
-            </li>
+            </li> --}}
         </div>
         <button class=" px-4 py-2.5 lg:hidden block text-slate-500 rounded-lg" onclick="handleMenuClick()">
             <i class="fas fa-bars"></i>
@@ -500,13 +500,13 @@
                     </div>
                 </div>
             </li>
-            <li
+            {{-- <li
                 class="p-4 rounded-md flex items-cente {{ Request::routeIs('student.dashboard') ? 'bg-color-primary-500 text-white' : 'text-color-primary-500 rounded-xl' }}">
                 <a href="" class="flex items-center gap-x-2 ">
                     <i class="fas fa-file"></i>
                     Laporan
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
     {{-- mobile nav end --}}
