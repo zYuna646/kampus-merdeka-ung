@@ -66,6 +66,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/detail_history', function () {
                 return view('admin.student.detail_history');
             })->name('student.detail_history');
+            Route::get('/download_daily/{id}', [MahasiswaController::class, 'downloadDaily'])->name('student.download_daily');
+            Route::get('/download_week/{id}', [MahasiswaController::class, 'downloadWeekly'])->name('student.download_weekly');
             Route::get('/weekly_logbook', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');
             Route::get('/daily_logbook/{id}', [MahasiswaController::class, 'dailyBook'])->name('student.daily_logbook');
             Route::get('/daily_form/{id}', [MahasiswaController::class, 'dailyLogForm'])->name('student.daily_logbookForm');

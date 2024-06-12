@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Studi;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MahasiswaController extends Controller
 {
@@ -96,6 +96,20 @@ class MahasiswaController extends Controller
     {
         $weeklyLog = WeeklyLog::find($id);
         return view('admin.student.daily_logbook')->with('data', $weeklyLog);
+    }
+
+    public function downloadDaily($id)
+    {
+        $data = DailyLog::find($id);
+        $pdf = Pdf::loadView('document_daily', ['data' => $data])->setPaper('a4');
+        return $pdf->download('daily.pdf');
+    }
+
+    public function downloadWeekly($id)
+    {
+        $data = WeeklyLog::find($id);
+        $pdf = Pdf::loadView('document_weeklt', ['data' => $data])->setPaper('a4', 'landscape');
+        return $pdf->download('weekly.pdf');
     }
 
     public function export()
