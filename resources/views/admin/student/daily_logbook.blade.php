@@ -180,6 +180,9 @@
                     </table>
                 </div>
                 <hr class="mt-4 mb-4">
+                <x-button_md onclick="window.location='{{ route('student.download_daily')}}'">
+                    Download LogBook
+                </x-button_md>
             </div>
         </div>
         @endif
