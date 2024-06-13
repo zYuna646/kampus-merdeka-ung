@@ -30,7 +30,14 @@
             </p>
           </div>
           <div class="flex flex-col gap-y-4">
-            <p class="text-xs lg:text-sm truncate-text" data-text="{{ $item->content }}"></p>
+            <p>{{$item->tahun_akademik}}</p>
+            <p>{{$item->semester}}</p>
+            <p>{{$item->pendaftaran_mulai}}</p>
+            <p>{{$item->pendaftaran_selesai}}</p>
+            <p>{{$item->tanggal_mulai}}</p>
+            <p>{{$item->tanggal_selesai}}</p>
+            {{-- yg tanggal taruh di detail --}}
+            <p class="text-xs lg:text-sm truncate-text" data-text="{{ $item->program->content }}"></p>
           </div>
           <div>
             <x-button_md color="primary" class="w-fit" onclick="window.location.href='{{ route('login') }}'">
@@ -60,7 +67,7 @@
                 {{ $program->program->name }}
               </p>
             </div>
-            <p class="text-sm font-semibold news-title">{{ $program->content }}</p>
+            <p class="text-sm font-semibold news-title" data-text="{{ $program->program->content }}"></p>
             <p class="text-sm text-slate-500">{{ \Carbon\Carbon::parse($program->created_at)->format('d M Y') }}</p>
             <x-button_md color="primary" class="mt-4 w-fit" onclick="window.location.href='{{ route('login') }}'">
               Daftar
