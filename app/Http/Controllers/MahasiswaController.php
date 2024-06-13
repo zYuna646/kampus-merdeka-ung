@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Studi;
 use Maatwebsite\Excel\Facades\Excel;
-
+use PDF;
 
 class MahasiswaController extends Controller
 {
@@ -48,6 +48,7 @@ class MahasiswaController extends Controller
         return view('admin.student.dashboard')->with('data', $data);
     }
 
+
     public function rancangan(Request $request, $id)
     {
         $request->validate([
@@ -75,6 +76,11 @@ class MahasiswaController extends Controller
         return redirect()->back();
     }
 
+    public function program_history()
+    {
+        $data = ProgramTransaction::all();
+        return view('admin.student.program_history')->with('data', $data);
+    }
 
     public function weeklyBook()
     {
@@ -97,6 +103,47 @@ class MahasiswaController extends Controller
         $weeklyLog = WeeklyLog::find($id);
         return view('admin.student.daily_logbook')->with('data', $weeklyLog);
     }
+
+    public function downloadDaily($id)
+    {
+        $daily = DailyLog::find($id);
+
+
+        $data = [
+            'program' => $daily->programTransaction->lowongan->program,
+            'lokasi' => $daily->programTransaction->lokasi,
+            'daily' => $daily,
+            'mahasiswa' => $daily->programTransaction->mahasiswa,
+            'activity' => $daily->activity,
+            'pamong' => $daily->programTransaction->pamong()->latest()->first(),
+            'dpl' => $daily->programTransaction->dpls()->latest()->first(),
+            'jurusan' => $daily->programTransaction->mahasiswa->studi->jurusan,
+        ];
+        $pdf = PDF::loadView('document_daily', $data)->setPaper('a4', 'portrait');
+        return $pdf->stream();
+    }
+
+    public function downloadWeekly($id)
+    {
+        $daily = WeeklyLog::find($id);
+
+
+        $data = [
+            'program' => $daily->programTransaction->lowongan->program,
+            'lokasi' => $daily->programTransaction->lokasi,
+            'daily' => $daily,
+            'mahasiswa' => $daily->programTransaction->mahasiswa,
+            'activity' => $daily->activity,
+            'pamong' => $daily->programTransaction->pamong()->latest()->first(),
+            'dpl' => $daily->programTransaction->dpls()->latest()->first(),
+            'jurusan' => $daily->programTransaction->mahasiswa->studi->jurusan,
+        ];
+        $pdf = PDF::loadView('document_daily', $data)->setPaper('a4', 'landscape');
+        return $pdf->stream();
+
+    }
+
+
 
     public function export()
     {
@@ -144,7 +191,7 @@ class MahasiswaController extends Controller
     {
         $lowongan = Lowongan::find($id);
         $currentDate = \Carbon\Carbon::now();
-        
+
         if (!($lowongan->pendaftaran_mulai <= $currentDate && $currentDate <= $lowongan->pendaftaran_selesai)) {
             return; // Or some other action, like return a response or an error message
         }
@@ -153,7 +200,7 @@ class MahasiswaController extends Controller
             'lowongan_id' => $lowongan->id,
             'mahasiswa_id' => $mahasiswa->id
         ]);
-        
+
     }
 
     public function weeklyLogSubmit(Request $request, $id)
@@ -278,7 +325,7 @@ class MahasiswaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
         $studi = Studi::all()->toArray();
         $data = [
             'studi' => $studi
@@ -302,7 +349,7 @@ class MahasiswaController extends Controller
             'name' => 'required',
             'studi_id' => 'required|exists:studis,id',
             'angkatan' => 'required|integer',
-            ]);
+        ]);
 
         $mahasiswa->update([
             'nim' => $request->nim,
