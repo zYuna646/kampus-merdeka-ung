@@ -138,7 +138,7 @@ class MahasiswaController extends Controller
             'dpl' => $daily->programTransaction->dpls()->latest()->first(),
             'jurusan' => $daily->programTransaction->mahasiswa->studi->jurusan,
         ];
-        $pdf = PDF::loadView('document_daily', $data)->setPaper('a4', 'landscape');
+        $pdf = PDF::loadView('document_weekly', $data)->setPaper('a4', 'landscape');
         return $pdf->stream();
 
     }
