@@ -7,74 +7,6 @@
     {{--
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
     <title>Document</title>
-    Rancang Bangun Sistem Informasi Survei untuk Evaluasi Kinerja di Universitas Negeri Gorontalo Berbasis Web dengan
-    Metode Waterfall
-
-
-    maslaah :
-    1. Kesulitan dalam Pemantauan Kinerja: Tidak adanya sistem yang terintegrasi dengan data evaluasi kinerja di
-    Universitas Negeri Gorontalo menyebabkan proses evaluasi kinerja menjadi kurang efektif dalam mendukung pengambilan
-    keputusan yang tepat.
-    2. Pengelolaan Data yang Tidak Optimal: Data survei tidak dikelola dengan baik sehingga hasil dari survei kinerja
-    masih dalam bentuk mentah dan sulit dibaca, menyulitkan pengambilan keputusan yang tepat.
-
-    tujuan :
-    1. Membangun Sistem Informasi yang Terintegrasi:
-    Mengembangkan sistem informasi yang dapat terintegrasi dengan data pemantauan kinerja, dengan tujuan meningkatkan
-    efektivitas dalam pemantauan kinerja di lingkungan Universitas Negeri Gorontalo.
-    2. Mengoptimalkan Pengelolaan Data Survei:
-    Mengembangkan sistem informasi yang mampu mengelola data survei dengan baik, sehingga hasil dari survei kinerja
-    dapat tersedia dalam format yang terstruktur, mudah dibaca, dan dapat digunakan secara efektif untuk pengambilan
-    keputusan yang tepat.
-
-    manfaat :
-    1. Peningkatan Efisiensi dan Efektivitas Pemantauan Kinerja: Dengan adanya sistem informasi yang terintegrasi dengan
-    data pemantauan kinerja, proses pemantauan kinerja di Universitas Negeri Gorontalo dapat dilakukan secara lebih
-    efisien dan efektif.
-    2. Peningkatan Kualitas Pengambilan Keputusan:Dengan adanya sistem informasi yang mampu mengelola data survei
-    kinerja dengan baik, hasil survei akan tersedia dalam format yang terstruktur dan mudah dibaca.
-
-    metode penelitian kualitatif :
-    menggunakan metode kualitatif untuk memahami kebutuhan, harapan, dan pengalaman pengguna terkait sistem survei yang
-    dibangun, serta mengindentifikasi area area perbaikan yang diperlukan dalam pengembangan sistem.
-
-    metode pengembangan sistem: waterfall
-
-    tahapan penelitian :
-    1. Studi Literatur : melakukan studi literatur tentang sistem informasi survei berbasis web
-    2. pengumpulan data : pengumpulan data yang dibutuhkan dalam penelitian melalui observasi, wawancara, dan survey
-    3. analisis kebutuhan sistem : Mengidentifikasi fungsionalitas utama yang dibutuhkan dalam sistem survei kinerja,
-    seperti pembuatan dan distribusi survei, pengumpulan dan penyimpanan data survei, serta analisis dan pelaporan hasil
-    survei.
-    4. perancangan dan desain sistem : merancang alur kerja sistem, struktur basis data, dan tampilan sistem berdasarkan
-    kebutuhan yang telah ditentukan
-    5. implementasi : mengimplementasikan hasil desain yang telah dibuat berdasarkan fungsionalitas yang diperlukan
-    6. pengujian : melakukan pengujian fungsionalitas, pengujian integrasi dan pengujian keseluruhan dari sistem yang
-    telah dibuat.
-
-
-    referensi 1
-    judul : Rancang Bangun Sistem Informasi Survei Kepuasan Mahasiswa pada STIKes Getsempena Lhoksukon
-    penulis : ulfa nadia, faisal
-    jurnal : Journal of Informatics, Information System, and Artificial Intelligence Volume 2, Nomor 1, Mei 2024
-
-    keterkaitan : penilitian ini memiliki tujuan rancang bangun sistem informasi survey
-
-    referensi 2 :
-    judul : RANCANG BANGUN SISTEM INFORMASI SOFTWARE POINT OF SALE(POS) DENGAN METODE WATERFALL BERBASIS WEB
-    penulis : Putu Gede Surya Cipta Nugraha, Ni Wayan Wardani, Wayan Sukarmayasa
-    jurnal : Jurnal Sains dan Teknologi Vol.10No 1 Tahun 2021
-
-    keterkaitan : penelitian ini memiliki tujuan rancang bangun sistem informasi menggunakan metode waterfall
-
-    referensi 3 :
-    judul : RANCANG BANGUN SISTEM INFORMASI SURAT MASUK DAN SURAT
-    KELUAR BERBASIS WEB MENGGUNAKAN METODE WATERFALL
-    penulis : Riswandi Ishak, Setiaji, Fajar Akbar, dan Mahmud Safudin
-    jurnal : Jurnal Indonesia Sosial Teknologi Vol. 1, No. 3 Oktober 2020
-
-    keterkaitan : penilitian ini memiliki tujuan rancang bangun sistem informasi menggunakan metode waterfall
-
 
     <style>
         p {
@@ -183,11 +115,11 @@ $dateFormatted = Carbon::parse($daily->date)
 
 <body class="p-12">
     <header class="w-full flex flex-col gap-y-2">
-        <div class="w-full items-center flex flex-col font-bold ">
+        <div class="title w-full items-center flex flex-col font-bold ">
             <p>FORMAT LOG BOOK HARIAN</p>
             <p>KEGIATAN {{ $program->name }}</p>
         </div>
-        <div class="font-semibold flex flex-col mt-4">
+        <div class="bio font-semibold flex flex-col mt-4">
             <p>Nama Mahasiswa : {{ $mahasiswa->name }}</p>
             <p>Jurusan : Teknik {{ $jurusan->name }}</p>
             <p>Nama Sekolah : {{ $lokasi->name }}</p>
@@ -229,15 +161,15 @@ $dateFormatted = Carbon::parse($daily->date)
         </table>
     </main>
     <footer class="w-full flex justify-between items-end mt-8 px-4">
-        <div class="flex flex-col font-semibold max-w-lg items-center">
+        <div class="sign flex flex-col font-semibold max-w-lg items-center">
             <p class="">Mengetahui</p>
             <p>Guru Pamong</p>
-            <div class="w-20 h-20"></div>
+            <div class="name w-20 h-20"></div>
             <p>({{$pamong->guru->name}})</p>
         </div>
         <div class="flex flex-col font-semibold max-w-lg items-center">
             <p>Mahasiswa Peserta</p>
-            <div class="w-20 h-20"></div>
+            <div class="name w-20 h-20"></div>
             <p>({{$mahasiswa->name}})</p>
         </div>
     </footer>
