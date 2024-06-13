@@ -39,13 +39,15 @@
         <div class="p-6 w-full bg-white flex flex-col gap-4 rounded-xl shadow-sm border border-slate-200 mt-2">
             <form action="" class="w-full">
                 <div class="mb-2 w-full">
-                    <input type="text" name="name" id="name" placeholder="Nama Program"
+                    <select type="text" name="program" id="program" placeholder=""
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                        <option value="">Pilih Program</option>
+                    </select>
                 </div>
                 <div class="mb-2 w-full">
-                    <select type="text" name="name" id="name" placeholder="Nama Program"
+                    <select type="text" name="tahun" id="tahun" placeholder=""
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                        <option value="">Cari Lokasi</option>
+                        <option value="">Pilih Tahun Akademik</option>
                     </select>
                 </div>
                 <x-button_md type="button" color="primary">

@@ -138,9 +138,24 @@ class MahasiswaController extends Controller
             'dpl' => $daily->programTransaction->dpls()->latest()->first(),
             'jurusan' => $daily->programTransaction->mahasiswa->studi->jurusan,
         ];
-        $pdf = PDF::loadView('document_daily', $data)->setPaper('a4', 'landscape');
+        $pdf = PDF::loadView('document_weekly', $data)->setPaper('a4', 'landscape');
         return $pdf->stream();
 
+    }
+
+    public function register($id)
+    {
+        $lowongan = Lowongan::find($id);
+        $currentDate = \Carbon\Carbon::now();
+
+        if (!($lowongan->pendaftaran_mulai <= $currentDate && $currentDate <= $lowongan->pendaftaran_selesai)) {
+            return; // Or some other action, like return a response or an error message
+        }
+        $mahasiswa = Auth::user()->mahasiswa;
+        ProgramTransaction::create([
+            'lowongan_id' => $lowongan->id,
+            'mahasiswa_id' => $mahasiswa->id
+        ]);
     }
 
 
@@ -187,21 +202,21 @@ class MahasiswaController extends Controller
         return redirect()->route('student.weekly_logbook')->with('success', 'Daily log berhasil disimpan');
     }
 
-    public function register($id)
-    {
-        $lowongan = Lowongan::find($id);
-        $currentDate = \Carbon\Carbon::now();
+    // public function register($id)
+    // {
+    //     $lowongan = Lowongan::find($id);
+    //     $currentDate = \Carbon\Carbon::now();
 
-        if (!($lowongan->pendaftaran_mulai <= $currentDate && $currentDate <= $lowongan->pendaftaran_selesai)) {
-            return; // Or some other action, like return a response or an error message
-        }
-        $mahasiswa = Auth::user()->mahasiswa;
-        ProgramTransaction::create([
-            'lowongan_id' => $lowongan->id,
-            'mahasiswa_id' => $mahasiswa->id
-        ]);
+    //     if (!($lowongan->pendaftaran_mulai <= $currentDate && $currentDate <= $lowongan->pendaftaran_selesai)) {
+    //         return; // Or some other action, like return a response or an error message
+    //     }
+    //     $mahasiswa = Auth::user()->mahasiswa;
+    //     ProgramTransaction::create([
+    //         'lowongan_id' => $lowongan->id,
+    //         'mahasiswa_id' => $mahasiswa->id
+    //     ]);
 
-    }
+    // }
 
     public function weeklyLogSubmit(Request $request, $id)
     {

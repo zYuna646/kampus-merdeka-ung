@@ -78,11 +78,13 @@
         </div>
         <form action="{{ route('dosen.program.detail', ['lowongan_id' => $data['dpl']->lowongan->id]) }}"
             class="mt-4 col-span-12 flex gap-x-4">
-            <label for="username" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white sr-only">Masukan
-                Nama
-                Pengguna</label>
+           
             <input type="text" id="username" name="search" placeholder="Cari Nama Mahasiswa, Nim"
                 class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
+            <select type="text" id="username" name="search" placeholder="Cari Nama Mahasiswa, Nim"
+                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
+                <option value="">Pilih Lokasi</option>
+            </select>
             <button type="submit"
                 class="px-5 py-2.5 w-fit text-sm font-medium text-white inline-flex items-center bg-color-primary-500 rounded-lg text-center ">
                 <span class=""><i class="fas fa-search text-lg "></i></span>

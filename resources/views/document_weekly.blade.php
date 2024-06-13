@@ -7,6 +7,8 @@
     {{--
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
     <title>Document</title>
+
+
     <style>
         p {
             margin: 4px;

@@ -29,12 +29,32 @@
               {{ $item->program->name }}
             </p>
           </div>
+
+          <div class="flex flex-col">
+            <span class="text-xs text-slate-500">Priode Kegiatan: </span>
+            @php
+            $tanggalMulai = \Carbon\Carbon::parse(
+            $item->tanggal_mulai,
+            );
+            $tanggalSelesai = \Carbon\Carbon::parse(
+            $item->tanggal_selesai,
+            );
+            $selisihBulan = $tanggalMulai->diffInMonths($tanggalSelesai);
+            @endphp
+
+            <p class="text-sm">
+              {{ $tanggalMulai->isoFormat('D MMM YYYY') }} -
+              {{ $tanggalSelesai->isoFormat('D MMM YYYY') }}
+              <span class="text-slate-500">({{ $selisihBulan }} bulan)</span>
+            </p>
+          </div>
           <div class="flex flex-col gap-y-4">
-            <p class="text-xs lg:text-sm truncate-text" data-text="{{ $item->content }}"></p>
+            {{-- yg tanggal taruh di detail --}}
+            <p class="text-xs lg:text-sm truncate-text" data-text="{{ $item->program->content }}"></p>
           </div>
           <div>
-            <x-button_md color="primary" class="w-fit" onclick="window.location.href='{{ route('login') }}'">
-              Daftar
+            <x-button_md color="primary" class="w-fit" onclick="window.location.href='{{ route('detail_program', $item->id) }}'">
+              Detail Program
             </x-button_md>
           </div>
         </div>
@@ -60,10 +80,26 @@
                 {{ $program->program->name }}
               </p>
             </div>
-            <p class="text-sm font-semibold news-title">{{ $program->content }}</p>
-            <p class="text-sm text-slate-500">{{ \Carbon\Carbon::parse($program->created_at)->format('d M Y') }}</p>
-            <x-button_md color="primary" class="mt-4 w-fit" onclick="window.location.href='{{ route('login') }}'">
-              Daftar
+            <div class="flex flex-col">
+              <span class="text-xs text-slate-500">Priode Kegiatan: </span>
+              @php
+              $tanggalMulai = \Carbon\Carbon::parse(
+              $program->tanggal_mulai,
+              );
+              $tanggalSelesai = \Carbon\Carbon::parse(
+              $program->tanggal_selesai,
+              );
+              $selisihBulan = $tanggalMulai->diffInMonths($tanggalSelesai);
+              @endphp
+
+              <p class="text-sm">
+                {{ $tanggalMulai->isoFormat('D MMM YYYY') }} -
+                {{ $tanggalSelesai->isoFormat('D MMM YYYY') }}
+                <span class="text-slate-500">({{ $selisihBulan }} bulan)</span>
+              </p>
+            </div>
+            <x-button_md color="primary" class="mt-4 w-fit" onclick="window.location.href='{{ route('detail_program', $program->id) }}'">
+              Detail Program
             </x-button_md>
           </div>
         </div>

@@ -181,7 +181,7 @@
                 </div>
                 <hr class="mt-4 mb-4">
                 <x-button_md onclick="window.location='{{ route('student.download_weekly', $data->id)}}'">
-                    Download LogBook
+                    Download LogBook Mingguan
                 </x-button_md>
             </div>
         </div>
