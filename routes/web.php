@@ -75,7 +75,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/weekly_form/{id}', [MahasiswaController::class, 'weeklyLog'])->name('student.weekly_logbookForm.edit');
             Route::post('/weekly_form/{id}', [MahasiswaController::class, 'weeklyLogSubmit'])->name('student.weekly_logbookForm.edit.submit');
             Route::post('/rancangan/{id}', [MahasiswaController::class, 'rancangan'])->name('student.rancangan.submit');
-
+            Route::post('/register/{id}', [MahasiswaController::class, 'register'])->name('student.register');
         });
     });
 
@@ -193,6 +193,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/add', [MahasiswaController::class, 'store'])->name('admin.student.store');
                 Route::get('/edit/{id}', [MahasiswaController::class, 'edit'])->name('admin.student.edit');
                 Route::post('/update/{id}', [MahasiswaController::class, 'update'])->name('admin.student.update');
+                Route::post('/verifikasi/{id}', [MahasiswaController::class, 'verifikasi'])->name('admin.student.verifikasi');
                 Route::delete('/delete/{id}', [MahasiswaController::class, 'destroy'])->name('admin.student.delete');
             });
 
