@@ -23,21 +23,56 @@
                     class="p-2 {{ Route::currentRouteNamed('berita') ? 'font-semibold text-color-primary-500' : '' }}">Berita</a>
             </li>
             @if (Auth::check())
-                <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
-                    <a href="{{ route('login') }}"
-                        class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
-                        <span><i class="fas fa-user"></i></span>
-                        Dashboard
-                    </a>
-                </li>
+            @if (Auth::user()->role->slug === 'mahasiswa' )
+            <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
+                <a href="{{ route('student.dashboard') }}"
+                    class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </a>
+            </li>
+            @elseif (Auth::user()->role->slug === 'operator')
+            <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
+                <a href="{{ route('operator.dashboard') }}"
+                    class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </a>
+            </li>
+            @elseif (Auth::user()->role->slug === 'dosen')
+            <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
+                <a href="{{ route('dosen.dashboard') }}"
+                    class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </a>
+            </li>
+            @elseif (Auth::user()->role->slug === 'guru')
+            <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
+                <a href="{{ route('guru.dashboard') }}"
+                    class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </a>
+            </li>
+            @elseif (Auth::user()->role->slug === 'admin')
+            <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
+                <a href="{{ route('admin.dashboard') }}"
+                    class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </a>
+            </li>
+            @endif
+
             @else
-                <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
-                    <a href="{{ route('login') }}"
-                        class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
-                        <span><i class="fas fa-user"></i></span>
-                        Login
-                    </a>
-                </li>
+            <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
+                <a href="{{ route('login') }}"
+                    class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
+                    <span><i class="fas fa-user"></i></span>
+                    Login
+                </a>
+            </li>
             @endif
 
         </ul>

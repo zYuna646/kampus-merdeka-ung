@@ -24,7 +24,7 @@
       <img src="/images/avatar/Search-for-Ideas.png" alt="" class="w-52">
       <p class="text-sm font-semibold">Ops!, Kamu Belum Menyelesaikan Program Apapun</p>
     </div> --}}
-            <div class="grid grid-flow-row p-4 divide-y-2 gap-4">
+            <div class="grid grid-flow-row p-4  gap-4">
                 @foreach ($data as $item)
                     <div
                         class="flex lg:flex-row flex-col gap-y-6 justify-between  border-b lg:items-center lg:p-4 pb-4 mb-2 ">
@@ -58,7 +58,7 @@
                                             </span>
                                         @else
                                             <span
-                                                class="py-1 px-2 rounded-md font-semibold bg-color-info-100 text-color-info-500 text-xs w-fit mt-3">
+                                                class="py-1 px-2 rounded-md font-semibold bg-color-success-100 text-color-success-500 text-xs w-fit mt-3">
                                                 Diproses
                                             </span>
                                         @endif
