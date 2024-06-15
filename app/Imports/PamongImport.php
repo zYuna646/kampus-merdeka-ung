@@ -18,15 +18,14 @@ class PamongImport implements ToCollection, WithHeadingRow
     */
     public function collection(Collection $collection)
     {
-        $tmp = null; // Initialize $tmp with null
         foreach ($collection as $index => $row) {
             try {
                 if ($row['nik']) {
-                    $dosen = Guru::where('name', $row['nik'])->first();
-                    $tmp = $dosen;
-                } else {
-                    $dosen = $tmp;
-                }
+                    continue;
+                } 
+
+                $dosen = Guru::where('nik', $row['nik'])->first();
+
 
 
                 // Menambahkan tanda titik koma dan tanda kutip pada NIP
@@ -37,7 +36,7 @@ class PamongImport implements ToCollection, WithHeadingRow
                 if (!$mahasiswa) {
                     continue;
                 }
-                $lowongan = Lowongan::where('code', $row['lowongan'])->first(); // Add missing semicolon
+                $lowongan = Lowongan::where('code', $row['kode_lowongan'])->first(); // Add missing semicolon
                 if (!$lowongan) {
                     continue;
                 }
@@ -50,6 +49,7 @@ class PamongImport implements ToCollection, WithHeadingRow
                 $dpl = MitraTransaction::where('guru_id', $dosen->id)->first();
                 if ($dpl) {
                     $dpl->mahasiswa()->attach($programTransaction->id);
+
                 } else {
                     $dosen = MitraTransaction::create([
                         'guru_id' => $dosen->id,

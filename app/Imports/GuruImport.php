@@ -30,7 +30,7 @@ class GuruImport implements ToCollection, WithHeadingRow
                     continue; // Skip baris ini jika Guru sudah ada
                 }
 
-                $lokasi = Lokasi::where('name', $row['lokasi'])->first(); // Menambahkan metode first()
+                $lokasi = Lokasi::where('code', $row['kode_lokasi'])->first(); // Menambahkan metode first()
                 if (!$lokasi) {
                     continue;
                 }

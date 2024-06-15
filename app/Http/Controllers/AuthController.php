@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fakultas;
+use App\Models\Jurusan;
+use App\Models\Studi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +15,93 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
+
+    public function password(Request $request)
+    {
+        $request->validate([
+            'password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+        if (Hash::check($request->password, Auth::user()->password)) {
+            Auth::user()->update([
+                'password' => Hash::make($request->new_password),
+            ]);
+            Auth::user()->save();
+        } else {
+            return redirect()->back()->with('error', 'Password Lama Salah');
+        }
+        return redirect()->back()->with('success', 'Password Berhasil Diubah');
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->role->slug == 'admin' || $user->role->slug == 'operator') {
+            $request->validate([
+                'username' => 'required',
+            ]);
+
+            $user->update([
+                'username' => $request->username,
+            ]);
+        } elseif ($user->role->slug == 'mahasiswa') {
+            $request->validate([
+                'nim' => 'required',
+                'name' => 'required',
+                'studi_id' => 'required',
+                'username' => 'required',
+            ]);
+
+            $user->update([
+                'username' => $request->username,
+            ]);
+
+            $user->mahasiswa->update([
+                'name' => $request->name,
+                'nim' => $request->nim,
+                'studi_id' => $request->studi_id,
+            ]);
+        } elseif ($user->role->slug == 'dosen') {
+            $request->validate([
+                'nidn' => 'required',
+                'name' => 'required',
+                'studi_id' => 'required',
+                'username' => 'required',
+            ]);
+
+            $user->update([
+                'username' => $request->username,
+            ]);
+
+            $user->dosen->update([
+                'name' => $request->name,
+                'nidn' => $request->nidn, // Changed from $request->nim to $request->nidn
+                'studi_id' => $request->studi_id,
+            ]);
+        } elseif ($user->role->slug == 'guru') {
+            $request->validate([
+                'nik' => 'required',
+                'name' => 'required',
+                'username' => 'required',
+            ]);
+
+            $user->update([
+                'username' => $request->username,
+            ]);
+
+            $user->guru->update([
+                'name' => $request->name,
+                'nik' => $request->nik, // Changed from $request->nim to $request->nik
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Profile Berhasil Diubah');
+    }
+
+
+
 
     public function authenticate(Request $request)
     {
@@ -58,10 +148,18 @@ class AuthController extends Controller
 
         return redirect('/login')->with('success', 'Anda telah berhasil keluar.'); // Mengarahkan pengguna ke halaman login dengan pesan sukses
     }
-    
 
-    public function userProfile(){
-        return view('admin.profile_setting');
+
+    public function userProfile()
+    {
+
+        $data = [
+            'fakultas' => Fakultas::all(),
+            'jurusan' => Jurusan::all(),
+            'studi' => Studi::all(),
+        ];
+        return view('admin.profile_setting')->with('data', $data);
     }
+
 
 }

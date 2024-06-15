@@ -47,11 +47,20 @@ Route::get('/get-kabupaten/{idProvinsi}', [WilayahController::class, 'getKabupat
 Route::get('/get-kecamatan/{idKabupaten}', [WilayahController::class, 'getKecamatan'])->name('getKecamatan');
 Route::get('/get-kelurahan/{idKelurahan}', [WilayahController::class, 'getKelurahan'])->name('getKelurahan');
 
+Route::get('/get-fakultas', [FakultasController::class, 'getFakultas'])->name('getFakultas');
+Route::get('/get-jurusan/{idFakultas}', [FakultasController::class, 'getJurusan'])->name('getJurusan');
+Route::get('/get-prodi/{idJurusan}', [FakultasController::class, 'getProdi'])->name('getProdi');
+
+
+
+
 
 Route::middleware([AuthenticateMiddleware::class])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/profile', [AuthController::class, 'userProfile'])->name('profile');
+    Route::post('/update-password', [AuthController::class, 'password'])->name('password');
+    Route::post('/update-profile', [AuthController::class, 'profile'])->name('profile.update');
 
 
     Route::middleware(['role:mahasiswa'])->group(function () {

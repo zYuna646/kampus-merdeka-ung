@@ -33,7 +33,7 @@ class MahasiswaImport implements ToCollection, WithHeadingRow, WithChunkReading
                     continue;
                 }
                 // Cari program studi berdasarkan kode yang diberikan
-                $studi = Studi::where('name', $row['kode_program_studi'])->first();
+                $studi = Studi::where('code', $row['kode_program_studi'])->first();
 
                 if ($studi) {
                     // Buat user baru

@@ -77,8 +77,12 @@ class DPLController extends Controller
             'lowongan_id' => $request->lowongan_id,
         ]);
         foreach ($request->mahasiswa as $key => $value) {
-            $dpl->mahasiswa()->attach($value);
+            // Cek apakah $value tidak ada dalam $dpl->mahasiswa()
+            if (!$dpl->mahasiswa->contains($value)) {
+                $dpl->mahasiswa()->attach($value);
+            }
         }
+        
         // Attach multiple locations
         return redirect()->route('admin.dpl')->with('success', 'DPL created successfully.');
     }
@@ -138,7 +142,9 @@ class DPLController extends Controller
         $dpl = DPL::find($id);
         $dpl->mahasiswa()->detach();
         foreach ($request->mahasiswa as $key => $value) {
-            $dpl->mahasiswa()->attach($value);
+            if (!$dpl->mahasiswa->contains($value)) {
+                $dpl->mahasiswa()->attach($value);
+            }
         }
         return redirect()->route('admin.dpl')
             ->with('success', 'DPL updated successfully');

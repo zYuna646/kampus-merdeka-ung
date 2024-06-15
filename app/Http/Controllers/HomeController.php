@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\ProgramChart;
 use App\Models\Lowongan;
 use App\Models\news;
 use App\Models\ProgramKampus;
@@ -56,10 +57,11 @@ class HomeController extends Controller
         return view('landing.detail_program')->with(['data' => $data, 'latestPrograms' => $latestPrograms]);
     }
 
-    public function infografis()
+    public function infografis(ProgramChart $programchart)
     {
         $data = [
             'program' => ProgramKampus::all(),
+            'programchart' => $programchart->build(),
         ];
         return view('landing.infographic')->with('data', $data);
     }

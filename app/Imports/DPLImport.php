@@ -23,12 +23,11 @@ class DPLImport implements ToCollection, WithHeadingRow
         $tmp = null; // Initialize $tmp with null
         foreach ($rows as $index => $row) {
             try {
-                if ($row['nidn']) {
-                    $dosen = Dosen::where('nidn', $row['nidn'])->first();
-                    $tmp = $dosen;
-                } else {
-                    $dosen = $tmp;
-                }
+                if (!$row['nidn']) {
+                    continue;
+                } 
+                $dosen = Dosen::where('nidn', $row['nidn'])->first();
+
                 // Menambahkan tanda titik koma dan tanda kutip pada NIP
                 if (!$dosen) {
                     continue; // Skip baris ini jika Guru sudah ada
@@ -37,7 +36,7 @@ class DPLImport implements ToCollection, WithHeadingRow
                 if (!$mahasiswa) {
                     continue;
                 }
-                $lowongan = Lowongan::where('code', $row['lowongan'])->first(); // Add missing semicolon
+                $lowongan = Lowongan::where('code', $row['kode_lowongan'])->first(); // Add missing semicolon
                 if (!$lowongan) {
                     continue;
                 }
@@ -50,7 +49,9 @@ class DPLImport implements ToCollection, WithHeadingRow
 
                 $dpl = DPL::where('dosen_id', $dosen->id)->first();
                 if ($dpl) {
-                    $dpl->mahasiswa()->attach($programTransaction->id);
+                    if (!$dpl->mahasiswa->contains($programTransaction->id)) {
+                        $dpl->mahasiswa()->attach($programTransaction->id);
+                    }
                 } else {
                     $dosen = DPL::create([
                         'dosen_id' => $dosen->id,

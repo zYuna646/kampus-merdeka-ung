@@ -3,10 +3,11 @@
 @section('main')
     <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 gap-4 py-32 lg:py-36">
         <div class="col-span-12 lg:col-span-8 px-2">
+            {!! $data['programchart']->container() !!}
 
         </div>
 
-        <div class="col-span-12 lg:col-span-4 flex flex-col gap-y-4 px-2">
+        {{-- <div class="col-span-12 lg:col-span-4 flex flex-col gap-y-4 px-2">
             <div>
                 <h2 class="font-semibold text-lg px-4">
                     Infografis
@@ -15,9 +16,12 @@
                     @foreach ($data['program'] as $item)
                         <a href="" class="p-4 bg-white rounded-md text-color-primary-500">{{ $item->name }}</a>
                     @endforeach
-                   
+
                 </div>
             </div>
-        </div>
+        </div> --}}
+        <script src="{{ $data['programchart']->cdn() }}"></script>
+
+        {{ $data['programchart']->script() }}
     </section>
 @endsection

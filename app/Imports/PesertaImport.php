@@ -28,15 +28,15 @@ class PesertaImport implements ToCollection, WithHeadingRow
                     continue;
                 }
                 // Menambahkan tanda titik koma dan tanda kutip pada NIP
-                if ($row['lokasi']) {
-                    $lokasi = Lokasi::where('name', $row['lokasi'])->first(); // Menambahkan metode first()
-                    $tmp = $lokasi; // Assign $lokasi to $tmp
-                } else {
-                    $lokasi = $tmp; // Assign $tmp to $lokasi if $row['lokasi'] is empty
-                }
+                if (!$row['kode_lokasi']) {
+                    continue;
+
+                } 
+                $lokasi = Lokasi::where('code', $row['kode_lokasi'])->first(); // Menambahkan metode first()
+
 
                 $mahasiswa = Mahasiswa::where('nim', $row['nim'])->first();
-                $lowongan = Lowongan::where('code', $row['lowongan'])->first(); // Add missing semicolon
+                $lowongan = Lowongan::where('code', $row['kode_lowongan'])->first(); // Add missing semicolon
 
                 $programTransaction = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->first();
                 if ($programTransaction) {
@@ -44,7 +44,7 @@ class PesertaImport implements ToCollection, WithHeadingRow
                 }
 
                 $program = ProgramTransaction::create([
-                    'lokasi_id' => $tmp->id,
+                    'lokasi_id' => $lokasi->id,
                     'mahasiswa_id' => $mahasiswa->id, // Add missing comma
                     'lowongan_id' => $lowongan->id,
                     'status_mahasiswa' => true

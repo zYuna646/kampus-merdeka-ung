@@ -32,6 +32,7 @@
                     <span class="text-slate-500 text-sm">Universitas Negeri Gorontalo</span>
                 </div>
             </div>
+            @if ($data['programTransaction'])
             <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
                 <div href="#" class="w-full">
                     <img class="rounded-t-lg w-full brightness-50" src="/images/hero-image/image.png" alt="" />
@@ -120,6 +121,9 @@
                     </div>
                 </div>
             </div>
+                
+            @endif
+            
 
         </div>
         @if (!$data['programTransaction'])
@@ -271,17 +275,7 @@
                     </div>
                 </div>
             @else
-                <div class="w-full flex flex-col items-center justify-center gap-y-2">
-                    <div class="w-56">
-                        <img src="/images/avatar/Search-for-Ideas.png" alt="">
-                    </div>
-                    <div class="max-w-sm flex flex-col gap-y-4 items-center">
-                        <p class="text-center">Ups!! Saat ini kamu belum terdaftar di program manapun</p>
-                        <x-button_md>
-                            Cari Program
-                        </x-button_md>
-                    </div>
-                </div>
+              
         @endif
         </div>
 

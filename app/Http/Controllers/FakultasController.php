@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Imports\FakultasImport;
 use App\Models\Fakultas;
+use App\Models\Jurusan;
+use App\Models\Studi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -141,5 +143,23 @@ class FakultasController extends Controller
 
         return redirect()->route('admin.faculties')
             ->with('success', 'Fakultas deleted successfully');
+    }
+
+    public function getFakultas()
+    {
+        $fakultas = Fakultas::all();
+        return response()->json($fakultas);
+    }
+
+    public function getJurusan($idfakultas)
+    {
+        $jurusan = Jurusan::where('fakultas_id', $idfakultas)->get();
+        return response()->json($jurusan);
+    }
+
+    public function getProdi($idjurusan)
+    {
+        $studi = Studi::where('jurusan_id', $idjurusan)->get();
+        return response()->json($studi);
     }
 }

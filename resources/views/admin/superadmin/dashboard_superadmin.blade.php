@@ -39,6 +39,29 @@
       </div>
       <i class="fas fa-book text-4xl"></i>
     </div>
+    <div
+      class="col-span-12 lg:col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
+      <div class="flex flex-col gap-y-1">
+        <p class="text-sm font-semibold uppercase">Program</p>
+        <span class="text-4xl font-semibold ">{{$data['program']}}</span>
+      </div>
+      <i class="fas fa-book text-4xl"></i>
+    </div>
+    <div
+      class="col-span-12 lg:col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
+      <div class="flex flex-col gap-y-1">
+        <p class="text-sm font-semibold uppercase">Lokasi</p>
+        <span class="text-4xl font-semibold ">{{$data['program']}}</span>
+      </div>
+      <i class="fas fa-book text-4xl"></i>
+    </div>
   </div>
+  {!! $data['programchart']->container() !!}
+
+
+
+  <script src="{{ $data['programchart']->cdn() }}"></script>
+
+  {{ $data['programchart']->script() }}
 </section>
 @endsection

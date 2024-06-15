@@ -47,8 +47,7 @@ class VerifikasiImport implements ToCollection, WithHeadingRow
                     'program_transaction_id' => $program->id,
                     'start_date' => $st, // Start date
                     'end_date' => $e_d, // End date
-                    'desc' => ''
-                ]);
+                 ]);
 
 
                 $tmp_date = $startDate->copy()->addWeek()->startOfWeek();
@@ -64,7 +63,6 @@ class VerifikasiImport implements ToCollection, WithHeadingRow
                         'program_transaction_id' => $program->id,
                         'start_date' => $tmp_date->copy()->startOfWeek(), // Start date
                         'end_date' => $tmp_end_week, // End date
-                        'desc' => ''
 
                     ]);
 
@@ -78,7 +76,6 @@ class VerifikasiImport implements ToCollection, WithHeadingRow
                     while ($startDate <= $endDate) {
                         DailyLog::create([
                             'program_transaction_id' => $program->id,
-                            'desc' => '',
                             'date' => $startDate,
                             'weekly_log_id' => $item->id,
                         ]);

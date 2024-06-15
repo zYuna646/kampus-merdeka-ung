@@ -58,8 +58,10 @@
                                         Import Data
                                     </x-button_sm>
                                     <x-button_sm class="inline-flex items-center gap-x-2" color="info">
-                                        <span><i class="fas fa-download"></i></span>
-                                        Template
+                                        <a href="{{ asset('templates/dosen_template.xlsx') }}" download>
+                                            <span><i class="fas fa-download"></i></span>
+                                            Template
+                                        </a>
                                     </x-button_sm>
                                 </div>
                                 <div>
