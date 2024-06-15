@@ -32,7 +32,6 @@ class ProgramTransactionController extends Controller
     public function peserta()
     {
         $programTransactions = ProgramTransaction::where('status_mahasiswa', 0)->get();
-        
         return view('admin.superadmin.peminat.peminat')->with('data', $programTransactions);
 
     }
@@ -89,11 +88,13 @@ class ProgramTransactionController extends Controller
     public function verifikasi(Request $request, $id)
     {
         $request->validate([
-            'lokasi_id' => 'required|exists:lokasis,id',
+            'lokasi' => 'required|exists:lokasis,id',
         ]);
         $mahasiswa = ProgramTransaction::find($id);
-        $mahasiswa->lokasi_id = $request->lokasi_id;
-        $mahasiswa->status_mahasiswa = true;
+        $mahasiswa->update([
+            'lokasi_id' => $request->lokasi,
+            'status_mahasiswa' => true
+        ]);
         $mahasiswa->save();
         $program = $mahasiswa;
 
@@ -106,7 +107,7 @@ class ProgramTransactionController extends Controller
                 'program_transaction_id' => $program->id,
                 'start_date' => $st, // Start date
                 'end_date' => $e_d, // End date
-                'desc' => ''
+                // 'desc' => ''
             ]);
 
 
@@ -123,7 +124,7 @@ class ProgramTransactionController extends Controller
                     'program_transaction_id' => $program->id,
                     'start_date' => $tmp_date->copy()->startOfWeek(), // Start date
                     'end_date' => $tmp_end_week, // End date
-                    'desc' => ''
+                    // 'desc' => ''
 
                 ]);
 
@@ -137,7 +138,7 @@ class ProgramTransactionController extends Controller
                 while ($startDate <= $endDate) {
                     DailyLog::create([
                         'program_transaction_id' => $program->id,
-                        'desc' => '',
+                        // 'desc' => '',
                         'date' => $startDate,
                         'weekly_log_id' => $item->id,
                     ]);

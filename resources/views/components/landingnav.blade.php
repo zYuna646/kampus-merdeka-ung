@@ -27,7 +27,7 @@
                     <a href="{{ route('login') }}"
                         class="py-3 px-5 inline-flex font-semibold items-center gap-x-2 bg-color-primary-500 hover:bg-color-primary-600 text-white rounded-md text-sm">
                         <span><i class="fas fa-user"></i></span>
-                        Beranda
+                        Dashboard
                     </a>
                 </li>
             @else
@@ -84,7 +84,7 @@
                 <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"
                     onclick="window.location.href='{{ route('login') }}'">
                     <span><i class="fas fa-user"></i></span>
-                    Masuk
+                    Dashboard
                 </x-button_md>
             </li>
         </div>

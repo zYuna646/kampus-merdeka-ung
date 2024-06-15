@@ -263,6 +263,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
 
             Route::prefix('/peminat')->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'peserta'])->name('admin.peminat');
+                Route::get('/locations/{programId}', [ProgramKampusController::class, 'getLocations'])->name('locations.get');
                 Route::post('/verifikasi/{id}', [ProgramTransactionController::class, 'verifikasi'])->name('admin.peminat.verifikasi');
             });
 

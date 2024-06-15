@@ -7,7 +7,7 @@ use App\Models\ProgramKampus;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
-
+use App\Models\Lokasi;
 
 
 class ProgramKampusController extends Controller
@@ -153,5 +153,10 @@ class ProgramKampusController extends Controller
 
         return redirect()->route('admin.campus_merdeka_program')
             ->with('success', 'Program Kampus deleted successfully');
+    }
+    public function getLocations($programId)
+    {
+    $locations = Lokasi::where('program_id', $programId)->get();
+    return response()->json($locations);
     }
 }

@@ -1,9 +1,9 @@
 <nav class="bg-color-primary-500 text-white fixed z-10 w-full shadow-sm font-Poppins">
     <div class="w-full p-4 max-w-screen-xl mx-auto flex z-[5] justify-between items-center ">
         <div class="inline-flex items-center gap-x-2">
-            <img src="/images/avatar/kemendikbud.png" alt="" class="w-10">
-            <img src="/images/avatar/ung.png" alt="" class="w-10">
-            <img src="/images/avatar/km_white.png" alt="" class="w-12">
+            <img src="/images/avatar/kemendikbud.png" alt="" class="w-10" onclick="window.location.href='{{ route('home') }}'">
+            <img src="/images/avatar/ung.png" alt="" class="w-10" onclick="window.location.href='{{ route('home') }}'">
+            <img src="/images/avatar/km_white.png" alt="" class="w-12" onclick="window.location.href='{{ route('home') }}'">
         </div>
         <div class="relative cursor-pointer" onclick="openDropDown(this)">
             @auth
