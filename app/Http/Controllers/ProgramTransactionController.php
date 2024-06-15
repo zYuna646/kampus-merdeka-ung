@@ -24,14 +24,14 @@ class ProgramTransactionController extends Controller
      */
     public function index()
     {
-        $programTransactions = ProgramTransaction::all();
+        $programTransactions = ProgramTransaction::where('status_mahasiswa', true)->get();
         return view('admin.superadmin.programTransaction.programTransaction')->with('data', $programTransactions);
 
     }
 
     public function peserta()
     {
-        $programTransactions = ProgramTransaction::where('status_mahasiswa', false);
+        $programTransactions = ProgramTransaction::where('status_mahasiswa', 0)->get();
         
         return view('admin.superadmin.peminat.peminat')->with('data', $programTransactions);
 
@@ -93,6 +93,7 @@ class ProgramTransactionController extends Controller
         ]);
         $mahasiswa = ProgramTransaction::find($id);
         $mahasiswa->lokasi_id = $request->lokasi_id;
+        $mahasiswa->status_mahasiswa = true;
         $mahasiswa->save();
         $program = $mahasiswa;
 
@@ -145,6 +146,7 @@ class ProgramTransactionController extends Controller
                 }
             }
         }
+        return redirect()->back()->with('success', 'Peserta berhasil diverifikasi');
     }
 
     /**

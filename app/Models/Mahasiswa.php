@@ -35,7 +35,7 @@ class Mahasiswa extends Model
 
     public function programTransaction()
     {
-        return $this->hasOne(ProgramTransaction::class);
+        return $this->hasMany(ProgramTransaction::class);
     }
 
 

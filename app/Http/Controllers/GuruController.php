@@ -8,6 +8,8 @@ use App\Models\DailyLog;
 use App\Models\Guru;
 use App\Models\Lokasi;
 use App\Models\MitraTransaction;
+use App\Models\Program;
+use App\Models\ProgramKampus;
 use App\Models\ProgramTransaction;
 use App\Models\Role;
 use App\Models\User;
@@ -48,7 +50,8 @@ class GuruController extends Controller
 
         $data = [
             'program' => $dpl,
-            'mitra' => Auth::user()->guru->mitra()->latest()->first()
+            'mitra' => Auth::user()->guru->mitra()->latest()->first(),
+            'program_kampus' => ProgramKampus::all(),
         ];
 
         return view('admin.pamong.dashboard_pamong')->with('data', $data);

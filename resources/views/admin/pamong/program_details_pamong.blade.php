@@ -76,27 +76,31 @@
                     <p class="text-lg font-semibold">{{ $data['mitra']->lowongan->program->name }}</p>
                 </div>
             </div>
-            <form action="{{ route('guru.program.detail', ['lowongan_id' => $data['mitra']->lowongan->id]) }}"
+            <form id="filterForm"
                 class="mt-4 col-span-12 flex gap-x-4">
-                <input type="text" id="username" name="search" placeholder="Cari Nama Mahasiswa, Nim"
+                <input type="text"id="search" id="username" name="search" placeholder="Cari Nama Mahasiswa, Nim"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
-                <select type="text" id="username" name="search" placeholder="Cari Nama Mahasiswa, Nim"
+                <select  id="location" type="text" id="username" name="search" placeholder="Cari Nama Mahasiswa, Nim"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
                     <option value="">Pilih Lokasi</option>
+                    @foreach (Auth::user()->guru->lokasis as $item)
+                    <option value={{$item->id}}>{{$item->name}}</option>
+                    @endforeach
                 </select>
-                <button type="submit"
-                    class="px-5 py-2.5 w-fit text-sm font-medium text-white inline-flex items-center bg-color-primary-500 rounded-lg text-center ">
-                    <span class=""><i class="fas fa-search text-lg "></i></span>
-                </button>
+                <button type="submit" id="filter-button"
+                class="px-5 py-2.5 w-fit text-sm font-medium text-white inline-flex items-center bg-color-primary-500 rounded-lg text-center ">
+                <span class=""><i class="fas fa-search text-lg "></i></span>
+            </button>
             </form>
         </div>
 
         <div class="lg:col-span-4 col-span-12">
             <!-- Tampilkan daftar peserta -->
-            @foreach ($data['peserta'] as $item)
+            @foreach ($data['mitra']->mahasiswa as $item)
                 <div class="max-h-[42rem] overflow-y-auto flex flex-col p-2">
-                    <div class="relative overflow-visible hover:cursor-pointer bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
-                        onclick="showPesertaDetail({{ $item->id }})">
+                    <div class="relative overflow-visible hover:cursor-pointer bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300 peserta-item"
+                        onclick="showPesertaDetail({{ $item->id }})"  data-name="{{ $item->mahasiswa->name }}" data-nim="{{ $item->mahasiswa->nim }}"
+                        data-location-id="{{ $item->lokasi->id }}">
                         <div class="w-16 rounded-full">
                             <img src="/images/avatar/placeholder.jpg" alt="" class="rounded-full">
                         </div>
@@ -139,5 +143,29 @@
                 }
             });
         }
+        function filterPeserta() {
+            let searchValue = document.getElementById('search').value.toLowerCase();
+            let locationValue = document.getElementById('location').value;
+
+            document.querySelectorAll('.peserta-item').forEach(function(item) {
+                let name = item.getAttribute('data-name').toLowerCase();
+                let nim = item.getAttribute('data-nim').toLowerCase();
+                let location = item.getAttribute('data-location-id');
+
+                if ((name.includes(searchValue) || nim.includes(searchValue)) && (locationValue === "" ||
+                        location === locationValue)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('filterForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            filterPeserta();
+        });
+
+        document.getElementById('filter-button').addEventListener('click',filterPeserta);
     </script>
 @endsection

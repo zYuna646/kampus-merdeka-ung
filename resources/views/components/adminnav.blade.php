@@ -433,11 +433,11 @@
                 </div>
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
-                    <a href="{{ route('student.weekly_logbook') }}"
+                    {{-- <a href="{{ route('student.weekly_logbook') }}"
                         class="inline-flex items-center gap-x-2 {{ Request::routeIs('student.weekly_logbook') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }} w-full">
                         <i class="fas fa-file"></i>
                         Log Book
-                    </a>
+                    </a> --}}
                     <a href="{{ route('student.program_history') }}"
                         class="inline-flex items-center gap-x-2 {{ Request::routeIs('student.program_history') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }} w-full">
                         <i class="fas fa-file"></i>
@@ -487,11 +487,11 @@
                     </div>
                     <div
                         class="flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
-                        <a href="{{ route('student.weekly_logbook') }}"
+                        {{-- <a href="{{ route('student.weekly_logbook') }}"
                             class="flex items-center gap-x-2 {{ Request::routeIs('student.weekly_logbook') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                             <i class="fas fa-file"></i>
                             Log Book
-                        </a>
+                        </a> --}}
                         <a href="{{ route('student.program_history') }}"
                             class="flex items-center gap-x-2 {{ Request::routeIs('student.program_history') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                             <i class="fas fa-file"></i>
