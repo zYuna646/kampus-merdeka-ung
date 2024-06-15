@@ -17,66 +17,6 @@
         <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
         Tambah Data
       </x-button_md>
-      <x-button_md type="button" id="importBtn">
-        <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
-        Import
-      </x-button_md>
-      <!-- Modal Form Import -->
-      <div id="importModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-          <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-          </div>
-          <!-- Konten Modal -->
-          <div
-            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-            <form action="{{ route('admin.faculties.import') }}" method="POST" enctype="multipart/form-data">
-              @csrf
-              <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="sm:flex sm:items-start">
-                  <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 class="text-lg font-medium text-gray-900">Import Data</h3>
-                    <div class="mt-2">
-                      <input id="import-file" type="file" name="file" class="hidden" accept=".xls, .xlsx"
-                        onchange="updateFileName(this)">
-                      <label for="import-file" class="cursor-pointer">
-                        <span
-                          class="text-white bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center"
-                          id="fileLabel">
-                          <i class="fas fa-file-export text-sm me-2"></i>
-                          Pilih File Excel (.xls, .xlsx)
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="w-full">
-              <div class="p-4 px-6 inline-flex justify-between w-full">
-                <div class="inline-flex items-center gap-x-2">
-                  <x-button_sm type="submit" color="primary" class="">
-                    Import Data
-                  </x-button_sm>
-                  <x-button_sm class="inline-flex items-center gap-x-2" color="info">
-                    <span><i class="fas fa-download"></i></span>
-                    Template
-                  </x-button_sm>
-                </div>
-                <div>
-                  <x-button_sm type="button" id="cancelImport" color="danger-outlined">
-                    Batal
-                  </x-button_sm>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <!-- Tombol Export -->
-      <x-button_md type="button" color="warning" class="ms-2">
-        <span class=""><i class="fas fa-file-import text-sm me-2"></i></span>
-        Export
-      </x-button_md>
     </div>
   </div>
   <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">

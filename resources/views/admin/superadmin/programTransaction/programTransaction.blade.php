@@ -57,7 +57,7 @@
                                     <x-button_sm type="submit" color="primary" class="">
                                         Import Data
                                     </x-button_sm>
-                                    <x-button_sm class="inline-flex items-center gap-x-2" color="info">
+                                    <x-button_sm class="inline-flex items-center gap-x-2" color="info"  onclick="window.location.href='{{ asset('templates/peserta_template.xlsx') }}'">
                                         <span><i class="fas fa-download"></i></span>
                                         Template
                                     </x-button_sm>

@@ -1,65 +1,68 @@
 @extends('layout.admin')
 
 @section('main')
-    <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
-        <div class="flex col-span-12 mb-2 mt-2" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-                <li class="inline-flex items-center">
-                    <a href="{{ route('student.dashboard') }}"
-                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-color-primary-600 dark:text-gray-400 dark:hover:text-white">
-                        <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 20 20">
-                            <path
-                                d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                        </svg>
-                        Beranda
-                    </a>
-                </li>
-            </ol>
-        </div>
+<section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
+    <div class="flex col-span-12 mb-2 mt-2" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+            <li class="inline-flex items-center">
+                <a href="{{ route('student.dashboard') }}"
+                    class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-color-primary-600 dark:text-gray-400 dark:hover:text-white">
+                    <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    </svg>
+                    Beranda
+                </a>
+            </li>
+        </ol>
+    </div>
 
-        <div class="lg:col-span-4 col-span-12 w-full">
-            <div class="p-6 bg-white grid grid-cols-12 gap-4 items-center rounded-xl shadow-sm border border-slate-200">
-                <div class="relative col-span-3">
-                    <img src="/images/avatar/placeholder.jpg" alt="" class="w-20 rounded-full object-cover">
-                </div>
-                <div class="flex flex-col col-span-9">
-                    @auth
-                        <p class="font-semibold text-base uppercase">{{ Auth::user()->username }}</p>
-                        <span class="text-xs text-slate-500">{{ Auth::user()->role->name }}</span>
-                    @endauth
-                    {{-- <span class="text-slate-500 text-sm">Universitas Negeri Gorontalo</span> --}}
-                </div>
+    <div class="lg:col-span-4 col-span-12 w-full">
+        <div class="p-6 bg-white grid grid-cols-12 gap-4 items-center rounded-xl shadow-sm border border-slate-200">
+            <div class="relative col-span-3">
+                <img src="/images/avatar/placeholder.jpg" alt="" class="w-20 rounded-full object-cover">
             </div>
-            <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
-                <div class="p-6">
-                    <div class="grid grid-flow-row divide-y-[1px]">
-                        {{-- <button class="flex items-center gap-4 font-semibold pb-4 section-button" data-section="profile">
-            <span><i class="fas fa-cog text-base"></i></span>
-            <p class="text-sm">Pengaturan Profil</p>
-          </button> --}}
-                        <button class="flex items-center gap-4 font-semibold py-4 section-button" data-section="account">
-                            <span><i class="fas fa-user text-base"></i></span>
-                            <p class="text-sm">Pengaturan Akun</p>
-                        </button>
-                        <button class="flex items-center gap-4 font-semibold py-4 section-button" data-section="password">
-                            <span><i class="fas fa-lock text-base"></i></span>
-                            <p class="text-sm">Ganti Sandi</p>
-                        </button>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                </div>
+            <div class="flex flex-col col-span-9">
+                @auth
+                <p class="font-semibold text-base uppercase">{{ Auth::user()->username }}</p>
+                <span class="text-xs text-slate-500">{{ Auth::user()->role->name }}</span>
+                @endauth
+                {{-- <span class="text-slate-500 text-sm">Universitas Negeri Gorontalo</span> --}}
             </div>
         </div>
+        <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
+            <div class="p-6">
+                <div class="grid grid-flow-row divide-y-[1px]">
+                    {{-- <button class="flex items-center gap-4 font-semibold pb-4 section-button"
+                        data-section="profile">
+                        <span><i class="fas fa-cog text-base"></i></span>
+                        <p class="text-sm">Pengaturan Profil</p>
+                    </button> --}}
+                    <button class="flex items-center gap-4 font-semibold py-4 section-button" data-section="account">
+                        <span><i class="fas fa-user text-base"></i></span>
+                        <p class="text-sm">Pengaturan Akun</p>
+                    </button>
+                    <button class="flex items-center gap-4 font-semibold py-4 section-button" data-section="password">
+                        <span><i class="fas fa-lock text-base"></i></span>
+                        <p class="text-sm">Ganti Sandi</p>
+                    </button>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
-            <div id="account"
-                class="section-content bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col gap-y-2 hidden">
-                <h3 class="py-4 text-lg font-semibold">Pengaturan Akun</h3>
-                <hr>
-                <div class="flex flex-col py-2">
+    <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
+        <div id="account"
+            class="section-content bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col gap-y-2 hidden">
+            <h3 class="py-4 text-lg font-semibold">Pengaturan Akun</h3>
+            <hr>
+            <div class="flex flex-col py-2">
+                <form action="{{ route('profile.update') }}" method="POST">
+                    @csrf
                     <div class="mb-4">
                         <label for="username"
                             class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">username</label>
@@ -68,193 +71,133 @@
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                     </div>
                     @auth
-                        @if (Auth::user()->role->slug === 'mahasiswa')
-                            <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama
-                                    Mahasiswa</label>
-                                <input type="text" value={{ Auth::user()->mahasiswa->name }} name="name" id="name"
-                                    placeholder="Masukan Nama Mahasiswa"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                                    value="">
-                            </div>
-                            <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">NIM
-                                    Mahasiswa</label>
+                    @if (Auth::user()->role->slug === 'mahasiswa')
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Mahasiswa</label>
+                        <input type="text" value="{{ Auth::user()->mahasiswa->name }}" name="name" id="name"
+                            placeholder="Masukan Nama Mahasiswa"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                    </div>
+                    <div class="mb-4">
+                        <label for="nim" class="block text-sm font-medium text-gray-700 mb-2">NIM Mahasiswa</label>
+                        <input type="text" value="{{ Auth::user()->mahasiswa->nim }}" name="nim" id="nim"
+                            placeholder="Masukan Nama Mahasiswa"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                    </div>
+                    <div class="mb-4">
+                        <label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Nama Fakultas</label>
+                        <select name="fakultas" id="fakultas"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            @foreach ($data['fakultas'] as $item)
+                            <option value="{{ $item->id }}" {{ Auth::user()->mahasiswa->studi->jurusan->fakultas->id ==
+                                $item->id ? 'selected' : '' }}>
+                                {{ $item->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="jurusan" class="block text-sm font-medium text-gray-700 mb-2">Nama Jurusan</label>
+                        <select name="jurusan" id="jurusan"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            @foreach ($data['jurusan'] as $item)
+                            <option value="{{ $item->id }}" {{ Auth::user()->mahasiswa->studi->jurusan->id == $item->id
+                                ? 'selected' : '' }}>
+                                {{ $item->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="prodi" class="block text-sm font-medium text-gray-700 mb-2">Nama Program
+                            Studi</label>
+                        <select name="prodi" id="prodi"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            @foreach ($data['prodi'] as $item)
+                            <option value="{{ $item->id }}" {{ Auth::user()->mahasiswa->studi->id == $item->id ?
+                                'selected' : '' }}>
+                                {{ $item->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                                <input type="text" value={{ Auth::user()->mahasiswa->nim }} name="name" id="nim"
-                                    placeholder="Masukan Nama Mahasiswa"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                                    value="">
-                            </div>
-                            <div class="mb-4">
-                                <label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Nama Fakultas</label>
-                                <select type="text" name="fakultas" id="fakultas" placeholder="Masukan Nama Fakultas"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                                    @foreach ($data['fakultas'] as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ Auth::user()->mahasiswa->studi->jurusan->fakultas->id == $item->id ? 'selected' : '' }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
 
+                    @elseif (Auth::user()->role->slug === 'dosen')
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Dosen</label>
+                        <input type="text" value="{{ Auth::user()->dosen->name }}" name="name" id="name"
+                            placeholder="Masukan Nama Dosen"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                    </div>
+                    <div class="mb-4">
+                        <label for="nip" class="block text-sm font-medium text-gray-700 mb-2">NIP Dosen</label>
+                        <input value="{{ Auth::user()->dosen->nip }}" type="text" name="nip" id="nip"
+                            placeholder="Masukan NIP Dosen"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                    </div>
 
-
-
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label for="jurusan" class="block text-sm font-medium text-gray-700 mb-2">Nama Jurusan</label>
-                                <select type="text" name="jurusan" id="jurusan" placeholder="Masukan Nama Jurusan"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                                    @foreach ($data['jurusan'] as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ Auth::user()->mahasiswa->studi->jurusan->id == $item->id ? 'selected' : '' }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label for="studi_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Program
-                                    Studi</label>
-                                <select type="text" name="studi_id" id="studi_id" placeholder="Masukan Nama Program Studi"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                                    @foreach ($data['studi'] as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ Auth::user()->mahasiswa->studi->id == $item->id ? 'selected' : '' }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                        @endif
+                    @elseif (Auth::user()->role->slug === 'guru')
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Mitra</label>
+                        <input value={{Auth::user()->guru->name}} type="text" name="name" id="name" placeholder="Masukan
+                        Nama Dosen"
+                        class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50
+                        xl:text-sm
+                        text-xs"
+                        value="">
+                    </div>
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">NIK Mitra</label>
+                        <input value={{Auth::user()->guru->nik}} type="text" name="name" id="name" placeholder="Masukan
+                        Nama
+                        Dosen"
+                        class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50
+                        xl:text-sm
+                        text-xs"
+                        value="">
+                    </div>
+                    @endif
                     @endauth
-
-                    @auth
-                        @if (Auth::user()->role->slug === 'dosen')
-                            <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Dosen</label>
-                                <input value={{Auth::user()->dosen->name}} type="text" name="name" id="name" placeholder="Masukan Nama Dosen"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                                    value="">
-                            </div>
-                            <div class="mb-4">
-                                <label for="nidn" class="block text-sm font-medium text-gray-700 mb-2">NIDN Dosen</label>
-                                <input value={{Auth::user()->dosen->nidn}} type="text" name="name" id="name" placeholder="Masukan Nama Dosen"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                                    value="">
-                            </div>
-                            <div class="mb-4">
-                                <label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Nama
-                                    Fakultas</label>
-                                <select type="text" name="fakultas" id="fakultas" placeholder="Masukan Nama Fakultas"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                                    @foreach ($data['fakultas'] as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ Auth::user()->dosen->studi->jurusan->fakultas->id == $item->id ? 'selected' : '' }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label for="jurusan" class="block text-sm font-medium text-gray-700 mb-2">Nama
-                                    Jurusan</label>
-                                <select type="text" name="jurusan" id="jurusan" placeholder="Masukan Nama Jurusan"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                                    @foreach ($data['jurusan'] as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ Auth::user()->dosen->studi->jurusan->id == $item->id ? 'selected' : '' }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-4">
-                                <label for="studi_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Program
-                                    Studi</label>
-                                <select type="text" name="studi_id" id="studi_id"
-                                    placeholder="Masukan Nama Program Studi"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
-                                    @foreach ($data['studi'] as $item)
-                                        <option value="{{ $item->id }}"
-                                            {{ Auth::user()->dosen->studi->id == $item->id ? 'selected' : '' }}>
-                                            {{ $item->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @endif
-                    @endauth
-
-                    @auth
-                        @if (Auth::user()->role->slug === 'guru')
-                            <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Mitra</label>
-                                <input value={{Auth::user()->guru->name}} type="text" name="name" id="name" placeholder="Masukan Nama Dosen"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                                    value="">
-                            </div>
-                            <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">NIK Mitra</label>
-                                <input value={{Auth::user()->guru->nik}} type="text" name="name" id="name" placeholder="Masukan Nama Dosen"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                                    value="">
-                        @endif
-                    @endauth
-
                     <div class="py-2">
-                        <x-button_md class="" color="primary">
-                            Simpan Perubahan
-                        </x-button_md>
-                    </div>
-                </div>
-            </div>
-
-            <div id="password"
-                class="section-content bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col gap-y-2 hidden">
-                <h3 class="py-4 text-lg font-semibold">Pengaturan Sandi</h3>
-                <hr>
-                <form action="{{ route('password') }}" method="POST" class="flex flex-col gap-y-4 py-4">
-                    @csrf
-                    @method('PUT')
-                    <div>
-                        <label for="current_password"
-                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Sandi
-                            Saat Ini</label>
-                        <input type="password" name="current_password" id="current_password"
-                            placeholder="Sandi Saat Ini"
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                    </div>
-                    <div>
-                        <label for="new_password"
-                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Sandi
-                            Baru</label>
-                        <input type="password" name="new_password" id="new_password" placeholder="Sandi Baru"
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                    </div>
-                    <div>
-                        <label for="confirm_password"
-                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Konfirmasi
-                            Sandi Baru</label>
-                        <input type="password" name="confirm_password" id="confirm_password"
-                            placeholder="Konfirmasi Sandi Baru"
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                    </div>
-                    <div class="py-2">
-                        <x-button_md class="" color="primary">
+                        <x-button_md class="" color="primary" type="submit">
                             Simpan Perubahan
                         </x-button_md>
                     </div>
                 </form>
             </div>
         </div>
-    </section>
+        <div id="password"
+            class="section-content bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col gap-y-2 hidden">
+            <h3 class="py-4 text-lg font-semibold">Pengaturan Sandi</h3>
+            <hr>
+            <form action="{{ route('password') }}" method="POST" class="flex flex-col gap-y-4 py-4">
+                @csrf
+                <div>
+                    <label for="current_password"
+                        class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Sandi
+                        Saat Ini</label>
+                    <input type="password" name="current_password" id="current_password" placeholder="Sandi Saat Ini"
+                        class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                </div>
+                <div>
+                    <label for="new_password" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Sandi
+                        Baru</label>
+                    <input type="password" name="new_password" id="new_password" placeholder="Sandi Baru"
+                        class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
+                <div class="py-2">
+                    <x-button_md class="" color="primary" type="submit">
+                        Simpan Perubahan
+                    </x-button_md>
+                </div>
+            </form>
+        </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
 
 
             $('.section-button').on('click', function() {
@@ -295,5 +238,6 @@
             });
 
         });
-    </script>
+</script>
+
 @endsection

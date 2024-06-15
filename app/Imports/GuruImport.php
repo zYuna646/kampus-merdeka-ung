@@ -21,7 +21,7 @@ class GuruImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $index => $row) {
             try {
-                $nip = sprintf('%09d', $index); // Generate NIP with leading zeros
+                $nip = $row['nik'];// Generate NIP with leading zeros
                 // Menambahkan tanda titik koma dan tanda kutip pada NIP
                 $role = Role::where('slug', 'guru')->first();
                 $existingGuru = Guru::where('nik', $nip)->first();

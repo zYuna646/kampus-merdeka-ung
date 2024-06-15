@@ -53,25 +53,25 @@
                                     </div>
                                 </div>
                             </div>
-                        <hr class="w-full">
-                        <div class="p-4 px-6 inline-flex justify-between w-full">
-                            <div class="inline-flex items-center gap-x-2">
-                                <x-button_sm type="submit" color="primary" class="">
-                                    Import Data
-                                </x-button_sm>
-                                <x-button_sm class="inline-flex items-center gap-x-2" color="info">
-                                    <a href="{{ asset('templates/program_template.xlsx') }}" download>
-                                        <span><i class="fas fa-download"></i></span>
-                                        Template
-                                    </a>
-                                </x-button_sm>
+                            <hr class="w-full">
+                            <div class="p-4 px-6 inline-flex justify-between w-full">
+                                <div class="inline-flex items-center gap-x-2">
+                                    <x-button_sm type="submit" color="primary" class="">
+                                        Import Data
+                                    </x-button_sm>
+                                    <x-button_sm class="inline-flex items-center gap-x-2" color="info">
+                                        <a href="{{ asset('templates/program_template.xlsx') }}" download>
+                                            <span><i class="fas fa-download"></i></span>
+                                            Template
+                                        </a>
+                                    </x-button_sm>
+                                </div>
+                                <div>
+                                    <x-button_sm type="button" id="cancelImport" color="danger-outlined">
+                                        Batal
+                                    </x-button_sm>
+                                </div>
                             </div>
-                            <div>
-                                <x-button_sm type="button" id="cancelImport" color="danger-outlined">
-                                    Batal
-                                </x-button_sm>
-                            </div>
-                        </div>
                         </form>
 
                     </div>

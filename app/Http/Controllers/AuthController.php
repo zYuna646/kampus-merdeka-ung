@@ -18,23 +18,28 @@ class AuthController extends Controller
 
     public function password(Request $request)
     {
-        $request->validate([
-            'password' => 'required',
-            'new_password' => 'required|confirmed',
-        ]);
-
-        if (Hash::check($request->password, Auth::user()->password)) {
-            Auth::user()->update([
-                'password' => Hash::make($request->new_password),
+        try {
+            // dd($request);
+            $request->validate([
+                'current_password' => 'required',
+                'new_password' => 'required',
             ]);
-            Auth::user()->save();
-        } else {
-            return redirect()->back()->with('error', 'Password Lama Salah');
+            // dd(Hash::check($request->current_password, Auth::user()->password));
+
+            if (Hash::check($request->current_password, Auth::user()->password)) {
+                Auth::user()->password = bcrypt($request->new_password);
+                Auth::user()->save();
+
+                return redirect()->back()->with('success', 'Password Berhasil Diubah');
+            } else {
+                return redirect()->back()->with('error', 'Password Lama Salah');
+            }
+        } catch (Exception $e) {
+            dd($e);
         }
-        return redirect()->back()->with('success', 'Password Berhasil Diubah');
     }
 
-    public function update(Request $request)
+    public function profile(Request $request)
     {
         $user = Auth::user();
 
@@ -113,7 +118,7 @@ class AuthController extends Controller
             'username.required' => 'Kolom nama pengguna harus diisi.',
             'password.required' => 'Kolom kata sandi harus diisi.',
         ]);
-
+        
 
         if (Auth::attempt($credential)) {
             $request->session()->regenerate();
@@ -156,7 +161,7 @@ class AuthController extends Controller
         $data = [
             'fakultas' => Fakultas::all(),
             'jurusan' => Jurusan::all(),
-            'studi' => Studi::all(),
+            'prodi' => Studi::all(),
         ];
         return view('admin.profile_setting')->with('data', $data);
     }

@@ -150,6 +150,12 @@ class ProgramTransactionController extends Controller
         return redirect()->back()->with('success', 'Peserta berhasil diverifikasi');
     }
 
+    public function verifikasiImport(){
+        Excel::import(new verifikasiIMport, request()->file('file'));
+
+        return back()->with('success', 'Data imported successfully!');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
