@@ -13,7 +13,7 @@ use App\Models\ProgramKampus;
 use App\Models\Role;
 use App\Models\Studi;
 use App\Models\User;
-use App\Models\News; 
+use App\Models\news; 
 use App\Models\CategoryNews;
 use App\Models\Lowongan;
 use App\Models\ProgramTransaction;
@@ -89,7 +89,7 @@ class dashboardController extends Controller
             'news' => [
                 [
                     'label' => 'Berita',
-                    'count' => News::all()->count(),
+                    'count' => news::all()->count(),
                     'icon' => 'fas fa-newspaper',
                 ],
                 [

@@ -28,7 +28,7 @@
       <div class="xl:p-8 p-6 bg-white rounded-3xl max-w-md w-full flex flex-col gap-y-4 shadow-md">
         <div class="flex justify-between items-center">
           <span class="text-sm hidden lg:block">Selamat Datang!</span>
-          <p class="text-sm">Belum Punya Akun? <a href="" class="text-color-primary-500">Daftar</a></p>
+          {{-- <p class="text-sm">Belum Punya Akun? <a href="" class="text-color-primary-500">Daftar</a></p> --}}
         </div>
         <h2 class="xl:text-5xl text-2xl font-bold text-gray-800">Masuk</h2>
         <form class="xl:mt-4" action="/login" method="POST">
