@@ -15,7 +15,7 @@
         }
 
         body {
-            padding: 3rem;
+            /* padding: 3rem; */
         }
 
         header {
@@ -73,37 +73,20 @@
 
         footer {
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 2rem
-                /* 32px */
-            ;
-            padding-left: 1rem
-                /* 16px */
-            ;
-            padding-right: 1rem
-                /* 16px */
-            ;
+            margin-top: 2rem;
+            display: table;
         }
 
         div.sign {
-            display: flex;
-            flex-direction: column;
+            display: table-cell;
             font-weight: 600;
-            max-width: 32rem
-                /* 512px */
-            ;
-            align-items: center;
+            width: 50%;
+            text-align: center;
         }
 
         div.name {
-            width: 5rem
-                /* 80px */
-            ;
-            height: 5rem
-                /* 80px */
-            ;
+            width: 5rem;
+            height: 5rem;
         }
     </style>
 </head>
@@ -114,30 +97,30 @@ $dateFormatted = Carbon::parse($daily->date)
 ->isoFormat('dddd, D MMMM YYYY');
 @endphp
 
-<body class="p-12">
-    <header class="w-full flex flex-col gap-y-2">
-        <div class="title w-full items-center flex flex-col font-bold ">
+<body class="" style="padding: 1rem">
+    <header style="width: 100%; display: flex; flex-direction: column; row-gap: 0.5rem;">
+        <div style=" width: 100%; font-weight: 700; text-align: center;">
             <p>FORMAT LOG BOOK MINGGUAN</p>
             <p>KEGIATAN {{ $program->name }}</p>
         </div>
-        <div class="bio font-semibold flex flex-col mt-4">
+        <div style=" font-weight: 600; display: flex; flex-direction: column; margin-top: 1rem;">
             <p>Nama Mahasiswa : {{ $mahasiswa->name }}</p>
             <p>Jurusan : Teknik {{ $jurusan->name }}</p>
             <p>Nama Sekolah : {{ $lokasi->name }}</p>
             <p>Hari/Tanggal : {{ $dateFormatted }}</p>
         </div>
     </header>
-    <main class="flex items-start w-full mt-4">
-        <table class="w-full border-collapse border" border="1">
+    <main style=" display: flex; align-items: flex-start; width: 100%; margin-top: 1rem;">
+        <table border="1" style=" width: 100%; border-collapse: collapse; border-width: 1px;">
             <thead>
                 <tr>
-                    <th class="border p-4">No</th>
-                    <th class="border p-4">Mulai aktivitas</th>
-                    <th class="border p-4">Deskripsi aktivitas</th>
-                    <th class="border p-4">Rencana kegiatan ke-</th>
-                    <th class="border p-4">% Capaian dari rencana</th>
-                    <th class="border p-4">Hambatan</th>
-                    <th class="border p-4">Rencana solusi</th>
+                    <th style=" border-width: 1px; padding: 1rem">No</th>
+                    <th style=" border-width: 1px; padding: 1rem">Mulai aktivitas</th>
+                    <th style=" border-width: 1px; padding: 1rem">Deskripsi aktivitas</th>
+                    <th style=" border-width: 1px; padding: 1rem">Rencana kegiatan ke-</th>
+                    <th style=" border-width: 1px; padding: 1rem">% Capaian dari rencana</th>
+                    <th style=" border-width: 1px; padding: 1rem">Hambatan</th>
+                    <th style=" border-width: 1px; padding: 1rem">Rencana solusi</th>
                 </tr>
             </thead>
             <tbody>
@@ -147,31 +130,31 @@ $dateFormatted = Carbon::parse($daily->date)
                 $jamSelesai = Carbon::parse($item->jam_selesai)->format('H:i');
                 @endphp
                 <tr>
-                    <td class="border p-4">{{ $index }}</td>
-                    <td class="border p-4">{{ $jamMulai }} - {{ $jamSelesai }}</td>
+                    <td style=" border-width: 1px;padding: 1rem">{{ $index }}</td>
+                    <td style=" border-width: 1px;padding: 1rem">{{ $jamMulai }} - {{ $jamSelesai }}</td>
 
-                    <td class="border p-4">{{$item->desc}}</td>
-                    <td class="border p-4">{{$item->rencana}}</td>
-                    <td class="border p-4">{{$item->presentase . '%'}}</td>
-                    <td class="border p-4">{{$item->hambatan}}</td>
-                    <td class="border p-4">{{$item->solusi}}</td>
+                    <td style=" border-width: 1px;padding: 1rem">{{$item->desc}}</td>
+                    <td style=" border-width: 1px;padding: 1rem">{{$item->rencana}}</td>
+                    <td style=" border-width: 1px;padding: 1rem">{{$item->presentase . '%'}}</td>
+                    <td style=" border-width: 1px;padding: 1rem">{{$item->hambatan}}</td>
+                    <td style=" border-width: 1px;padding: 1rem">{{$item->solusi}}</td>
                 </tr>
                 @endforeach
 
             </tbody>
         </table>
     </main>
-    <footer class="w-full flex justify-between items-end mt-8 px-4">
-        <div class="sign flex flex-col font-semibold max-w-lg items-center">
-            <p class="">Mengetahui</p>
+    <footer>
+        <div class="sign">
+            <p>Mengetahui</p>
             <p>Dosen Penangung Jawab Lapangan</p>
-            <div class="name w-20 h-20"></div>
-            <p>({{$dpl->dosen->name}})</p>
+            <div class="name"></div>
+            <p>({{ $dpl->dosen->name }})</p>
         </div>
-        <div class="sign flex flex-col font-semibold max-w-lg items-center">
-            <p>Mahasiswa Peserta</p>
-            <div class="name w-20 h-20"></div>
-            <p>({{$mahasiswa->name}})</p>
+        <div class="sign">
+            <p style="margin-top: 20px">Mahasiswa Peserta</p>
+            <div class="name"></div>
+            <p>({{ $mahasiswa->name }})</p>
         </div>
     </footer>
 </body>
