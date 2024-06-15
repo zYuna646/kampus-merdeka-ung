@@ -11,10 +11,10 @@ use App\Models\CategoryNews;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function home(ProgramChart $programchart)
     {
         $latestNews = news::orderBy('created_at', 'desc')->take(3)->get(); // Fetch 3 latest news items
-        return view('landing.home')->with('latestNews', $latestNews);
+        return view('landing.home')->with('latestNews', $latestNews)->with('programchart', $programchart->build());
     }
 
     public function berita()

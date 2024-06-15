@@ -199,8 +199,11 @@
                     Pendaftaran Peserta MBKM
                 </div>
                 <div class="border border-slate-200 min-h-52 flex items-center justify-center">
-                    InfoGraph here
+                    {!! $programchart->container() !!}
                 </div>
+                <script src="{{ $programchart->cdn() }}"></script>
+
+        {{ $programchart->script() }}
             </div>
         </div>
         {{-- <div>
@@ -221,7 +224,7 @@
                 </div>
             </div>
         </div> --}}
-        <div>
+        {{-- <div>
             <h2 class="font-semibold text-lg px-4">
                 Download
             </h2>
@@ -243,7 +246,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </section>
 
