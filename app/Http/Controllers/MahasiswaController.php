@@ -35,7 +35,10 @@ class MahasiswaController extends Controller
     public function dashboard()
     {
         try {
-            $programTransaction = Auth::user()->mahasiswa->programTransaction()->latest()->first();
+            $programTransaction = Auth::user()->mahasiswa->programTransaction()
+            ->where('status_mahasiswa', true)
+            ->latest()
+            ->first();
         } catch (\Throwable $th) {
             //throw $th;
             $programTransaction = '';
@@ -78,14 +81,14 @@ class MahasiswaController extends Controller
 
     public function program_history()
     {
-        $data = ProgramTransaction::all();
+        $data =  Auth::user()->mahasiswa->programTransaction;
         return view('admin.student.program_history')->with('data', $data);
     }
 
-    public function weeklyBook()
+    public function weeklyBook($id)
     {
         try {
-            $programTransaction = Auth::user()->mahasiswa->programTransaction;
+            $programTransaction = ProgramTransaction::find($id);
         } catch (\Throwable $th) {
             //throw $th;
             $programTransaction = '';
@@ -144,19 +147,46 @@ class MahasiswaController extends Controller
     }
 
     public function register($id)
-    {
-        $lowongan = Lowongan::find($id);
-        $currentDate = \Carbon\Carbon::now();
+{
+    $lowongan = Lowongan::find($id);
+    $currentDate = \Carbon\Carbon::now();
 
-        if (!($lowongan->pendaftaran_mulai <= $currentDate && $currentDate <= $lowongan->pendaftaran_selesai)) {
-            return; // Or some other action, like return a response or an error message
-        }
-        $mahasiswa = Auth::user()->mahasiswa;
-        ProgramTransaction::create([
-            'lowongan_id' => $lowongan->id,
-            'mahasiswa_id' => $mahasiswa->id
-        ]);
+    // Check if the student is already registered in the same lowongan
+    $isLowongan = ProgramTransaction::where('lowongan_id', $lowongan->id)
+        ->where('mahasiswa_id', Auth::user()->mahasiswa->id)
+        ->first();
+    if ($isLowongan) {
+        return redirect()->back()->with('error', 'Anda Sudah Terdaftar');
     }
+
+    // Check if the student is already registered in another program in the same academic year and semester
+    $lowongan_tahun = Lowongan::where('tahun_akademik', $lowongan->tahun_akademik)
+        ->where('semester', $lowongan->semester)
+        ->pluck('id');
+    
+    $isAlready = ProgramTransaction::where('mahasiswa_id', Auth::user()->mahasiswa->id)
+        ->whereIn('lowongan_id', $lowongan_tahun)
+        ->first();
+    
+    if ($isAlready) {
+        return redirect()->back()->with('error', 'Anda Sudah Terdaftar Pada Program Lain Pada Tahun Akademik Ini');
+    }
+
+    // Check if the registration date is within the allowed range
+    if (!($lowongan->pendaftaran_mulai <= $currentDate && $currentDate <= $lowongan->pendaftaran_selesai)) {
+        return redirect()->back()->with('error', 'Batas Pendaftaran Sudah Selesai');
+    }
+
+    // Register the student
+    $mahasiswa = Auth::user()->mahasiswa;
+    ProgramTransaction::create([
+        'lowongan_id' => $lowongan->id,
+        'mahasiswa_id' => $mahasiswa->id
+    ]);
+
+    return redirect()->back()->with('success', 'Berhasil mendaftar ke program');
+}
+
 
 
 

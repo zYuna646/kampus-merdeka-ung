@@ -61,15 +61,13 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/browse_program', function () {
                 return view('admin.student.browse_program');
             });
-            Route::get('/program_history', function () {
-                return view('admin.student.program_history');
-            })->name('student.program_history');
+            Route::get('/program_history', [MahasiswaController::class, 'program_history'])->name('student.program_history');
             Route::get('/detail_history', function () {
                 return view('admin.student.detail_history');
             })->name('student.detail_history');
             Route::get('/download_daily/{id}', [MahasiswaController::class, 'downloadDaily'])->name('student.download_daily');
             Route::get('/download_week/{id}', [MahasiswaController::class, 'downloadWeekly'])->name('student.download_weekly');
-            Route::get('/weekly_logbook', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');
+            Route::get('/weekly_logbook/{id}', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');
             Route::get('/daily_logbook/{id}', [MahasiswaController::class, 'dailyBook'])->name('student.daily_logbook');
             Route::get('/daily_form/{id}', [MahasiswaController::class, 'dailyLogForm'])->name('student.daily_logbookForm');
             Route::post('/daily_form/{id}', [MahasiswaController::class, 'dailyLog'])->name('student.daily_logbookForm.edit');
@@ -265,6 +263,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
 
             Route::prefix('/peminat')->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'peserta'])->name('admin.peminat');
+                Route::post('/verifikasi/{id}', [ProgramTransactionController::class, 'verifikasi'])->name('admin.peminat.verifikasi');
             });
 
             Route::prefix('/berita')->group(function () {

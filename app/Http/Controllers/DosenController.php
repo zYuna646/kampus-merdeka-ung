@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Exports\DosenExport;
 use App\Imports\DosenImport;
 use App\Models\Dosen;
+use App\Models\Lokasi;
+use App\Models\Lowongan;
+use App\Models\Program;
+use App\Models\ProgramKampus;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\DPL;
@@ -58,7 +62,8 @@ class DosenController extends Controller
         }
 
         $data = [
-            'program' => $dpl
+            'program' => $dpl,
+            'program_kampus' => ProgramKampus::all()
         ];
 
         return view('admin.dpl.dashboard_dpl')->with('data', $data);
@@ -101,10 +106,12 @@ class DosenController extends Controller
             $peserta = $dpl->mahasiswa()->paginate(5);
         }
 
+        $lowongan = Lowongan::find($lowongan_id);
 
         $data = [
             'peserta' => $peserta,
-            'dpl' => $dpl
+            'dpl' => $dpl,
+            'lokasi' => Lokasi::where('program_id', $lowongan->program->id)->get(),
         ];
 
         return view('admin.dpl.program_details_dpl', compact('data'));
