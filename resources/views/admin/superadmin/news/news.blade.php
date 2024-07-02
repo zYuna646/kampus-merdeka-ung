@@ -20,6 +20,29 @@
     </div>
   </div>
   <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
+    <div class="w-full flex flex-col gap-y-4">
+      <div>
+        <p class="font-semibold text-lg">Filter Data</p>
+      </div>
+      <form action="{{ route('admin.berita') }}" method="GET">
+        <div class="w-full grid grid-cols-12">
+          <div class="col-span-6">
+            <label for="kategori" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Kategori :</label>
+            <select name="kategori" id="kategori"
+              class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+              onchange="this.form.submit()">
+              <option value="">Semua kategori</option>
+              @foreach ($categories as $category)
+              <option value="{{ $category->id }}" {{ $selectedCategory==$category->id ? 'selected' : '' }}>
+                {{ $category->name }}
+              </option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <hr class="w-full mt-4 mb-4">
     <div class="overflow-x-auto lg:overflow-visible">
       <table id="table_config" class="w-full">
         <thead>

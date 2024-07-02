@@ -29,12 +29,33 @@ class ProgramTransactionController extends Controller
 
     }
 
-    public function peserta()
-    {
-        $programTransactions = ProgramTransaction::where('status_mahasiswa', 0)->get();
-        return view('admin.superadmin.peminat.peminat')->with('data', $programTransactions);
+    public function peserta(Request $request)
+{
+    $query = ProgramTransaction::query();
 
+    // Apply filters
+    if ($request->has('program') && !empty($request->program)) {
+        $query->where('lowongan_id', $request->program);
     }
+    if ($request->has('tahun_akademik') && !empty($request->tahun_akademik)) {
+        $query->where('tahun_akademik', $request->tahun_akademik);
+    }
+    if ($request->has('semester') && !empty($request->semester)) {
+        $query->where('semester', $request->semester);
+    }
+
+    // Get filtered results
+    $programTransactions = $query->where('status_mahasiswa', 0)->get();
+
+    // Get distinct values for filters
+    $lowongans = ProgramTransaction::select('lowongan_id')->distinct()->get();
+
+    return view('admin.superadmin.peminat.peminat')->with([
+        'data' => $programTransactions,
+        'lowongans' => $lowongans,
+    ]);
+}
+
 
     public function getLokasi(Request $request)
     {

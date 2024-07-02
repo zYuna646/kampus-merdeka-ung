@@ -15,7 +15,7 @@
                     required>
                     <option value="" selected disabled>Pilih Pamong</option>
                     @foreach ($data['pamong'] as $item)
-                        <option value="{{ $item->id }}">{{ $item->nik . ' - ' . $item->name }}</option>
+                    <option value="{{ $item->id }}">{{ $item->nik . ' - ' . $item->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -26,9 +26,9 @@
                     required>
                     <option value="" selected disabled>Pilih Program</option>
                     @foreach ($data['program'] as $item)
-                        <option value="{{ $item->id }}">
-                            {{ $item->program->name . ' (' . $item->tahun_akademik . ') - ' . $item->semester }}
-                        </option>
+                    <option value="{{ $item->id }}">
+                        {{ $item->program->name . ' (' . $item->tahun_akademik . ') - ' . $item->semester }}
+                    </option>
                     @endforeach
                 </select>
             </div>
@@ -41,16 +41,19 @@
                     </x-button_sm>
                 </div>
                 <div id="repeater_wrapper" class="flex flex-col gap-y-4">
-                    <div class="p-6 bg-slate-100 rounded-md repeater_item">
+                    <div class="p-6 bg-slate-100 rounded-md repeater_item w-full">
                         <label for="mahasiswa_1" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa
                             1</label>
-                        <select name="mahasiswa[]" class="js-example-basic-single mahasiswa-dropdown w-full text-sm"
-                            required>
-                        </select>
-                        <button type="button"
-                            class="remove_repeater text-white inline-flex items-center gap-x-2 w-fit bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-4">
-                            <span><i class="fas fa-trash"></i></span> Hapus
-                        </button>
+                        <div class="w-full flex flex-col">
+                            <select name="mahasiswa[]" class="js-example-basic-single mahasiswa-dropdown w-full text-sm"
+                                required>
+                            </select>
+                            <button type="button"
+                                class="remove_repeater text-white inline-flex items-center gap-x-2 w-fit bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-4">
+                                <span><i class="fas fa-trash"></i></span> Hapus
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -73,14 +76,18 @@
 
         // Function to add repeater item
         $('#add_repeater').click(function() {
-            const repeaterItem = `<div class="p-6 bg-slate-100 rounded-md repeater_item">
+            const repeaterItem = `
+            <div class="p-6 bg-slate-100 rounded-md repeater_item">
                 <label for="mahasiswa_${repeaterIndex}" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa ${repeaterIndex}</label>
-                <select id="mahasiswa_${repeaterIndex}" name="mahasiswa[]" class="js-example-basic-single mahasiswa-dropdown w-full" required>
-                </select>
-                <button type="button" class="remove_repeater text-white inline-flex items-center gap-x-2 w-fit bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-4">
-                    <span><i class="fas fa-trash"></i></span> Hapus
-                </button>
-            </div>`;
+                <div class="w-full flex flex-col">
+                    <select id="mahasiswa_${repeaterIndex}" name="mahasiswa[]" class="js-example-basic-single mahasiswa-dropdown w-full" required>
+                    </select>
+                    <button type="button" class="remove_repeater text-white inline-flex items-center gap-x-2 w-fit bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 col-span-12 mt-4">
+                        <span><i class="fas fa-trash"></i></span> Hapus
+                    </button>
+                </div>
+            </div>
+            `;
 
             $('#repeater_wrapper').append(repeaterItem);
             initializeSelect2(); // Initialize Select2 for the newly added element

@@ -91,8 +91,78 @@
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
+        <div class="w-full flex flex-col gap-y-4">
+            <div>
+                <p class="font-semibold text-lg">Filter Data</p>
+            </div>
+            <form action="{{ route('admin.location') }}" method="GET">
+                <div class="w-full grid grid-cols-10 gap-4">
+                    <div class="col-span-2">
+                        <label for="program" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Program
+                            :</label>
+                        <select id="program" name="program"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Program</option>
+                            @foreach ($programs as $program)
+                            <option value="{{ $program->program->id }}">{{ $program->program->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="provinsi"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Provinsi :</label>
+                        <select id="provinsi" name="provinsi"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Provinsi</option>
+                            @foreach ($provinsis as $provinsi)
+                            <option value="{{ $provinsi->provinsi->id }}">{{ $provinsi->provinsi->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="kabupaten"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Kabupaten :</label>
+                        <select id="kabupaten" name="kabupaten"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua kabupaten</option>
+                            @foreach ($kabupatens as $kabupaten)
+                            <option value="{{ $kabupaten->kabupaten->id }}">{{ $kabupaten->kabupaten->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="kecamatan"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Kecamatan :</label>
+                        <select id="kecamatan" name="kecamatan"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua kecamatan</option>
+                            @foreach ($kecamatans as $kecamatan)
+                            <option value="{{ $kecamatan->kecamatan->id }}">{{ $kecamatan->kecamatan->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="kelurahan"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Kelurahan :</label>
+                        <select id="kelurahan" name="kelurahan"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50  text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua kelurahan</option>
+                            @foreach ($kelurahans as $kelurahan)
+                            <option value="{{ $kelurahan->kelurahan->id }}">{{ $kelurahan->kelurahan->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr class="w-full mt-4 mb-4">
         <div class="overflow-x-auto lg:overflow-visible">
-            <table id="table_config" class="stripe">
+            <table id="table_config" class="stripe row-border cell-border">
                 <thead>
                     <tr>
                         <th>Code</th>

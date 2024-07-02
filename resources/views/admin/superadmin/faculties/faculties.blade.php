@@ -84,8 +84,7 @@
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
         <div class="overflow-x-auto lg:overflow-visible">
-            <table id="table_config" class="1 stripe">
-
+            <table id="table_config" class="1 stripe row-border cell-border">
                 <thead>
                     <tr>
                         <th>Code</th>

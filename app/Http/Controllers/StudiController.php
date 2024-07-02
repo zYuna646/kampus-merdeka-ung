@@ -7,6 +7,7 @@ use App\Models\Studi;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Jurusan;
+use App\Models\Fakultas;
 use Illuminate\Support\Str;
 
 
@@ -18,11 +19,35 @@ class StudiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $studis = Studi::all();
-        return view('admin.superadmin.study_program.study_program')->with('data', $studis);
+        $query = Studi::query();
+
+        if ($request->has('jurusan') && !empty($request->jurusan)) {
+            $query->where('jurusan_id', $request->jurusan);
+        }
+
+        if ($request->has('fakultas') && !empty($request->fakultas)) {
+            $query->whereHas('jurusan', function($q) use ($request) {
+                $q->where('fakultas_id', $request->fakultas);
+            });
+        }
+
+        $studis = $query->get();
+
+        // Mengambil data jurusan dan fakultas untuk dropdown filter
+        $jurusans = Jurusan::all();
+        $fakultas = Fakultas::all();
+
+        return view('admin.superadmin.study_program.study_program')->with([
+            'data' => $studis,
+            'jurusans' => $jurusans,
+            'fakultas' => $fakultas,
+            'selectedJurusan' => $request->jurusan,
+            'selectedFakultas' => $request->fakultas
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

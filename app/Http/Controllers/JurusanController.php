@@ -17,10 +17,26 @@ class JurusanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jurusans = Jurusan::all();
-        return view('admin.superadmin.departement.departement')->with('data', $jurusans);
+        $query = Jurusan::query();
+
+        if ($request->has('fakultas') && !empty($request->fakultas)) {
+            $query->whereHas('fakultas', function($q) use ($request) {
+                $q->where('id', $request->fakultas);
+            });
+        }
+
+        $jurusans = $query->get();
+
+        // Mengambil data fakultas untuk dropdown filter
+        $fakultas = Fakultas::all();
+
+        return view('admin.superadmin.departement.departement')->with([
+            'data' => $jurusans,
+            'fakultas' => $fakultas,
+            'selectedFakultas' => $request->fakultas
+        ]);
     }
 
     /**

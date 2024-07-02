@@ -84,8 +84,32 @@
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
+        <div class="w-full flex flex-col gap-y-4">
+            <div>
+                <p class="font-semibold text-lg">Filter Data</p>
+            </div>
+            <form action="{{ route('admin.departement') }}" method="GET">
+                <div class="w-full grid grid-cols-12">
+                    <div class="col-span-6">
+                        <label for="fakultas"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Fakultas :</label>
+                        <select name="fakultas" id="fakultas"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Fakultas</option>
+                            @foreach ($fakultas as $fak)
+                            <option value="{{ $fak->id }}" {{ $selectedFakultas==$fak->id ? 'selected' : '' }}>
+                                {{ $fak->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr class="w-full mt-4 mb-4">
         <div class="overflow-x-auto lg:overflow-visible">
-            <table id="table_config" class="stripe">
+            <table id="table_config" class="stripe row-border cell-border">
                 <thead>
                     <tr>
                         <th>Code</th>
@@ -111,7 +135,8 @@
                                     aria-labelledby="dropdownMenuButton{{ $item->id }}">
                                     <div class="py-1" role="none">
                                         <button data-id="{{ $item->id }}" data-code="{{ $item->code }}"
-                                            data-name="{{ $item->name }}" data-fakultas="{{ $item->fakultas->name }}" onclick="modalOpen(this)"
+                                            data-name="{{ $item->name }}" data-fakultas="{{ $item->fakultas->name }}"
+                                            onclick="modalOpen(this)"
                                             class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>
@@ -123,8 +148,8 @@
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </a>
-                                        <form action="{{ route('admin.departement.delete', $item->id) }}" method="POST" class="w-full"
-                                            role="none" style="display: inline-block;">
+                                        <form action="{{ route('admin.departement.delete', $item->id) }}" method="POST"
+                                            class="w-full" role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -170,7 +195,8 @@
                                             role="none" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger" type="submit">
+                                            <x-button_sm class="inline-flex items-center gap-x-2" color="danger"
+                                                type="submit">
                                                 <span><i class="fas fa-trash"></i></span>
                                                 Hapus
                                             </x-button_sm>

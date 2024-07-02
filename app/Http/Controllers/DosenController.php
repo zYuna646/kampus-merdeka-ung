@@ -27,10 +27,28 @@ class DosenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $dosens = Dosen::all();
-        return view('admin.superadmin.dosen.dosen')->with('data', $dosens);
+        $query = Dosen::query();
+    
+        // Apply filter if 'studi' is present in the request
+        if ($request->has('studi') && !empty($request->studi)) {
+            $query->whereHas('studi', function($q) use ($request) {
+                $q->where('id', $request->studi);
+            });
+        }
+    
+        // Get the filtered data
+        $dosens = $query->get();
+    
+        // Get all studi for the filter dropdown
+        $studis = Studi::all();
+    
+        return view('admin.superadmin.dosen.dosen')->with([
+            'data' => $dosens,
+            'studis' => $studis,
+            'selectedStudi' => $request->studi
+        ]);
     }
 
     /**

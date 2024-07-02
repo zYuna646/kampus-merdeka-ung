@@ -10,9 +10,9 @@
           <span class="font-light">Universitas Negeri Gorontalo</span>
         </div>
         <p class="text-xs ">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque eum ipsam eveniet ducimus voluptates eos quo
-          perferendis perspiciatis vitae delectus ab at dolorem earum blanditiis explicabo eaque, quidem ad cupiditate
-          minima libero a nihil.
+          Pantau aktivitas mahasiswa MBKM di UNG dengan mudah! Dapatkan solusi terpadu untuk transparansi dan
+          kesuksesan program MBKM dalam satu platform resmi UNG. Pastikan kemajuan dan evaluasi kegiatan dengan
+          aplikasi monitoring inovatif kami.
         </p>
       </div>
       <div class=" flex-[3]">
@@ -28,7 +28,7 @@
       <div class="xl:p-8 p-6 bg-white rounded-3xl max-w-md w-full flex flex-col gap-y-4 shadow-md">
         <div class="flex justify-between items-center">
           <span class="text-sm hidden lg:block">Selamat Datang!</span>
-          <p class="text-sm">Belum Punya Akun? <a href="" class="text-color-primary-500">Daftar</a></p>
+          {{-- <p class="text-sm">Belum Punya Akun? <a href="" class="text-color-primary-500">Daftar</a></p> --}}
         </div>
         <h2 class="xl:text-5xl text-2xl font-bold text-gray-800">Masuk</h2>
         <form class="xl:mt-4" action="/login" method="POST">
@@ -57,9 +57,9 @@
             </div>
             @enderror
           </div>
-          <div class="w-full flex justify-end">
+          {{-- <div class="w-full flex justify-end">
             <a href="" class="text-color-primary-500 text-sm">Lupa Password ?</a>
-          </div>
+          </div> --}}
           @if (session()->has('loginError'))
           <div class="flex justify-center">
             <div class="text-red-500">{{ session('loginError') }}</div>

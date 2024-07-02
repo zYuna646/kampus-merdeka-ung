@@ -82,6 +82,30 @@
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
+        <div class="w-full flex flex-col gap-y-4">
+            <div>
+                <p class="font-semibold text-lg">Filter Data</p>
+            </div>
+            <form action="{{ route('admin.dosen') }}" method="GET">
+                <div class="w-full grid grid-cols-12 gap-4">
+                    <div class="col-span-6">
+                        <label for="studi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Program
+                            Studi:</label>
+                        <select name="studi" id="studi"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua prodi</option>
+                            @foreach ($studis as $studi)
+                            <option value="{{ $studi->id }}" {{ $selectedStudi==$studi->id ? 'selected' : '' }}>
+                                {{ $studi->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr class="w-full mt-4 mb-4">
         <div class="overflow-x-auto lg:overflow-visible">
             <table id="table_config" class="stripe">
                 <thead>

@@ -25,12 +25,34 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mahasiswas = Mahasiswa::all();
-        return view('admin.superadmin.student.student')->with('data', $mahasiswas);
-
+        $query = Mahasiswa::query();
+    
+        if ($request->has('jurusan') && !empty($request->jurusan)) {
+            $query->whereHas('studi.jurusan', function($q) use ($request) {
+                $q->where('id', $request->jurusan);
+            });
+        }
+    
+        if ($request->has('angkatan') && !empty($request->angkatan)) {
+            $query->where('angkatan', $request->angkatan);
+        }
+    
+        $mahasiswas = $query->get();
+    
+        $studis = Studi::all();
+        $angkatans = Mahasiswa::select('angkatan')->distinct()->get();
+    
+        return view('admin.superadmin.student.student')->with([
+            'data' => $mahasiswas,
+            'studis' => $studis,
+            'angkatans' => $angkatans,
+            'selectedStudi' => $request->jurusan,
+            'selectedAngkatan' => $request->angkatan
+        ]);
     }
+    
 
     public function dashboard()
     {

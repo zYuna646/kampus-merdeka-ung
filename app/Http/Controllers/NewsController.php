@@ -12,11 +12,22 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Mengambil semua data berita
-        $news = News::all();
-        return view('admin.superadmin.news.news')->with('data', $news);
+        $query = News::query();
+    
+        if ($request->has('kategori') && !empty($request->kategori)) {
+            $query->where('category_id', $request->kategori);
+        }
+    
+        $news = $query->get();
+        $categories = CategoryNews::all();
+    
+        return view('admin.superadmin.news.news')->with([
+            'data' => $news,
+            'categories' => $categories,
+            'selectedCategory' => $request->kategori
+        ]);
     }
 
     public function news()
