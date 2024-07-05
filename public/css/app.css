@@ -1030,6 +1030,9 @@ video {
 .grid-flow-row {
   grid-auto-flow: row;
 }
+.grid-cols-10 {
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
 .grid-cols-12 {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
@@ -1038,9 +1041,6 @@ video {
 }
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-.grid-cols-10 {
-  grid-template-columns: repeat(10, minmax(0, 1fr));
 }
 .flex-row {
   flex-direction: row;
