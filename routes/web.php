@@ -95,7 +95,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/get-peserta/{id}', [OperatorController::class, 'getPesertaDetail'])->name('operator.getPeserta');
             Route::get('/weekly_review/{id}', [OperatorController::class, 'weeklyLogbook'])->name('operator.weeklyLogbook');
         });
-       
     });
 
     Route::middleware(['role:guru'])->group(function () {

@@ -11,7 +11,7 @@
             <div class="mb-4">
                 <label for="dosen" class="block text-sm font-medium text-gray-700 mb-2">Pamong</label>
                 <select name="pamong_id" id="dosen"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    class=" js-example-basic-single block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                     required>
                     <option value="" selected disabled>Pilih Pamong</option>
                     @foreach ($data['pamong'] as $item)

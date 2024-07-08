@@ -84,6 +84,12 @@
                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
             </select>
+            <select id="location" name="location"
+                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
+                <option value="">Status Rancangan</option>
+                <option value="">Diterima</option>
+                <option value="">Ditolak</option>
+            </select>
             <button type="submit" id="filter-button"
                 class="px-5 py-2.5 w-fit text-sm font-medium text-white inline-flex items-center bg-color-primary-500 rounded-lg text-center ">
                 <span class=""><i class="fas fa-search text-lg "></i></span>

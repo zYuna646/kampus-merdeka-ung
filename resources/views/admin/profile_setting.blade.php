@@ -78,6 +78,13 @@
                             placeholder="Masukan Nama Mahasiswa"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                     </div>
+                    {{-- new field nomor telp --}}
+                    <div class="mb-4">
+                        <label for="no_telp" class="block text-sm font-medium text-gray-700 mb-2">No Telp</label>
+                        <input type="number" value="" name="no_telp" id="no_telp"
+                            placeholder="+62"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                    </div>
                     <div class="mb-4">
                         <label for="nim" class="block text-sm font-medium text-gray-700 mb-2">NIM Mahasiswa</label>
                         <input type="text" value="{{ Auth::user()->mahasiswa->nim }}" name="nim" id="nim"
