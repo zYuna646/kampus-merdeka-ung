@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\PesertaImport;
+use App\Imports\VerifikasiImport;
 use App\Models\DailyLog;
 use App\Models\Lokasi;
 use App\Models\Lowongan;
@@ -151,7 +152,7 @@ class ProgramTransactionController extends Controller
     }
 
     public function verifikasiImport(){
-        Excel::import(new verifikasiIMport, request()->file('file'));
+        Excel::import(new VerifikasiImport, request()->file('file'));
 
         return back()->with('success', 'Data imported successfully!');
     }
