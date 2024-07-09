@@ -51,6 +51,7 @@ class AuthController extends Controller
             $user->update([
                 'username' => $request->username,
             ]);
+            
         } elseif ($user->role->slug == 'mahasiswa') {
             $request->validate([
                 'nim' => 'required',
