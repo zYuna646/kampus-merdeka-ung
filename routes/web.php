@@ -276,7 +276,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'peserta'])->name('admin.peminat');
                 Route::get('/locations/{programId}', [ProgramKampusController::class, 'getLocations'])->name('locations.get');
                 Route::post('/verifikasi/{id}', [ProgramTransactionController::class, 'verifikasi'])->name('admin.peminat.verifikasi');
-                Route::post('/verifikasi', [ProgramTransactionController::class, 'verifikasiImport'])->name('admin.peminat.import');
+                Route::post('/import', [ProgramTransactionController::class, 'verifikasiImport'])->name('admin.peminat.import');
             });
 
             Route::prefix('/berita')->group(function () {
