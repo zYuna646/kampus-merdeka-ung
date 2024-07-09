@@ -15,6 +15,7 @@ class Mahasiswa extends Model
         'studi_id',
         'angkatan',
         'user_id',
+        'no_hp',
     ];
 
     /**

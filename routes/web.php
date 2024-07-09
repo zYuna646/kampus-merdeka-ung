@@ -75,6 +75,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 return view('admin.student.detail_history');
             })->name('student.detail_history');
             Route::get('/download_daily/{id}', [MahasiswaController::class, 'downloadDaily'])->name('student.download_daily');
+            Route::get('/download_surat/{id}', [MahasiswaController::class, 'downloadSurat'])->name('student.download_surat');
+
             Route::get('/download_week/{id}', [MahasiswaController::class, 'downloadWeekly'])->name('student.download_weekly');
             Route::get('/weekly_logbook/{id}', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');
             Route::get('/daily_logbook/{id}', [MahasiswaController::class, 'dailyBook'])->name('student.daily_logbook');
@@ -274,7 +276,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'peserta'])->name('admin.peminat');
                 Route::get('/locations/{programId}', [ProgramKampusController::class, 'getLocations'])->name('locations.get');
                 Route::post('/verifikasi/{id}', [ProgramTransactionController::class, 'verifikasi'])->name('admin.peminat.verifikasi');
-                Route::post('/verifikasi', [ProgramTransactionController::class, ''])->name('admin.peminat.import');
+                Route::post('/verifikasi', [ProgramTransactionController::class, 'verifikasiImpor'])->name('admin.peminat.import');
             });
 
             Route::prefix('/berita')->group(function () {

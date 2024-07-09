@@ -302,14 +302,7 @@
                     </div>
 
                     <hr class="mt-4 mb-4">
-                    @if ($item->status == 'proses')
-                    <x-button_md type="button"
-                        class=""
-                        color="primary"
-                        onclick="window.location='{{ route('dpl.weekly.review', ['id' => $item->id]) }}'">
-                        Periksa
-                    </x-button_md>
-                    @endif
+                  
 
                 </div>
 

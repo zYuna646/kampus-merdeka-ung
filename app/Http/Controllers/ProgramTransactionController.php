@@ -175,6 +175,8 @@ class ProgramTransactionController extends Controller
                 ->with('error', 'Mahasiswa already exists');
         }
         $program = ProgramTransaction::create($request->all());
+        $program->status_mahasiswa = true;
+        $program->save();
 
         $lowongan = Lowongan::find($request->lowongan_id);
         if ($lowongan->isLogBook) {
