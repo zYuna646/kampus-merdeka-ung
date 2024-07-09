@@ -57,6 +57,7 @@ class AuthController extends Controller
                 'name' => 'required',
                 'studi_id' => 'required',
                 'username' => 'required',
+                'no_hp' => 'required',
             ]);
 
             $user->update([
@@ -67,6 +68,7 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'nim' => $request->nim,
                 'studi_id' => $request->studi_id,
+                'no_hp' => $request->no_hp,
             ]);
         } elseif ($user->role->slug == 'dosen') {
             $request->validate([
