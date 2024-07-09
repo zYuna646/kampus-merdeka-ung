@@ -253,7 +253,7 @@ class MahasiswaController extends Controller
         $dailyLog->save();
 
         // Redirect atau kembalikan ke halaman yang sesuai
-        return redirect()->route('student.weekly_logbook')->with('success', 'Daily log berhasil disimpan');
+        return redirect()->route('student.weekly_logbook', $dailyLog->program_transaction_id )->with('success', 'Daily log berhasil disimpan');
     }
 
     // public function register($id)
@@ -300,7 +300,19 @@ class MahasiswaController extends Controller
         $dailyLog->save();
 
         // Redirect atau kembalikan ke halaman yang sesuai
-        return redirect()->route('student.weekly_logbook')->with('success', 'Daily log berhasil disimpan');
+        return redirect()->route('student.weekly_logbook', $dailyLog->program_transaction_id)->with('success', 'Daily log berhasil disimpan');
+    }
+
+    public function downloadSurat($id)
+    {
+        $programTransaction = ProgramTransaction::find($id);
+        $data = [
+            'program' => $programTransaction->lowongan->program,
+            'mahasiswa' => $programTransaction->mahasiswa,
+            'jurusan' => $programTransaction->mahasiswa->studi->jurusan,
+        ];
+        $pdf = PDF::loadView('document_surat', $data)->setPaper('a4', 'portrait');
+        return $pdf->stream();
     }
 
     public function weeklyLog(Request $request, $id)
