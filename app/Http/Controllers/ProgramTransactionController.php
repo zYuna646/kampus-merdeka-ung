@@ -23,19 +23,92 @@ class ProgramTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $programTransactions = ProgramTransaction::where('status_mahasiswa', true)->get();
-        return view('admin.superadmin.programTransaction.programTransaction')->with('data', $programTransactions);
+    public function index(Request $request)
+{
+    // Initialize the query
+    $query = ProgramTransaction::query();
 
+    // Apply filters
+    if ($request->has('program') && !empty($request->program)) {
+        $query->whereHas('lowongan.program', function ($q) use ($request) {
+            $q->where('id', $request->program);
+        });
+    }
+    if ($request->has('tahun_akademik') && !empty($request->tahun_akademik)) {
+        $query->whereHas('lowongan', function ($q) use ($request) {
+            $q->where('tahun_akademik', $request->tahun_akademik);
+        });
+    }
+    if ($request->has('semester') && !empty($request->semester)) {
+        $query->whereHas('lowongan', function ($q) use ($request) {
+            $q->where('semester', $request->semester);
+        });
     }
 
-    public function peserta()
-    {
-        $programTransactions = ProgramTransaction::where('status_mahasiswa', 0)->get();
-        return view('admin.superadmin.peminat.peminat')->with('data', $programTransactions);
+    // Add the status_mahasiswa filter
+    $query->where('status_mahasiswa', 1);
 
+    // Fetch the necessary data
+    $programTransactions = $query->get();
+    $programs = ProgramKampus::all();
+    $semesters = Lowongan::select('semester')->distinct()->pluck('semester');
+    $tahun_akademiks = Lowongan::select('tahun_akademik')->distinct()->pluck('tahun_akademik');
+
+    // Return the view with data
+    return view('admin.superadmin.programTransaction.programTransaction')->with([
+        'data' => $programTransactions,
+        'programs' => $programs,
+        'semesters' => $semesters,
+        'tahun_akademiks' => $tahun_akademiks,
+        'selectedProgram' => $request->program,
+        'selectedSemester' => $request->semester,
+        'selectedTahunAkademik' => $request->tahun_akademik,
+    ]);
+}
+
+
+    public function peserta(Request $request)
+    {
+        // Initialize the query
+        $query = ProgramTransaction::query();
+
+        // Apply filters
+        if ($request->has('program') && !empty($request->program)) {
+            $query->whereHas('lowongan.program', function ($q) use ($request) {
+                $q->where('id', $request->program);
+            });
+        }
+        if ($request->has('tahun_akademik') && !empty($request->tahun_akademik)) {
+            $query->whereHas('lowongan', function ($q) use ($request) {
+                $q->where('tahun_akademik', $request->tahun_akademik);
+            });
+        }
+        if ($request->has('semester') && !empty($request->semester)) {
+            $query->whereHas('lowongan', function ($q) use ($request) {
+                $q->where('semester', $request->semester);
+            });
+        }
+
+        $programs = ProgramKampus::all();
+        $semesters = Lowongan::select('semester')->distinct()->pluck('semester');
+        $tahun_akademiks = Lowongan::select('tahun_akademik')->distinct()->pluck('tahun_akademik');
+
+        // Get filtered results
+        $programTransactions = $query->where('status_mahasiswa', 0)->get();
+
+        // Pass the current filter values to the view
+        return view('admin.superadmin.peminat.peminat')->with([
+            'data' => $programTransactions,
+            'programs' => $programs,
+            'semesters' => $semesters,
+            'tahun_akademiks' => $tahun_akademiks,
+            'selectedProgram' => $request->program,
+            'selectedSemester' => $request->semester,
+            'selectedTahunAkademik' => $request->tahun_akademik,
+        ]);
     }
+
+
 
     public function getLokasi(Request $request)
     {

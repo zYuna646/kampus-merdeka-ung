@@ -47,8 +47,10 @@
                                         Import Data
                                     </x-button_sm>
                                     <x-button_sm class="inline-flex items-center gap-x-2" color="info">
-                                        <span><i class="fas fa-download"></i></span>
-                                        Template
+                                        <a href="{{ asset('templates/peminat_template.xlsx') }}" download>
+                                            <span><i class="fas fa-download"></i></span>
+                                            Template
+                                        </a>
                                     </x-button_sm>
                                 </div>
                                 <div>
@@ -69,6 +71,60 @@
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
+        <div class="w-full flex flex-col gap-y-4">
+            <div>
+                <p class="font-semibold text-lg">Filter Data</p>
+            </div>
+            <form action="{{ route('admin.peminat') }}" method="GET">
+                <div class="w-full grid grid-cols-12 gap-4">
+                    <div class="col-span-4">
+                        <label for="program"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Program:</label>
+                        <select name="program" id="program"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Program</option>
+                            @foreach ($programs as $program)
+                            <option value="{{ $program->id }}" {{ request('program')==$program->id ? 'selected' : '' }}>
+                                {{ $program->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-span-4">
+                        <label for="semester"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Semester:</label>
+                        <select name="semester" id="semester"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Semester</option>
+                            @foreach ($semesters as $semester)
+                            <option value="{{ $semester }}" {{ request('semester')==$semester ? 'selected' : '' }}>
+                                {{ $semester }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-span-4">
+                        <label for="tahun_akademik"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Tahun Akademik:</label>
+                        <select name="tahun_akademik" id="tahun_akademik"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Tahun</option>
+                            @foreach ($tahun_akademiks as $tahun_akademik)
+                            <option value="{{ $tahun_akademik }}" {{ request('tahun_akademik')==$tahun_akademik
+                                ? 'selected' : '' }}>
+                                {{ $tahun_akademik }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <hr class="w-full mt-4 mb-4">
         <div class="overflow-x-auto lg:overflow-visible">
             <table id="table_config" class="">
                 <thead>

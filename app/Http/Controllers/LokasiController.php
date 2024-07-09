@@ -16,11 +16,49 @@ class LokasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $lokasis = Lokasi::all();
-        return view('admin.superadmin.location.location')->with('data', $lokasis);
+    public function index(Request $request)
+{
+    $query = Lokasi::query();
+
+    // Apply filters
+    if ($request->has('program') && !empty($request->program)) {
+        $query->where('program_id', $request->program);
     }
+    if ($request->has('provinsi') && !empty($request->provinsi)) {
+        $query->where('provinsi_id', $request->provinsi);
+    }
+    if ($request->has('kabupaten') && !empty($request->kabupaten)) {
+        $query->where('kabupaten_id', $request->kabupaten);
+    }
+    if ($request->has('kecamatan') && !empty($request->kecamatan)) {
+        $query->where('kecamatan_id', $request->kecamatan);
+    }
+    if ($request->has('kelurahan') && !empty($request->kelurahan)) {
+        $query->where('kelurahan_id', $request->kelurahan);
+    }
+
+    // Get filtered results
+    $lokasis = $query->get();
+
+    // Get distinct values for filters
+    $programs = Lokasi::select('program_id')->distinct()->get();
+    $provinsis = Lokasi::select('provinsi_id')->distinct()->get();
+    $kabupatens = Lokasi::select('kabupaten_id')->distinct()->get();
+    $kecamatans = Lokasi::select('kecamatan_id')->distinct()->get();
+    $kelurahans = Lokasi::select('kelurahan_id')->distinct()->get();
+
+    return view('admin.superadmin.location.location')->with([
+        'data' => $lokasis,
+        'programs' => $programs,
+        'provinsis' => $provinsis,
+        'kabupatens' => $kabupatens,
+        'kecamatans' => $kecamatans,
+        'kelurahans' => $kelurahans,
+    ]);
+}
+
+    
+
 
     /**
      * Show the form for creating a new resource.

@@ -9,7 +9,7 @@
             <div class="mb-4">
                 <label for="mahasiswa" class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa</label>
                 <select name="mahasiswa_id" id="mahasiswa"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                    class="js-example-basic-single block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                     required>
                     @foreach ($data['mahasiswa'] as $item)
                     <option value="{{ $item->id }}">{{ $item->nim . ' - ' . $item->name }}</option>
@@ -23,7 +23,8 @@
                     required>
                     <option value="">Pilih Program</option>
                     @foreach ($data['program'] as $item)
-                    <option value="{{ $item->id }}" data-program-id="{{ $item->program_id }}">{{$item->program->name . ' (' . $item->tahun_akademik . ')' }}
+                    <option value="{{ $item->id }}" data-program-id="{{ $item->program_id }}">{{$item->program->name . '
+                        (' . $item->tahun_akademik . ')' }}
                     </option>
                     @endforeach
                 </select>
@@ -79,5 +80,14 @@
             });
         }
     });
+</script>
+<script>
+    $(document).ready(function () {
+        function initializeSelect2() {
+            $('.js-example-basic-single').select2();
+        }
+        initializeSelect2();
+    })
+
 </script>
 @endsection

@@ -84,6 +84,14 @@
                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
             </select>
+            <select id="status" name="status"
+                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
+                <option value="">Status Rancangan</option>
+                <option value="proses">Diproses</option>
+                <option value="terima">Diterima</option>
+                <option value="tolak">Ditolak</option>
+                <option value="belum">Belum Mengupload</option>
+            </select>
             <button type="submit" id="filter-button"
                 class="px-5 py-2.5 w-fit text-sm font-medium text-white inline-flex items-center bg-color-primary-500 rounded-lg text-center ">
                 <span class=""><i class="fas fa-search text-lg "></i></span>
@@ -95,7 +103,9 @@
             @foreach ($data['peserta'] as $peserta)
             <div class="relative hover:cursor-pointer overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300 peserta-item"
                 data-name="{{ $peserta->mahasiswa->name }}" data-nim="{{ $peserta->mahasiswa->nim }}"
-                data-location-id="{{ $peserta->lokasi->id }}" onclick="showPesertaDetail({{ $peserta->id }})">
+                data-statusPamong="{{ $peserta->status_rancangan_pamong }}"
+                data-statusDpl="{{ $peserta->status_rancangan_dpl }}" data-location-id="{{ $peserta->lokasi->id }}"
+                onclick="showPesertaDetail({{ $peserta->id }})">
                 <div class="w-16 rounded-full">
                     <img src="/images/avatar/placeholder.jpg" alt="" class="rounded-full">
                 </div>
@@ -135,20 +145,37 @@
         function filterPeserta() {
             let searchValue = document.getElementById('search').value.toLowerCase();
             let locationValue = document.getElementById('location').value;
+            let statusValue = document.getElementById('status').value;
 
             document.querySelectorAll('.peserta-item').forEach(function(item) {
                 let name = item.getAttribute('data-name').toLowerCase();
                 let nim = item.getAttribute('data-nim').toLowerCase();
+                let dpl = item.getAttribute('data-statusDpl');
+                let pamong = item.getAttribute('data-statusPamong');
                 let location = item.getAttribute('data-location-id');
 
-                if ((name.includes(searchValue) || nim.includes(searchValue)) && (locationValue === "" ||
-                        location === locationValue)) {
+                let status;
+
+                if (dpl === 'belum' && pamong === 'belum') {
+                    status = 'belum';
+                } else if (dpl === 'proses' || pamong === 'proses') {
+                    status = 'proses';
+                } else if (dpl === 'tolak' || pamong === 'tolak') {
+                    status = 'tolak';
+                } else if (dpl === 'terima' && pamong === 'terima') {
+                    status = 'terima';
+                }
+
+                if ((name.includes(searchValue) || nim.includes(searchValue)) &&
+                    (locationValue === "" || location === locationValue) &&
+                    (statusValue === "" || status === statusValue)) {
                     item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
             });
-        }
+        }chrome
+
 
         document.getElementById('filterForm').addEventListener('submit', function(event) {
             event.preventDefault();

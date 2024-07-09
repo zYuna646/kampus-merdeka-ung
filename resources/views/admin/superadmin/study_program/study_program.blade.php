@@ -83,13 +83,52 @@
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
+        <div class="w-full flex flex-col gap-y-4">
+            <div>
+                <p class="font-semibold text-lg">Filter Data</p>
+            </div>
+            <form action="{{ route('admin.study_program') }}" method="GET">
+                <div class="w-full grid grid-cols-12 gap-4">
+                    <div class="col-span-6">
+                        <label for="jurusan" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Jurusan
+                            :</label>
+                        <select name="jurusan" id="jurusan"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50  text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Jurusan</option>
+                            @foreach ($jurusans as $jurusan)
+                            <option value="{{ $jurusan->id }}" {{ $selectedJurusan==$jurusan->id ? 'selected' : '' }}>
+                                {{ $jurusan->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-span-6">
+                        <label for="fakultas"
+                            class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Fakultas :</label>
+                        <select name="fakultas" id="fakultas"
+                            class="block w-full p-2 text-gray-900 border border-gray-300 rounded-md bg-gray-50  text-xs"
+                            onchange="this.form.submit()">
+                            <option value="">Semua Fakultas</option>
+                            @foreach ($fakultas as $fak)
+                            <option value="{{ $fak->id }}" {{ $selectedFakultas==$fak->id ? 'selected' : '' }}>
+                                {{ $fak->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr class="w-full mt-4 mb-4">
         <div class="overflow-x-auto lg:overflow-visible">
-            <table id="table_config" class="stripe">
+            <table id="table_config" class="stripe row-border cell-border">
                 <thead>
                     <tr>
                         <th>Code</th>
                         <th>Nama</th>
                         <th>Jurusan</th>
+                        <th>Fakultas</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -99,6 +138,7 @@
                         <td>{{ $item['code'] }}</td>
                         <td>{{ $item['name'] }}</td>
                         <td>{{ $item->jurusan->name }}</td>
+                        <td>{{ $item->jurusan->fakultas->name }}</td>
                         <td>
                             <div class="relative inline-block text-left">
                                 <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">

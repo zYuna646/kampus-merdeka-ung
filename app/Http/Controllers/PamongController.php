@@ -7,6 +7,7 @@ use App\Models\Dosen;
 use App\Models\Guru;
 use App\Models\Lokasi;
 use App\Models\Lowongan;
+use App\Models\ProgramKampus;
 use App\Models\MitraTransaction;
 use App\Models\ProgramTransaction;
 use Illuminate\Http\Request;
@@ -20,10 +21,42 @@ class PamongController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $dpls = MitraTransaction::all();
-        return view('admin.superadmin.pamong.pamong')->with('data', $dpls);
+        $query = MitraTransaction::query();
+
+        // Apply filters
+        if ($request->has('program') && !empty($request->program)) {
+            $query->whereHas('lowongan.program', function ($q) use ($request) {
+                $q->where('id', $request->program);
+            });
+        }
+        if ($request->has('tahun_akademik') && !empty($request->tahun_akademik)) {
+            $query->whereHas('lowongan', function ($q) use ($request) {
+                $q->where('tahun_akademik', $request->tahun_akademik);
+            });
+        }
+        if ($request->has('semester') && !empty($request->semester)) {
+            $query->whereHas('lowongan', function ($q) use ($request) {
+                $q->where('semester', $request->semester);
+            });
+        }
+
+        
+        $programs = ProgramKampus::all();
+        $semesters = Lowongan::select('semester')->distinct()->pluck('semester');
+        $tahun_akademiks = Lowongan::select('tahun_akademik')->distinct()->pluck('tahun_akademik');
+
+        $mitras = $query->get();
+        return view('admin.superadmin.pamong.pamong')->with([
+            'data' => $mitras,
+            'programs' => $programs,
+            'semesters' => $semesters,
+            'tahun_akademiks' => $tahun_akademiks,
+            'selectedProgram' => $request->program,
+            'selectedSemester' => $request->semester,
+            'selectedTahunAkademik' => $request->tahun_akademik,
+        ]);;
     }
 
     /**

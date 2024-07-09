@@ -39,7 +39,7 @@ Route::get('/detail_program/{id}', [HomeController::class, 'showProgram'])->name
 Route::get('/detail_news/{id}', [HomeController::class, 'showNews'])->name('detail_news');
 Route::get('/berita/kategori/{category}', [HomeController::class, 'newsByCategory'])->name('news_by_category');
 Route::get('/sample', function () {
-    return view('');
+    return view('document_sp3');
 });
 
 Route::get('/get-provinsi', [WilayahController::class, 'getProvinsi'])->name('getProvinsi');
@@ -97,7 +97,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/get-peserta/{id}', [OperatorController::class, 'getPesertaDetail'])->name('operator.getPeserta');
             Route::get('/weekly_review/{id}', [OperatorController::class, 'weeklyLogbook'])->name('operator.weeklyLogbook');
         });
-       
     });
 
     Route::middleware(['role:guru'])->group(function () {

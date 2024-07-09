@@ -41,72 +41,72 @@ class AuthController extends Controller
 
     public function profile(Request $request)
     {
-        $user = Auth::user();
+    $user = Auth::user();
 
-        if ($user->role->slug == 'admin' || $user->role->slug == 'operator') {
-            $request->validate([
-                'username' => 'required',
-            ]);
+    if ($user->role->slug == 'admin' || $user->role->slug == 'operator') {
+        $request->validate([
+            'username' => 'required',
+        ]);
 
-            $user->update([
-                'username' => $request->username,
-            ]);
-            
-        } elseif ($user->role->slug == 'mahasiswa') {
-            $request->validate([
-                'nim' => 'required',
-                'name' => 'required',
-                'studi_id' => 'required',
-                'username' => 'required',
-                'no_hp' => 'required',
-            ]);
+        $user->update([
+            'username' => $request->username,
+        ]);
+    } elseif ($user->role->slug == 'mahasiswa') {
+        $request->validate([
+            'nim' => 'required',
+            'name' => 'required',
+            'studi_id' => 'required',
+            'username' => 'required',
+            'no_hp' => 'required',
+        ]);
 
-            $user->update([
-                'username' => $request->username,
-            ]);
+        $user->update([
+            'username' => $request->username,
+        ]);
 
-            $user->mahasiswa->update([
-                'name' => $request->name,
-                'nim' => $request->nim,
-                'studi_id' => $request->studi_id,
-                'no_hp' => $request->no_hp,
-            ]);
-        } elseif ($user->role->slug == 'dosen') {
-            $request->validate([
-                'nidn' => 'required',
-                'name' => 'required',
-                'studi_id' => 'required',
-                'username' => 'required',
-            ]);
+        $user->mahasiswa->update([
+            'name' => $request->name,
+            'nim' => $request->nim,
+            'studi_id' => $request->studi_id,
+            'no_hp' => $request->no_hp,
+        ]);
+    } elseif ($user->role->slug == 'dosen') {
+        $request->validate([
+            'nidn' => 'required',
+            'name' => 'required',
+            'studi_id' => 'required',
+            'username' => 'required',
+        ]);
 
-            $user->update([
-                'username' => $request->username,
-            ]);
+        $user->update([
+            'username' => $request->username,
+        ]);
 
-            $user->dosen->update([
-                'name' => $request->name,
-                'nidn' => $request->nidn, // Changed from $request->nim to $request->nidn
-                'studi_id' => $request->studi_id,
-            ]);
-        } elseif ($user->role->slug == 'guru') {
-            $request->validate([
-                'nik' => 'required',
-                'name' => 'required',
-                'username' => 'required',
-            ]);
+        $user->dosen->update([
+            'name' => $request->name,
+            'nidn' => $request->nidn,
+            'studi_id' => $request->studi_id,
+        ]);
+    } elseif ($user->role->slug == 'guru') {
+        $request->validate([
+            'nik' => 'required',
+            'name' => 'required',
+            'username' => 'required',
+        ]);
 
-            $user->update([
-                'username' => $request->username,
-            ]);
+        $user->update([
+            'username' => $request->username,
+        ]);
 
-            $user->guru->update([
-                'name' => $request->name,
-                'nik' => $request->nik, // Changed from $request->nim to $request->nik
-            ]);
-        }
-
-        return redirect()->back()->with('success', 'Profile Berhasil Diubah');
+        $user->guru->update([
+            'name' => $request->name,
+            'nik' => $request->nik,
+        ]);
     }
+
+    return redirect()->back()->with('success', 'Profile Berhasil Diubah');
+}
+
 
 
 

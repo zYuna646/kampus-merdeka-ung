@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 
 class VerifikasiImport implements ToCollection, WithHeadingRow
@@ -22,67 +23,76 @@ class VerifikasiImport implements ToCollection, WithHeadingRow
     public function collection(Collection $collection)
     {
         foreach ($collection as $value) {
-            $mahasiswa = Mahasiswa::where("nim", $value['nim'])->first();
-            $lowongan = Lowongan::where('code', $value['kode_lowongan'])->first();
-            $lokasi = Lokasi::where('code', $value['kode_lokasi'])->first();
-            if (!$mahasiswa && !$lowongan && !$lokasi) {
-                continue;
-            }
+        
+            try {
+                $mahasiswa = Mahasiswa::where("nim", $value['nim'])->first();
+                $lowongan = Lowongan::where('code', $value['kode_lowongan'])->first();
+                $lokasi = Lokasi::where('code', $value['kode_lokasi'])->first();
 
-            $mahasiswa = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->first();
-            if (!$mahasiswa) {
-                continue;
-            }
-
-            $mahasiswa->status_mahasiswa = true;
-            $mahasiswa->lokasi_id = $lokasi->id;
-            $program = $mahasiswa;
-
-            if ($program->lowongan->isLogBook) {
-                $startDate = Carbon::parse($program->lowongan->tanggal_mulai); // Tanggal awal
-                $endDate = Carbon::parse($program->lowongan->tanggal_selesai);
-                $st = $startDate->copy(); // Create a separate copy of $startDate for $st
-                $e_d = $startDate->endOfWeek()->copy(); // Create a separate copy for $e_d
-                $wk = WeeklyLog::create([
-                    'program_transaction_id' => $program->id,
-                    'start_date' => $st, // Start date
-                    'end_date' => $e_d, // End date
-                 ]);
-
-
-                $tmp_date = $startDate->copy()->addWeek()->startOfWeek();
-                while ($tmp_date->lte($endDate)) {
-                    // Buat weekly log untuk minggu ini
-
-                    $tmp_end_week = $tmp_date->copy()->endOfWeek();
-                    if ($tmp_end_week->gte($endDate)) {
-                        $tmp_end_week = $endDate;
-                    }
-
+                
+                if (!$mahasiswa || !$lowongan || !$lokasi) {
+                    continue;
+                }
+                
+                $mahasiswa = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->first();
+                if (!$mahasiswa) {
+                    continue;
+                }
+                
+                $mahasiswa->status_mahasiswa = true;
+                $mahasiswa->lokasi_id = $lokasi->id;
+                $program = $mahasiswa;
+                
+                if ($program->lowongan->isLogBook) {
+                    $startDate = Carbon::parse($program->lowongan->tanggal_mulai); // Tanggal awal
+                    $endDate = Carbon::parse($program->lowongan->tanggal_selesai);
+                    $st = $startDate->copy(); // Create a separate copy of $startDate for $st
+                    $e_d = $startDate->endOfWeek()->copy(); // Create a separate copy for $e_d
+                    
                     WeeklyLog::create([
                         'program_transaction_id' => $program->id,
-                        'start_date' => $tmp_date->copy()->startOfWeek(), // Start date
-                        'end_date' => $tmp_end_week, // End date
-
+                        'start_date' => $st, // Start date
+                        'end_date' => $e_d, // End date
                     ]);
 
-                    // Lanjutkan ke minggu berikutnya
-                    $tmp_date->addWeek();
-                }
+                    $tmp_date = $startDate->copy()->addWeek()->startOfWeek();
+                    while ($tmp_date->lte($endDate)) {
+                        // Buat weekly log untuk minggu ini
+                        $tmp_end_week = $tmp_date->copy()->endOfWeek();
+                        if ($tmp_end_week->gte($endDate)) {
+                            $tmp_end_week = $endDate;
+                        }
 
-                foreach ($program->weeklyLog as $key => $item) {
-                    $startDate = Carbon::parse($item->start_date); // Konversi ke objek Carbon
-                    $endDate = Carbon::parse($item->end_date); // Konversi ke objek Carbon
-                    while ($startDate <= $endDate) {
-                        DailyLog::create([
+                        WeeklyLog::create([
                             'program_transaction_id' => $program->id,
-                            'date' => $startDate,
-                            'weekly_log_id' => $item->id,
+                            'start_date' => $tmp_date->copy()->startOfWeek(), // Start date
+                            'end_date' => $tmp_end_week, // End date
                         ]);
 
-                        $startDate->addDay(); // Perbaikan sintaks
+                        // Lanjutkan ke minggu berikutnya
+                        $tmp_date->addWeek();
                     }
+
+                    foreach ($program->weeklyLog as $key => $item) {
+                        $startDate = Carbon::parse($item->start_date); // Konversi ke objek Carbon
+                        $endDate = Carbon::parse($item->end_date); // Konversi ke objek Carbon
+                        while ($startDate <= $endDate) {
+                            DailyLog::create([
+                                'program_transaction_id' => $program->id,
+                                'date' => $startDate,
+                                'weekly_log_id' => $item->id,
+                            ]);
+                            
+                            $startDate->addDay(); // Perbaikan sintaks
+                        }
+                    }
+                    // dd($mahasiswa);
+                    $mahasiswa->save();
                 }
+            } catch (\Exception $e) {
+                Log::error('Error processing row: ' . $e->getMessage(), ['row' => $value]);
+                // Optionally, you could use continue to skip this iteration or handle the error differently
+                continue;
             }
         }
     }

@@ -70,12 +70,20 @@
                             value="{{ Auth::user()->username }}"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                     </div>
+                    
                     @auth
                     @if (Auth::user()->role->slug === 'mahasiswa')
                     <div class="mb-4">
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Mahasiswa</label>
                         <input type="text" value="{{ Auth::user()->mahasiswa->name }}" name="name" id="name"
                             placeholder="Masukan Nama Mahasiswa"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                    </div>
+                    {{-- new field nomor telp --}}
+                    <div class="mb-4">
+                        <label for="no_hp" class="block text-sm font-medium text-gray-700 mb-2">No Telp</label>
+                        <input type="number" name="no_hp" id="no_hp"
+                            value="{{ Auth::user()->mahasiswa->no_hp }}"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                     </div>
                     <div class="mb-4">
@@ -111,7 +119,7 @@
                     <div class="mb-4">
                         <label for="prodi" class="block text-sm font-medium text-gray-700 mb-2">Nama Program
                             Studi</label>
-                        <select name="prodi" id="prodi"
+                        <select name="studi_id" id="prodi"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                             @foreach ($data['prodi'] as $item)
                             <option value="{{ $item->id }}" {{ Auth::user()->mahasiswa->studi->id == $item->id ?
@@ -135,6 +143,43 @@
                         <input value="{{ Auth::user()->dosen->nip }}" type="text" name="nip" id="nip"
                             placeholder="Masukan NIP Dosen"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                    </div>
+                    <div class="mb-4">
+                        <label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Nama Fakultas</label>
+                        <select name="fakultas" id="fakultas"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            @foreach ($data['fakultas'] as $item)
+                            <option value="{{ $item->id }}" {{ Auth::user()->dosen->studi->jurusan->fakultas->id ==
+                                $item->id ? 'selected' : '' }}>
+                                {{ $item->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="jurusan" class="block text-sm font-medium text-gray-700 mb-2">Nama Jurusan</label>
+                        <select name="jurusan" id="jurusan"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            @foreach ($data['jurusan'] as $item)
+                            <option value="{{ $item->id }}" {{ Auth::user()->dosen->studi->jurusan->id == $item->id
+                                ? 'selected' : '' }}>
+                                {{ $item->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="prodi" class="block text-sm font-medium text-gray-700 mb-2">Nama Program
+                            Studi</label>
+                        <select name="studi_id" id="prodi"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            @foreach ($data['prodi'] as $item)
+                            <option value="{{ $item->id }}" {{ Auth::user()->dosen->studi->id == $item->id ?
+                                'selected' : '' }}>
+                                {{ $item->name }}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     @elseif (Auth::user()->role->slug === 'guru')

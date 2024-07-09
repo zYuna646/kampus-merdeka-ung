@@ -115,13 +115,61 @@
                     Berita
                 </a>
             </li>
+            @if (Auth::check())
+            @if (Auth::user()->role->slug === 'mahasiswa' )
             <li class="flex items-center text-white rounded-lg">
                 <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"
-                    onclick="window.location.href='{{ route('login') }}'">
+                    onclick="window.location.href='{{ route('student.dashboard') }}'">
                     <span><i class="fas fa-user"></i></span>
                     Dashboard
                 </x-button_md>
             </li>
+            @elseif (Auth::user()->role->slug === 'operator')
+            <li class="flex items-center text-white rounded-lg">
+                <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"
+                    onclick="window.location.href='{{ route('operator.dashboard') }}'">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </x-button_md>
+            </li>
+            @elseif (Auth::user()->role->slug === 'dosen')
+            <li class="flex items-center text-white rounded-lg">
+                <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"
+                    onclick="window.location.href='{{ route('dosen.dashboard') }}'">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </x-button_md>
+            </li>
+            @elseif (Auth::user()->role->slug === 'guru')
+            <li class="flex items-center text-white rounded-lg">
+                <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"
+                    onclick="window.location.href='{{ route('guru.dashboard') }}'">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </x-button_md>
+            </li>
+            @elseif (Auth::user()->role->slug === 'admin')
+            <li class="flex items-center text-white rounded-lg">
+                <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"
+                    onclick="window.location.href='{{ route('admin.dashboard') }}'">
+                    <span><i class="fas fa-user"></i></span>
+                    Dashboard
+                </x-button_md>
+            </li>
+            @endif
+
+            @else
+            <li class="flex items-center text-white rounded-lg">
+                <x-button_md color="primary" class="w-fit inline-flex items-center gap-x-2"
+                    onclick="window.location.href='{{ route('login') }}'">
+                    <span><i class="fas fa-user"></i></span>
+                    Login
+                </x-button_md>
+            </li>
+            @endif
+
+
+
         </div>
     </nav>
 </header>

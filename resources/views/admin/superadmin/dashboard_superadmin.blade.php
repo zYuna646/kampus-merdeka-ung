@@ -88,7 +88,21 @@
       pagination: '.swiper-pagination1',
       paginationClickable: true,
       spaceBetween: 12,
-      slidesPerView: 4,
+      slidesPerView: 1,
+      breakpoints: {  
+        480: {
+          slidesPerView: 1,
+          spaceBetween: 12,},
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 12,},
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 12,},
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 12,},
+      },
       freeMode: true,
       loop: true, 
       autoplay: {
@@ -100,7 +114,21 @@
       pagination: '.swiper-pagination2',
       paginationClickable: true,
       spaceBetween: 12,
-      slidesPerView: 4,
+      slidesPerView: 1,
+      breakpoints: {  
+        480: {
+          slidesPerView: 1,
+          spaceBetween: 12,},
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 12,},
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 12,},
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 12,},
+      },
       freeMode: true,
       loop: true, 
       autoplay: {
@@ -112,7 +140,21 @@
       pagination: '.swiper-pagination3',
       paginationClickable: true,
       spaceBetween: 12,
-      slidesPerView: 4,
+      slidesPerView: 1,
+      breakpoints: {  
+        480: {
+          slidesPerView: 1,
+          spaceBetween: 12,},
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 12,},
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 12,},
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 12,},
+      },
       freeMode: true,
       loop: true, 
       autoplay: {
@@ -124,7 +166,21 @@
       pagination: '.swiper-pagination4',
       paginationClickable: true,
       spaceBetween: 12,
-      slidesPerView: 4,
+      slidesPerView: 1,
+      breakpoints: {  
+        480: {
+          slidesPerView: 1,
+          spaceBetween: 12,},
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 12,},
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 12,},
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 12,},
+      },
       freeMode: true,
       loop: true, 
       autoplay: {
