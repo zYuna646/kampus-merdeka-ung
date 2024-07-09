@@ -70,9 +70,9 @@
                                         class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Lihat Detail
                                     </a>
-                                    <a href=" {{ route('student.weekly_logbook', $item->id) }} }}"
+                                    <a href=" {{ route('student.download_surat', $item->id) }} }}"
                                         class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                                        Download Dokumen
+                                        Download Surat
                                     </a>
 
                                     @endif

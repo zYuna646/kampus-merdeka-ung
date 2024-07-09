@@ -14,10 +14,33 @@ class LowonganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lowongans = Lowongan::all();
-        return view('admin.superadmin.lowongan.lowongan')->with('data', $lowongans);
+        $programs = ProgramKampus::all();
+        $semesters = Lowongan::select('semester')->distinct()->pluck('semester');
+        $tahun_akademiks = Lowongan::select('tahun_akademik')->distinct()->pluck('tahun_akademik');
+
+
+        $lowongans = Lowongan::when($request->program, function ($query, $program) {
+            return $query->where('program_id', $program);
+        })
+        ->when($request->semester, function ($query, $semester) {
+            return $query->where('semester', $semester);
+        })
+        ->when($request->tahun_akademik, function ($query, $tahun_akademik) {
+            return $query->where('tahun_akademik', $tahun_akademik);
+        })
+        ->get();
+
+        return view('admin.superadmin.lowongan.lowongan')->with([
+            'data' => $lowongans,
+            'programs' => $programs,
+            'semesters' => $semesters,
+            'tahun_akademiks' => $tahun_akademiks,
+            'selectedProgram' => $request->program,
+            'selectedSemester' => $request->semester,
+            'selectedTahunAkademik' => $request->tahun_akademik,
+        ]);
 
     }
 

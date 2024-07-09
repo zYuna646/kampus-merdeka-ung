@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Date;
 use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
 use App\Models\ActivityLog;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Studi;
 use Maatwebsite\Excel\Facades\Excel;
+
 use PDF;
 
 class MahasiswaController extends Controller
@@ -306,12 +308,17 @@ class MahasiswaController extends Controller
     public function downloadSurat($id)
     {
         $programTransaction = ProgramTransaction::find($id);
+        $currentDate = Date::now();
+        $monthYear = $currentDate->format('F Y');
         $data = [
             'program' => $programTransaction->lowongan->program,
             'mahasiswa' => $programTransaction->mahasiswa,
             'jurusan' => $programTransaction->mahasiswa->studi->jurusan,
+            'lowongan' => $programTransaction->lowongan,
+            'date' => $monthYear,
         ];
-        $pdf = PDF::loadView('document_surat', $data)->setPaper('a4', 'portrait');
+        
+        $pdf = PDF::loadView('document_sp3', $data)->setPaper('a4', 'portrait');
         return $pdf->stream();
     }
 

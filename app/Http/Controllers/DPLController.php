@@ -46,7 +46,7 @@ class DPLController extends Controller
         $semesters = Lowongan::select('semester')->distinct()->pluck('semester');
         $tahun_akademiks = Lowongan::select('tahun_akademik')->distinct()->pluck('tahun_akademik');
 
-        $dpls = $query->get();
+        $dpls = $query->get();  
 
         return view('admin.superadmin.dpl.dpl')->with([
             'data' => $dpls,
