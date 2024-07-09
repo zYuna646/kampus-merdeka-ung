@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('mahasiswas', function (Blueprint $table) {
-            $table->string('no_hp')->after('user_id')->default('');
+            $table->string('no_hp')->after('user_id')->default(''); // Adding no_hp column after nim
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('mahasiswas', function (Blueprint $table) {
-            //
+            $table->dropColumn('no_hp'); // Dropping no_hp column during rollback
         });
     }
 };
