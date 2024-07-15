@@ -154,7 +154,7 @@
                                             data-name="{{ $item->name }}" data-studi="{{ $item->studi->name }}"
                                             data-jurusan="{{ $item->studi->jurusan->name }}"
                                             data-fakultas="{{ $item->studi->jurusan->fakultas->name }}"
-                                            data-angkatan="{{ $item->angkatan }}" onclick="modalOpen(this)"
+                                            data-angkatan="{{ $item->angkatan }}" data-domisili="{{  }}" data-alamat="" onclick="modalOpen(this)"
                                             class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>

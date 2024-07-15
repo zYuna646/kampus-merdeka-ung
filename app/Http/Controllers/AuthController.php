@@ -242,7 +242,7 @@ class AuthController extends Controller
                 break;
             case 4:
                 $rules = [
-                    
+                    'alamat' => 'required'
                 ];
                 break;
            
@@ -277,7 +277,8 @@ class AuthController extends Controller
         $data = array_merge(
             Session::get('register_step1', []),
             Session::get('register_step2', []),
-            Session::get('register_step3', [])
+            Session::get('register_step3', []),
+            Session::get('register_step4', [])
         );
 
         // Simpan data ke database (contoh menggunakan model User)
@@ -287,6 +288,7 @@ class AuthController extends Controller
         Session::forget('register_step1');
         Session::forget('register_step2');
         Session::forget('register_step3');
+        Session::forget('register_step4');
     }
 
 
