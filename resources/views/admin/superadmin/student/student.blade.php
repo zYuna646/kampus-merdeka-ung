@@ -154,7 +154,7 @@
                                             data-name="{{ $item->name }}" data-studi="{{ $item->studi->name }}"
                                             data-jurusan="{{ $item->studi->jurusan->name }}"
                                             data-fakultas="{{ $item->studi->jurusan->fakultas->name }}"
-                                            data-angkatan="{{ $item->angkatan }}" data-domisili="{{  }}" data-alamat="" onclick="modalOpen(this)"
+                                            data-angkatan="{{ $item->angkatan }}" data-alamat="{{ $item->alamat }}" data-village="{{ $item->village->name ?? '' }}" data-district="{{ $item->village->district->name ?? '' }}" data-regency="{{ $item->village->district->regency->name ?? '' }}" data-provinces="{{ $item->village->district->provinces->name ?? '' }}"  onclick="modalOpen(this)"
                                             class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>
@@ -264,6 +264,11 @@
             const jurusan = button.getAttribute('data-jurusan');
             const fakultas = button.getAttribute('data-fakultas');
             const angkatan = button.getAttribute('data-angkatan');
+            const alamat = button.getAttribute('data-alamat');
+            const village = button.getAttribute('data-village');
+            const district = button.getAttribute('data-district');
+            const regency = button.getAttribute('data-regency');
+            const provinces = button.getAttribute('data-provinces');
             
             const modal = document.getElementById('modal' + id);
             const modalContent = document.getElementById('modalContent' + id);
@@ -288,6 +293,14 @@
                 <div class="flex flex-col gap-y-px">
                     <p class="font-semibold ">Angkatan</p>
                     <p class="">${fakultas}</p>
+                </div> 
+                <div class="flex flex-col gap-y-px">
+                    <p class="font-semibold ">Alamat</p>
+                    <p class="">${alamat}</p>
+                </div> 
+                <div class="flex flex-col gap-y-px">
+                    <p class="font-semibold ">Domisili</p>
+                    <p class="">${provinces}, ${regency}, ${district}, ${village}</p>
                 </div> 
             `;
 
