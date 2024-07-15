@@ -282,9 +282,10 @@ class AuthController extends Controller
             Session::get('register_step2', []),
             Session::get('register_step3', [])
         );
-        dd($data);
         // Simpan data ke database (contoh menggunakan model User)
         $role = Role::where('slug', 'mahasiswa')->first();
+
+
         $user = User::create([
             'username' => $data['nim'],
             'password' => bcrypt($data['password']),
