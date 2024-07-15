@@ -16,6 +16,8 @@ class Mahasiswa extends Model
         'angkatan',
         'user_id',
         'no_hp',
+        'village_id',
+        'alamat',
     ];
 
     /**
@@ -26,6 +28,10 @@ class Mahasiswa extends Model
         return $this->belongsTo(Studi::class);
     }
 
+    public function desa()
+    {
+        return $this->belongsTo(Village::class);
+    }
     /**
      * Get the user that owns the mahasiswa.
      */
