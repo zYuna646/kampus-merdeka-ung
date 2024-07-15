@@ -19,17 +19,18 @@ class RoleSeeder extends Seeder
             ['name' => 'Guru', 'slug' => 'guru'],
             ['name' => 'Dosen', 'slug' => 'dosen'],
             ['name' => 'Mahasiswa', 'slug' => 'mahasiswa'],
+            ['name' => 'Operator', 'slug' => 'operator']
 
         ];
 
         // Looping untuk membuat setiap role
         foreach ($roles as $role) {
-            // Role::create($role);
+            Role::create($role);
         }
-        Role::create([
-            'name' => 'Operator',
-            'slug'=> 'operator',
-        ]);
+        // Role::create([
+        //     'name' => 'Operator',
+        //     'slug'=> 'operator',
+        // ]);
     
     }
 }
