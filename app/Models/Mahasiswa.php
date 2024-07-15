@@ -30,7 +30,7 @@ class Mahasiswa extends Model
 
     public function desa()
     {
-        return $this->belongsTo(Village::class);
+        return $this->belongsTo(Village::class, 'village_id');
     }
     /**
      * Get the user that owns the mahasiswa.

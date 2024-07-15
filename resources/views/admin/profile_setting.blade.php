@@ -86,13 +86,14 @@
                         <input type="number" name="no_hp" id="no_hp" value="{{ Auth::user()->mahasiswa->no_hp }}"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                     </div>
+                   
                     <div class="mb-4">
                         <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Domisili</label>
                         <select name="provinsi" id="provinsi" value=""
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                             <option value="">Pilih Provinsi</option>
                             @foreach($data['provinsi'] as $id => $nama)
-                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->regency->provinces->id
+                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->regency->province->id
                                 == $id ? 'selected' : '' }}>{{ $nama }}</option>
                             @endforeach]
                             
