@@ -95,8 +95,7 @@
                             @foreach($data['provinsi'] as $id => $nama)
                             <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->regency->province->id
                                 == $id ? 'selected' : '' }}>{{ $nama }}</option>
-                            @endforeach]
-                            
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-4">

@@ -154,7 +154,7 @@
                                             data-name="{{ $item->name }}" data-studi="{{ $item->studi->name }}"
                                             data-jurusan="{{ $item->studi->jurusan->name }}"
                                             data-fakultas="{{ $item->studi->jurusan->fakultas->name }}"
-                                            data-angkatan="{{ $item->angkatan }}" data-alamat="{{ $item->alamat }}" data-village="{{ $item->village->name ?? '' }}" data-district="{{ $item->village->district->name ?? '' }}" data-regency="{{ $item->village->district->regency->name ?? '' }}" data-provinces="{{ $item->village->district->provinces->name ?? '' }}"  onclick="modalOpen(this)"
+                                            data-angkatan="{{ $item->angkatan }}" data-alamat="{{ $item->alamat }}" data-village="{{ $item->desa->name ?? '' }}" data-district="{{ $item->desa->district->name ?? '' }}" data-regency="{{ $item->desa->district->regency->name ?? '' }}" data-provinces="{{ $item->desa->district->regency->province->name ?? '' }}"  onclick="modalOpen(this)"
                                             class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>
