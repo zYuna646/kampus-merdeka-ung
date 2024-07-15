@@ -34,11 +34,11 @@
         <form class="xl:mt-2" action="{{ route('register.form', ['step' => 4]) }}" method="POST">
           @csrf
           <div class="mb-5">
-            <label for="domisili" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan Domisili</label>
-            <textarea type="text" name="domisili" id="domisili" placeholder="masukan Domisili" rows="8"
+            <label for="alamat" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan Alamat</label>
+            <textarea type="text" name="alamat" id="alamat" placeholder="masukan alamat" rows="8"
               class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-base text-xs "
-              value="{{old('domisili')}}"></textarea>
-            @error('domisili')
+              value="{{old('alamat')}}"></textarea>
+            @error('alamat')
             <div class="invalid-feedback text-red-400">
               {{$message}}
             </div>

@@ -97,7 +97,9 @@
                         <span class=""><i class="fas fa-clipboard-check text-xl"></i></span>
                         <p class="text-sm">Log Book Mingguan</p>
                     </div> --}}
-                        @if ($data['programTransaction'])
+                   
+                        @if ($data['programTransaction'] && $data['programTransaction']->lowongan->isLogBook)
+
                             <a href="{{ route('student.weekly_logbook', $data['programTransaction']->id) }}"
                                 class="flex items-center gap-4 font-semibold py-4">
                                 <span class=""><i class="fas fa-print text-base"></i></span>
@@ -105,14 +107,7 @@
                             </a>
                         @endif
 
-                        <div class="flex items-center gap-4 font-semibold pt-4">
-                            <span><i class="fas fa-sign-out-alt text-base"></i></span>
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                class="text-sm">
-                                Keluar
-                            </a>
-                        </div>
+                      
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
@@ -134,7 +129,7 @@
                     </div>
                     <div class="max-w-sm flex flex-col gap-y-4 items-center">
                         <p class="text-center">Ups!! Saat ini kamu belum terdaftar di program manapun</p>
-                        <x-button_md>
+                        <x-button_md onclick="window.location.href='{{ route('program') }}'">
                             Cari Program
                         </x-button_md>
                     </div>

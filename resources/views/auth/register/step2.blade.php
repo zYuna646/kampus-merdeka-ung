@@ -64,6 +64,16 @@
             <div class="invalid-feedback text-red-400">{{ $message }}</div>
             @enderror
           </div>
+          <div class="mb-3">
+            <label for="angkatan" class="block text-sm font-medium text-gray-700 mb-2">Angkatan</label>
+            <input type="number" min="2000" max="3000" name="angkatan" id="angkatan" placeholder="2000"
+              class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs">
+            @error('angkatan')
+            <div class="invalid-feedback text-red-400">
+              {{ $message }}
+            </div>
+            @enderror
+          </div>
           <div class="xl:mt-8 mt-4">
             <button type="submit"
               class="xl:px-5 xl:py-3 py-3 px-4 xl:text-base text-sm w-full font-medium text-center text-white bg-color-primary-500 rounded-md hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300">Selanjutnya</button>

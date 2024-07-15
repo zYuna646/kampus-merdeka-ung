@@ -50,7 +50,9 @@ class AuthController extends Controller
 
     public function profile(Request $request)
     {
-    $user = Auth::user();
+    
+       
+        $user = Auth::user();   
 
     if ($user->role->slug == 'admin' || $user->role->slug == 'operator') {
         $request->validate([
@@ -61,23 +63,31 @@ class AuthController extends Controller
             'username' => $request->username,
         ]);
     } elseif ($user->role->slug == 'mahasiswa') {
+
         $request->validate([
             'nim' => 'required',
             'name' => 'required',
             'studi_id' => 'required',
             'username' => 'required',
             'no_hp' => 'required',
+            'kelurahan' => 'required',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+            'provinsi' => 'required',
+            'alamat' => 'required',
         ]);
 
         $user->update([
             'username' => $request->username,
         ]);
-
+        // dd($request->alamat);
         $user->mahasiswa->update([
             'name' => $request->name,
             'nim' => $request->nim,
             'studi_id' => $request->studi_id,
             'no_hp' => $request->no_hp,
+            'village_id' => $request->kelurahan,
+            'alamat' => $request->alamat,
         ]);
     } elseif ($user->role->slug == 'dosen') {
         $request->validate([
@@ -174,6 +184,7 @@ class AuthController extends Controller
             'fakultas' => Fakultas::all(),
             'jurusan' => Jurusan::all(),
             'prodi' => Studi::all(),
+            'provinsi' => Province::pluck('name', 'id'),
         ];
         return view('admin.profile_setting')->with('data', $data);
     }
@@ -245,7 +256,7 @@ class AuthController extends Controller
                 break;
             case 4:
                 $rules = [
-                    
+                    'alamat' => 'required'
                 ];
                 break;
            
@@ -280,8 +291,16 @@ class AuthController extends Controller
         $data = array_merge(
             Session::get('register_step1', []),
             Session::get('register_step2', []),
-            Session::get('register_step3', [])
+            Session::get('register_step3', []),
+            Session::get('register_step4', [])
         );
+
+        // dd($data);
+        $mahasiswa = Mahasiswa::where('nim', $data['nim'])->first();
+
+        if($mahasiswa){
+            return redirect()->route('register.form', 1)->with('error', 'NIM Sudah digunakan');
+        }
         // Simpan data ke database (contoh menggunakan model User)
         $role = Role::where('slug', 'mahasiswa')->first();
 
@@ -298,13 +317,15 @@ class AuthController extends Controller
             'studi_id' => $data['prodi'],
             'village_id' => $data['kelurahan'],
             'alamat' => $data['alamat'],
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'angkatan' => $data['angkatan']
         ]);
 
         // Hapus data dari session
         Session::forget('register_step1');
         Session::forget('register_step2');
         Session::forget('register_step3');
+        Session::forget('register_step4');
 
         return redirect()->route('login');
     }

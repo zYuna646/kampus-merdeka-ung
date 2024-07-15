@@ -70,7 +70,7 @@
                             value="{{ Auth::user()->username }}"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                     </div>
-                    
+
                     @auth
                     @if (Auth::user()->role->slug === 'mahasiswa')
                     <div class="mb-4">
@@ -80,12 +80,51 @@
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                     </div>
                     {{-- new field nomor telp --}}
+                    <hr class="mb-4 mt-4">
                     <div class="mb-4">
                         <label for="no_hp" class="block text-sm font-medium text-gray-700 mb-2">No Telp</label>
-                        <input type="number" name="no_hp" id="no_hp"
-                            value="{{ Auth::user()->mahasiswa->no_hp }}"
+                        <input type="number" name="no_hp" id="no_hp" value="{{ Auth::user()->mahasiswa->no_hp }}"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                     </div>
+                    <div class="mb-4">
+                        <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Domisili</label>
+                        <select name="provinsi" id="provinsi" value=""
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            <option value="">Pilih Provinsi</option>
+                            @foreach($data['provinsi'] as $id => $nama)
+                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->regency->provinces->id
+                                == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                            @endforeach]
+                            
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="kabupaten" class="block text-sm font-medium text-gray-700 mb-2"></label>
+                        <select name="kabupaten" id="kabupaten" value=""
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            <option value="">Pilih Kabupaten</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="kecamatan" class="block text-sm font-medium text-gray-700 mb-2"></label>
+                        <select name="kecamatan" id="kecamatan" value=""
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            <option value="">Pilih Kecamatan</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="kelurahan" class="block text-sm font-medium text-gray-700 mb-2"></label>
+                        <select name="kelurahan" id="kelurahan" value=""
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
+                            <option value="">Pilih Kelurahan</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">Alamat Asal</label>
+                        <textarea name="alamat" id="alamat" value=""
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">{{ Auth::user()->mahasiswa->alamat ?? '' }}</textarea>
+                    </div>
+
                     <div class="mb-4">
                         <label for="nim" class="block text-sm font-medium text-gray-700 mb-2">NIM Mahasiswa</label>
                         <input type="text" value="{{ Auth::user()->mahasiswa->nim }}" name="nim" id="nim"
@@ -283,6 +322,111 @@
             });
 
         });
+</script>
+<script>
+    $(document).ready(function() {
+    $('#provinsi').change(function() {
+        var provinsiID = $(this).val();
+        if (provinsiID) {
+            $.ajax({
+                url: '/get-data',
+                type: "GET",
+                data: { type: 'kabupaten', parent_id: provinsiID },
+                dataType: "json",
+                success: function(data) {
+                    $('#kabupaten').empty();
+                    $('#kabupaten').append('<option value="">Pilih Kabupaten</option>');
+                    $.each(data, function(key, value) {
+                        $('#kabupaten').append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                    // Set selected option for Kabupaten
+                    var kabupatenID = '{{ Auth::user()->mahasiswa->desa->district->regency->id ?? null }}';
+                    if (kabupatenID) {
+                        $('#kabupaten').val(kabupatenID);
+                    }
+
+                    $('#kecamatan').empty();
+                    $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+                    $('#kelurahan').empty();
+                    $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+                }
+            });
+        } else {
+            $('#kabupaten').empty();
+            $('#kabupaten').append('<option value="">Pilih Kabupaten</option>');
+            $('#kecamatan').empty();
+            $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+            $('#kelurahan').empty();
+            $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+        }
+    });
+
+    $('#kabupaten').change(function() {
+        var kabupatenID = $(this).val();
+        if (kabupatenID) {
+            $.ajax({
+                url: '/get-data',
+                type: "GET",
+                data: { type: 'kecamatan', parent_id: kabupatenID },
+                dataType: "json",
+                success: function(data) {
+                    $('#kecamatan').empty();
+                    $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+                    $.each(data, function(key, value) {
+                        $('#kecamatan').append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                    // Set selected option for Kecamatan
+                    var kecamatanID = '{{ Auth::user()->mahasiswa->desa->district->id ?? null }}';
+                    if (kecamatanID) {
+                        $('#kecamatan').val(kecamatanID);
+                    }
+
+                    $('#kelurahan').empty();
+                    $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+                }
+            });
+        } else {
+            $('#kecamatan').empty();
+            $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+            $('#kelurahan').empty();
+            $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+        }
+    });
+
+    $('#kecamatan').change(function() {
+        var kecamatanID = $(this).val();
+        if (kecamatanID) {
+            $.ajax({
+                url: '/get-data',
+                type: "GET",
+                data: { type: 'kelurahan', parent_id: kecamatanID },
+                dataType: "json",
+                success: function(data) {
+                    $('#kelurahan').empty();
+                    $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+                    $.each(data, function(key, value) {
+                        $('#kelurahan').append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                    // Set selected option for Kelurahan
+                    var kelurahanID = '{{ Auth::user()->mahasiswa->desa->id ?? null }}';
+                    if (kelurahanID) {
+                        $('#kelurahan').val(kelurahanID);
+                    }
+                }
+            });
+        } else {
+            $('#kelurahan').empty();
+            $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+        }
+    });
+
+    // Trigger initial change event to populate Kabupaten if Provinsi is pre-selected
+    $('#provinsi').trigger('change');
+});
+
 </script>
 
 @endsection

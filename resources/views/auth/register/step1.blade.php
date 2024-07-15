@@ -71,12 +71,12 @@
           {{-- <div class="w-full flex justify-end">
             <a href="" class="text-color-primary-500 text-sm">Lupa Password ?</a>
           </div> --}}
-          @if (session()->has('loginError'))
+          @if (session()->has('error'))
           <div class="flex justify-center">
-            <div class="text-red-500">{{ session('loginError') }}</div>
+            <div class="text-red-500">{{ session('error') }}</div>
           </div>
           @endif
-          <div class="xl:mt-8 mt-4">
+          <div class="xl:mt-4 mt-4">
             <button type="submit"
               class="xl:px-5 xl:py-3 py-3 px-4 xl:text-base text-sm w-full font-medium text-center text-white bg-color-primary-500 rounded-md hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300 ">Selanjutnya</button>
           </div>
