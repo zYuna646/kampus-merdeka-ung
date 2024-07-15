@@ -1,5 +1,5 @@
 <header class="p-2 lg:bg-color-primary-500 bg-white text-white fixed z-10 w-full">
-  <nav class="w-full max-w-screen-xl mx-auto px-2 p-2 flex items-center justify-between">
+  <nav class="w-full max-w-screen-xl mx-auto px-2 p-1 flex items-center justify-between">
     <div class="col-span-12 lg:col-span-4 flex items-center gap-x-2">
       <img src="/images/avatar/kemendikbud.png" alt="" class="w-10 lg:w-14">
       <img src="/images/avatar/ung.png" alt="" class="w-10 lg:w-12">
