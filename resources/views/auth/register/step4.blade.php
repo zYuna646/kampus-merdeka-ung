@@ -30,7 +30,7 @@
           {{-- <span class="text-sm hidden lg:block">Selamat Datang!</span> --}}
           {{-- <p class="text-sm">Belum Punya Akun? <a href="" class="text-color-primary-500">Daftar</a></p> --}}
         </div>
-        <h2 class="xl:text-3xl text-2xl font-bold text-gray-800">Domisili</h2>
+        <h2 class="xl:text-3xl text-2xl font-bold text-gray-800">Alamat Asal</h2>
         <form class="xl:mt-2" action="{{ route('register.form', ['step' => 4]) }}" method="POST">
           @csrf
           <div class="mb-5">

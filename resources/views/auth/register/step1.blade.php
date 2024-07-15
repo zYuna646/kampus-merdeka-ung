@@ -56,6 +56,18 @@
             </div>
             @enderror
           </div>
+          <div class="mb-2">
+            <label for="password" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan
+              Password</label>
+            <input type="password" name="password" id="password"
+              class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-base text-xs "
+              value="{{old('password')}}">
+            @error('password')
+            <div class="invalid-feedback text-red-400">
+              {{$message}}
+            </div>
+            @enderror
+          </div>
           {{-- <div class="w-full flex justify-end">
             <a href="" class="text-color-primary-500 text-sm">Lupa Password ?</a>
           </div> --}}

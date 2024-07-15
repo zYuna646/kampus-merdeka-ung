@@ -190,10 +190,7 @@ class AuthController extends Controller
         $data = [];
         if ($step == 2) {
             $data['fakultas'] = Fakultas::pluck('name', 'id');
-        }
-
-        $data = [];
-        if ($step == 3) {
+        } elseif ($step == 3) {
             $data['provinsi'] = Province::pluck('name', 'id');
         }
 
@@ -209,7 +206,7 @@ class AuthController extends Controller
         Session::put('register_step' . $step, $request->all());
 
         // Redirect ke langkah berikutnya atau simpan data ke database jika selesai
-        if ($step < 5) {
+        if ($step < 4) {
             return redirect()->route('register.form', ['step' => $step + 1]);
         } else {
             // Simpan data ke database
@@ -248,11 +245,7 @@ class AuthController extends Controller
                     
                 ];
                 break;
-            case 5:
-                $rules = [
-                    // Tambahkan validasi untuk step 5 jika diperlukan
-                ];
-                break;
+           
         }
         return $rules;
     }
@@ -262,24 +255,19 @@ class AuthController extends Controller
         $type = $request->query('type');
         $parent_id = $request->query('parent_id');
 
+        $data = [];
+
         if ($type == 'jurusan') {
             $data = Jurusan::where('fakultas_id', $parent_id)->pluck('name', 'id');
         } elseif ($type == 'prodi') {
             $data = Studi::where('jurusan_id', $parent_id)->pluck('name', 'id');
-        } else {
-            $data = [];
-        }
-
-        if ($type == 'kabupaten') {
+        } elseif ($type == 'kabupaten') {
             $data = Regency::where('province_id', $parent_id)->pluck('name', 'id');
         } elseif ($type == 'kecamatan') {
             $data = District::where('regency_id', $parent_id)->pluck('name', 'id');
         } elseif ($type == 'kelurahan') {
             $data = Village::where('district_id', $parent_id)->pluck('name', 'id');
-        } else {
-            $data = [];
         }
-
         return response()->json($data);
     }
 

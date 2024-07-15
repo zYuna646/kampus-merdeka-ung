@@ -26,7 +26,7 @@
   <div class="w-full h-screen absolute">
     <div class="max-w-screen-xl w-full h-full mx-auto flex items-center justify-center xl:justify-end px-8 pt-8">
       <div class="xl:p-8 p-6 bg-white rounded-3xl max-w-md w-full flex flex-col gap-y-4 shadow-md">
-        <h2 class="xl:text-3xl text-2xl font-bold text-gray-800">Alamat Asal</h2>
+        <h2 class="xl:text-3xl text-2xl font-bold text-gray-800">Domisili</h2>
         <form class="xl:mt-2" action="{{ route('register.form', ['step' => 3]) }}" method="POST">
           @csrf
           <div class="mb-3">
