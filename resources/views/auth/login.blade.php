@@ -70,8 +70,10 @@
               class="xl:px-5 xl:py-3 py-3 px-4 xl:text-base text-sm w-full font-medium text-center text-white bg-color-primary-500 rounded-md hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300 ">Masuk</button>
           </div>
         </form>
-        <button onclick="window.location.href='{{ route('register.form' , 1) }}'"
-          class="xl:px-5 xl:py-3 py-3 px-4 xl:text-base text-sm w-full font-medium text-center text-color-primary-500 border border-color-primary-500 bg-white rounded-md hover:bg-color-primary-500 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-color-primary-300 ">Daftar</button>
+        <div class="">
+          <p>Belum Punya Akun? <a class="font-semibold text-color-primary-500"
+              href="{{ route('register.form', 1) }}">Daftar</a></p>
+        </div>
       </div>
     </div>
 

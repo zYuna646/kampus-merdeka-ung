@@ -65,7 +65,7 @@
             <div class="invalid-feedback text-red-400">{{ $message }}</div>
             @enderror
           </div>
-          <div class="mb-3">
+          <div class="">
             <label for="kelurahan" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Pilih
               Kelurahan</label>
             <select name="kelurahan" id="kelurahan"
@@ -76,7 +76,7 @@
             <div class="invalid-feedback text-red-400">{{ $message }}</div>
             @enderror
           </div>
-          <div class="xl:mt-8 mt-4">
+          <div class=" mt-4">
             <button type="submit"
               class="xl:px-5 xl:py-3 py-3 px-4 xl:text-base text-sm w-full font-medium text-center text-white bg-color-primary-500 rounded-md hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300">Selanjutnya</button>
           </div>
