@@ -86,7 +86,7 @@
                         <input type="number" name="no_hp" id="no_hp" value="{{ Auth::user()->mahasiswa->no_hp }}"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                     </div>
-                   
+
                     <div class="mb-4">
                         <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Provinsi</label>
                         <select name="provinsi" id="provinsi"
@@ -143,6 +143,11 @@
                         <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">Alamat Asal</label>
                         <textarea name="alamat" id="alamat" value=""
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">{{ Auth::user()->mahasiswa->alamat ?? '' }}</textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="penyakit" class="block text-sm font-medium text-gray-700 mb-2">Riwayat Penyakit Kronis</label>
+                        <textarea name="penyakit" id="penyakit" value=""
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"></textarea>
                     </div>
 
                     <div class="mb-4">
@@ -345,112 +350,105 @@
 </script>
 <script>
     $(document).ready(function() {
-    $('#provinsi').change(function() {
-        var provinsiID = $(this).val();
-        if (provinsiID) {
-            $.ajax({
-                url: '/get-data',
-                type: "GET",
-                data: { type: 'kabupaten', parent_id: provinsiID },
-                dataType: "json",
-                success: function(data) {
-                    $('#kabupaten').empty();
-                    $('#kabupaten').append('<option value="">Pilih Kabupaten</option>');
-                    $.each(data, function(key, value) {
-                        $('#kabupaten').append('<option value="' + key + '">' + value + '</option>');
-                    });
-
-                    // Set selected option for Kabupaten
-                    var kabupatenID = '{{ Auth::user()->mahasiswa->desa->district->regency->id ?? null }}';
-                    if (kabupatenID) {
-                        $('#kabupaten').val(kabupatenID);
-                    }
-
-                    $('#kecamatan').empty();
-                    $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
-                    $('#kelurahan').empty();
-                    $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
-                }
-            });
-        } else {
-            $('#kabupaten').empty();
-            $('#kabupaten').append('<option value="">Pilih Kabupaten</option>');
-            $('#kecamatan').empty();
-            $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
-            $('#kelurahan').empty();
-            $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+        // Function to set selected value for a dropdown
+        function setSelectedValue(selector, value) {
+            if (value) {
+                $(selector).val(value);
+            }
         }
-    });
 
-    $('#kabupaten').change(function() {
-        var kabupatenID = $(this).val();
-        if (kabupatenID) {
-            $.ajax({
-                url: '/get-data',
-                type: "GET",
-                data: { type: 'kecamatan', parent_id: kabupatenID },
-                dataType: "json",
-                success: function(data) {
-                    $('#kecamatan').empty();
-                    $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
-                    $.each(data, function(key, value) {
-                        $('#kecamatan').append('<option value="' + key + '">' + value + '</option>');
-                    });
+        $('#provinsi').change(function() {
+            var provinsiID = $(this).val();
+            if (provinsiID) {
+                $.ajax({
+                    url: '/get-data',
+                    type: "GET",
+                    data: { type: 'kabupaten', parent_id: provinsiID },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#kabupaten').empty();
+                        $('#kabupaten').append('<option value="">Pilih Kabupaten</option>');
+                        $.each(data, function(key, value) {
+                            $('#kabupaten').append('<option value="' + key + '">' + value + '</option>');
+                        });
 
-                    // Set selected option for Kecamatan
-                    var kecamatanID = '{{ Auth::user()->mahasiswa->desa->district->id ?? null }}';
-                    if (kecamatanID) {
-                        $('#kecamatan').val(kecamatanID);
+                        // Set selected option for Kabupaten
+                        var kabupatenID = '{{ Auth::user()->mahasiswa->desa->district->regency->id ?? null }}';
+                        setSelectedValue('#kabupaten', kabupatenID);
+
+                        $('#kabupaten').trigger('change');
                     }
+                });
+            } else {
+                $('#kabupaten').empty();
+                $('#kabupaten').append('<option value="">Pilih Kabupaten</option>');
+                $('#kecamatan').empty();
+                $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+                $('#kelurahan').empty();
+                $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+            }
+        });
 
-                    $('#kelurahan').empty();
-                    $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
-                }
-            });
-        } else {
-            $('#kecamatan').empty();
-            $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
-            $('#kelurahan').empty();
-            $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
-        }
-    });
+        $('#kabupaten').change(function() {
+            var kabupatenID = $(this).val();
+            if (kabupatenID) {
+                $.ajax({
+                    url: '/get-data',
+                    type: "GET",
+                    data: { type: 'kecamatan', parent_id: kabupatenID },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#kecamatan').empty();
+                        $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+                        $.each(data, function(key, value) {
+                            $('#kecamatan').append('<option value="' + key + '">' + value + '</option>');
+                        });
 
-    $('#kecamatan').change(function() {
-        var kecamatanID = $(this).val();
-        if (kecamatanID) {
-            $.ajax({
-                url: '/get-data',
-                type: "GET",
-                data: { type: 'kelurahan', parent_id: kecamatanID },
-                dataType: "json",
-                success: function(data) {
-                    $('#kelurahan').empty();
-                    $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
-                    $.each(data, function(key, value) {
-                        $('#kelurahan').append('<option value="' + key + '">' + value + '</option>');
-                    });
+                        // Set selected option for Kecamatan
+                        var kecamatanID = '{{ Auth::user()->mahasiswa->desa->district->id ?? null }}';
+                        setSelectedValue('#kecamatan', kecamatanID);
 
-                    // Set selected option for Kelurahan
-                    var kelurahanID = '{{ Auth::user()->mahasiswa->desa->id ?? null }}';
-                    if (kelurahanID) {
-                        $('#kelurahan').val(kelurahanID);
+                        $('#kecamatan').trigger('change');
                     }
-                }
-            });
-        } else {
-            $('#kelurahan').empty();
-            $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
-        }
+                });
+            } else {
+                $('#kecamatan').empty();
+                $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+                $('#kelurahan').empty();
+                $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+            }
+        });
+
+        $('#kecamatan').change(function() {
+            var kecamatanID = $(this).val();
+            if (kecamatanID) {
+                $.ajax({
+                    url: '/get-data',
+                    type: "GET",
+                    data: { type: 'kelurahan', parent_id: kecamatanID },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#kelurahan').empty();
+                        $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+                        $.each(data, function(key, value) {
+                            $('#kelurahan').append('<option value="' + key + '">' + value + '</option>');
+                        });
+
+                        // Set selected option for Kelurahan
+                        var kelurahanID = '{{ Auth::user()->mahasiswa->desa->id ?? null }}';
+                        setSelectedValue('#kelurahan', kelurahanID);
+                    }
+                });
+            } else {
+                $('#kelurahan').empty();
+                $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+            }
+        });
+
+        // Trigger initial change event to populate Kabupaten if Provinsi is pre-selected
+        $('#provinsi').trigger('change');
     });
-
-    // Trigger change event to set selected options on page load
-    $('#provinsi').trigger('change');
-    $('#kabupaten').trigger('change');
-    $('#kecamatan').trigger('change');
-    // Trigger initial change event to populate Kabupaten if Provinsi is pre-selected
-    // $('#provinsi').trigger('change');
-});
-
 </script>
+
 
 @endsection

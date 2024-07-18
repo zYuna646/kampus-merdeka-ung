@@ -33,7 +33,7 @@
         <h2 class="xl:text-3xl text-2xl font-bold text-gray-800">Daftar</h2>
         <form class="xl:mt-2" action="{{ route('register.form', ['step' => 1]) }}" method="POST">
           @csrf
-          <div class="mb-5">
+          <div class="mb-2">
             <label for="nim" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan NIM</label>
             <input type="text" name="nim" id="nim" placeholder="masukan NIM"
               class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-base text-xs "
@@ -81,6 +81,10 @@
               class="xl:px-5 xl:py-3 py-3 px-4 xl:text-base text-sm w-full font-medium text-center text-white bg-color-primary-500 rounded-md hover:bg-color-primary-600 focus:ring-4 focus:outline-none focus:ring-color-primary-300 ">Selanjutnya</button>
           </div>
         </form>
+        <div class="">
+          <p>Sudah Punya Akun? <a class="font-semibold text-color-primary-500"
+              href="{{ route('login') }}">Masuk</a></p>
+        </div>
 
       </div>
     </div>

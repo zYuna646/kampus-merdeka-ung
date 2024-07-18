@@ -228,7 +228,7 @@ class AuthController extends Controller
         } else {
             // Simpan data ke database
             $this->saveDataToDatabase();
-            return redirect()->route('register.form', ['step' => 1])->with('success', 'Registrasi berhasil!');
+            return redirect()->route('login');
         }
     }
 
@@ -329,8 +329,8 @@ class AuthController extends Controller
         Session::forget('register_step2');
         Session::forget('register_step3');
         Session::forget('register_step4');
-
-        return redirect()->route('login');
+        
+        // return redirect()->route('login');
     }
 
 
