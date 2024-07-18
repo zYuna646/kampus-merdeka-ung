@@ -79,6 +79,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             })->name('student.detail_history');
             Route::get('/download_daily/{id}', [MahasiswaController::class, 'downloadDaily'])->name('student.download_daily');
             Route::get('/download_surat/{id}', [MahasiswaController::class, 'downloadSurat'])->name('student.download_surat');
+            Route::get('/download_sk/{id}', [MahasiswaController::class, 'downloadSK'])->name('student.download_sk');
+
 
             Route::get('/download_week/{id}', [MahasiswaController::class, 'downloadWeekly'])->name('student.download_weekly');
             Route::get('/weekly_logbook/{id}', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');

@@ -322,6 +322,18 @@ class MahasiswaController extends Controller
         return $pdf->stream();
     }
 
+    public function downloadSK($id)
+    {
+        $programTransaction = ProgramTransaction::find($id);
+        $filePath = storage_path('app/public/'.$programTransaction->lowongan->sk);
+        if (file_exists($filePath)) {
+            return response()->file($filePath);
+        } else {
+            abort(404);
+        }
+    }
+    
+
     public function weeklyLog(Request $request, $id)
     {
         // // Mengambil data dari request

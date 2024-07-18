@@ -147,13 +147,13 @@
                         <textarea name="alamat" id="alamat" value=""
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">{{ Auth::user()->mahasiswa->alamat ?? '' }}</textarea>
                     </div>
+                    
                     <div class="mb-4">
-                        <label for="penyakit" class="block text-sm font-medium text-gray-700 mb-2">Riwayat Penyakit
-                            Kronis</label>
-                        <textarea name="penyakit" id="penyakit" value=""
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"></textarea>
+                        <label for="penyakit" class="block text-sm font-medium text-gray-700 mb-2">Riwayat Penyakit Kronis</label>
+                        <textarea name="penyakit" id="penyakit"
+                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">{{ Auth::user()->mahasiswa->penyakit }}</textarea>
                     </div>
-
+                    
                     <div class="mb-4">
                         <label for="nim" class="block text-sm font-medium text-gray-700 mb-2">NIM Mahasiswa</label>
                         <input type="text" value="{{ Auth::user()->mahasiswa->nim }}" name="nim" id="nim"

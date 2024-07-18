@@ -9,7 +9,7 @@
           <h1 class="font-bold text-4xl">Kampus Merdeka</h1>
           <span class="font-light">Universitas Negeri Gorontalo</span>
         </div>
-        <p class="text-xs ">
+        <p class="text-xs">
           Pantau aktivitas mahasiswa MBKM di UNG dengan mudah! Dapatkan solusi terpadu untuk transparansi dan
           kesuksesan program MBKM dalam satu platform resmi UNG. Pastikan kemajuan dan evaluasi kegiatan dengan
           aplikasi monitoring inovatif kami.
@@ -21,11 +21,24 @@
     </div>
   </div>
   <div class="w-full flex-[1] hidden lg:block">
-
   </div>
   <div class="w-full h-screen absolute">
     <div class="max-w-screen-xl w-full h-full mx-auto flex items-center justify-center xl:justify-end px-8">
       <div class="xl:p-8 p-6 bg-white rounded-3xl max-w-md w-full flex flex-col gap-y-4 shadow-md">
+        
+        {{-- Success and Error Messages --}}
+        @if (session('success'))
+        <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+          {{ session('success') }}
+        </div>
+        @endif
+
+        @if (session('error'))
+        <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+          {{ session('error') }}
+        </div>
+        @endif
+
         <div class="flex justify-between items-center">
           <span class="text-sm hidden lg:block">Selamat Datang!</span>
           {{-- <p class="text-sm">Belum Punya Akun? <a href="" class="text-color-primary-500">Daftar</a></p> --}}
@@ -34,8 +47,7 @@
         <form class="xl:mt-4" action="/login" method="POST">
           @csrf
           <div class="mb-5">
-            <label for="username" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan Nama
-              Pengguna</label>
+            <label for="username" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan NIM Pengguna</label>
             <input type="text" name="username" id="username"
               class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-base text-xs "
               value="{{old('username')}}">
@@ -46,8 +58,7 @@
             @enderror
           </div>
           <div class="mb-2">
-            <label for="password" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan
-              Password</label>
+            <label for="password" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan Password</label>
             <input type="password" name="password" id="password"
               class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-base text-xs "
               value="{{old('password')}}">
@@ -76,7 +87,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </section>
 @endsection

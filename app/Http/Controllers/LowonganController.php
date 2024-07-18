@@ -90,7 +90,7 @@ class LowonganController extends Controller
                 ->with('failded', 'Lowongan Sudah Ada.');
         }
 
-        $skRektorPath = null;
+        $skRektorPath = '';
         if ($request->hasFile('sk_rektor')) {
             $skRektor = $request->file('sk_rektor');
             $filename = time() . '_' . $skRektor->getClientOriginalName();

@@ -76,6 +76,7 @@ class AuthController extends Controller
             'kabupaten' => 'required',
             'provinsi' => 'required',
             'alamat' => 'required',
+            'penyakit' => 'required' 
         ]);
 
         
@@ -83,7 +84,6 @@ class AuthController extends Controller
             'username' => $request->username,
         ]);
 
-        // dd($request->alamat);
         $user->mahasiswa->update([
             'name' => $request->name,
             'nim' => $request->nim,
@@ -91,6 +91,7 @@ class AuthController extends Controller
             'no_hp' => $request->no_hp,
             'village_id' => $request->kelurahan,
             'alamat' => $request->alamat,
+            'penyakit' => $request->penyakit
         ]);
     } elseif ($user->role->slug == 'dosen') {
         $request->validate([
@@ -231,7 +232,7 @@ class AuthController extends Controller
         } else {
             // Simpan data ke database
             $this->saveDataToDatabase();
-            return redirect()->route('login');
+            return redirect()->route('login')->with('success', 'Registrasi Berhasil');
         }
     }
 
@@ -333,7 +334,7 @@ class AuthController extends Controller
         Session::forget('register_step3');
         Session::forget('register_step4');
         
-        // return redirect()->route('login');
+        return redirect()->route('login')->with('sucess', 'Daftar Akun Berhasil');
     }
 
 
