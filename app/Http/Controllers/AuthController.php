@@ -185,6 +185,9 @@ class AuthController extends Controller
             'jurusan' => Jurusan::all(),
             'prodi' => Studi::all(),
             'provinsi' => Province::pluck('name', 'id'),
+            'kabupaten' => Regency::pluck('name', 'id'),
+            'kecamatan' => District::pluck('name', 'id'),
+            'kelurahan' => Village::pluck('name', 'id')
         ];
         return view('admin.profile_setting')->with('data', $data);
     }

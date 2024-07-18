@@ -692,6 +692,9 @@ video {
 .mb-2 {
   margin-bottom: 0.5rem;
 }
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -760,9 +763,6 @@ video {
 }
 .mt-6 {
   margin-top: 1.5rem;
-}
-.mb-3 {
-  margin-bottom: 0.75rem;
 }
 .block {
   display: block;
@@ -962,17 +962,14 @@ video {
 .max-w-screen-lg {
   max-width: 1024px;
 }
+.max-w-screen-md {
+  max-width: 768px;
+}
 .max-w-screen-xl {
   max-width: 1280px;
 }
 .max-w-sm {
   max-width: 24rem;
-}
-.max-w-screen-md {
-  max-width: 768px;
-}
-.max-w-screen-sm {
-  max-width: 640px;
 }
 .flex-\[1\] {
   flex: 1;
@@ -1486,6 +1483,9 @@ video {
 .p-0 {
   padding: 0px;
 }
+.p-1 {
+  padding: 0.25rem;
+}
 .p-10 {
   padding: 2.5rem;
 }
@@ -1509,9 +1509,6 @@ video {
 }
 .p-8 {
   padding: 2rem;
-}
-.p-1 {
-  padding: 0.25rem;
 }
 .px-0 {
   padding-left: 0px;
@@ -1663,9 +1660,6 @@ video {
 }
 .pt-8 {
   padding-top: 2rem;
-}
-.pr-6 {
-  padding-right: 1.5rem;
 }
 .text-left {
   text-align: left;
@@ -2623,10 +2617,6 @@ video {
     padding-bottom: 1rem;
   }
 
-  .lg\:pt-6 {
-    padding-top: 1.5rem;
-  }
-
   .lg\:pt-8 {
     padding-top: 2rem;
   }
@@ -2687,20 +2677,16 @@ video {
     margin-left: 1.5rem;
   }
 
+  .xl\:mt-2 {
+    margin-top: 0.5rem;
+  }
+
   .xl\:mt-4 {
     margin-top: 1rem;
   }
 
   .xl\:mt-8 {
     margin-top: 2rem;
-  }
-
-  .xl\:mt-3 {
-    margin-top: 0.75rem;
-  }
-
-  .xl\:mt-2 {
-    margin-top: 0.5rem;
   }
 
   .xl\:inline-flex {
@@ -2720,10 +2706,6 @@ video {
     justify-content: flex-end;
   }
 
-  .xl\:justify-center {
-    justify-content: center;
-  }
-
   .xl\:p-2 {
     padding: 0.5rem;
   }
@@ -2740,10 +2722,6 @@ video {
     padding: 2rem;
   }
 
-  .xl\:p-3 {
-    padding: 0.75rem;
-  }
-
   .xl\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
@@ -2752,6 +2730,11 @@ video {
   .xl\:py-3 {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+  }
+
+  .xl\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 
   .xl\:text-5xl {
@@ -2767,21 +2750,6 @@ video {
   .xl\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
-  }
-
-  .xl\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .xl\:text-4xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
-  }
-
-  .xl\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 }
 .rtl\:rotate-180:where([dir="rtl"], [dir="rtl"] *) {

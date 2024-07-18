@@ -24,48 +24,55 @@ class ProgramTransactionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-{
-    // Initialize the query
-    $query = ProgramTransaction::query();
+    {
+        // Initialize the query
+        $query = ProgramTransaction::query();
 
-    // Apply filters
-    if ($request->has('program') && !empty($request->program)) {
-        $query->whereHas('lowongan.program', function ($q) use ($request) {
-            $q->where('id', $request->program);
-        });
+        // Apply filters
+        if ($request->has('program') && !empty($request->program)) {
+            $query->whereHas('lowongan.program', function ($q) use ($request) {
+                $q->where('id', $request->program);
+            });
+        }
+        if ($request->has('tahun_akademik') && !empty($request->tahun_akademik)) {
+            $query->whereHas('lowongan', function ($q) use ($request) {
+                $q->where('tahun_akademik', $request->tahun_akademik);
+            });
+        }
+        if ($request->has('semester') && !empty($request->semester)) {
+            $query->whereHas('lowongan', function ($q) use ($request) {
+                $q->where('semester', $request->semester);
+            });
+        }
+
+        // Add the status_mahasiswa filter
+        $query->where('status_mahasiswa', 1);
+
+        // Fetch the necessary data
+        $programTransactions = $query->get();
+        $programs = ProgramKampus::all();
+        $semesters = Lowongan::select('semester')->distinct()->pluck('semester');
+        $tahun_akademiks = Lowongan::select('tahun_akademik')->distinct()->pluck('tahun_akademik');
+
+        // Return the view with data
+        return view('admin.superadmin.programTransaction.programTransaction')->with([
+            'data' => $programTransactions,
+            'programs' => $programs,
+            'semesters' => $semesters,
+            'tahun_akademiks' => $tahun_akademiks,
+            'selectedProgram' => $request->program,
+            'selectedSemester' => $request->semester,
+            'selectedTahunAkademik' => $request->tahun_akademik,
+        ]);
     }
-    if ($request->has('tahun_akademik') && !empty($request->tahun_akademik)) {
-        $query->whereHas('lowongan', function ($q) use ($request) {
-            $q->where('tahun_akademik', $request->tahun_akademik);
-        });
+
+    public function deletePeserta($id) 
+    {
+        $program = ProgramTransaction::find($id);
+        $program->status_mahasiswa = 0;
+        $program->save();
+        return redirect()->back()->with('success', 'Peminat berhasil dihapus');
     }
-    if ($request->has('semester') && !empty($request->semester)) {
-        $query->whereHas('lowongan', function ($q) use ($request) {
-            $q->where('semester', $request->semester);
-        });
-    }
-
-    // Add the status_mahasiswa filter
-    $query->where('status_mahasiswa', 1);
-
-    // Fetch the necessary data
-    $programTransactions = $query->get();
-    $programs = ProgramKampus::all();
-    $semesters = Lowongan::select('semester')->distinct()->pluck('semester');
-    $tahun_akademiks = Lowongan::select('tahun_akademik')->distinct()->pluck('tahun_akademik');
-
-    // Return the view with data
-    return view('admin.superadmin.programTransaction.programTransaction')->with([
-        'data' => $programTransactions,
-        'programs' => $programs,
-        'semesters' => $semesters,
-        'tahun_akademiks' => $tahun_akademiks,
-        'selectedProgram' => $request->program,
-        'selectedSemester' => $request->semester,
-        'selectedTahunAkademik' => $request->tahun_akademik,
-    ]);
-}
-
 
     public function peserta(Request $request)
     {
@@ -123,15 +130,15 @@ class ProgramTransactionController extends Controller
     public function getLowongan(Request $request)
     {
         $mahasiswa = ProgramTransaction::where('lowongan_id', $request->program_id)->where('status_mahasiswa', true)
-                        ->with('mahasiswa') // Include the mahasiswa relation
-                        ->get()
-                        ->map(function($transaction) {
-                            return ['id' => $transaction->id,'name' => $transaction->mahasiswa->name, 'nim' => $transaction->mahasiswa->nim]; // Extract the mahasiswa from each transaction
-                        });
-    
+            ->with('mahasiswa') // Include the mahasiswa relation
+            ->get()
+            ->map(function ($transaction) {
+                return ['id' => $transaction->id, 'name' => $transaction->mahasiswa->name, 'nim' => $transaction->mahasiswa->nim]; // Extract the mahasiswa from each transaction
+            });
+
         return response()->json($mahasiswa);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -224,7 +231,8 @@ class ProgramTransactionController extends Controller
         return redirect()->back()->with('success', 'Peserta berhasil diverifikasi');
     }
 
-    public function verifikasiImport(){
+    public function verifikasiImport()
+    {
         Excel::import(new VerifikasiImport, request()->file('file'));
 
         return back()->with('success', 'Data imported successfully!');
@@ -328,7 +336,7 @@ class ProgramTransactionController extends Controller
         return view('program_transactions.show', compact('programTransaction'));
     }
 
-    
+
 
     /**
      * Show the form for editing the specified resource.

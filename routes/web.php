@@ -276,6 +276,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
 
             Route::prefix('/peminat')->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'peserta'])->name('admin.peminat');
+                Route::delete('/delete/{id}', [ProgramTransactionController::class, 'deletePeserta'])->name('admin.peminat.delete');
                 Route::get('/locations/{programId}', [ProgramKampusController::class, 'getLocations'])->name('locations.get');
                 Route::post('/verifikasi/{id}', [ProgramTransactionController::class, 'verifikasi'])->name('admin.peminat.verifikasi');
                 Route::post('/import', [ProgramTransactionController::class, 'verifikasiImport'])->name('admin.peminat.import');

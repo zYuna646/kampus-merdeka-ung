@@ -18,6 +18,7 @@ class Mahasiswa extends Model
         'no_hp',
         'village_id',
         'alamat',
+        'penyakit',
     ];
 
     /**

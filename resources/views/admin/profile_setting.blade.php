@@ -88,37 +88,57 @@
                     </div>
                    
                     <div class="mb-4">
-                        <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Domisili</label>
-                        <select name="provinsi" id="provinsi" value=""
+                        <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Provinsi</label>
+                        <select name="provinsi" id="provinsi"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                             <option value="">Pilih Provinsi</option>
                             @foreach($data['provinsi'] as $id => $nama)
-                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->regency->province->id
-                                == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->regency->province->id ?? '' == $id ? 'selected' : '' }}>
+                                {{ $nama }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
+                    
                     <div class="mb-4">
-                        <label for="kabupaten" class="block text-sm font-medium text-gray-700 mb-2"></label>
-                        <select name="kabupaten" id="kabupaten" value=""
+                        <label for="kabupaten" class="block text-sm font-medium text-gray-700 mb-2">Kabupaten</label>
+                        <select name="kabupaten" id="kabupaten"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                             <option value="">Pilih Kabupaten</option>
+                            @foreach($data['kabupaten'] as $id => $nama)
+                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->regency->id ?? '' == $id ? 'selected' : '' }}>
+                                {{ $nama }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
+                    
                     <div class="mb-4">
-                        <label for="kecamatan" class="block text-sm font-medium text-gray-700 mb-2"></label>
-                        <select name="kecamatan" id="kecamatan" value=""
+                        <label for="kecamatan" class="block text-sm font-medium text-gray-700 mb-2">Kecamatan</label>
+                        <select name="kecamatan" id="kecamatan"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                             <option value="">Pilih Kecamatan</option>
+                            @foreach($data['kecamatan'] as $id => $nama)
+                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->id ?? '' == $id ? 'selected' : '' }}>
+                                {{ $nama }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
+                    
                     <div class="mb-4">
-                        <label for="kelurahan" class="block text-sm font-medium text-gray-700 mb-2"></label>
-                        <select name="kelurahan" id="kelurahan" value=""
+                        <label for="kelurahan" class="block text-sm font-medium text-gray-700 mb-2">Kelurahan</label>
+                        <select name="kelurahan" id="kelurahan"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                             <option value="">Pilih Kelurahan</option>
+                            @foreach($data['kelurahan'] as $id => $nama)
+                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->id ?? '' == $id ? 'selected' : '' }}>
+                                {{ $nama }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
+                    
                     <div class="mb-4">
                         <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">Alamat Asal</label>
                         <textarea name="alamat" id="alamat" value=""
@@ -423,8 +443,12 @@
         }
     });
 
-    // Trigger initial change event to populate Kabupaten if Provinsi is pre-selected
+    // Trigger change event to set selected options on page load
     $('#provinsi').trigger('change');
+    $('#kabupaten').trigger('change');
+    $('#kecamatan').trigger('change');
+    // Trigger initial change event to populate Kabupaten if Provinsi is pre-selected
+    // $('#provinsi').trigger('change');
 });
 
 </script>

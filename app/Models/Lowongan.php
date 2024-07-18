@@ -20,7 +20,8 @@ class Lowongan extends Model
         'pendaftaran_selesai',
         'tanggal_mulai',
         'tanggal_selesai', // Mengubah 'sop/pob' menjadi 'sop_pob' karena nama kolom tidak boleh mengandung karakter '/'
-        'isLogBook'
+        'isLogBook',
+        'sk'
     ];
 
     protected static function boot()
