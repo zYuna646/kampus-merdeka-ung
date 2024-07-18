@@ -63,6 +63,7 @@ class AuthController extends Controller
             'username' => $request->username,
         ]);
     } elseif ($user->role->slug == 'mahasiswa') {
+        // dd($request->kelurahan);
 
         $request->validate([
             'nim' => 'required',
@@ -77,9 +78,11 @@ class AuthController extends Controller
             'alamat' => 'required',
         ]);
 
+        
         $user->update([
             'username' => $request->username,
         ]);
+
         // dd($request->alamat);
         $user->mahasiswa->update([
             'name' => $request->name,

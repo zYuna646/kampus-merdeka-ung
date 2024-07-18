@@ -88,12 +88,13 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Provinsi</label>
+                        <label for="provinsi" class="block text-sm font-medium text-gray-700 mb-2">Domisili</label>
                         <select name="provinsi" id="provinsi"
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                             <option value="">Pilih Provinsi</option>
                             @foreach($data['provinsi'] as $id => $nama)
-                            <option value="{{ $id }}" {{ Auth::user()->mahasiswa->desa->district->regency->province->id ?? '' == $id ? 'selected' : '' }}>
+                            <option value="{{ $id }}" {{ optional(optional(optional(optional(Auth::user()->
+                                mahasiswa)->desa)->district)->regency)->province_id == $id ? 'selected' : '' }}>
                                 {{ $nama }}
                             </option>
                             @endforeach
@@ -147,7 +148,8 @@
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">{{ Auth::user()->mahasiswa->alamat ?? '' }}</textarea>
                     </div>
                     <div class="mb-4">
-                        <label for="penyakit" class="block text-sm font-medium text-gray-700 mb-2">Riwayat Penyakit Kronis</label>
+                        <label for="penyakit" class="block text-sm font-medium text-gray-700 mb-2">Riwayat Penyakit
+                            Kronis</label>
                         <textarea name="penyakit" id="penyakit" value=""
                             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"></textarea>
                     </div>
