@@ -6,6 +6,7 @@ use App\Models\Lowongan;
 use App\Models\Program;
 use App\Models\ProgramKampus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LowonganController extends Controller
 {
@@ -24,13 +25,13 @@ class LowonganController extends Controller
         $lowongans = Lowongan::when($request->program, function ($query, $program) {
             return $query->where('program_id', $program);
         })
-        ->when($request->semester, function ($query, $semester) {
-            return $query->where('semester', $semester);
-        })
-        ->when($request->tahun_akademik, function ($query, $tahun_akademik) {
-            return $query->where('tahun_akademik', $tahun_akademik);
-        })
-        ->get();
+            ->when($request->semester, function ($query, $semester) {
+                return $query->where('semester', $semester);
+            })
+            ->when($request->tahun_akademik, function ($query, $tahun_akademik) {
+                return $query->where('tahun_akademik', $tahun_akademik);
+            })
+            ->get();
 
         return view('admin.superadmin.lowongan.lowongan')->with([
             'data' => $lowongans,
@@ -75,7 +76,8 @@ class LowonganController extends Controller
             'tanggal_selesai' => 'required|date',
             'pendaftaran_mulai' => 'required|date',
             'pendaftaran_selesai' => 'required|date',
-            'isLogBook' => 'required'
+            'isLogBook' => 'required',
+            'sk_rektor' => 'nullable|mimes:pdf|max:2048',
         ]);
 
         $existingLowongan = Lowongan::where('program_id', $request->program_id)
@@ -88,16 +90,24 @@ class LowonganController extends Controller
                 ->with('failded', 'Lowongan Sudah Ada.');
         }
 
+        $skRektorPath = null;
+        if ($request->hasFile('sk_rektor')) {
+            $skRektor = $request->file('sk_rektor');
+            $filename = time() . '_' . $skRektor->getClientOriginalName();
+            $skRektorPath = $skRektor->storeAs('uploads/sk_rektor', $filename, 'public');
+        }
+
 
         Lowongan::create([
             'program_id' => $request->program_id,
             'tahun_akademik' => $request->tahun_akademik,
             'semester' => $request->semester,
-            'pendaftaran_mulai'=> $request->pendaftaran_mulai,
-            'pendaftaran_selesai'=> $request->pendaftaran_selesai,
+            'pendaftaran_mulai' => $request->pendaftaran_mulai,
+            'pendaftaran_selesai' => $request->pendaftaran_selesai,
             'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_selesai'=>$request->tanggal_selesai,
-            'isLogBook'=>$request->isLogBook,
+            'tanggal_selesai' => $request->tanggal_selesai,
+            'isLogBook' => $request->isLogBook,
+            'sk' => $skRektorPath,
         ]);
 
         return redirect()->route('admin.lowongan')
@@ -132,7 +142,7 @@ class LowonganController extends Controller
         return view('admin.superadmin.lowongan.edit', compact('lowongan', 'data'));
     }
 
-/**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -147,9 +157,27 @@ class LowonganController extends Controller
             'semester' => 'required',
             'pendaftaran_mulai' => 'required|date',
             'pendaftaran_selesai' => 'required|date',
-        ]);
+            'sk_rektor' => 'nullable|mimes:pdf|max:2048',
 
+        ]);
         $lowongan = Lowongan::find($id);
+
+
+        $skRektorPath = null;
+        if ($request->hasFile('sk_rektor')) {
+            // Delete the old file if it exists
+            if ($lowongan->sk) {
+                Storage::disk('public')->delete($lowongan->sk);
+            }
+
+            // Store the new file
+            $skRektor = $request->file('sk_rektor');
+            $filename = time() . '_' . $skRektor->getClientOriginalName();
+            $skRektorPath = $skRektor->storeAs('uploads/sk_rektor', $filename, 'public');
+
+            // Update the path
+            $lowongan->sk = $skRektorPath;
+        }
         $lowongan->program_id = $request->program_id;
         $lowongan->semester = $request->semester;
         $lowongan->tahun_akademik = $request->tahun_akademik;
