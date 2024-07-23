@@ -24,54 +24,56 @@
 
   </div>
   <div class="w-full h-screen absolute">
-    <div class="max-w-screen-xl w-full h-full mx-auto flex items-center justify-center xl:justify-end px-8">
+    <div class="max-w-screen-xl w-full h-full mx-auto flex items-center justify-center xl:justify-end px-8 pt-8">
       <div class="xl:p-8 p-6 bg-white rounded-3xl max-w-md w-full flex flex-col gap-y-4 shadow-md">
-        <h2 class="xl:text-3xl text-2xl font-bold text-gray-800">Akademik</h2>
+        <h2 class="xl:text-3xl text-2xl font-bold text-gray-800">Domisili</h2>
         <form class="xl:mt-2" action="{{ route('register.form', ['step' => 2]) }}" method="POST">
           @csrf
           <div class="mb-3">
-            <label for="fakultas" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan
-              Fakultas</label>
-            <select name="fakultas" id="fakultas"
+            <label for="provinsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Pilih
+              Provinsi</label>
+            <select name="provinsi" id="provinsi"
               class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs ">
-              <option value="">Pilih Fakultas</option>
-              @foreach($fakultas as $id => $nama)
+              <option value="">Pilih Provinsi</option>
+              @foreach($provinsi as $id => $nama)
               <option value="{{ $id }}">{{ $nama }}</option>
               @endforeach
             </select>
-            @error('fakultas')
+            @error('provinsi')
             <div class="invalid-feedback text-red-400">{{ $message }}</div>
             @enderror
           </div>
           <div class="mb-3">
-            <label for="jurusan" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Pilih
-              Jurusan</label>
-            <select name="jurusan" id="jurusan"
+            <label for="kabupaten" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Pilih
+              Kabupaten</label>
+            <select name="kabupaten" id="kabupaten"
               class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs ">
-              <option value="">Pilih Jurusan</option>
+              <option value="">Pilih Kabupaten</option>
             </select>
-            @error('jurusan')
+            @error('kabupaten')
             <div class="invalid-feedback text-red-400">{{ $message }}</div>
             @enderror
           </div>
           <div class="mb-3">
-            <label for="prodi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Pilih Prodi</label>
-            <select name="prodi" id="prodi"
+            <label for="kecamatan" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Pilih
+              Kecamatan</label>
+            <select name="kecamatan" id="kecamatan"
               class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs ">
-              <option value="">Pilih Prodi</option>
+              <option value="">Pilih Kecamatan</option>
             </select>
-            @error('prodi')
+            @error('kecamatan')
             <div class="invalid-feedback text-red-400">{{ $message }}</div>
             @enderror
           </div>
           <div class="">
-            <label for="angkatan" class="block text-sm font-medium text-gray-700 mb-2">Angkatan</label>
-            <input type="number" min="2000" max="3000" name="angkatan" id="angkatan" placeholder="2000"
-              class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs">
-            @error('angkatan')
-            <div class="invalid-feedback text-red-400">
-              {{ $message }}
-            </div>
+            <label for="kelurahan" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Pilih
+              Kelurahan</label>
+            <select name="kelurahan" id="kelurahan"
+              class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs ">
+              <option value="">Pilih Kelurahan</option>
+            </select>
+            @error('kelurahan')
+            <div class="invalid-feedback text-red-400">{{ $message }}</div>
             @enderror
           </div>
           <div class=" mt-4">
@@ -85,51 +87,81 @@
 
   <script>
     $(document).ready(function() {
-        $('#fakultas').change(function() {
-            var fakultasID = $(this).val();
-            if (fakultasID) {
+        $('#provinsi').change(function() {
+            var provinsiID = $(this).val();
+            if (provinsiID) {
                 $.ajax({
                     url: '/get-data',
                     type: "GET",
-                    data: { type: 'jurusan', parent_id: fakultasID },
+                    data: { type: 'kabupaten', parent_id: provinsiID },
                     dataType: "json",
                     success: function(data) {
-                        $('#jurusan').empty();
-                        $('#jurusan').append('<option value="">Pilih Jurusan</option>');
+                        $('#kabupaten').empty();
+                        $('#kabupaten').append('<option value="">Pilih Kabupaten</option>');
                         $.each(data, function(key, value) {
-                            $('#jurusan').append('<option value="'+ key +'">'+ value +'</option>');
+                            $('#kabupaten').append('<option value="'+ key +'">'+ value +'</option>');
                         });
-                        $('#prodi').empty();
-                        $('#prodi').append('<option value="">Pilih Prodi</option>');
+                        $('#kecamatan').empty();
+                        $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+                        $('#kelurahan').empty();
+                        $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
                     }
                 });
             } else {
-                $('#jurusan').empty();
-                $('#jurusan').append('<option value="">Pilih Jurusan</option>');
-                $('#prodi').empty();
-                $('#prodi').append('<option value="">Pilih Prodi</option>');
+                $('#kabupaten').empty();
+                $('#kabupaten').append('<option value="">Pilih Kabupaten</option>');
+                $('#kecamatan').empty();
+                $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+                $('#kelurahan').empty();
+                $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
             }
         });
 
-        $('#jurusan').change(function() {
-            var jurusanID = $(this).val();
-            if (jurusanID) {
+        $('#kabupaten').change(function() {
+            var kabupatenID = $(this).val();
+            if (kabupatenID) {
                 $.ajax({
                     url: '/get-data',
                     type: "GET",
-                    data: { type: 'prodi', parent_id: jurusanID },
+                    data: { type: 'kecamatan', parent_id: kabupatenID },
                     dataType: "json",
                     success: function(data) {
-                        $('#prodi').empty();
-                        $('#prodi').append('<option value="">Pilih Prodi</option>');
+                        $('#kecamatan').empty();
+                        $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
                         $.each(data, function(key, value) {
-                            $('#prodi').append('<option value="'+ key +'">'+ value +'</option>');
+                            $('#kecamatan').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                        $('#kelurahan').empty();
+                        $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+                    }
+                });
+            } else {
+                $('#kecamatan').empty();
+                $('#kecamatan').append('<option value="">Pilih Kecamatan</option>');
+                $('#kelurahan').empty();
+                $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+            }
+        });
+
+        $('#kecamatan').change(function() {
+            var kecamatanID = $(this).val();
+            if (kecamatanID) {
+                $.ajax({
+                    url: '/get-data',
+                    type: "GET",
+                    data: { type: 'kelurahan', parent_id: kecamatanID },
+                    dataType: "json",
+                    success: function(data) {
+                        $('#kelurahan').empty();
+                        $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
+                        $.each(data, function(key, value) {
+                            $('#kelurahan').append('<option value="'+ key +'">'+ value +'</option>');
                         });
                     }
                 });
             } else {
-                $('#prodi').empty();
-                $('#prodi').append('<option value="">Pilih Prodi</option>');
+                $('#kelurahan').empty();
+                $('#kelurahan').append('<option value="">Pilih Kelurahan</option>');
             }
         });
     });

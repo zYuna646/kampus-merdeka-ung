@@ -36,7 +36,7 @@
           <div class="mb-2">
             <label for="nim" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan NIM</label>
             <input type="text" name="nim" id="nim" placeholder="masukan NIM"
-              class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-base text-xs "
+              class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs "
               value="{{old('nim')}}">
             @error('nim')
             <div class="invalid-feedback text-red-400">
@@ -44,11 +44,12 @@
             </div>
             @enderror
           </div>
+          
           <div class="mb-2">
             <label for="nama" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan
               Nama Lengkap</label>
             <input type="text" name="nama" id="nama" placeholder="masukan nama lengkap"
-              class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-base text-xs "
+              class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs "
               value="{{old('nama')}}">
             @error('nama')
             <div class="invalid-feedback text-red-400">
@@ -60,7 +61,7 @@
             <label for="password" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan
               Password</label>
             <input type="password" name="password" id="password"
-              class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-base text-xs "
+              class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs "
               value="{{old('password')}}">
             @error('password')
             <div class="invalid-feedback text-red-400">
@@ -82,8 +83,7 @@
           </div>
         </form>
         <div class="">
-          <p>Sudah Punya Akun? <a class="font-semibold text-color-primary-500"
-              href="{{ route('login') }}">Masuk</a></p>
+          <p>Sudah Punya Akun? <a class="font-semibold text-color-primary-500" href="{{ route('login') }}">Masuk</a></p>
         </div>
 
       </div>
