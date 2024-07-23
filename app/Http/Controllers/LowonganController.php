@@ -151,15 +151,17 @@ class LowonganController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'program_id' => 'required|exists:program_kampuses,id',
             'tahun_akademik' => 'required',
             'semester' => 'required',
             'pendaftaran_mulai' => 'required|date',
             'pendaftaran_selesai' => 'required|date',
-            'sk_rektor' => 'nullable|mimes:pdf|max:2048',
-
+            'sk_rektor' => 'nullable|mimes:pdf',
         ]);
+
+
         $lowongan = Lowongan::find($id);
 
 

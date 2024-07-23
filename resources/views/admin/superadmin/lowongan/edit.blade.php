@@ -85,7 +85,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="sk_rektor" class="block text-sm font-medium text-gray-700 mb-2">SK Rektor</label>
-                    <input type="file" name="sk_rektor" id="sk_rektor"
+                    <input type="file" name="sk_rektor" id="sk_rektor" value="{{$data['lowongan']->sk_rektor}}"
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                         required>
                 </div>
