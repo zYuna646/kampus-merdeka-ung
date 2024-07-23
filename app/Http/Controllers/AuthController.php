@@ -200,14 +200,12 @@ class AuthController extends Controller
     public function showForm($step)
     {
         // Pastikan step ada dalam range yang valid
-        if (!in_array($step, [1, 2, 3, 4, 5])) {
+        if (!in_array($step, [1, 2, 3])) {
             return redirect()->route('register.form', ['step' => 1]);
         }
 
         $data = [];
         if ($step == 2) {
-            $data['fakultas'] = Fakultas::pluck('name', 'id');
-        } elseif ($step == 3) {
             $data['provinsi'] = Province::pluck('name', 'id');
         }
 
@@ -223,7 +221,7 @@ class AuthController extends Controller
         Session::put('register_step' . $step, $request->all());
 
         // Redirect ke langkah berikutnya atau simpan data ke database jika selesai
-        if ($step < 4) {
+        if ($step < 3) {
             return redirect()->route('register.form', ['step' => $step + 1]);
         } else {
             // Simpan data ke database
@@ -244,20 +242,13 @@ class AuthController extends Controller
                 break;
             case 2:
                 $rules = [
-                    'fakultas' => 'required',
-                    'jurusan' => 'required',
-                    'prodi' => 'required'
-                ];
-                break;
-            case 3:
-                $rules = [
                     'provinsi' => 'required',
                     'kabupaten' => 'required',
                     'kecamatan' => 'required',
                     'kelurahan' => 'required'
                 ];
                 break;
-            case 4:
+            case 3:
                 $rules = [
                     'alamat' => 'required'
                 ];
@@ -274,11 +265,7 @@ class AuthController extends Controller
 
         $data = [];
 
-        if ($type == 'jurusan') {
-            $data = Jurusan::where('fakultas_id', $parent_id)->pluck('name', 'id');
-        } elseif ($type == 'prodi') {
-            $data = Studi::where('jurusan_id', $parent_id)->pluck('name', 'id');
-        } elseif ($type == 'kabupaten') {
+        if ($type == 'kabupaten') {
             $data = Regency::where('province_id', $parent_id)->pluck('name', 'id');
         } elseif ($type == 'kecamatan') {
             $data = District::where('regency_id', $parent_id)->pluck('name', 'id');
@@ -295,7 +282,6 @@ class AuthController extends Controller
             Session::get('register_step1', []),
             Session::get('register_step2', []),
             Session::get('register_step3', []),
-            Session::get('register_step4', [])
         );
 
         // dd($data);
@@ -317,7 +303,7 @@ class AuthController extends Controller
         Mahasiswa::create([
             'nim' => $data['nim'],
             'name' => $data['nama'],
-            'studi_id' => $data['prodi'],
+            // 'studi_id' => Studi here
             'village_id' => $data['kelurahan'],
             'alamat' => $data['alamat'],
             'user_id' => $user->id,
@@ -328,7 +314,6 @@ class AuthController extends Controller
         Session::forget('register_step1');
         Session::forget('register_step2');
         Session::forget('register_step3');
-        Session::forget('register_step4');
         
         // return redirect()->route('login');
     }
