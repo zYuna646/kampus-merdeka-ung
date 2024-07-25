@@ -444,12 +444,17 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         $mahasiswa = Mahasiswa::find($id);
+    
         $request->validate([
             'nim' => 'required|unique:mahasiswas,nim,' . $mahasiswa->id,
             'name' => 'required',
             'studi_id' => 'required|exists:studis,id',
             'angkatan' => 'required|integer',
+            'new_pass' => 'nullable|min:8',
+            'confirm_new_pass' => 'nullable|same:new_pass',
         ]);
+    
+        $newUsername = $request->nim;
 
         $mahasiswa->update([
             'nim' => $request->nim,
@@ -458,9 +463,23 @@ class MahasiswaController extends Controller
             'angkatan' => $request->angkatan,
         ]);
 
+        if ($request->filled('new_pass')) {
+            $mahasiswa->user->update([
+                'password' => bcrypt($request->new_pass)
+            ]);
+        }
+
+          // Update the user's username if nidn has changed
+        if ($mahasiswa->user->username !== $newUsername) {
+            $mahasiswa->user->update([
+                'username' => $newUsername
+            ]);
+        }
+        
         return redirect()->route('admin.student')
             ->with('success', 'Mahasiswa updated successfully');
     }
+    
 
     /**
      * Remove the specified resource from storage.
