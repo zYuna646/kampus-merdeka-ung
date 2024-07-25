@@ -28,7 +28,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::get('/register/{step}', [AuthController::class, 'showForm'])->name('register.form');
-Route::post('/register/{step}', [AuthController::class, 'processForm']);
+Route::post('/register/
+{step}', [AuthController::class, 'processForm']);
 Route::get('/get-data', [AuthController::class, 'getData']);
 
 
@@ -80,8 +81,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/download_daily/{id}', [MahasiswaController::class, 'downloadDaily'])->name('student.download_daily');
             Route::get('/download_surat/{id}', [MahasiswaController::class, 'downloadSurat'])->name('student.download_surat');
             Route::get('/download_sk/{id}', [MahasiswaController::class, 'downloadSK'])->name('student.download_sk');
-
-
             Route::get('/download_week/{id}', [MahasiswaController::class, 'downloadWeekly'])->name('student.download_weekly');
             Route::get('/weekly_logbook/{id}', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');
             Route::get('/daily_logbook/{id}', [MahasiswaController::class, 'dailyBook'])->name('student.daily_logbook');
