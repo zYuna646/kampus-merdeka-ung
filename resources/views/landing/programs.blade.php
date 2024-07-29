@@ -2,7 +2,7 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 gap-4 py-32 lg:py-36">
-  <div class="col-span-12 lg:col-span-8 px-2">
+  <div class="col-span-12 lg:col-span-8 px-2 mb-12 lg:mb-0">
     <div>
       <h2 class="text-2xl font-semibold text-color-primary-500 px-4">
         Semua Program
