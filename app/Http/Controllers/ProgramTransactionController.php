@@ -369,13 +369,10 @@ class ProgramTransactionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'lowongan_id' => 'required',
-            'mahasiswa_id' => 'required',
             'lokasi_id' => 'required',
         ]);
 
         $programTransaction = ProgramTransaction::find($id);
-        $programTransaction->lowongan_id = $request->lowongan_id;
         $programTransaction->lokasi_id = $request->lokasi_id;
         $programTransaction->save();
 

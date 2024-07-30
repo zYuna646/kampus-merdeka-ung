@@ -23,7 +23,6 @@
                                 d="m1 9 4-4-4-4" />
                         </svg>
                         <a href="{{ route('student.weekly_logbook', $data->program_transaction_id) }}"
-                         
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-color-primary-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Log
                             Book</a>
                     </div>
@@ -35,7 +34,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <a href="{{ route('student.daily_logbook', ['id' =>  $data->weekly_log_id]) }}"
+                        <a href="{{ route('student.daily_logbook', ['id' => $data->weekly_log_id]) }}"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-color-primary-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Harian</a>
                     </div>
                 </li>
@@ -79,11 +78,12 @@
                             Dokumentasi
                         </label>
                         <input type="text" name="dokumentasi" id="dokumentasi" placeholder="http://example.com"
-                            class="w-full p-3 xl:p-4 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs xl:text-sm" />
+                            class="w-full p-3 xl:p-4 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs xl:text-sm"
+                            required />
                     </div>
-                  <x-button_md class="w-full col-span-12" color="primary"> 
-                    Kirim
-                  </x-button_md>
+                    <x-button_md class="w-full col-span-12" color="primary">
+                        Kirim
+                    </x-button_md>
                 </form>
             </div>
         </div>
@@ -139,27 +139,27 @@
                                 Deskripsi Kegiatan
                             </label>
                             <textarea name="deskripsi${i}" id="deskripsi" placeholder="Deskripsi Kegiatan"
-                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "></textarea>
+                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " required></textarea>
                         </div>
                         <div class="mb-4">
                             <label for="rencana" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                                 Rencana Kegiatan
                             </label>
                             <textarea name="rencana${i}" id="rencana" placeholder="Rencana Kegiatan Kegiatan"
-                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "></textarea>
+                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " required></textarea>
                         </div>
                         <div class="mb-4">
     <label for="jam_mulai" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
         Jam Mulai
     </label>
-    <input type="time" name="jam_mulai${i}" id="jam_mulai" class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+    <input type="time" name="jam_mulai${i}" id="jam_mulai" class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" required/>
 </div>
 
 <div class="mb-4">
     <label for="jam_selesai" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
         Jam Selesai
     </label>
-    <input type="time" name="jam_selesai${i}" id="jam_selesai" class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+    <input type="time" name="jam_selesai${i}" id="jam_selesai" class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" required/>
 </div>
 
                         <div class="mb-4">
@@ -168,21 +168,21 @@
                             </label>
                             <input type="number" max="100" name="persentase${i}" id="persentase"
                                 placeholder="Persentase Pencapaian"
-                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
+                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " required/>
                         </div>
                         <div class="mb-4">
                             <label for="hambatan" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                                 Hambatan Dalam Kegiatan
                             </label>
                             <textarea name="hambatan${i}" id="hambatan" placeholder="Hambatan Kegiatan"
-                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "></textarea>
+                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " required></textarea>
                         </div>
                         <div class="mb-4">
                             <label for="solusi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                                 Rencana Solusi
                             </label>
                             <textarea name="solusi${i}" id="solusi" placeholder="Rencana Solusi"
-                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "></textarea>
+                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " required></textarea>
                         </div>
                     </div>
                 </div>
