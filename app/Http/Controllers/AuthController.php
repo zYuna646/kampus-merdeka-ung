@@ -76,7 +76,6 @@ class AuthController extends Controller
                 'kabupaten' => 'required',
                 'provinsi' => 'required',
                 'alamat' => 'required',
-                'penyakit' => 'required'
             ]);
 
 
@@ -91,7 +90,7 @@ class AuthController extends Controller
                 'no_hp' => $request->no_hp,
                 'village_id' => $request->kelurahan,
                 'alamat' => $request->alamat,
-                'penyakit' => $request->penyakit
+                'penyakit' => $request->penyakit ?? ''
             ]);
         } elseif ($user->role->slug == 'dosen') {
             $request->validate([
@@ -291,8 +290,11 @@ class AuthController extends Controller
 
         // dd($data);
         $mahasiswa = Mahasiswa::where('nim', $data['nim'])->first();
-
+        $existUser = User::where('username', $data['nim'])->first();
         if ($mahasiswa) {
+            return redirect()->route('register.form', 1)->with('error', 'NIM Sudah digunakan');
+        }
+        if ($existUser) {
             return redirect()->route('register.form', 1)->with('error', 'NIM Sudah digunakan');
         }
         // Simpan data ke database (contoh menggunakan model User)
