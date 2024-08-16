@@ -151,41 +151,40 @@ class LowonganController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'program_id' => 'required|exists:program_kampuses,id',
             'tahun_akademik' => 'required',
             'semester' => 'required',
             'pendaftaran_mulai' => 'required|date',
             'pendaftaran_selesai' => 'required|date',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date',
             'sk_rektor' => 'nullable|mimes:pdf',
         ]);
-
-
-        $lowongan = Lowongan::find($id);
-
-
-        $skRektorPath = null;
+    
+        $lowongan = Lowongan::findOrFail($id);
+    
         if ($request->hasFile('sk_rektor')) {
-            // Delete the old file if it exists
             if ($lowongan->sk) {
                 Storage::disk('public')->delete($lowongan->sk);
             }
-
-            // Store the new file
+    
             $skRektor = $request->file('sk_rektor');
             $filename = time() . '_' . $skRektor->getClientOriginalName();
             $skRektorPath = $skRektor->storeAs('uploads/sk_rektor', $filename, 'public');
-
-            // Update the path
             $lowongan->sk = $skRektorPath;
         }
+    
         $lowongan->program_id = $request->program_id;
-        $lowongan->semester = $request->semester;
         $lowongan->tahun_akademik = $request->tahun_akademik;
-        $lowongan->tanggal_mulai = $request->pendaftaran_mulai;
-        $lowongan->tanggal_selesai = $request->pendaftaran_selesai;
+        $lowongan->semester = $request->semester;
+        $lowongan->pendaftaran_mulai = $request->pendaftaran_mulai;
+        $lowongan->pendaftaran_selesai = $request->pendaftaran_selesai;
+        $lowongan->tanggal_mulai = $request->tanggal_mulai;
+        $lowongan->tanggal_selesai = $request->tanggal_selesai;
+    
         $lowongan->save();
+    
         return redirect()->route('admin.lowongan')
             ->with('success', 'Lowongan updated successfully');
     }

@@ -8,7 +8,7 @@
             @csrf
             <div class="mb-4">
                 <label for="nik" class="block text-sm font-medium text-gray-700">NIK</label>
-                <input type="text" name="nik" id="nik" placeholder="Masukan NIP"
+                <input type="text" name="nik" id="nik" placeholder="Masukan NIK"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                 @error('nik')
                 <div class="invalid-feedback text-red-400">

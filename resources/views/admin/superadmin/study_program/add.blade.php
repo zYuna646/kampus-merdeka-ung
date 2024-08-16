@@ -18,7 +18,7 @@
             </div>
             <div class="mb-4">
                 <label for="code" class="block text-sm font-medium text-gray-700 mb-2">Kode Program Studi</label>
-                <input type="text" name="code" id="code" placeholder="Masukan Nama Jurusan"
+                <input type="text" name="code" id="code" placeholder="Masukan Kode Prodi"
                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs">
                 @error('code')
                 <div class="invalid-feedback text-red-400">

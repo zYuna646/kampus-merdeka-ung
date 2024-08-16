@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <<hr class="w-full">
+                            <hr class="w-full">
                                 <div class="p-4 px-6 inline-flex justify-between w-full">
                                     <div class="inline-flex items-center gap-x-2">
                                         <x-button_sm type="submit" color="primary" class="">

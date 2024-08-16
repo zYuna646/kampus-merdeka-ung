@@ -22,6 +22,7 @@
                 <a href="{{ route('berita') }}"
                     class="p-2 {{ Route::currentRouteNamed('berita') ? 'font-semibold text-color-primary-500' : '' }}">Berita</a>
             </li>
+          
             @if (Auth::check())
             @if (Auth::user()->role->slug === 'mahasiswa' )
             <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">

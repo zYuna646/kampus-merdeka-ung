@@ -54,7 +54,7 @@ class GuruImport implements ToCollection, WithHeadingRow
             } catch (\Throwable $th) {
                 // Handle the error here
                 \Log::error('Error importing row: ' . $th->getMessage());
-                dd($th); // Also log and dd here to ensure value is not null
+                // Also log and dd here to ensure value is not null
             }
         }
     }

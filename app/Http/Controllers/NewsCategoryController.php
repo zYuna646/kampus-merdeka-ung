@@ -50,7 +50,7 @@ class NewsCategoryController extends Controller
         ]);
 
         return redirect()->route('admin.kategori')
-        ->with('success', 'Dosen created successfully.');
+        ->with('success', 'Kategorip created successfully.');
     }
 
     /**
