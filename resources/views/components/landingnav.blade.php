@@ -10,6 +10,30 @@
                 <a href="{{ route('home') }}"
                     class="p-2 {{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">Beranda</a>
             </li>
+            <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
+                <div class="inline-flex items-center gap-x-2 ">
+                    Panduan
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div
+                    class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
+                    <div class="inline-flex items-center gap-x-2 w-full">
+                        <a href="">
+                            Dosen
+                        </a>
+                    </div>
+                    <div class="inline-flex items-center gap-x-2 w-full">
+                        <a href="">
+                            Pamong
+                        </a>
+                    </div>
+                    <div class="inline-flex items-center gap-x-2 w-full">
+                        <a href="">
+                            Mahasiswa
+                        </a>
+                    </div>
+                </div>
+            </li>
             <li>
                 <a href="{{ route('program') }}"
                     class="p-2 {{ Route::currentRouteNamed('program') ? 'font-semibold text-color-primary-500' : '' }}">Program</a>
@@ -22,7 +46,8 @@
                 <a href="{{ route('berita') }}"
                     class="p-2 {{ Route::currentRouteNamed('berita') ? 'font-semibold text-color-primary-500' : '' }}">Berita</a>
             </li>
-          
+
+
             @if (Auth::check())
             @if (Auth::user()->role->slug === 'mahasiswa' )
             <li class="{{ Route::currentRouteNamed('home') ? 'font-semibold text-color-primary-500' : '' }}">
@@ -95,6 +120,30 @@
                     Beranda
                 </a>
             </li>
+            <li class="p-4 list-none flex-col gap-y-2 items-center text-slate-500 rounded-lg" onclick="openDropDown(this)">
+                <div class="flex items-center gap-x-2">
+                    <i class="fas fa-newspaper"></i>
+                    Panduan
+                </div>
+                <div
+                    class="mt-2 hidden p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-full dropdown_menu text-slate-500">
+                    <div class="inline-flex items-center gap-x-2 w-full">
+                        <a href="">
+                            Dosen
+                        </a>
+                    </div>
+                    <div class="inline-flex items-center gap-x-2 w-full">
+                        <a href="">
+                            Pamong
+                        </a>
+                    </div>
+                    <div class="inline-flex items-center gap-x-2 w-full">
+                        <a href="">
+                            Mahasiswa
+                        </a>
+                    </div>
+                </div>
+            </li>
             <li
                 class="p-4 flex items-center {{ Route::currentRouteNamed('program') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg">
                 <a href="{{ route('program') }}" class="flex items-center gap-x-2">
@@ -116,6 +165,7 @@
                     Berita
                 </a>
             </li>
+
             @if (Auth::check())
             @if (Auth::user()->role->slug === 'mahasiswa' )
             <li class="flex items-center text-white rounded-lg">
