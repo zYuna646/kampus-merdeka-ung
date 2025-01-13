@@ -27,9 +27,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
-Route::get('/register/{step}', [AuthController::class, 'showForm'])->name('register.form');
-Route::post('/register/
-{step}', [AuthController::class, 'processForm']);
+Route::middleware('web')->group(function () {
+    Route::get('/register/{step}', [AuthController::class, 'showForm'])->name('register.form');
+    Route::post('/register/{step}', [AuthController::class, 'processForm']);
+});
 Route::get('/get-data', [AuthController::class, 'getData']);
 
 
@@ -137,7 +138,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::prefix('dashboard/admin')->group(function () {
 
-            Route::get('/',[dashboardController::class, 'admin'])->name('admin.dashboard');
+            Route::get('/', [dashboardController::class, 'admin'])->name('admin.dashboard');
 
             /* DATA MASTER */
 
@@ -149,7 +150,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/edit/{id}', [FakultasController::class, 'edit'])->name('admin.faculties.edit');
                 Route::post('/update/{id}', [FakultasController::class, 'update'])->name('admin.faculties.update');
                 Route::delete('/delete/{id}', [FakultasController::class, 'destroy'])->name('admin.faculties.delete');
-
             });
 
             Route::prefix('/departement')->group(function () {
@@ -160,8 +160,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/edit/{id}', [JurusanController::class, 'edit'])->name('admin.departement.edit');
                 Route::post('/update/{id}', [JurusanController::class, 'update'])->name('admin.departement.update');
                 Route::delete('/delete/{id}', [JurusanController::class, 'destroy'])->name('admin.departement.delete');
-
-
             });
 
             Route::prefix('/study_program')->group(function () {
@@ -172,7 +170,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/edit/{id}', [StudiController::class, 'edit'])->name('admin.study_program.edit');
                 Route::post('/update/{id}', [StudiController::class, 'update'])->name('admin.study_program.update');
                 Route::delete('/delete/{id}', [StudiController::class, 'destroy'])->name('admin.study_program.delete');
-
             });
 
             Route::prefix('/campus_merdeka_program')->group(function () {
@@ -308,10 +305,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/edit/{id}', [OperatorController::class, 'edit'])->name('admin.operator.edit');
                 Route::post('/update/{id}', [OperatorController::class, 'update'])->name('admin.operator.update');
             });
-
         });
     });
-
-
 });
-
