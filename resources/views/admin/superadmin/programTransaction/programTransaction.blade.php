@@ -83,6 +83,16 @@
                     Export
                 </x-button_md>
             </form>
+
+            <form action="{{ route('admin.pembayaran.export') }}" method="POST">
+                @csrf
+                <input type="hidden" name="data" value="{{ json_encode($data) }}">
+                
+                <x-button_md type="submit" color="warning" class="">
+                    <span><i class="fas fa-file-import text-sm me-2"></i></span>
+                    Export Pembayaran
+                </x-button_md>
+            </form>
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
