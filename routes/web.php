@@ -294,6 +294,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/verifiasi_pembayaran/{id}', [ProgramTransactionController::class, 'verifiasi_pembayaran'])->name('admin.pembayaran.verifikasi');
                 Route::post('/import', [ProgramTransactionController::class, 'verifikasiImport'])->name('admin.peminat.import');
                 Route::post('/export', [ProgramTransactionController::class, 'export_peserta'])->name('admin.peminat.export');
+                Route::post('/pembayaran/export', [ProgramTransactionController::class, 'export_pembayaran'])->name('admin.pembayaran.export');
             });
 
             Route::prefix('/berita')->group(function () {

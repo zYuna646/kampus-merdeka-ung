@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PaymentExport;
 use App\Exports\PesertaExport;
 use App\Exports\ProgramPesertaExport;
 use App\Imports\PesertaImport;
@@ -121,6 +122,11 @@ class ProgramTransactionController extends Controller
         return Excel::download(new ProgramPesertaExport($data), 'peserta.xlsx');
     }
 
+    public function export_pembayaran(Request $request)
+    {
+        $data = json_decode($request->input('data'), true);
+        return Excel::download(new PaymentExport($data), 'pembayaran.xlsx');
+    }
     public function export_peserta(Request $request)
     {
         $data = json_decode($request->input('data'), true);
