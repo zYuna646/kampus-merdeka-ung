@@ -41,24 +41,33 @@ class DPLImport implements ToCollection, WithHeadingRow
                     continue;
                 }
 
-                $programTransaction = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->first();
+				$programTransaction = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->where('status_mahasiswa', true)->first();
+
 
                 if (!$programTransaction) {
                     continue;
                 }
 
-                $dpl = DPL::where('dosen_id', $dosen->id)->first();
-                if ($dpl) {
-                    if (!$dpl->mahasiswa->contains($programTransaction->id)) {
-                        $dpl->mahasiswa()->attach($programTransaction->id);
-                    }
-                } else {
-                    $dosen = DPL::create([
-                        'dosen_id' => $dosen->id,
-                        'lowongan_id' => $lowongan->id
-                    ]);
-                    $dosen->mahasiswa()->attach($programTransaction->id);
-                }
+				  $dpl = DPL::where('dosen_id', $dosen->id)
+                    ->where('lowongan_id', $lowongan->id)
+                    ->first();
+
+                  if ($dpl) {
+                      // Check if mahasiswa is already attached
+                      if (!$dpl->mahasiswa->contains($programTransaction->id)) {
+                          $dpl->mahasiswa()->attach($programTransaction->id);
+                      }
+                  } else {
+                      // Ensure $lowongan is properly defined before this block
+                      $newDpl = DPL::create([
+                          'dosen_id' => $dosen->id,
+                          'lowongan_id' => $lowongan->id,  // Ensure $lowongan is available
+                      ]);
+
+                      // Attach mahasiswa to the newly created DPL
+                      $newDpl->mahasiswa()->attach($programTransaction->id);
+                  }
+
 
             } catch (\Throwable $th) {
                 // Handle the error here

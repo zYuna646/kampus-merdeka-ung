@@ -299,8 +299,9 @@ class DosenController extends Controller
      */
     public function destroy($id)
     {
-        Dosen::find($id)->delete();
-
+        $dosen = Dosen::find($id);
+        $dosen->user->delete();
+        $dosen->delete();
         return redirect()->route('admin.dosen')
             ->with('success', 'Dosen deleted successfully');
     }

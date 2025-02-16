@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LokasiExport;
 use App\Imports\LokasiImport;
 use App\Models\Lokasi;
 use App\Models\ProgramKampus;
@@ -74,6 +75,11 @@ class LokasiController extends Controller
         return view('admin.superadmin.location.add')->with('data', $data); // Mengirimkan array $data ke view
     }
 
+    public function export(Request $request)
+    {
+        $data = json_decode($request->input('data'), true);
+        return Excel::download(new LokasiExport($data), 'lokasi.xlsx');
+    }
 
     /**
      * Store a newly created resource in storage.

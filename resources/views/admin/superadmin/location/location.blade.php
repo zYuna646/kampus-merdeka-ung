@@ -30,6 +30,18 @@
                 Import
             </x-button_md>
 
+            
+
+            <form action="{{ route('admin.location.export') }}" method="POST">
+                @csrf
+                <input type="hidden" name="data" value="{{ json_encode($data) }}">
+                
+                <x-button_md type="submit" color="warning" class="">
+                    <span><i class="fas fa-file-import text-sm me-2"></i></span>
+                    Export
+                </x-button_md>
+            </form>
+
             <!-- Modal Form Import -->
             <div id="importModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
                 <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -84,10 +96,6 @@
                 </div>
             </div>
             <!-- Tombol Export -->
-            <x-button_md type="button" color="warning" class="">
-                <span class=""><i class="fas fa-file-import text-sm me-2"></i></span>
-                Export
-            </x-button_md>
         </div>
     </div>
     <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">

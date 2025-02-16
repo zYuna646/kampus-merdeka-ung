@@ -73,14 +73,14 @@
                     <label for="tanggal_mulai" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Mulai</label>
                     <input type="datetime-local" name="tanggal_mulai" id="tanggal_mulai"
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                        required value="{{$data['lowongan']->tanggal_mulai}}"  disabled>
+                        required value="{{$data['lowongan']->tanggal_mulai}}"  >
                 </div>
                 <div class="mb-4">
                     <label for="tanggal_selesai" class="block text-sm font-medium text-gray-700 mb-2">Tanggal
                         Selesai</label>
                     <input type="datetime-local" name="tanggal_selesai" id="tanggal_selesai"
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                        required value="{{$data['lowongan']->tanggal_selesai}}"  disabled
+                        required value="{{$data['lowongan']->tanggal_selesai}}" 
                         >
                 </div>
                 <div class="mb-4">

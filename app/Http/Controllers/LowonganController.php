@@ -77,7 +77,7 @@ class LowonganController extends Controller
             'pendaftaran_mulai' => 'required|date',
             'pendaftaran_selesai' => 'required|date',
             'isLogBook' => 'required',
-            'sk_rektor' => 'nullable|mimes:pdf|max:2048',
+            'sk_rektor' => 'nullable|mimes:pdf',
         ]);
 
         $existingLowongan = Lowongan::where('program_id', $request->program_id)
@@ -158,7 +158,9 @@ class LowonganController extends Controller
             'semester' => 'required',
             'pendaftaran_mulai' => 'required|date',
             'pendaftaran_selesai' => 'required|date',
-            'sk_rektor' => 'nullable|mimes:pdf',
+          	'tanggal_mulai' => 'required|date',
+          	'tanggal_selesai' => 'required|date',
+              'sk_rektor' => 'nullable|mimes:pdf',
         ]);
 
 
@@ -183,8 +185,10 @@ class LowonganController extends Controller
         $lowongan->program_id = $request->program_id;
         $lowongan->semester = $request->semester;
         $lowongan->tahun_akademik = $request->tahun_akademik;
-        $lowongan->tanggal_mulai = $request->pendaftaran_mulai;
-        $lowongan->tanggal_selesai = $request->pendaftaran_selesai;
+        $lowongan->tanggal_mulai = $request->tanggal_mulai;
+        $lowongan->tanggal_selesai = $request->tanggal_selesai;
+      	$lowongan->pendaftaran_mulai = $request->pendaftaran_mulai;
+      	$lowongan->pendaftaran_selesai = $request->pendaftaran_selesai;
         $lowongan->save();
         return redirect()->route('admin.lowongan')
             ->with('success', 'Lowongan updated successfully');

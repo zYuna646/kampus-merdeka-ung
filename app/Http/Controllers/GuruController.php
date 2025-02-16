@@ -299,9 +299,11 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+      public function destroy($id)
     {
-        Guru::find($id)->delete();
+        $guru = Guru::findOrFail($id);
+        $guru->user->delete();
+        $guru->delete();
         return redirect()->route('admin.guru')
             ->with('success', 'Guru deleted successfully');
     }

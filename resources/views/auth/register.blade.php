@@ -114,7 +114,7 @@
           </div>
           <div class="mb-2 col-span-6">
             <label for="password" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Passowrd</label>
-            <input type="password" name="password" id="password" placeholder="password "
+            <input type="text" name="password" id="password" placeholder="password "
               class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs "
               value="{{old('password')}}" />
             @error('password')
@@ -126,7 +126,7 @@
           <hr class="col-span-12">
           <div class="mb-2 col-span-6">
             <label for="password" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Passowrd</label>
-            <input type="password" name="password" id="password" placeholder="password "
+            <input type="text" name="password" id="password" placeholder="password "
               class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs "
               value="{{old('password')}}" />
             @error('password')

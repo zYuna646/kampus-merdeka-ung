@@ -72,14 +72,14 @@
                                     </a>
                                     
                                     @endif
-                                    <a href=" {{ route('student.download_sk', $item->id) }} }}"
+                                    {{-- <a href=" {{ route('student.download_sk', $item->id) }} }}"
                                         class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Lihat SK Rektor
                                     </a>
                                     <a href=" {{ route('student.download_surat', $item->id) }} }}"
                                         class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Download Surat
-                                    </a>
+                                    </a>  --}}
 
                                 </div>
                             </div>

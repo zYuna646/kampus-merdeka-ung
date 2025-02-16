@@ -290,6 +290,7 @@ class AuthController extends Controller
 
         // dd($data);
         $mahasiswa = Mahasiswa::where('nim', $data['nim'])->first();
+
         $existUser = User::where('username', $data['nim'])->first();
         if ($mahasiswa) {
             return redirect()->route('register.form', 1)->with('error', 'NIM Sudah digunakan');
@@ -303,7 +304,7 @@ class AuthController extends Controller
 
         $user = User::create([
             'username' => $data['nim'],
-            'password' => bcrypt($data['password']),
+            'password' => bcrypt($data['nim']),
             'role_id' => $role->id,
         ]);
 
