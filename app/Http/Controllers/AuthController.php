@@ -50,85 +50,84 @@ class AuthController extends Controller
 
     public function profile(Request $request)
     {
-    
-       
-        $user = Auth::user();   
 
-    if ($user->role->slug == 'admin' || $user->role->slug == 'operator') {
-        $request->validate([
-            'username' => 'required',
-        ]);
 
-        $user->update([
-            'username' => $request->username,
-        ]);
-    } elseif ($user->role->slug == 'mahasiswa') {
-        // dd($request->kelurahan);
+        $user = Auth::user();
 
-        $request->validate([
-            'nim' => 'required',
-            'name' => 'required',
-            'studi_id' => 'required',
-            'username' => 'required',
-            'no_hp' => 'required',
-            'kelurahan' => 'required',
-            'kecamatan' => 'required',
-            'kabupaten' => 'required',
-            'provinsi' => 'required',
-            'alamat' => 'required',
-            'penyakit' => 'required' 
-        ]);
+        if ($user->role->slug == 'admin' || $user->role->slug == 'operator') {
+            $request->validate([
+                'username' => 'required',
+            ]);
 
-        
-        $user->update([
-            'username' => $request->username,
-        ]);
+            $user->update([
+                'username' => $request->username,
+            ]);
+        } elseif ($user->role->slug == 'mahasiswa') {
+            // dd($request->kelurahan);
 
-        $user->mahasiswa->update([
-            'name' => $request->name,
-            'nim' => $request->nim,
-            'studi_id' => $request->studi_id,
-            'no_hp' => $request->no_hp,
-            'village_id' => $request->kelurahan,
-            'alamat' => $request->alamat,
-            'penyakit' => $request->penyakit
-        ]);
-    } elseif ($user->role->slug == 'dosen') {
-        $request->validate([
-            'nidn' => 'required',
-            'name' => 'required',
-            'studi_id' => 'required',
-            'username' => 'required',
-        ]);
+            $request->validate([
+                'nim' => 'required',
+                'name' => 'required',
+                'studi_id' => 'required',
+                'username' => 'required',
+                'no_hp' => 'required',
+                'kelurahan' => 'required',
+                'kecamatan' => 'required',
+                'kabupaten' => 'required',
+                'provinsi' => 'required',
+                'alamat' => 'required',
+            ]);
 
-        $user->update([
-            'username' => $request->username,
-        ]);
 
-        $user->dosen->update([
-            'name' => $request->name,
-            'nidn' => $request->nidn,
-            'studi_id' => $request->studi_id,
-        ]);
-    } elseif ($user->role->slug == 'guru') {
-        $request->validate([
-            'nik' => 'required',
-            'name' => 'required',
-            'username' => 'required',
-        ]);
+            $user->update([
+                'username' => $request->username,
+            ]);
 
-        $user->update([
-            'username' => $request->username,
-        ]);
+            $user->mahasiswa->update([
+                'name' => $request->name,
+                'nim' => $request->nim,
+                'studi_id' => $request->studi_id,
+                'no_hp' => $request->no_hp,
+                'village_id' => $request->kelurahan,
+                'alamat' => $request->alamat,
+                'penyakit' => $request->penyakit ?? ''
+            ]);
+        } elseif ($user->role->slug == 'dosen') {
+            $request->validate([
+                'nidn' => 'required',
+                'name' => 'required',
+                'studi_id' => 'required',
+                'username' => 'required',
+            ]);
 
-        $user->guru->update([
-            'name' => $request->name,
-            'nik' => $request->nik,
-        ]);
+            $user->update([
+                'username' => $request->username,
+            ]);
+
+            $user->dosen->update([
+                'name' => $request->name,
+                'nidn' => $request->nidn,
+                'studi_id' => $request->studi_id,
+            ]);
+        } elseif ($user->role->slug == 'guru') {
+            $request->validate([
+                'nik' => 'required',
+                'name' => 'required',
+                'username' => 'required',
+            ]);
+
+            $user->update([
+                'username' => $request->username,
+            ]);
+
+            $user->guru->update([
+                'name' => $request->name,
+                'nik' => $request->nik,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Profile Berhasil Diubah');
     }
-
-    return redirect()->back()->with('success', 'Profile Berhasil Diubah');
-}
 
 
 
@@ -144,7 +143,7 @@ class AuthController extends Controller
             'username.required' => 'Kolom nama pengguna harus diisi.',
             'password.required' => 'Kolom kata sandi harus diisi.',
         ]);
-        
+
 
         if (Auth::attempt($credential)) {
             $request->session()->regenerate();
@@ -200,7 +199,7 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
-    
+
     public function showForm($step)
     {
         // Pastikan step ada dalam range yang valid
@@ -257,7 +256,7 @@ class AuthController extends Controller
                     'alamat' => 'required'
                 ];
                 break;
-           
+
         }
         return $rules;
     }
@@ -281,6 +280,7 @@ class AuthController extends Controller
 
     private function saveDataToDatabase()
     {
+        
         // Gabungkan semua data dari session
         $data = array_merge(
             Session::get('register_step1', []),
@@ -291,7 +291,11 @@ class AuthController extends Controller
         // dd($data);
         $mahasiswa = Mahasiswa::where('nim', $data['nim'])->first();
 
-        if($mahasiswa){
+        $existUser = User::where('username', $data['nim'])->first();
+        if ($mahasiswa) {
+            return redirect()->route('register.form', 1)->with('error', 'NIM Sudah digunakan');
+        }
+        if ($existUser) {
             return redirect()->route('register.form', 1)->with('error', 'NIM Sudah digunakan');
         }
         // Simpan data ke database (contoh menggunakan model User)
@@ -300,26 +304,31 @@ class AuthController extends Controller
 
         $user = User::create([
             'username' => $data['nim'],
-            'password' => bcrypt($data['password']),
+            'password' => bcrypt($data['nim']),
             'role_id' => $role->id,
         ]);
 
+
+        $studi = Studi::where('code', 000)->first();
         Mahasiswa::create([
             'nim' => $data['nim'],
             'name' => $data['nama'],
             // 'studi_id' => Studi here
+            'studi_id' => $studi->id,
             'village_id' => $data['kelurahan'],
             'alamat' => $data['alamat'],
             'user_id' => $user->id,
             'angkatan' => $data['angkatan']
         ]);
 
-        // Hapus data dari session
         Session::forget('register_step1');
         Session::forget('register_step2');
         Session::forget('register_step3');
-        
+
         return redirect()->route('login')->with('sucess', 'Daftar Akun Berhasil');
+        // Hapus data dari session
+
+
     }
 
 

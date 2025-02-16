@@ -250,17 +250,46 @@ class DosenController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Find the dosen by id
         $dosen = Dosen::find($id);
+    
+        // Validate the incoming request data
         $request->validate([
             'nidn' => 'required|unique:dosens,nidn,' . $dosen->id,
             'name' => 'required',
             'studi_id' => 'required|exists:studis,id',
+            'new_pass' => 'nullable|min:8',
+            'confirm_new_pass' => 'nullable|same:new_pass',
         ]);
+    
+        $newUsername = $request->nidn;
+        // Update the dosen's attributes using the update method
+        $dosen->update([
+            'nidn' => $request->nidn,
+            'name' => $request->name,
+            'studi_id' => $request->studi_id,
+        ]);
+    
+        // If a new password is provided, update the user's password
+        if ($request->filled('new_pass')) {
+            $dosen->user->update([
+                'password' => bcrypt($request->new_pass)
+            ]);
+        }
 
-        $dosen->update($request->all());
+          // Update the user's username if nidn has changed
+        if ($dosen->user->username !== $newUsername) {
+            $dosen->user->update([
+                'username' => $newUsername
+            ]);
+        }
+    
+        // Redirect with success message
         return redirect()->route('admin.dosen')
             ->with('success', 'Dosen updated successfully');
     }
+    
+
 
     /**
      * Remove the specified resource from storage.
@@ -270,8 +299,9 @@ class DosenController extends Controller
      */
     public function destroy($id)
     {
-        Dosen::find($id)->delete();
-
+        $dosen = Dosen::find($id);
+        $dosen->user->delete();
+        $dosen->delete();
         return redirect()->route('admin.dosen')
             ->with('success', 'Dosen deleted successfully');
     }

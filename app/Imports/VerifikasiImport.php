@@ -87,8 +87,9 @@ class VerifikasiImport implements ToCollection, WithHeadingRow
                         }
                     }
                     // dd($mahasiswa);
-                    $mahasiswa->save();
                 }
+                    $mahasiswa->save();
+              
             } catch (\Exception $e) {
                 Log::error('Error processing row: ' . $e->getMessage(), ['row' => $value]);
                 // Optionally, you could use continue to skip this iteration or handle the error differently

@@ -31,6 +31,11 @@
           {{-- <p class="text-sm">Belum Punya Akun? <a href="" class="text-color-primary-500">Daftar</a></p> --}}
         </div>
         <h2 class="xl:text-3xl text-2xl font-bold text-gray-800">Daftar</h2>
+
+        <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+          NIM Yang Digunakan Akan Menjadi Password Akun
+        </div>
+        
         <form class="xl:mt-2" action="{{ route('register.form', ['step' => 1]) }}" method="POST">
           @csrf
           <div class="mb-2">
@@ -57,18 +62,7 @@
             </div>
             @enderror
           </div>
-          <div class="mb-2">
-            <label for="password" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">Masukan
-              Password</label>
-            <input type="password" name="password" id="password"
-              class="block w-full p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 text-xs "
-              value="{{old('password')}}">
-            @error('password')
-            <div class="invalid-feedback text-red-400">
-              {{$message}}
-            </div>
-            @enderror
-          </div>
+         
           {{-- <div class="w-full flex justify-end">
             <a href="" class="text-color-primary-500 text-sm">Lupa Password ?</a>
           </div> --}}

@@ -259,8 +259,11 @@ class GuruController extends Controller
             'nik' => 'required|unique:gurus,nik,' . $guru->id,
             'name' => 'required',
             'lokasi_id' => 'required|exists:lokasis,id',
+            'new_pass' => 'nullable|min:8',
+            'confirm_new_pass' => 'nullable|same:new_pass',
         ]);
     
+        $newUsername = $request->nik;
         // Update the Guru's attributes
         $guru->update([
             'nik' => $request->nik,
@@ -268,10 +271,18 @@ class GuruController extends Controller
         ]);
     
         // Optionally update the associated User
-        $guru->user->update([
-            'username' => $request->nik,
-            'password' => bcrypt($request->nik),
-        ]);
+        if ($request->filled('new_pass')) {
+            $guru->user->update([
+                'password' => bcrypt($request->new_pass)
+            ]);
+        }
+
+          // Update the user's username if nidn has changed
+        if ($guru->user->username !== $newUsername) {
+            $guru->user->update([
+                'username' => $newUsername
+            ]);
+        }
     
         // Update the many-to-many relationship with Lokasi
         $guru->lokasis()->sync($request->lokasi_id);
@@ -288,9 +299,11 @@ class GuruController extends Controller
      * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+      public function destroy($id)
     {
-        Guru::find($id)->delete();
+        $guru = Guru::findOrFail($id);
+        $guru->user->delete();
+        $guru->delete();
         return redirect()->route('admin.guru')
             ->with('success', 'Guru deleted successfully');
     }

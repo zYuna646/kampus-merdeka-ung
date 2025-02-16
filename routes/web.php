@@ -27,8 +27,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
-Route::get('/register/{step}', [AuthController::class, 'showForm'])->name('register.form');
-Route::post('/register/{step}', [AuthController::class, 'processForm']);
+Route::middleware('web')->group(function () {
+    Route::get('/register/{step}', [AuthController::class, 'showForm'])->name('register.form');
+    Route::post('/register/{step}', [AuthController::class, 'processForm']);
+});
 Route::get('/get-data', [AuthController::class, 'getData']);
 
 
@@ -80,8 +82,6 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/download_daily/{id}', [MahasiswaController::class, 'downloadDaily'])->name('student.download_daily');
             Route::get('/download_surat/{id}', [MahasiswaController::class, 'downloadSurat'])->name('student.download_surat');
             Route::get('/download_sk/{id}', [MahasiswaController::class, 'downloadSK'])->name('student.download_sk');
-
-
             Route::get('/download_week/{id}', [MahasiswaController::class, 'downloadWeekly'])->name('student.download_weekly');
             Route::get('/weekly_logbook/{id}', [MahasiswaController::class, 'weeklyBook'])->name('student.weekly_logbook');
             Route::get('/daily_logbook/{id}', [MahasiswaController::class, 'dailyBook'])->name('student.daily_logbook');
@@ -231,6 +231,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/update/{id}', [DPLController::class, 'update'])->name('admin.dpl.update');
                 Route::delete('/delete/{id}', [DPLController::class, 'destroy'])->name('admin.dpl.delete');
                 Route::post('/import', [DPLController::class, 'import'])->name('admin.dpl.import');
+                Route::post('/export', [DPLController::class, 'export'])->name('admin.dpl.export');
             });
 
             Route::prefix('/pamong')->group(function () {
@@ -241,6 +242,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::post('/udpate/{id}', [PamongController::class, 'update'])->name('admin.pamong.update');
                 Route::delete('/delete/{id}', [PamongController::class, 'destroy'])->name('admin.pamong.delete');
                 Route::post('/import', [PamongController::class, 'import'])->name('admin.pamong.import');
+                Route::post('/export', [PamongController::class, 'export'])->name('admin.pamong.export');
+
             });
 
             Route::prefix('/location')->group(function () {
@@ -251,6 +254,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/edit/{id}', [LokasiController::class, 'edit'])->name('admin.location.edit');
                 Route::post('/update/{id}', [LokasiController::class, 'update'])->name('admin.location.update');
                 Route::delete('/delete/{id}', [LokasiController::class, 'destroy'])->name('admin.location.delete');
+                Route::post('/export', [LokasiController::class, 'export'])->name('admin.location.export');
             });
 
             Route::prefix('/lowongan')->group(function () {
@@ -274,6 +278,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::delete('/delete/{id}', [ProgramTransactionController::class, 'destroy'])->name('admin.peserta.delete');
                 Route::post('/import', [ProgramTransactionController::class, 'import'])->name('admin.peserta.import');
                 Route::delete('/delete/{id}', [ProgramTransactionController::class, 'destroy'])->name('admin.peserta.delete');
+                Route::post('/export', [ProgramTransactionController::class, 'export'])->name('admin.peserta.export');
             });
 
             Route::prefix('/peminat')->group(function () {
@@ -282,6 +287,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
                 Route::get('/locations/{programId}', [ProgramKampusController::class, 'getLocations'])->name('locations.get');
                 Route::post('/verifikasi/{id}', [ProgramTransactionController::class, 'verifikasi'])->name('admin.peminat.verifikasi');
                 Route::post('/import', [ProgramTransactionController::class, 'verifikasiImport'])->name('admin.peminat.import');
+                Route::post('/export', [ProgramTransactionController::class, 'export_peserta'])->name('admin.peminat.export');
             });
 
             Route::prefix('/berita')->group(function () {

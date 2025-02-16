@@ -20,7 +20,7 @@ class PamongImport implements ToCollection, WithHeadingRow
     {
         foreach ($collection as $index => $row) {
             try {
-                if ($row['nik']) {
+                if (!$row['nik']) {
                     continue;
                 } 
 
@@ -41,12 +41,17 @@ class PamongImport implements ToCollection, WithHeadingRow
                     continue;
                 }
 
-                $programTransaction = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->first();
+				$programTransaction = ProgramTransaction::where('mahasiswa_id', $mahasiswa->id)->where('lowongan_id', $lowongan->id)->where('status_mahasiswa', true)->first();
+
 
                 if (!$programTransaction) {
                     continue;
                 }
-                $dpl = MitraTransaction::where('guru_id', $dosen->id)->first();
+				$dpl = MitraTransaction::where('guru_id', $dosen->id)
+                       ->where('lowongan_id', $lowongan->id)
+                       ->first();
+
+
                 if ($dpl) {
                     $dpl->mahasiswa()->attach($programTransaction->id);
 

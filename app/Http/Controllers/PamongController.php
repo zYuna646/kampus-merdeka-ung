@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PamongPesertaExport;
 use App\Imports\PamongImport;
 use App\Models\Dosen;
 use App\Models\Guru;
@@ -80,6 +81,12 @@ class PamongController extends Controller
         Excel::import(new PamongImport, request()->file('file'));
 
         return back()->with('success', 'Data imported successfully!');
+    }
+
+    public function export(Request $request)
+    {
+        $data = json_decode($request->input('data'), true);
+        return Excel::download(new PamongPesertaExport($data), 'pamong.xlsx');
     }
 
 

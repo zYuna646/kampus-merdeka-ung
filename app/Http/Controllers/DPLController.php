@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DPLPesertaExport;
 use App\Imports\DPLImport;
 use App\Models\Dosen;
 use App\Models\Lokasi;
@@ -57,6 +58,12 @@ class DPLController extends Controller
             'selectedSemester' => $request->semester,
             'selectedTahunAkademik' => $request->tahun_akademik,
         ]);
+    }
+
+    public function export(Request $request)
+    {
+        $data = json_decode($request->input('data'), true);
+        return Excel::download(new DPLPesertaExport($data), 'dpl.xlsx');
     }
 
     /**

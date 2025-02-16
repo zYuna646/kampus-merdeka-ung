@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PesertaExport;
+use App\Exports\ProgramPesertaExport;
 use App\Imports\PesertaImport;
 use App\Imports\VerifikasiImport;
 use App\Models\DailyLog;
@@ -72,6 +74,18 @@ class ProgramTransactionController extends Controller
         $program->status_mahasiswa = 0;
         $program->save();
         return redirect()->back()->with('success', 'Peminat berhasil dihapus');
+    }
+
+    public function export(Request $request)
+    {
+        $data = json_decode($request->input('data'), true);
+        return Excel::download(new ProgramPesertaExport($data), 'peserta.xlsx');
+    }
+
+    public function export_peserta(Request $request)
+    {
+        $data = json_decode($request->input('data'), true);
+        return Excel::download(new PesertaExport($data), 'peserta.xlsx');
     }
 
     public function peserta(Request $request)
@@ -369,13 +383,10 @@ class ProgramTransactionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'lowongan_id' => 'required',
-            'mahasiswa_id' => 'required',
             'lokasi_id' => 'required',
         ]);
 
         $programTransaction = ProgramTransaction::find($id);
-        $programTransaction->lowongan_id = $request->lowongan_id;
         $programTransaction->lokasi_id = $request->lokasi_id;
         $programTransaction->save();
 
