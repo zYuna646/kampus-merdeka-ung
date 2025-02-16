@@ -81,6 +81,8 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/detail_history', function () {
                 return view('admin.student.detail_history');
             })->name('student.detail_history');
+            Route::post('/update_payment/{id}', [ProgramTransactionController::class, 'update_payment'])->name('student.update_payment');
+
             Route::get('/download_daily/{id}', [MahasiswaController::class, 'downloadDaily'])->name('student.download_daily');
             Route::get('/download_surat/{id}', [MahasiswaController::class, 'downloadSurat'])->name('student.download_surat');
             Route::get('/download_sk/{id}', [MahasiswaController::class, 'downloadSK'])->name('student.download_sk');
@@ -285,9 +287,11 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
 
             Route::prefix('/peminat')->group(function () {
                 Route::get('/', [ProgramTransactionController::class, 'peserta'])->name('admin.peminat');
+                Route::get('/pembayaran', [ProgramTransactionController::class, 'pembayaran'])->name('admin.pembayaran');
                 Route::delete('/delete/{id}', [ProgramTransactionController::class, 'deletePeserta'])->name('admin.peminat.delete');
                 Route::get('/locations/{programId}', [ProgramKampusController::class, 'getLocations'])->name('locations.get');
                 Route::post('/verifikasi/{id}', [ProgramTransactionController::class, 'verifikasi'])->name('admin.peminat.verifikasi');
+                Route::post('/verifiasi_pembayaran/{id}', [ProgramTransactionController::class, 'verifiasi_pembayaran'])->name('admin.pembayaran.verifikasi');
                 Route::post('/import', [ProgramTransactionController::class, 'verifikasiImport'])->name('admin.peminat.import');
                 Route::post('/export', [ProgramTransactionController::class, 'export_peserta'])->name('admin.peminat.export');
             });

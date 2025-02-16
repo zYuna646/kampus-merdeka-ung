@@ -12,10 +12,10 @@
         <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
             <h1 class="text-xl font-semibold">Peminat</h1>
             <div class="inline-flex flex-wrap gap-2">
-                <x-button_md type="button" id="importBtn">
+                {{-- <x-button_md type="button" id="importBtn">
                     <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
                     Verifikasi
-                </x-button_md>
+                </x-button_md> --}}
 
                 <!-- Modal Form Import -->
                 <div id="importModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
@@ -74,15 +74,15 @@
                 <form action="{{ route('admin.peminat.export') }}" method="POST">
                     @csrf
                     <input type="hidden" name="data" value="{{ json_encode($data) }}">
-                    
-                    <x-button_md type="submit" color="warning" class="">
+
+                    {{-- <x-button_md type="submit" color="warning" class="">
                         <span><i class="fas fa-file-import text-sm me-2"></i></span>
                         Export
-                    </x-button_md>
+                    </x-button_md> --}}
                 </form>
-                
-                
-                
+
+
+
             </div>
         </div>
         <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
@@ -152,6 +152,8 @@
                             <th>Program</th>
                             <th>Tahun Akademik</th>
                             <th>Semester</th>
+                            <th>Ukuran Baju</th>
+                            <th>Bukti Pembayaran</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -164,6 +166,19 @@
                                 <td>{{ $item->lowongan->program->name }}</td>
                                 <td>{{ $item->lowongan->tahun_akademik }}</t>
                                 <td>{{ $item->lowongan->semester }}</t>
+                                <td>{{ $item->ukuran_baju === '' ? 'Belum Mengisi' : $item->ukuran_baju }}</t>
+                                <td>
+                                    @if ($item->bukti_pembayaran)
+                                        <div class="mt-2">
+                                            <a href="{{ asset('storage/payment_proofs/' . $item->bukti_pembayaran) }}"
+                                                target="_blank" class="text-blue-600 hover:underline text-sm">
+                                                Lihat Bukti Pembayaran
+                                            </a>
+                                        </div>
+                                    @else
+                                        Belum Menginput
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="relative inline-block text-left">
                                         <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">
@@ -263,37 +278,38 @@
 
             // Clear previous content
             modalContent.innerHTML = `
-                <form action="/dashboard/admin/peminat/verifikasi/${id}" class="" method="POST">
-                    @csrf
-                    <div class="mb-4">
-                        <label for="lokasi" class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
-                        <select name="lokasi" id="lokasi${id}"
-                            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                            required>
-                            <option selected value="">Loading...</option>
-                        </select>
-                    </div>
-                    <x-button_md class="w-full" color="primary" type="submit">
-                        Kirim
-                    </x-button_md>
-                </form>
+         <form action="/dashboard/admin/peminat/verifiasi_pembayaran/${id}" method="POST">
+    @csrf
+    <div class="mb-4">
+        <label for="total${id}" class="block text-sm font-medium text-gray-700 mb-2">
+            Total Pembayaran
+        </label>
+        <input type="number" name="total" id="total${id}" 
+               class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" 
+               placeholder="Masukkan total pembayaran" required>
+    </div>
+    <x-button_md class="w-full" color="primary" type="submit">
+        Kirim
+    </x-button_md>
+</form>
+
             `;
 
-            fetch(`/dashboard/admin/peminat/locations/${programId}`)
-                .then(response => response.json())
-                .then(locations => {
-                    const lokasiSelect = document.getElementById(`lokasi${id}`);
-                    lokasiSelect.innerHTML = '';
-                    locations.forEach(location => {
-                        const option = document.createElement('option');
-                        option.value = location.id;
-                        option.textContent = location.name;
-                        lokasiSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching locations:', error);
-                });
+            // fetch(`/dashboard/admin/peminat/locations/${programId}`)
+            //     .then(response => response.json())
+            //     .then(locations => {
+            //         const lokasiSelect = document.getElementById(`lokasi${id}`);
+            //         lokasiSelect.innerHTML = '';
+            //         locations.forEach(location => {
+            //             const option = document.createElement('option');
+            //             option.value = location.id;
+            //             option.textContent = location.name;
+            //             lokasiSelect.appendChild(option);
+            //         });
+            //     })
+            //     .catch(error => {
+            //         console.error('Error fetching locations:', error);
+            //     });
 
             modal.classList.remove('hidden');
             modal.classList.add('flex');

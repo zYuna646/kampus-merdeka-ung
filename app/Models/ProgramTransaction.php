@@ -20,7 +20,11 @@ class ProgramTransaction extends Model
         'status_rancangan_dpl',
         'msg_dpl',
         'msg_pamong',
-        'status_mahasiswa'
+        'status_mahasiswa',
+        'total_pembayaran',
+        'bukti_pembayaran',
+        'ukuran_baju',
+        'status_pembayran'
     ];
 
     public function dailyLog()

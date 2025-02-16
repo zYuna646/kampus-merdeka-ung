@@ -191,6 +191,14 @@
                         </a>
                     </div>
                     <div
+                        class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.pembayaran') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
+                        <a href="{{ route('admin.pembayaran') }}">
+
+                            <i class="fas fa-file"></i>
+                            Pembayaran
+                        </a>
+                    </div>
+                    <div
                         class="inline-flex items-center gap-x-2  {{ Request::routeIs('admin.peminat') ? 'text-color-primary-500 font-semibold' : 'text-slate-500' }}">
                         <a href="{{ route('admin.peminat') }}">
 
