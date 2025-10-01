@@ -1,0 +1,30 @@
+@startuml
+|Admin|
+start
+:Admin membuka menu import data master;
+:Admin memilih file import (excel/csv);
+:Admin memilih file dari komputer;
+:Admin menekan tombol upload;
+
+|Sistem|
+:Menerima file dari admin;
+:Validasi format file;
+if (File valid?) then (ya)
+  :Membaca dan memparse data;
+  :Validasi struktur data;
+  if (Struktur data valid?) then (ya)
+    :Memproses dan mengimpor data master;
+    :Menyimpan data ke database;
+    :Menampilkan notifikasi sukses;
+  else (tidak)
+    :Menampilkan pesan error struktur data;
+    |Admin|
+    :Admin melihat pesan error;
+  endif
+else (tidak)
+  :Menampilkan pesan error format file;
+  |Admin|
+  :Admin melihat pesan error;
+endif
+stop
+@enduml

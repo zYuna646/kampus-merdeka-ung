@@ -1,0 +1,26 @@
+Judul: Sistem Monitoring Kegiatan Kampus Merdeka Universitas Negeri Gorontalo Berbasis Web Service dengan Metode Pengembangan Sistem Waterfall
+
+A. Tentang Kegiatan Kampus Merdeka
+1. Apa saja tantangan utama dalam monitoring kegiatan Kampus Merdeka di Universitas Negeri Gorontalo saat ini?
+2. Bagaimana proses pelaporan dan pemantauan kegiatan mahasiswa Kampus Merdeka sebelum adanya sistem berbasis web service?
+3. Apa harapan Anda terhadap sistem monitoring yang akan dikembangkan?
+
+B. Kebutuhan Sistem Monitoring
+4. Fitur atau layanan apa saja yang dianggap paling penting dalam sistem monitoring kegiatan Kampus Merdeka?
+5. Bagaimana peran web service dalam mendukung integrasi data antar unit/fakultas di Universitas Negeri Gorontalo?
+6. Apa kendala yang sering dihadapi dalam pengumpulan data kegiatan mahasiswa?
+
+C. Pengembangan Sistem (Waterfall)
+7. Apakah Anda familiar dengan metode pengembangan sistem waterfall? Bagaimana pendapat Anda tentang penerapan metode ini dalam proyek pengembangan sistem di kampus?
+8. Menurut Anda, tahapan mana yang paling krusial dalam pengembangan sistem monitoring (analisis, desain, implementasi, pengujian, atau pemeliharaan)?
+9. Apa risiko yang perlu diantisipasi dalam setiap tahapan pengembangan sistem monitoring berbasis web service?
+
+D. Implementasi & Dampak
+10. Bagaimana sistem monitoring ini dapat membantu meningkatkan transparansi dan akuntabilitas pelaksanaan Kampus Merdeka?
+11. Apa dampak yang diharapkan terhadap mahasiswa, dosen, dan pihak administrasi setelah sistem ini diimplementasikan?
+12. Bagaimana strategi sosialisasi dan pelatihan penggunaan sistem kepada seluruh stakeholder?
+
+E. Evaluasi & Pengembangan Lanjutan 
+13. Indikator apa yang dapat digunakan untuk menilai keberhasilan implementasi sistem monitoring ini?
+14. Apa saran Anda untuk pengembangan sistem monitoring di masa mendatang?
+15. Bagaimana sistem ini dapat dikembangkan agar tetap relevan dengan kebijakan Kampus Merdeka yang terus berkembang? 

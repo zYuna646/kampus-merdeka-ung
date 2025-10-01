@@ -1,0 +1,26 @@
+@startuml
+|Mahasiswa|
+start
+:Mahasiswa membuka daftar program;
+:Mahasiswa melihat daftar program tersedia;
+:Mahasiswa memilih program yang diminati;
+:Mahasiswa menekan tombol daftar;
+
+|Sistem|
+:Menerima pendaftaran program;
+:Validasi syarat pendaftaran;
+if (Syarat pendaftaran terpenuhi?) then (ya)
+  :Menyimpan data pendaftaran;
+  :Membuat record di database;
+  :Menampilkan notifikasi sukses;
+  |Mahasiswa|
+  :Mahasiswa melihat notifikasi sukses;
+  :Mahasiswa pergi ke menu Programku;
+  :Mahasiswa mengunggah bukti pembayaran;
+else (tidak)
+  :Menampilkan pesan error syarat;
+  |Mahasiswa|
+  :Mahasiswa melihat pesan error;
+endif
+stop
+@enduml 

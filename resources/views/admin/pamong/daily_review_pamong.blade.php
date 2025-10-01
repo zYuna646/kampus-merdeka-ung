@@ -56,7 +56,8 @@
         <div
             class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-slate-200 shadow-sm  transition-all duration-300">
             <div class="w-16 rounded-full">
-                <img src="/images/avatar/avatar.jpg" alt="" class="rounded-full">
+                <img src="/images/avatar/placeholder.jpg" alt="" class="rounded-full">
+
             </div>
             <div>
                 <p class="font-semibold text-sm">{{ $data->programTransaction->mahasiswa->name }}</p>
@@ -74,6 +75,14 @@
                 {{-- <span class="text-sm text-slate-500">Minggu Ke-10</span> --}}
             </div>
             <hr class="mb-4 mt-4">
+           
+
+            @if ($data->is_verif_lock)
+            <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50">
+                <i class="fas fa-lock mr-2"></i>
+                <span>Verifikasi logbook harian telah dikunci dan tidak dapat diverifikasi</span>
+            </div>
+            @else
             <form id="reviewForm" method="POST"
                 action="{{ route('guru.daily.submit', ['id' => $data->id, 'status' => 'tolak']) }}">
                 @csrf
@@ -102,6 +111,7 @@
                     </button>
                 </div>
             </form>
+            @endif
 
             <script>
                 function setStatus(status) {

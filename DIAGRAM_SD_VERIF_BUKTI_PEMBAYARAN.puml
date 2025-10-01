@@ -1,0 +1,14 @@
+@startuml
+actor Admin
+participant Web
+participant ProgramTransactionController
+participant ProgramTransactionModel
+
+Admin -> Web: Buka menu verifikasi pembayaran
+Web -> ProgramTransactionController: Pilih bukti pembayaran
+ProgramTransactionController -> ProgramTransactionModel: Ambil data pembayaran
+Admin -> Web: Input total pembayaran, klik verifikasi
+Web -> ProgramTransactionController: Kirim verifikasi
+ProgramTransactionController -> ProgramTransactionModel: Update status & total pembayaran
+ProgramTransactionController -> Web: Tampilkan notifikasi
+@enduml 

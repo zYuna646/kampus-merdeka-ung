@@ -148,6 +148,7 @@
                         <th>Pendaftaran Selesai</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
+                        <th>Biaya</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -163,6 +164,7 @@
                         <td>{{ $item->pendaftaran_selesai }}</td>
                         <td>{{ $item->tanggal_mulai }}</td>
                         <td>{{ $item->tanggal_selesai }}</td>
+                        <td>{{ $item->biaya }}</td>
                         <td>
                             <div class="relative inline-block text-left">
                                 <x-button_sm color="info" id="dropdownMenuButton{{ $item->id }}">
@@ -183,6 +185,9 @@
                                             data-pendaftaran_selesai="{{ $item->pendaftaran_selesai }}"
                                             data-tanggal_mulai="{{ $item->tanggal_mulai }}"
                                             data-tanggal_selesai="{{ $item->tanggal_selesai }}"
+                                            data-isVerifLaporan="{{ $item->isVerifLaporan }}"
+                                            data-isVerifDailyLogBooks="{{ $item->isVerifDailyLogBooks }}"
+                                            data-isVerifWeeklyLogbooks="{{ $item->isVerifWeeklyLogbooks }}"
                                             onclick="modalOpen(this)"
                                             class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
@@ -298,6 +303,9 @@
         const pendaftaran_selesai = button.getAttribute('data-pendaftaran_selesai');
         const tanggal_mulai = button.getAttribute('data-tanggal_mulai');
         const tanggal_selesai = button.getAttribute('data-tanggal_selesai');
+        const isVerifLaporan = button.getAttribute('data-isVerifLaporan');
+        const isVerifDailyLogBooks = button.getAttribute('data-isVerifDailyLogBooks');
+        const isVerifWeeklyLogbooks = button.getAttribute('data-isVerifWeeklyLogbooks');
 
         const modal = document.getElementById('modal' + id);
         const modalContent = document.getElementById('modalContent' + id);
@@ -310,6 +318,30 @@
                 </div>`;
         }
 
+        let verifLaporanHtml = isVerifLaporan == 1 ? 
+            `<div class="inline-flex py-1 px-2 text-color-success-500 bg-color-success-100 text-sm font-semibold w-fit rounded-md">
+                Laporan Terverifikasi
+            </div>` : 
+            `<div class="inline-flex py-1 px-2 text-color-danger-500 bg-color-danger-100 text-sm font-semibold w-fit rounded-md">
+                Laporan Belum Terverifikasi
+            </div>`;
+
+        let verifDailyLogBooksHtml = isVerifDailyLogBooks == 1 ? 
+            `<div class="inline-flex py-1 px-2 text-color-success-500 bg-color-success-100 text-sm font-semibold w-fit rounded-md">
+                Daily Log Books Terverifikasi
+            </div>` : 
+            `<div class="inline-flex py-1 px-2 text-color-danger-500 bg-color-danger-100 text-sm font-semibold w-fit rounded-md">
+                Daily Log Books Belum Terverifikasi
+            </div>`;
+
+        let verifWeeklyLogbooksHtml = isVerifWeeklyLogbooks == 1 ? 
+            `<div class="inline-flex py-1 px-2 text-color-success-500 bg-color-success-100 text-sm font-semibold w-fit rounded-md">
+                Weekly Log Books Terverifikasi
+            </div>` : 
+            `<div class="inline-flex py-1 px-2 text-color-danger-500 bg-color-danger-100 text-sm font-semibold w-fit rounded-md">
+                Weekly Log Books Belum Terverifikasi
+            </div>`;
+
         modalContent.innerHTML = `
             <div class="flex flex-col gap-y-px">
                 <p class="font-semibold">Kode Lowongan</p>
@@ -320,6 +352,9 @@
                 <p class="">${program}</p>
             </div>
             ${logbookHtml}
+            ${verifLaporanHtml}
+            ${verifDailyLogBooksHtml}
+            ${verifWeeklyLogbooksHtml}
             <div class="flex flex-col gap-y-px">
                 <p class="font-semibold">Tahun Akademik</p>
                 <ul class="flex flex-col gap-y-2 lower-case">${tahun_akademik}</ul>

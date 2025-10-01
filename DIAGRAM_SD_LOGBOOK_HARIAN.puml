@@ -1,0 +1,33 @@
+@startuml
+hide footbox
+actor Mahasiswa
+boundary "Halaman Logbook Harian"
+control "Control Logbook Harian"
+database "Database Logbook"
+
+Mahasiswa -> "Halaman Logbook Harian": Membuka logbook harian
+"Halaman Logbook Harian" -> "Control Logbook Harian": Minta form logbook harian
+"Control Logbook Harian" -> "Database Logbook": Ambil data program dan template logbook
+"Database Logbook" --> "Control Logbook Harian": Data template logbook
+"Control Logbook Harian" -> "Halaman Logbook Harian": Kirim form isian logbook
+"Halaman Logbook Harian" -> Mahasiswa: Tampilkan form isian logbook
+
+Mahasiswa -> "Halaman Logbook Harian": Mengisi aktivitas harian
+Mahasiswa -> "Halaman Logbook Harian": Mengunggah dokumentasi
+Mahasiswa -> "Halaman Logbook Harian": Menekan tombol simpan
+
+"Halaman Logbook Harian" -> "Control Logbook Harian": Kirim data logbook harian
+"Control Logbook Harian" -> "Control Logbook Harian": Validasi kelengkapan data
+
+alt Data valid
+    "Control Logbook Harian" -> "Database Logbook": Simpan data logbook harian
+    "Database Logbook" --> "Control Logbook Harian": Konfirmasi penyimpanan berhasil
+    "Control Logbook Harian" -> "Database Logbook": Update status logbook (menunggu verifikasi)
+    "Control Logbook Harian" -> "Halaman Logbook Harian": Kirim notifikasi sukses
+    "Halaman Logbook Harian" -> Mahasiswa: Tampilkan notifikasi sukses
+    "Halaman Logbook Harian" -> Mahasiswa: Tampilkan status "menunggu verifikasi pamong"
+else Data tidak valid
+    "Control Logbook Harian" -> "Halaman Logbook Harian": Kirim pesan error validasi
+    "Halaman Logbook Harian" -> Mahasiswa: Tampilkan pesan error validasi
+end
+@enduml 

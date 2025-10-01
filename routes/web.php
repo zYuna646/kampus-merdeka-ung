@@ -68,6 +68,29 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
     Route::get('/profile', [AuthController::class, 'userProfile'])->name('profile');
     Route::post('/update-password', [AuthController::class, 'password'])->name('password');
     Route::post('/update-profile', [AuthController::class, 'profile'])->name('profile.update');
+    
+    // Rute untuk menjalankan command logbook:deadline secara manual (hanya untuk admin)
+    Route::get('/run-logbook-deadline', function() {
+        if (auth()->check() && auth()->user()->role_id == 1) { // Pastikan hanya admin yang bisa akses
+            \Artisan::call('logbook:deadline');
+            return 'Logbook deadline command executed successfully!';
+        }
+        return abort(403, 'Unauthorized action.');
+    });
+    
+    // Route test untuk kirim email deadline dan notifikasi ke email anggarangga646@gmail.com
+    Route::get('/test-email-deadline', function() {
+        if (auth()->check() && auth()->user()->role_id == 1) { // Pastikan hanya admin yang bisa akses
+            // Ambil instance dari LogbookDeadlineCommand
+            $command = new \App\Console\Commands\LogbookDeadlineCommand();
+            
+            // Panggil method sendDeadlineNotifications
+            $command->sendDeadlineNotificationsTest('anggarangga646@gmail.com');
+            
+            return 'Test email deadline dan notifikasi berhasil dikirim ke anggarangga646@gmail.com';
+        }
+        return abort(403, 'Unauthorized action.');
+    });
 
 
     Route::middleware(['role:mahasiswa'])->group(function () {
@@ -105,6 +128,9 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/lowongan_details/{id}', [OperatorController::class, 'detail_lowongan'])->name('operator.lowongan_detail');
             Route::get('/get-peserta/{id}', [OperatorController::class, 'getPesertaDetail'])->name('operator.getPeserta');
             Route::get('/weekly_review/{id}', [OperatorController::class, 'weeklyLogbook'])->name('operator.weeklyLogbook');
+            Route::get('/daily_review/{id}', [OperatorController::class, 'dailyReview'])->name('operator.dailyReview');
+            Route::post('/daily_toggle_verif_lock/{id}', [OperatorController::class, 'toggleDailyVerifLock'])->name('operator.daily.toggle_verif_lock');
+            Route::post('/weekly_toggle_verif_lock/{id}', [OperatorController::class, 'toggleWeeklyVerifLock'])->name('operator.weekly.toggle_verif_lock');
         });
     });
 
@@ -120,6 +146,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/daily_review_pamong/{id}', [GuruController::class, 'dailyReview'])->name('guru.daily.review');
             Route::get('/get-peserta/{id}', [GuruController::class, 'getPesertaDetail'])->name('guru.getPeserta');
             Route::post('/daily_review_pamong/{id}/{status}', [GuruController::class, 'review'])->name('guru.daily.submit');
+            Route::post('/daily_toggle_lock/{id}', [GuruController::class, 'toggleDailyLock'])->name('guru.daily.toggle_lock');
             Route::post('/rancangan/{id}', [GuruController::class, 'rancangan'])->name('guru.rancangan.submit');
         });
     });
@@ -134,6 +161,7 @@ Route::middleware([AuthenticateMiddleware::class])->group(function () {
             Route::get('/weekly_review_dpl/{id}', [DosenController::class, 'dailyBook'])->name('dosen.weekly_review');
             Route::get('/get-peserta/{id}', [DosenController::class, 'getPesertaDetail'])->name('dosen.getPeserta');
             Route::post('/weekly_review_dpl/{id}', [DosenController::class, 'weeklyBook'])->name('dosen.weekly_review.submit');
+            Route::post('/weekly_toggle_lock/{id}', [DosenController::class, 'toggleWeeklyLock'])->name('dosen.weekly.toggle_lock');
             Route::post('/rancangan/{id}', [DosenController::class, 'rancangan'])->name('dosen.rancangan.submit');
         });
     });

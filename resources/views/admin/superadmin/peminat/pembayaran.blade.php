@@ -10,7 +10,7 @@
         <x-alerts color="danger" :text="session('error')" />
         @endif
         <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-            <h1 class="text-xl font-semibold">Peminat</h1>
+            <h1 class="text-xl font-semibold">Pembayaran</h1>
             <div class="inline-flex flex-wrap gap-2">
                 {{-- <x-button_md type="button" id="importBtn">
                     <span class=""><i class="fas fa-file-export text-sm me-2"></i></span>
@@ -90,7 +90,7 @@
                 <div>
                     <p class="font-semibold text-lg">Filter Data</p>
                 </div>
-                <form action="{{ route('admin.peminat') }}" method="GET">
+                <form action="{{ route('admin.pembayaran') }}" method="GET">
                     <div class="w-full grid grid-cols-12 gap-4">
                         <div class="col-span-4">
                             <label for="program"
@@ -152,7 +152,7 @@
                             <th>Program</th>
                             <th>Tahun Akademik</th>
                             <th>Semester</th>
-                            <th>Ukuran Baju</th>
+                            {{-- <th>Ukuran Baju</th> --}}
                             <th>Bukti Pembayaran</th>
                             <th>Aksi</th>
                         </tr>
@@ -166,7 +166,7 @@
                                 <td>{{ $item->lowongan->program->name }}</td>
                                 <td>{{ $item->lowongan->tahun_akademik }}</t>
                                 <td>{{ $item->lowongan->semester }}</t>
-                                <td>{{ $item->ukuran_baju === '' ? 'Belum Mengisi' : $item->ukuran_baju }}</t>
+                                {{-- <td>{{ $item->ukuran_baju === '' ? 'Belum Mengisi' : $item->ukuran_baju }}</t> --}}
                                 <td>
                                     @if ($item->bukti_pembayaran)
                                         <div class="mt-2">

@@ -1,0 +1,35 @@
+@startuml
+|Admin|
+start
+:Admin membuka menu penugasan DPL;
+:Admin menambahkan data DPL baru;
+:Admin memilih DPL;
+:Admin memilih lowongan program;
+
+|Sistem|
+:Mengambil detail DPL yang dipilih;
+:Memfilter mahasiswa berdasarkan lowongan;
+:Menampilkan daftar mahasiswa yang sudah terverifikasi di lowongan tersebut;
+
+|Admin|
+:Admin melihat daftar mahasiswa di lowongan yang dipilih;
+:Admin memilih mahasiswa untuk ditugaskan ke DPL;
+:Admin menekan tombol simpan;
+
+|Sistem|
+:Menerima data penugasan DPL;
+:Validasi ketersediaan DPL dan mahasiswa;
+if (DPL dan mahasiswa tersedia?) then (ya)
+  :Memperbarui relasi mahasiswa-DPL;
+  :Menyimpan data penugasan;
+  :Mengirim notifikasi ke mahasiswa dan DPL;
+  :Menampilkan notifikasi sukses;
+  |Admin|
+  :Admin melihat konfirmasi sukses;
+else (tidak)
+  :Menampilkan pesan error ketersediaan;
+  |Admin|
+  :Admin melihat pesan error;
+endif
+stop
+@enduml

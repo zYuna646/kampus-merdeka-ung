@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+actor Mahasiswa
+boundary "Halaman Upload Laporan"
+control "Control Upload Laporan"
+database "Database Laporan"
+
+Mahasiswa -> "Halaman Upload Laporan": Membuka dashboard
+Mahasiswa -> "Halaman Upload Laporan": Memilih program yang diikuti
+Mahasiswa -> "Halaman Upload Laporan": Masuk ke detail program
+Mahasiswa -> "Halaman Upload Laporan": Memilih file laporan rancangan
+Mahasiswa -> "Halaman Upload Laporan": Upload laporan rancangan kegiatan
+"Halaman Upload Laporan" -> "Control Upload Laporan": Kirim file laporan
+"Control Upload Laporan" -> "Control Upload Laporan": Validasi format dan ukuran file
+
+alt File valid
+    "Control Upload Laporan" -> "Database Laporan": Simpan file laporan
+    "Database Laporan" --> "Control Upload Laporan": Konfirmasi penyimpanan berhasil
+    "Control Upload Laporan" -> "Database Laporan": Update status laporan (pending)
+    "Control Upload Laporan" -> "Halaman Upload Laporan": Kirim status laporan
+    
+    "Control Upload Laporan" -> "Database Laporan": Cek status verifikasi pamong & dpl
+    "Database Laporan" --> "Control Upload Laporan": Data status verifikasi
+    
+    alt Status sudah diterima pamong & dpl
+        "Control Upload Laporan" -> "Database Laporan": Aktifkan akses logbook
+        "Control Upload Laporan" -> "Halaman Upload Laporan": Kirim notifikasi akses logbook
+        "Halaman Upload Laporan" -> Mahasiswa: Tampilkan akses logbook tersedia
+    else Status belum diterima
+        "Control Upload Laporan" -> "Halaman Upload Laporan": Kirim status menunggu verifikasi
+        "Halaman Upload Laporan" -> Mahasiswa: Tampilkan status menunggu verifikasi
+    end
+else File tidak valid
+    "Control Upload Laporan" -> "Halaman Upload Laporan": Kirim pesan error file
+    "Halaman Upload Laporan" -> Mahasiswa: Tampilkan pesan error file
+end
+@enduml 

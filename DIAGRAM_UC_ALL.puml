@@ -1,0 +1,75 @@
+@startuml
+left to right direction
+
+' Aktor di sebelah kiri
+actor Mahasiswa as M
+actor Admin as A
+
+rectangle "Sistem Monitoring Kampus Merdeka" {
+  ' Use Cases untuk Mahasiswa
+  (Login) as UC_Login
+  (Register) as UC_Register
+  (Daftar Program) as UC_DaftarProgram
+  (Upload Bukti Pembayaran) as UC_UploadBukti
+  (Upload Rancangan) as UC_UploadRancangan
+  (Isi Logbook Harian) as UC_LogbookHarian
+  (Isi Logbook Mingguan) as UC_LogbookMingguan
+
+  ' Use Cases untuk Admin
+  (Kelola Data Master) as UC_KelolaDataMaster
+  (Buka Lowongan) as UC_BukaLowongan
+  (Verifikasi Pembayaran) as UC_VerifikasiPembayaran
+  (Verifikasi Peserta) as UC_VerifikasiPeserta
+  (Penugasan DPL) as UC_PenugasanDPL
+  (Penugasan Pamong) as UC_PenugasanPamong
+  
+  ' Use Cases untuk DPL
+  (Verifikasi Rancangan DPL) as UC_VerifikasiRancanganDPL
+  (Verifikasi Logbook Mingguan) as UC_VerifikasiMingguan
+  
+  ' Use Cases untuk Pamong
+  (Verifikasi Rancangan Pamong) as UC_VerifikasiRancanganPamong
+  (Verifikasi Logbook Harian) as UC_VerifikasiHarian
+  
+  ' Use Cases untuk Operator
+  (Monitoring Mahasiswa) as UC_MonitoringMahasiswa
+}
+
+' Aktor di sebelah kanan  
+actor DPL as D
+actor Pamong as P
+actor Operator as O
+
+' Relationships untuk Mahasiswa
+M --> UC_Login
+M --> UC_Register
+M --> UC_DaftarProgram
+M --> UC_UploadBukti
+M --> UC_UploadRancangan
+M --> UC_LogbookHarian
+M --> UC_LogbookMingguan
+
+' Relationships untuk Admin
+A --> UC_Login
+A --> UC_KelolaDataMaster
+A --> UC_BukaLowongan
+A --> UC_VerifikasiPembayaran
+A --> UC_VerifikasiPeserta
+A --> UC_PenugasanDPL
+A --> UC_PenugasanPamong
+
+' Relationships untuk DPL
+UC_Login <-- D
+UC_VerifikasiRancanganDPL <-- D
+UC_VerifikasiMingguan <-- D
+
+' Relationships untuk Pamong
+UC_Login <-- P
+UC_VerifikasiRancanganPamong <-- P
+UC_VerifikasiHarian <-- P
+
+' Relationships untuk Operator
+UC_Login <-- O
+UC_MonitoringMahasiswa <-- O
+
+@enduml 

@@ -1,0 +1,68 @@
+@startuml
+hide footbox
+actor Mahasiswa
+boundary Web
+control AuthController
+control ValidationService
+database UserModel
+database MahasiswaModel
+
+Mahasiswa -> Web: Buka halaman register
+Web -> Mahasiswa: Tampilkan form register
+
+Mahasiswa -> Web: Input NIM dan nama lengkap
+Web -> AuthController: Kirim data NIM dan nama
+AuthController -> ValidationService: Validasi NIM dan nama
+alt Validasi gagal
+    ValidationService -> AuthController: Return error NIM/nama tidak valid
+    AuthController -> Web: Return error message
+    Web -> Mahasiswa: Tampilkan pesan error NIM/nama tidak valid
+else Validasi berhasil
+    ValidationService -> AuthController: Return valid
+
+    AuthController -> Web: Lanjut ke section berikutnya
+    Web -> Mahasiswa: Tampilkan input wilayah
+    Mahasiswa -> Web: Input provinsi, kabupaten, kecamatan, kelurahan
+    Web -> AuthController: Kirim data wilayah
+    AuthController -> ValidationService: Validasi data wilayah
+    alt Validasi gagal
+        ValidationService -> AuthController: Return error wilayah tidak valid
+        AuthController -> Web: Return error message
+        Web -> Mahasiswa: Tampilkan pesan error data wilayah tidak valid
+    else Validasi berhasil
+        ValidationService -> AuthController: Return valid
+
+        AuthController -> Web: Lanjut ke section terakhir
+        Web -> Mahasiswa: Tampilkan input alamat dan angkatan
+        Mahasiswa -> Web: Input alamat lengkap dan angkatan
+        Web -> AuthController: Kirim data alamat dan angkatan
+        AuthController -> ValidationService: Validasi alamat dan angkatan
+        alt Validasi gagal
+            ValidationService -> AuthController: Return error alamat/angkatan tidak valid
+            AuthController -> Web: Return error message
+            Web -> Mahasiswa: Tampilkan pesan error alamat/angkatan tidak valid
+        else Validasi berhasil
+            ValidationService -> AuthController: Return valid
+
+            AuthController -> Web: Tampilkan tombol submit
+            Web -> Mahasiswa: Tampilkan form lengkap untuk submit
+            Mahasiswa -> Web: Submit form pendaftaran
+            Web -> AuthController: Proses registrasi
+            AuthController -> UserModel: Cek apakah NIM sudah terdaftar
+            alt NIM sudah terdaftar
+                UserModel -> AuthController: Return NIM exists
+                AuthController -> Web: Return error NIM sudah terdaftar
+                Web -> Mahasiswa: Tampilkan pesan error NIM sudah terdaftar
+            else NIM belum terdaftar
+                UserModel -> AuthController: Return NIM available
+                AuthController -> UserModel: Simpan data user dengan password = NIM
+                UserModel -> AuthController: Return user saved
+                AuthController -> MahasiswaModel: Simpan data mahasiswa lengkap
+                MahasiswaModel -> AuthController: Return mahasiswa saved
+                AuthController -> Web: Return success dengan redirect ke login
+                Web -> Mahasiswa: Tampilkan notifikasi berhasil dan redirect ke login
+            end
+        end
+    end
+end
+@enduml 

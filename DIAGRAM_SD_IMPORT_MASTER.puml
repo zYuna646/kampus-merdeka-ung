@@ -1,0 +1,32 @@
+@startuml
+hide footbox
+actor Admin
+boundary "Halaman Import Master"
+control "Control Import Data"
+entity "File Parser"
+database "Database Master"
+
+Admin -> "Halaman Import Master": Membuka menu import data master
+Admin -> "Halaman Import Master": Memilih jenis file (excel/csv)
+Admin -> "Halaman Import Master": Memilih file dari komputer
+Admin -> "Halaman Import Master": Menekan tombol upload
+"Halaman Import Master" -> "Control Import Data": Kirim file untuk diproses
+"Control Import Data" -> "Control Import Data": Validasi format file
+alt Format file valid
+    "Control Import Data" -> "File Parser": Parse dan baca data dari file
+    "File Parser" --> "Control Import Data": Data hasil parsing
+    "Control Import Data" -> "Control Import Data": Validasi struktur data
+    alt Struktur data valid
+        "Control Import Data" -> "Database Master": Import data ke database
+        "Database Master" --> "Control Import Data": Konfirmasi import berhasil
+        "Control Import Data" -> "Halaman Import Master": Kirim notifikasi sukses
+        "Halaman Import Master" -> Admin: Tampilkan notifikasi sukses
+    else Struktur data tidak valid
+        "Control Import Data" -> "Halaman Import Master": Kirim pesan error struktur data
+        "Halaman Import Master" -> Admin: Tampilkan pesan error struktur data
+    end
+else Format file tidak valid
+    "Control Import Data" -> "Halaman Import Master": Kirim pesan error format file
+    "Halaman Import Master" -> Admin: Tampilkan pesan error format file
+end
+@enduml 

@@ -16,6 +16,13 @@ class WeeklyLog extends Model
         'end_date',
         'msg',
         'status',
+        'is_lock',
+        'is_verif_lock',
+    ];
+    
+    protected $casts = [
+        'is_lock' => 'boolean',
+        'is_verif_lock' => 'boolean',
     ];
 
     public function programTransaction()

@@ -89,12 +89,12 @@ class ProgramTransactionController extends Controller
 
         // Validate the incoming request
         $validatedData = $request->validate([
-            'ukuran_baju' => 'required|string|max:255',
+            // 'ukuran_baju' => 'required|string|max:255',
             'bukti_pembayaran' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', // adjust allowed file types and size as needed
         ]);
 
         // Update the t-shirt size
-        $program->ukuran_baju = $validatedData['ukuran_baju'];
+        // $program->ukuran_baju = $validatedData['ukuran_baju'];
 
         // Handle the file upload for payment proof
         if ($request->hasFile('bukti_pembayaran')) {
@@ -295,12 +295,14 @@ class ProgramTransactionController extends Controller
         ]);
         $mahasiswa->save();
         $program = $mahasiswa;
-
         if ($program->lowongan->isLogBook) {
             $startDate = Carbon::parse($program->lowongan->tanggal_mulai); // Tanggal awal
             $endDate = Carbon::parse($program->lowongan->tanggal_selesai);
+            
             $st = $startDate->copy(); // Create a separate copy of $startDate for $st
             $e_d = $startDate->endOfWeek()->copy(); // Create a separate copy for $e_d
+
+            
             $wk = WeeklyLog::create([
                 'program_transaction_id' => $program->id,
                 'start_date' => $st, // Start date
@@ -308,8 +310,17 @@ class ProgramTransactionController extends Controller
                 // 'desc' => ''
             ]);
 
+           
 
             $tmp_date = $startDate->copy()->addWeek()->startOfWeek();
+            // dd([
+            //     'lowongan' => $program->lowongan,
+            //     'startDate' => $startDate,
+            //     'endDate' => $endDate,
+            //     'st' => $st,
+            //     'e_d' => $e_d,
+            //     'tmp_date' => $tmp_date,
+            // ]);
             while ($tmp_date->lte($endDate)) {
                 // Buat weekly log untuk minggu ini
 
@@ -317,6 +328,7 @@ class ProgramTransactionController extends Controller
                 if ($tmp_end_week->gte($endDate)) {
                     $tmp_end_week = $endDate;
                 }
+               
 
                 WeeklyLog::create([
                     'program_transaction_id' => $program->id,

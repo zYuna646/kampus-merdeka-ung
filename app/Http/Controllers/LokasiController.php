@@ -152,7 +152,7 @@ class LokasiController extends Controller
      * @param  \App\Models\Lokasi  $lokasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lokasi $lokasi)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'program_id' => 'required|exists:program_kampuses,id',
@@ -161,8 +161,14 @@ class LokasiController extends Controller
             'provinsi_id' => 'required',
             'name' => 'required',
         ]);
-
-        $lokasi->update($request->all());
+        $lokasi = Lokasi::find($id);
+        $lokasi->name = $request->name;
+        $lokasi->provinsi_id = $request->provinsi_id;
+        $lokasi->program_id = $request->program_id;
+        $lokasi->kabupaten_id = $request->kabupaten_id;
+        $lokasi->kecamatan_id = $request->kecamatan_id;
+        $lokasi->kelurahan_id = $request->kelurahan_id;
+        $lokasi->save();
 
         return redirect()->route('admin.location')
             ->with('success', 'Lokasi updated successfully');

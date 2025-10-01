@@ -1,0 +1,34 @@
+@startuml
+|Dosen|
+start
+:Dosen login ke dashboard;
+:Dosen membuka menu verifikasi logbook mingguan;
+:Dosen melihat daftar logbook mingguan mahasiswa;
+:Dosen memilih logbook mahasiswa;
+:Dosen membaca dan mereview logbook mingguan;
+:Dosen memeriksa rangkuman aktivitas mingguan;
+:Dosen menentukan keputusan verifikasi;
+
+|Sistem|
+:Menerima keputusan verifikasi;
+if (Logbook mingguan diterima?) then (ya)
+  :Memperbarui status logbook mingguan (diterima);
+  :Menyimpan data verifikasi;
+  :Mengirim notifikasi ke mahasiswa;
+  :Menampilkan notifikasi sukses;
+  |Dosen|
+  :Dosen melihat konfirmasi sukses;
+else (tidak)
+  |Dosen|
+  :Dosen menginput pesan penolakan;
+  |Sistem|
+  :Menerima pesan penolakan;
+  :Memperbarui status logbook mingguan (ditolak);
+  :Menyimpan pesan penolakan;
+  :Mengirim notifikasi penolakan ke mahasiswa;
+  :Menampilkan notifikasi penolakan;
+  |Dosen|
+  :Dosen melihat konfirmasi penolakan;
+endif
+stop
+@enduml 

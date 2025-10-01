@@ -60,7 +60,6 @@ class MahasiswaController extends Controller
     {
         try {
             $programTransaction = Auth::user()->mahasiswa->programTransaction()
-            ->where('status_mahasiswa', true)
             ->latest()
             ->first();
         } catch (\Throwable $th) {
@@ -223,6 +222,13 @@ class MahasiswaController extends Controller
     public function dailyLogForm($id)
     {
         $dailyLog = DailyLog::find($id);
+        
+        // Check if the logbook is locked
+        if ($dailyLog->is_lock) {
+            return redirect()->route('student.weekly_logbook', $dailyLog->program_transaction_id)
+                ->with('error', 'Logbook harian telah dikunci dan tidak dapat diedit');
+        }
+        
         return view('admin.student.daily_logbook_form')->with('data', $dailyLog);
     }
 
@@ -233,10 +239,19 @@ class MahasiswaController extends Controller
             'jumlah' => 'required',
             'dokumentasi' => 'required',
         ]);
+        
         $dailyLog = DailyLog::find($id);
+        
+        // Cek apakah logbook dikunci
+        if ($dailyLog->is_lock) {
+            return redirect()->route('student.weekly_logbook', $dailyLog->program_transaction_id)
+                ->with('error', 'Logbook harian telah dikunci dan tidak dapat diedit');
+        }
+        
         $dailyLog->status = 'proses';
         $dailyLog->dokumentasi = $request->dokumentasi;
         $dailyLog->activity()->delete();
+        
         for ($i = 1; $i <= $request->jumlah; $i++) {
             $activity = ActivityLog::create([
                 'desc' => $request['deskripsi' . $i],
@@ -246,16 +261,16 @@ class MahasiswaController extends Controller
                 'presentase' => $request['persentase' . $i],
                 'hambatan' => $request['hambatan' . $i],
                 'solusi' => $request['solusi' . $i],
-
             ]);
             $dailyLog->activity()->attach($activity->id);
         }
+        
         // Mengupdate daily log dengan deskripsi yang sudah dikonversi
-
         $dailyLog->save();
 
         // Redirect atau kembalikan ke halaman yang sesuai
-        return redirect()->route('student.weekly_logbook', $dailyLog->program_transaction_id )->with('success', 'Daily log berhasil disimpan');
+        return redirect()->route('student.weekly_logbook', $dailyLog->program_transaction_id)
+            ->with('success', 'Daily log berhasil disimpan');
     }
 
     // public function register($id)
@@ -281,9 +296,17 @@ class MahasiswaController extends Controller
             'jumlah' => 'required',
         ]);
 
-
-        $dailyLog = WeeklyLog::find($id);
-        $dailyLog->status = 'proses';
+        $weeklyLog = WeeklyLog::find($id);
+        
+        // Cek apakah logbook dikunci
+        if ($weeklyLog->is_lock) {
+            return redirect()->route('student.weekly_logbook', $weeklyLog->program_transaction_id)
+                ->with('error', 'Logbook mingguan telah dikunci dan tidak dapat diedit');
+        }
+        
+        
+        $weeklyLog->status = 'proses';
+        
         for ($i = 1; $i <= $request->jumlah; $i++) {
             $activity = ActivityLog::create([
                 'desc' => $request['deskripsi' . $i],
@@ -293,13 +316,15 @@ class MahasiswaController extends Controller
                 'presentase' => $request['persentase' . $i],
                 'hambatan' => $request['hambatan' . $i],
                 'solusi' => $request['solusi' . $i],
-
             ]);
-            $dailyLog->activity()->attach($activity->id);
+            $weeklyLog->activity()->attach($activity->id);
         }
-        // Mengupdate daily log dengan deskripsi yang sudah dikonversi
-
-        $dailyLog->save();
+        // Mengupdate weekly log dengan deskripsi yang sudah dikonversi
+        $weeklyLog->save();
+        
+        // Redirect atau kembalikan ke halaman yang sesuai
+        return redirect()->route('student.weekly_logbook', $weeklyLog->program_transaction_id)
+            ->with('success', 'Weekly log berhasil disimpan');
 
         // Redirect atau kembalikan ke halaman yang sesuai
         return redirect()->route('student.weekly_logbook', $dailyLog->program_transaction_id)->with('success', 'Daily log berhasil disimpan');
@@ -346,8 +371,14 @@ class MahasiswaController extends Controller
 
         // Redirect atau kembalikan ke halaman yang sesuai
         $data = WeeklyLog::find($id);
+        
+        // Cek apakah logbook dikunci
+        if ($data->is_lock) {
+            return redirect()->route('student.weekly_logbook', $data->program_transaction_id)
+                ->with('error', 'Logbook mingguan telah dikunci dan tidak dapat diedit');
+        }
+        
         return view('admin.student.weekly_logbook_form')->with('data', $data);
-
     }
 
 

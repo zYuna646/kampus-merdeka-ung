@@ -1,0 +1,34 @@
+@startuml
+|Pamong|
+start
+:Pamong login ke dashboard;
+:Pamong membuka menu verifikasi logbook harian;
+:Pamong melihat daftar logbook mahasiswa;
+:Pamong memilih logbook mahasiswa;
+:Pamong membaca dan mereview logbook harian;
+:Pamong memeriksa dokumentasi;
+:Pamong menentukan keputusan verifikasi;
+
+|Sistem|
+:Menerima keputusan verifikasi;
+if (Logbook harian diterima?) then (ya)
+  :Memperbarui status logbook harian (diterima);
+  :Menyimpan data verifikasi;
+  :Mengirim notifikasi ke mahasiswa;
+  :Menampilkan notifikasi sukses;
+  |Pamong|
+  :Pamong melihat konfirmasi sukses;
+else (tidak)
+  |Pamong|
+  :Pamong menginput pesan penolakan;
+  |Sistem|
+  :Menerima pesan penolakan;
+  :Memperbarui status logbook harian (ditolak);
+  :Menyimpan pesan penolakan;
+  :Mengirim notifikasi penolakan ke mahasiswa;
+  :Menampilkan notifikasi penolakan;
+  |Pamong|
+  :Pamong melihat konfirmasi penolakan;
+endif
+stop
+@enduml

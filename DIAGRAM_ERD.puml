@@ -1,0 +1,228 @@
+@startuml
+' === USER & ROLE ===
+entity User {
+  id: uuid
+  username: string
+  email: string
+  password: string
+  role_id: int
+  profile: string
+}
+entity Role {
+  id: int
+  name: string
+  slug: string
+}
+User }o--|| Role : "role_id"
+
+' === MAHASISWA, DOSEN, GURU ===
+entity Mahasiswa {
+  id: bigint
+  nim: string
+  name: string
+  studi_id: bigint
+  angkatan: string
+  user_id: uuid
+}
+entity Dosen {
+  id: bigint
+  nidn: string
+  name: string
+  studi_id: bigint
+  user_id: uuid
+}
+entity Guru {
+  id: bigint
+  nik: string
+  name: string
+  user_id: uuid
+}
+User ||--o{ Mahasiswa : "user_id"
+User ||--o{ Dosen : "user_id"
+User ||--o{ Guru : "user_id"
+
+' === FAKULTAS, JURUSAN, STUDI ===
+entity Fakultas {
+  id: bigint
+  name: string
+  slug: string
+  code: string
+}
+entity Jurusan {
+  id: bigint
+  name: string
+  slug: string
+  code: string
+  fakultas_id: bigint
+}
+entity Studi {
+  id: bigint
+  name: string
+  slug: string
+  code: string
+  jurusan_id: bigint
+}
+Fakultas ||--o{ Jurusan : "fakultas_id"
+Jurusan ||--o{ Studi : "jurusan_id"
+Studi ||--o{ Mahasiswa : "studi_id"
+Studi ||--o{ Dosen : "studi_id"
+
+' === PROGRAM, PROGRAM KAMPUS, LOWONGAN, LOKASI ===
+entity ProgramKampus {
+  id: bigint
+  name: string
+  slug: string
+  code: string
+}
+entity Program {
+  id: bigint
+  name: string
+  kegiatan: text
+  program_kampus_id: bigint
+  studi_id: bigint
+  sop_pob: string
+}
+entity Lowongan {
+  id: bigint
+  code: string
+  program_id: bigint
+  tahun_akademik: string
+  semester: enum
+  isLogBook: bool
+  pendaftaran_mulai: datetime
+  pendaftaran_selesai: datetime
+  tanggal_mulai: datetime
+  tanggal_selesai: datetime
+}
+entity Lokasi {
+  id: bigint
+  code: string
+  program_id: bigint
+  provinsi_id: string
+  kabupaten_id: string
+  kecamatan_id: string
+  kelurahan_id: string
+  lokasi: string
+  name: string
+}
+ProgramKampus ||--o{ Program : "program_kampus_id"
+Program ||--o{ Lowongan : "program_id"
+ProgramKampus ||--o{ Lokasi : "program_id"
+
+' === WILAYAH ===
+entity Province {
+  id: char(2)
+  name: string
+}
+entity Regency {
+  id: char(4)
+  province_id: char(2)
+  name: string
+}
+entity District {
+  id: char(7)
+  regency_id: char(4)
+  name: string
+}
+entity Village {
+  id: char(10)
+  district_id: char(7)
+  name: string
+}
+Province ||--o{ Regency : "province_id"
+Regency ||--o{ District : "regency_id"
+District ||--o{ Village : "district_id"
+
+' === PROGRAM TRANSACTION, LOGBOOK, DPL, MITRA ===
+entity ProgramTransaction {
+  id: bigint
+  rancangan: string
+  laporan_akhir: string
+  status_rancangan_dpl: enum
+  status_laporan_akhir: enum
+  status_rancangan_pamong: enum
+  msg_dpl: string
+  msg_pamong: string
+  status_mahasiswa: bool
+  lowongan_id: bigint
+  lokasi_id: bigint
+  mahasiswa_id: bigint
+}
+entity WeeklyLog {
+  id: bigint
+  start_date: date
+  end_date: date
+  msg: text
+  status: enum
+  program_transaction_id: bigint
+}
+entity DailyLog {
+  id: bigint
+  dokumentasi: string
+  date: date
+  msg: text
+  status: enum
+  program_transaction_id: bigint
+  weekly_log_id: bigint
+}
+entity ActivityLog {
+  id: bigint
+  desc: text
+  rencana: text
+  presentase: decimal
+  hambatan: text
+  solusi: text
+  jam_mulai: time
+  jam_selesai: time
+}
+entity DPL {
+  id: bigint
+  lowongan_id: bigint
+  dosen_id: bigint
+}
+entity MitraTransaction {
+  id: bigint
+  lowongan_id: bigint
+  guru_id: bigint
+}
+
+Mahasiswa ||--o{ ProgramTransaction : "mahasiswa_id"
+ProgramTransaction }o--|| Lowongan : "lowongan_id"
+ProgramTransaction }o--|| Lokasi : "lokasi_id"
+ProgramTransaction ||--o{ WeeklyLog : "program_transaction_id"
+ProgramTransaction ||--o{ DailyLog : "program_transaction_id"
+WeeklyLog ||--o{ DailyLog : "weekly_log_id"
+
+' === PIVOT & RELASI BANYAK-KE-BANYAK ===
+entity DPL_ProgramTransaction {
+  dpl_id: bigint
+  program_transaction_id: bigint
+}
+entity MitraTransaction_ProgramTransaction {
+  mitra_transaction_id: bigint
+  program_transaction_id: bigint
+}
+entity ActivityLog_WeeklyLog {
+  activity_log_id: bigint
+  weekly_log_id: bigint
+}
+entity ActivityLog_DailyLog {
+  activity_log_id: bigint
+  daily_log_id: bigint
+}
+entity Guru_Lokasi {
+  guru_id: bigint
+  lokasi_id: bigint
+}
+DPL ||--o{ DPL_ProgramTransaction : "dpl_id"
+ProgramTransaction ||--o{ DPL_ProgramTransaction : "program_transaction_id"
+MitraTransaction ||--o{ MitraTransaction_ProgramTransaction : "mitra_transaction_id"
+ProgramTransaction ||--o{ MitraTransaction_ProgramTransaction : "program_transaction_id"
+WeeklyLog ||--o{ ActivityLog_WeeklyLog : "weekly_log_id"
+ActivityLog ||--o{ ActivityLog_WeeklyLog : "activity_log_id"
+DailyLog ||--o{ ActivityLog_DailyLog : "daily_log_id"
+ActivityLog ||--o{ ActivityLog_DailyLog : "activity_log_id"
+Guru ||--o{ Guru_Lokasi : "guru_id"
+Lokasi ||--o{ Guru_Lokasi : "lokasi_id"
+
+@enduml 

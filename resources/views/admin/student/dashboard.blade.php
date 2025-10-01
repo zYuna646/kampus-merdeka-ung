@@ -33,92 +33,98 @@
                 </div>
             </div>
             @if ($data['programTransaction'])
-            <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
-                <div href="#" class="w-full">
-                    <img class="rounded-t-lg w-full brightness-50" src="/images/hero-image/image.png" alt="" />
-                </div>
-                <div class="p-6">
-                    <div class="mb-8">
-                        <div class="flex justify-between items-center">
-                            <div class="flex gap-x-2 items-center text-color-primary-500">
-                                <span class=""><i class="fas fa-book text-sm"></i></span>
-                                <p class="text-sm font-semibold">
+                <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
+                    <div href="#" class="w-full">
+                        <img class="rounded-t-lg w-full brightness-50" src="/images/hero-image/image.png" alt="" />
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-8">
+                            <div class="flex justify-between items-center">
+                                <div class="flex gap-x-2 items-center text-color-primary-500">
+                                    <span class=""><i class="fas fa-book text-sm"></i></span>
+                                    <p class="text-sm font-semibold">
+                                        @if ($data['programTransaction'])
+                                            {{ $data['programTransaction']->lowongan->program->name }}
+                                        @endif
+                                    </p>
+                                </div>
+                                <span>
+                                    <span class=""><i class="fas fa-chevron-right text-xs"></i></span>
+                                </span>
+                            </div>
+                            @if ($data['programTransaction']->status_mahasiswa)
+                                <p class="text-base mt-1">
                                     @if ($data['programTransaction'])
-                                        {{ $data['programTransaction']->lowongan->program->name }}
+                                        {{ $data['programTransaction']->lokasi->name }}
                                     @endif
                                 </p>
-                            </div>
-                            <span>
-                                <span class=""><i class="fas fa-chevron-right text-xs"></i></span>
-                            </span>
-                        </div>
-                        <p class="text-base mt-1">
-                            @if ($data['programTransaction'])
-                                {{ $data['programTransaction']->lokasi->name }}
                             @endif
-                        </p>
-                        <p class="text-sm mt-1 text-slate-500">
-                            @if ($data['programTransaction'])
-                                {{ 'Semester ' . $data['programTransaction']->lowongan->semester }}
-                                {{ $data['programTransaction']->lowongan->tahun_akademik }}
+                            <p class="text-sm mt-1 text-slate-500">
+                                @if ($data['programTransaction'])
+                                    {{ 'Semester ' . $data['programTransaction']->lowongan->semester }}
+                                    {{ $data['programTransaction']->lowongan->tahun_akademik }}
+                                @endif
+
+                            </p>
+
+                            @if ($data['programTransaction']->status_mahasiswa)
+
+                                <div class="mt-3 flex flex-col gap-y-1">
+                                    <span class="text-sm mt-1 font-semibold">
+                                        MITRA/Guru Pamong:
+                                    </span>
+                                    <p class="uppercase text-sm">
+                                        @if ($data['programTransaction'])
+                                            @foreach ($data['programTransaction']->pamong as $item)
+                                                {{ $item->guru->name }}
+                                            @endforeach
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="mt-3 flex flex-col gap-y-1">
+                                    <p class="text-sm mt-1 font-semibold">
+                                        DPL:
+                                    </p>
+                                    <p class="uppercase text-sm">
+                                        @if ($data['programTransaction'])
+                                            @foreach ($data['programTransaction']->dpls as $item)
+                                                {{ $item->dosen->name }}
+                                            @endforeach
+                                        @endif
+                                    </p>
+                                </div>
                             @endif
 
-                        </p>
 
-                        <div class="mt-3 flex flex-col gap-y-1">
-                            <span class="text-sm mt-1 font-semibold">
-                                MITRA/Guru Pamong:
-                            </span>
-                            <p class="uppercase text-sm">
-                                @if ($data['programTransaction'])
-                                    @foreach ($data['programTransaction']->pamong as $item)
-                                        {{ $item->guru->name }}
-                                    @endforeach
-                                @endif
-                            </p>
                         </div>
-                        <div class="mt-3 flex flex-col gap-y-1">
-                            <p class="text-sm mt-1 font-semibold">
-                                DPL:
-                            </p>
-                            <p class="uppercase text-sm">
-                                @if ($data['programTransaction'])
-                                    @foreach ($data['programTransaction']->dpls as $item)
-                                        {{ $item->dosen->name }}
-                                    @endforeach
-                                @endif
-                            </p>
-                        </div>
-
-
-                    </div>
-                    <div class="grid grid-flow-row divide-y-[1px]">
-                        {{-- <div class="flex items-center gap-4 font-semibold py-4">
+                        <div class="grid grid-flow-row divide-y-[1px]">
+                            {{-- <div class="flex items-center gap-4 font-semibold py-4">
                         <span class=""><i class="fas fa-clipboard-check text-xl"></i></span>
                         <p class="text-sm">Log Book Mingguan</p>
                     </div> --}}
-                   
-                        @if ($data['programTransaction'] && $data['programTransaction']->lowongan->isLogBook)
+                            @if ($data['programTransaction']->status_mahasiswa && $data['programTransaction']->status_pembayran)
+                                @if ($data['programTransaction'] && $data['programTransaction']->lowongan->isLogBook)
+                                    <a href="{{ route('student.weekly_logbook', $data['programTransaction']->id) }}"
+                                        class="flex items-center gap-4 font-semibold py-4">
+                                        <span class=""><i class="fas fa-print text-base"></i></span>
+                                        <p class="text-sm">Log Book</p>
+                                    </a>
+                                @endif
 
-                            <a href="{{ route('student.weekly_logbook', $data['programTransaction']->id) }}"
-                                class="flex items-center gap-4 font-semibold py-4">
-                                <span class=""><i class="fas fa-print text-base"></i></span>
-                                <p class="text-sm">Log Book</p>
-                            </a>
-                        @endif
 
-                      
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            @endif
 
+                        </div>
                     </div>
                 </div>
-            </div>
-                
+
             @endif
-            
+
 
         </div>
         @if (!$data['programTransaction'])
@@ -142,9 +148,12 @@
                     <div class="col-span-2">
                         <img src="/images/avatar/ung.png" alt="" class="w-16">
                     </div>
-                    <div class="col-span-12 mt-4">
-                        <h4 class="font-semibold text-lg">{{ $data['programTransaction']->lokasi->name }}</h4>
-                    </div>
+                    @if ($data['programTransaction']->status_mahasiswa)
+                        <div class="col-span-12 mt-4">
+                            <h4 class="font-semibold text-lg">{{ $data['programTransaction']->lokasi->name }}</h4>
+                        </div>
+                    @endif
+
                     <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500 mt-2">
                         <span class=""><i class="fas fa-book text-sm"></i></span>
                         <p class="text-sm font-semibold">{{ $data['programTransaction']->lowongan->program->name }}</p>
@@ -193,7 +202,18 @@
                         </div>
                         <div class="flex flex-col">
                             <span class="text-xs text-slate-500">Status Pendaftaran: </span>
-                            @if ($data['programTransaction']->status_mahasiswa)
+                            @if ($data['programTransaction']->status_pembayran && !$data['programTransaction']->status_mahasiswa)
+                                <div class="flex items-center mt-2">
+                                    <span
+                                        class=" inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    <div class="flex flex-col gap-y-2 max-w-[80%]">
+                                        <p class="text-sm font-semibold ">Pembayaran Sudah Terverikasi Menunggu Penempatan
+                                            Lokasi</p>
+                                    </div>
+                                </div>
+                            @elseif ($data['programTransaction']->status_mahasiswa && $data['programTransaction']->status_pembayran)
                                 <div class="flex items-center mt-2">
                                     <span
                                         class=" inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
@@ -270,7 +290,6 @@
                     </div>
                 </div>
             @else
-              
         @endif
         </div>
 

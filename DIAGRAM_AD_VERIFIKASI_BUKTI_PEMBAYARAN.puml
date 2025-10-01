@@ -1,0 +1,18 @@
+@startuml
+start
+:Admin membuka menu verifikasi pembayaran;
+:Admin melihat daftar bukti pembayaran mahasiswa;
+:Admin memilih bukti pembayaran untuk diverifikasi;
+:Admin memeriksa bukti pembayaran;
+if (Bukti pembayaran valid?) then (ya)
+  :Admin menginput total pembayaran sesuai bukti;
+  :Admin menekan tombol verifikasi;
+  :Sistem memperbarui status pembayaran dan menyimpan total pembayaran;
+  :Mahasiswa masuk ke list peminat;
+  :Sistem menampilkan notifikasi sukses;
+else (tidak)
+  :Admin menolak/verifikasi gagal;
+  :Sistem menampilkan pesan error;
+endif
+stop
+@enduml 

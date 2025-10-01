@@ -1,0 +1,40 @@
+No	Kebutuhan Fungsional Sistem	Entitas
+1	Admin dapat login ke sistem	Admin
+2	Admin dapat membuat lowongan program Kampus Merdeka	Admin
+3	Admin dapat menentukan tahun akademik, biaya, dan tanggal program	Admin
+4	Admin dapat mengimpor dan mengelola data master	Admin
+5	Admin dapat mengelola berita	Admin
+6	Mahasiswa dapat melakukan registrasi dan login	Mahasiswa
+7	Mahasiswa dapat melihat daftar program yang tersedia	Mahasiswa
+8	Mahasiswa dapat mendaftar pada program yang diminati	Mahasiswa
+9	Mahasiswa dapat mengunggah bukti pembayaran	Mahasiswa
+10	Admin dapat memverifikasi bukti pembayaran mahasiswa	Admin
+11	Admin dapat menginput total pembayaran mahasiswa	Admin
+12	Admin dapat memperbarui status pembayaran mahasiswa	Admin
+13	Admin dapat menolak pembayaran yang tidak valid	Admin
+14	Admin dapat memverifikasi peserta program	Admin
+15	Admin dapat memilih lokasi penempatan mahasiswa	Admin
+16	Admin dapat memperbarui status peserta	Admin
+17	Admin dapat meng-assign mahasiswa ke DPL (Dosen Pembimbing Lapangan)	Admin
+18	Admin dapat meng-assign mahasiswa ke Pamong	Admin
+19	Mahasiswa dapat mengunggah laporan rancangan kegiatan	Mahasiswa
+20	Pamong dapat login ke sistem	Pamong
+21	Pamong dapat melihat daftar peserta yang dibimbing	Pamong
+22	Pamong dapat memverifikasi laporan rancangan kegiatan mahasiswa	Pamong
+23	Pamong dapat menginput pesan penolakan jika laporan tidak diterima	Pamong
+24	DPL dapat login ke sistem	Dosen (DPL)
+25	DPL dapat melihat daftar peserta yang dibimbing	Dosen (DPL)
+26	DPL dapat memverifikasi laporan rancangan kegiatan mahasiswa	Dosen (DPL)
+27	DPL dapat menginput pesan penolakan jika laporan tidak diterima	Dosen (DPL)
+28	Mahasiswa dapat mengisi logbook harian	Mahasiswa
+29	Mahasiswa dapat mengunggah dokumentasi aktivitas harian	Mahasiswa
+30	Pamong dapat memverifikasi logbook harian mahasiswa	Pamong
+31	Pamong dapat menginput pesan penolakan logbook harian	Pamong
+32	Mahasiswa dapat mengisi logbook mingguan (jika semua logbook harian minggu tersebut diterima)	Mahasiswa
+33	DPL dapat memverifikasi logbook mingguan mahasiswa	Dosen (DPL)
+34	DPL dapat menginput pesan penolakan logbook mingguan	Dosen (DPL)
+35	Operator dapat login ke sistem	Operator
+36	Operator dapat memilih program untuk monitoring	Operator
+37	Operator dapat melihat data mahasiswa	Operator
+38	Operator dapat memonitor status laporan dan logbook mahasiswa	Operator
+39	Operator dapat menghasilkan laporan monitoring	Operator 

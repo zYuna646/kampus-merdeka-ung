@@ -1,0 +1,35 @@
+@startuml
+|Admin|
+start
+:Admin membuka menu penugasan Pamong;
+:Admin menambahkan data pamong baru;
+:Admin memilih pamong;
+:Admin memilih lowongan program;
+
+|Sistem|
+:Mengambil lokasi pamong yang dipilih;
+:Memfilter mahasiswa berdasarkan lowongan dan lokasi pamong;
+:Menampilkan daftar mahasiswa yang lokasinya sama dengan lokasi pamong;
+
+|Admin|
+:Admin melihat daftar mahasiswa di lokasi yang sama;
+:Admin memilih mahasiswa untuk ditugaskan ke pamong;
+:Admin menekan tombol simpan;
+
+|Sistem|
+:Menerima data penugasan pamong;
+:Validasi ketersediaan pamong dan mahasiswa;
+if (Pamong dan mahasiswa tersedia?) then (ya)
+  :Memperbarui relasi mahasiswa-pamong;
+  :Menyimpan data penugasan;
+  :Mengirim notifikasi ke mahasiswa dan pamong;
+  :Menampilkan notifikasi sukses;
+  |Admin|
+  :Admin melihat konfirmasi sukses;
+else (tidak)
+  :Menampilkan pesan error ketersediaan;
+  |Admin|
+  :Admin melihat pesan error;
+endif
+stop
+@enduml

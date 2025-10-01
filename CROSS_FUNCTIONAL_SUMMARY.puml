@@ -1,0 +1,52 @@
+@startuml
+!theme plain
+title Cross Functional Flowchart - Sistem Monitoring Kampus Merdeka (Summary)
+
+|#LightBlue|Admin|
+start
+:Buat Lowongan Program;
+:Kelola Data Master;
+
+|#LightGreen|Mahasiswa|
+:Register & Login;
+:Daftar Program;
+:Upload Bukti Pembayaran;
+
+|#LightBlue|Admin|
+:Verifikasi Pembayaran;
+:Verifikasi Peserta;
+:Assign DPL & Pamong;
+
+|#LightGreen|Mahasiswa|
+:Upload Laporan Rancangan;
+
+|#LightYellow|Pamong|
+:Verifikasi Laporan;
+
+|#LightCyan|Dosen (DPL)|
+:Verifikasi Laporan;
+
+|#LightGreen|Mahasiswa|
+if (Laporan diterima?) then (ya)
+  :Isi Logbook Harian (berulang);
+  
+  |#LightYellow|Pamong|
+  :Verifikasi Logbook Harian;
+  
+  |#LightGreen|Mahasiswa|
+  :Isi Logbook Mingguan;
+  
+  |#LightCyan|Dosen (DPL)|
+  :Verifikasi Logbook Mingguan;
+else (tidak)
+  :Tunggu Verifikasi;
+  stop
+endif
+
+|#LightPink|Operator|
+:Monitor Progress;
+:Generate Laporan;
+
+stop
+
+@enduml 

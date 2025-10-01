@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+actor Mahasiswa
+boundary "Halaman Daftar Program"
+control "Control Pendaftaran"
+database "Database Program"
+
+Mahasiswa -> "Halaman Daftar Program": Membuka daftar program
+"Halaman Daftar Program" -> "Control Pendaftaran": Minta daftar program tersedia
+"Control Pendaftaran" -> "Database Program": Ambil data program
+"Database Program" --> "Control Pendaftaran": Data program tersedia
+"Control Pendaftaran" -> "Halaman Daftar Program": Kirim daftar program
+"Halaman Daftar Program" -> Mahasiswa: Tampilkan daftar program
+
+Mahasiswa -> "Halaman Daftar Program": Memilih program yang diminati
+Mahasiswa -> "Halaman Daftar Program": Menekan tombol daftar
+"Halaman Daftar Program" -> "Control Pendaftaran": Kirim data pendaftaran
+"Control Pendaftaran" -> "Control Pendaftaran": Validasi syarat pendaftaran
+
+alt Syarat terpenuhi
+    "Control Pendaftaran" -> "Database Program": Simpan data pendaftaran
+    "Database Program" --> "Control Pendaftaran": Konfirmasi pendaftaran berhasil
+    "Control Pendaftaran" -> "Halaman Daftar Program": Kirim notifikasi sukses
+    "Halaman Daftar Program" -> Mahasiswa: Tampilkan notifikasi sukses
+    
+    Mahasiswa -> "Halaman Daftar Program": Pergi ke menu Programku
+    Mahasiswa -> "Halaman Daftar Program": Upload bukti pembayaran
+    "Halaman Daftar Program" -> "Control Pendaftaran": Kirim bukti pembayaran
+    "Control Pendaftaran" -> "Database Program": Simpan bukti pembayaran
+    "Database Program" --> "Control Pendaftaran": Konfirmasi upload berhasil
+    "Control Pendaftaran" -> "Halaman Daftar Program": Kirim notifikasi upload sukses
+    "Halaman Daftar Program" -> Mahasiswa: Tampilkan notifikasi upload sukses
+else Syarat tidak terpenuhi
+    "Control Pendaftaran" -> "Halaman Daftar Program": Kirim pesan error syarat
+    "Halaman Daftar Program" -> Mahasiswa: Tampilkan pesan error syarat
+end
+@enduml 

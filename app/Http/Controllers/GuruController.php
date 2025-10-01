@@ -14,8 +14,12 @@ use App\Models\ProgramTransaction;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\WeeklyLog;
+use App\Notifications\VerifikasiRancanganNotification;
+use App\Notifications\VerifikasiLogbookNotification;
+use App\Notifications\LogbookNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -62,6 +66,7 @@ class GuruController extends Controller
     {
         // Ambil data daily berdasarkan ID
         $daily = DailyLog::find($id);
+        
 
         if ($request->status === 'terima') {
             $daily->status = 'terima';
@@ -76,9 +81,27 @@ class GuruController extends Controller
 
         // Simpan perubahan ke dalam database
         $daily->save();
+        
+        // Kirim notifikasi email ke mahasiswa
+        try {
+            if ($daily->programTransaction && $daily->programTransaction->mahasiswa) {
+                $mahasiswa = $daily->programTransaction->mahasiswa;
+                $mahasiswa->user->notify(new \App\Notifications\VerifikasiLogbookNotification(
+                    $daily,
+                    $request->status === 'terima' ? 'terima' : 'tolak',
+                    $daily->msg,
+                    'pamong',
+                    'harian'
+                ));
+            }
+        } catch (\Exception $e) {
+            // Log error jika terjadi masalah saat mengirim notifikasi
+            \Log::error('Error saat mengirim notifikasi verifikasi logbook harian: ' . $e->getMessage());
+        }
 
         // Redirect kembali ke weekly_review_dpl dengan weekly_log_id dari daily
-        return redirect()->route('guru.daily.log', ['id' => $daily->weekly_log_id]);
+        return redirect()->route('guru.daily.log', ['id' => $daily->weekly_log_id])
+            ->with('success', 'Logbook berhasil diverifikasi');
     }
 
 
@@ -149,6 +172,21 @@ class GuruController extends Controller
             $peserta->msg_pamong = '';
         }
         $peserta->save();
+        
+        // Kirim notifikasi email ke mahasiswa
+        try {
+            $mahasiswa = $peserta->mahasiswa;
+            $mahasiswa->user->notify(new \App\Notifications\VerifikasiRancanganNotification(
+                $peserta,
+                $request->status == 'terima' ? 'terima' : 'tolak',
+                $peserta->msg_pamong,
+                'pamong'
+            ));
+        } catch (\Exception $e) {
+            // Log error jika terjadi masalah saat mengirim notifikasi
+            \Log::error('Error saat mengirim notifikasi verifikasi rancangan: ' . $e->getMessage());
+        }
+        
         return redirect()->back();
     }
 
@@ -306,5 +344,33 @@ class GuruController extends Controller
         $guru->delete();
         return redirect()->route('admin.guru')
             ->with('success', 'Guru deleted successfully');
+    }
+    
+    /**
+     * Toggle lock status for daily logbook
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function toggleDailyLock($id)
+    {
+        $dailyLog = DailyLog::findOrFail($id);
+        $dailyLog->is_lock = !$dailyLog->is_lock;
+        $dailyLog->save();
+        
+        // Kirim notifikasi ke mahasiswa jika logbook dikunci
+        if ($dailyLog->is_lock) {
+            $user = User::find($dailyLog->programTransaction->mahasiswa->user_id);
+            if ($user) {
+                $user->notify(new LogbookNotification(
+                    'Logbook Harian Dikunci',
+                    'Logbook harian Anda telah dikunci oleh Pamong.',
+                    'daily_logbook'
+                ));
+            }
+        }
+        
+        $status = $dailyLog->is_lock ? 'dikunci' : 'dibuka';
+        return back()->with('success', 'Logbook harian berhasil ' . $status);
     }
 }

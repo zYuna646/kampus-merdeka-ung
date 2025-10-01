@@ -1,0 +1,38 @@
+@startuml
+|Mahasiswa|
+start
+:Mahasiswa membuka dashboard;
+:Mahasiswa memilih program yang diikuti;
+:Mahasiswa masuk ke detail program;
+:Mahasiswa memilih file laporan rancangan;
+:Mahasiswa mengupload laporan rancangan kegiatan;
+
+|Sistem|
+:Menerima file laporan dari mahasiswa;
+:Validasi format dan ukuran file;
+if (File valid?) then (ya)
+  :Menyimpan file laporan ke database;
+  :Mengupdate status laporan (pending);
+  :Menampilkan status laporan;
+  |Mahasiswa|
+  :Mahasiswa melihat status laporan;
+  
+  |Sistem|
+  :Cek status verifikasi pamong & dpl;
+  if (Status laporan sudah diterima pamong & dpl?) then (ya)
+    :Mengaktifkan akses logbook;
+    :Menampilkan notifikasi akses logbook;
+    |Mahasiswa|
+    :Mahasiswa bisa mengisi logbook;
+  else (tidak)
+    :Menampilkan status menunggu verifikasi;
+    |Mahasiswa|
+    :Mahasiswa menunggu verifikasi pamong & dpl;
+  endif
+else (tidak)
+  :Menampilkan pesan error file;
+  |Mahasiswa|
+  :Mahasiswa melihat pesan error;
+endif
+stop
+@enduml

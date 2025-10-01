@@ -16,6 +16,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        
+        // Jalankan pengecekan deadline logbook setiap hari pada pukul 00:00
+        $schedule->command('logbook:lock')->dailyAt('00:00');
+        $schedule->command('logbook:verif-lock')->dailyAt('00:00');
     }
 
     /**

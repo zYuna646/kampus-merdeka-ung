@@ -1,0 +1,37 @@
+@startuml
+hide footbox
+actor Admin
+boundary Web
+control PamongController
+control MahasiswaController
+database PamongModel
+database MahasiswaModel
+database ProgramTransactionModel
+
+Admin -> Web: Buka menu penugasan Pamong
+Web -> PamongController: Tampilkan form tambah pamong
+Admin -> Web: Input data pamong baru
+Web -> PamongController: Simpan data pamong
+PamongController -> PamongModel: Create pamong baru
+PamongController -> Web: Konfirmasi pamong ditambahkan
+
+Admin -> Web: Pilih pamong dari daftar
+Web -> PamongController: Ambil detail pamong
+PamongController -> PamongModel: Get pamong dan lokasi
+PamongModel -> PamongController: Return data pamong
+
+Admin -> Web: Pilih lowongan program
+Web -> MahasiswaController: Filter mahasiswa berdasarkan lowongan dan lokasi pamong
+MahasiswaController -> ProgramTransactionModel: Get mahasiswa terverifikasi di lowongan
+MahasiswaController -> MahasiswaModel: Filter berdasarkan lokasi pamong
+MahasiswaModel -> MahasiswaController: Return daftar mahasiswa
+MahasiswaController -> Web: Tampilkan daftar mahasiswa
+
+Admin -> Web: Pilih mahasiswa dan klik assign
+Web -> PamongController: Kirim data penugasan
+PamongController -> PamongModel: Validasi ketersediaan pamong
+PamongController -> MahasiswaModel: Validasi ketersediaan mahasiswa
+PamongController -> PamongModel: Update relasi mahasiswa-pamong
+PamongController -> Web: Kirim notifikasi ke mahasiswa dan pamong
+PamongController -> Web: Tampilkan notifikasi sukses
+@enduml 

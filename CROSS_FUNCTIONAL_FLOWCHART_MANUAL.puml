@@ -1,0 +1,86 @@
+@startuml
+!theme plain
+
+|LPMPP|
+start
+:LPMPP memberitahukan program\nKampus Merdeka dibuka;
+
+|Mahasiswa|
+:Mahasiswa menghubungi LPMPP\nuntuk mengikuti kegiatan;
+
+:Mahasiswa mempersiapkan berkas;
+
+|LPMPP|
+:LPMPP menerima dan\nmengverifikasi berkas;
+if (Berkas lengkap dan valid?) then (ya)
+  :Berkas diterima;
+else (tidak)
+  :Berkas dikembalikan untuk\ndilengkapi/diperbaiki;
+  stop
+endif
+
+:LPMPP memilih mitra/lokasi\npenempatan;
+:LPMPP menentukan DPL\ndan Pamong;
+:LPMPP menginformasikan\npenempatan ke mahasiswa;
+
+|Mahasiswa|
+:Mahasiswa menghubungi DPL;
+:Mahasiswa menghubungi Pamong;
+:Mahasiswa memperlihatkan\nrancangan kegiatan ke Pamong;
+
+|Pamong|
+:Pamong memeriksa\nrancangan kegiatan;
+if (Rancangan diterima Pamong?) then (ya)
+  :Pamong menyetujui rancangan;
+else (tidak)
+  :Pamong memberikan feedback\nuntuk perbaikan;
+  |Mahasiswa|
+  :Mahasiswa memperbaiki\nrancangan kegiatan;
+  stop
+endif
+
+|Mahasiswa|
+:Mahasiswa memperlihatkan\nrancangan kegiatan ke DPL;
+
+|Dosen (DPL)|
+:DPL memeriksa\nrancangan kegiatan;
+if (Rancangan diterima DPL?) then (ya)
+  :DPL menyetujui rancangan;
+else (tidak)
+  :DPL memberikan feedback\nuntuk perbaikan;
+  |Mahasiswa|
+  :Mahasiswa memperbaiki\nrancangan kegiatan;
+  stop
+endif
+
+|Mahasiswa|
+if (Rancangan diterima kedua pembimbing?) then (ya)
+  :Mahasiswa mulai melakukan\nkegiatan di lokasi sesuai rancangan;
+  
+  repeat
+    :Mahasiswa melakukan\nkegiatan harian;
+    :Mahasiswa melaporkan\nkegiatan harian ke Pamong;
+    
+    |Pamong|
+    :Pamong menerima dan\nmemeriksa laporan harian;
+    
+    |Mahasiswa|
+  repeat while (Masih dalam periode program?) is (ya)
+  
+  :Mahasiswa melaporkan\nkegiatan mingguan ke DPL;
+  
+  |Dosen (DPL)|
+  :DPL menerima laporan mingguan;
+  
+else (tidak)
+  :Tunggu persetujuan rancangan;
+  stop
+endif
+
+|Operator|
+:Operator menghubungi\nPamong/mitra terkait progres;
+:Operator mendapatkan\ninformasi progres kegiatan;
+
+stop
+
+@enduml 

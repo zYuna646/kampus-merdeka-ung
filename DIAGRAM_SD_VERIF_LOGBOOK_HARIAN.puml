@@ -1,0 +1,46 @@
+@startuml
+hide footbox
+actor Pamong
+boundary "Halaman Verifikasi Logbook"
+control "Control Verifikasi Logbook"
+database "Database Logbook"
+
+Pamong -> "Halaman Verifikasi Logbook": Login ke dashboard
+Pamong -> "Halaman Verifikasi Logbook": Membuka menu verifikasi logbook harian
+"Halaman Verifikasi Logbook" -> "Control Verifikasi Logbook": Minta daftar logbook yang perlu diverifikasi
+"Control Verifikasi Logbook" -> "Database Logbook": Ambil data logbook harian mahasiswa
+"Database Logbook" --> "Control Verifikasi Logbook": Data logbook harian mahasiswa
+"Control Verifikasi Logbook" -> "Halaman Verifikasi Logbook": Kirim daftar logbook
+"Halaman Verifikasi Logbook" -> Pamong: Tampilkan daftar logbook mahasiswa
+
+Pamong -> "Halaman Verifikasi Logbook": Memilih logbook mahasiswa
+"Halaman Verifikasi Logbook" -> "Control Verifikasi Logbook": Minta detail logbook dan dokumentasi
+"Control Verifikasi Logbook" -> "Database Logbook": Ambil detail logbook dan dokumentasi
+"Database Logbook" --> "Control Verifikasi Logbook": Detail logbook dan dokumentasi
+"Control Verifikasi Logbook" -> "Halaman Verifikasi Logbook": Kirim detail logbook
+"Halaman Verifikasi Logbook" -> Pamong: Tampilkan logbook untuk review
+
+Pamong -> "Halaman Verifikasi Logbook": Membaca dan mereview logbook harian
+Pamong -> "Halaman Verifikasi Logbook": Memeriksa dokumentasi
+Pamong -> "Halaman Verifikasi Logbook": Menentukan keputusan verifikasi
+
+"Halaman Verifikasi Logbook" -> "Control Verifikasi Logbook": Kirim keputusan verifikasi
+
+alt Logbook harian diterima
+    "Control Verifikasi Logbook" -> "Database Logbook": Update status logbook (diterima)
+    "Database Logbook" --> "Control Verifikasi Logbook": Konfirmasi update berhasil
+    "Control Verifikasi Logbook" -> "Database Logbook": Simpan data verifikasi
+    "Control Verifikasi Logbook" -> "Control Verifikasi Logbook": Kirim notifikasi ke mahasiswa
+    "Control Verifikasi Logbook" -> "Halaman Verifikasi Logbook": Kirim notifikasi sukses
+    "Halaman Verifikasi Logbook" -> Pamong: Tampilkan konfirmasi sukses
+else Logbook harian ditolak
+    Pamong -> "Halaman Verifikasi Logbook": Input pesan penolakan
+    "Halaman Verifikasi Logbook" -> "Control Verifikasi Logbook": Kirim pesan penolakan
+    "Control Verifikasi Logbook" -> "Database Logbook": Update status logbook (ditolak)
+    "Control Verifikasi Logbook" -> "Database Logbook": Simpan pesan penolakan
+    "Database Logbook" --> "Control Verifikasi Logbook": Konfirmasi update berhasil
+    "Control Verifikasi Logbook" -> "Control Verifikasi Logbook": Kirim notifikasi penolakan ke mahasiswa
+    "Control Verifikasi Logbook" -> "Halaman Verifikasi Logbook": Kirim notifikasi penolakan
+    "Halaman Verifikasi Logbook" -> Pamong: Tampilkan konfirmasi penolakan
+end
+@enduml 

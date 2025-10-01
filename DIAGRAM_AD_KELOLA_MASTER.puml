@@ -1,0 +1,23 @@
+@startuml
+|Admin|
+start
+:Admin membuka menu data master;
+:Admin memilih entitas (fakultas, jurusan, prodi, dsb);
+:Admin menentukan aksi (tambah/edit/hapus);
+:Admin mengisi/mengubah data;
+:Admin menekan tombol simpan;
+
+|Sistem|
+:Menerima data dari admin;
+:Validasi data yang diinput;
+if (Data valid?) then (ya)
+  :Memperbarui database;
+  :Menyimpan perubahan;
+  :Menampilkan notifikasi sukses;
+else (tidak)
+  :Menampilkan pesan error;
+  |Admin|
+  :Admin melihat pesan error;
+endif
+stop
+@enduml 

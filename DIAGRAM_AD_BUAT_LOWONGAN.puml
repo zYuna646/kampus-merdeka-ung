@@ -1,0 +1,29 @@
+@startuml
+|Admin|
+start
+:Admin membuka menu lowongan;
+:Admin menekan tombol tambah lowongan;
+:Admin memilih program untuk lowongan;
+:Admin mengisi tahun akademik;
+:Admin mengisi biaya;
+:Admin mengisi tanggal mulai pendaftaran;
+:Admin mengisi tanggal mulai logbook;
+:Admin memilih apakah lowongan menggunakan logbook;
+:Admin menekan tombol simpan;
+
+|Sistem|
+:Menerima data lowongan dari admin;
+:Validasi kelengkapan data;
+if (Data lowongan valid?) then (ya)
+  :Menyimpan data lowongan baru;
+  :Membuat record di database;
+  :Menampilkan notifikasi sukses;
+  |Admin|
+  :Admin melihat notifikasi sukses;
+else (tidak)
+  :Menampilkan pesan error validasi;
+  |Admin|
+  :Admin melihat pesan error;
+endif
+stop
+@enduml 

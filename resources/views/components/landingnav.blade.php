@@ -103,14 +103,14 @@
             </li>
             <li
                 class="p-4 flex items-center {{ Route::currentRouteNamed('infografis') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg">
-                <a href="{{ route('program') }}" class="flex items-center gap-x-2">
+                <a href="{{ route('infografis') }}" class="flex items-center gap-x-2">
                     <i class="fas fa-chart-bar"></i>
                     Infografis
                 </a>
             </li>
             <li
                 class="p-4 flex items-center {{ Route::currentRouteNamed('berita') ? 'bg-color-primary-500 text-white' : 'text-slate-500' }} rounded-lg">
-                <a href="{{ route('program') }}" class="flex items-center gap-x-2">
+                <a href="{{ route('berita') }}" class="flex items-center gap-x-2">
                     <i class="fas fa-newspaper"></i>
                     Berita
                 </a>

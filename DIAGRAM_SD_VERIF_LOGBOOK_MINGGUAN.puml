@@ -1,0 +1,46 @@
+@startuml
+hide footbox
+actor Dosen
+boundary "Halaman Verifikasi Logbook Mingguan"
+control "Control Verifikasi Logbook Mingguan"
+database "Database Logbook"
+
+Dosen -> "Halaman Verifikasi Logbook Mingguan": Login ke dashboard
+Dosen -> "Halaman Verifikasi Logbook Mingguan": Membuka menu verifikasi logbook mingguan
+"Halaman Verifikasi Logbook Mingguan" -> "Control Verifikasi Logbook Mingguan": Minta daftar logbook mingguan yang perlu diverifikasi
+"Control Verifikasi Logbook Mingguan" -> "Database Logbook": Ambil data logbook mingguan mahasiswa
+"Database Logbook" --> "Control Verifikasi Logbook Mingguan": Data logbook mingguan mahasiswa
+"Control Verifikasi Logbook Mingguan" -> "Halaman Verifikasi Logbook Mingguan": Kirim daftar logbook
+"Halaman Verifikasi Logbook Mingguan" -> Dosen: Tampilkan daftar logbook mingguan mahasiswa
+
+Dosen -> "Halaman Verifikasi Logbook Mingguan": Memilih logbook mahasiswa
+"Halaman Verifikasi Logbook Mingguan" -> "Control Verifikasi Logbook Mingguan": Minta detail logbook mingguan
+"Control Verifikasi Logbook Mingguan" -> "Database Logbook": Ambil detail logbook dan rangkuman aktivitas
+"Database Logbook" --> "Control Verifikasi Logbook Mingguan": Detail logbook dan rangkuman mingguan
+"Control Verifikasi Logbook Mingguan" -> "Halaman Verifikasi Logbook Mingguan": Kirim detail logbook
+"Halaman Verifikasi Logbook Mingguan" -> Dosen: Tampilkan logbook untuk review
+
+Dosen -> "Halaman Verifikasi Logbook Mingguan": Membaca dan mereview logbook mingguan
+Dosen -> "Halaman Verifikasi Logbook Mingguan": Memeriksa rangkuman aktivitas mingguan
+Dosen -> "Halaman Verifikasi Logbook Mingguan": Menentukan keputusan verifikasi
+
+"Halaman Verifikasi Logbook Mingguan" -> "Control Verifikasi Logbook Mingguan": Kirim keputusan verifikasi
+
+alt Logbook mingguan diterima
+    "Control Verifikasi Logbook Mingguan" -> "Database Logbook": Update status logbook (diterima)
+    "Database Logbook" --> "Control Verifikasi Logbook Mingguan": Konfirmasi update berhasil
+    "Control Verifikasi Logbook Mingguan" -> "Database Logbook": Simpan data verifikasi
+    "Control Verifikasi Logbook Mingguan" -> "Control Verifikasi Logbook Mingguan": Kirim notifikasi ke mahasiswa
+    "Control Verifikasi Logbook Mingguan" -> "Halaman Verifikasi Logbook Mingguan": Kirim notifikasi sukses
+    "Halaman Verifikasi Logbook Mingguan" -> Dosen: Tampilkan konfirmasi sukses
+else Logbook mingguan ditolak
+    Dosen -> "Halaman Verifikasi Logbook Mingguan": Input pesan penolakan
+    "Halaman Verifikasi Logbook Mingguan" -> "Control Verifikasi Logbook Mingguan": Kirim pesan penolakan
+    "Control Verifikasi Logbook Mingguan" -> "Database Logbook": Update status logbook (ditolak)
+    "Control Verifikasi Logbook Mingguan" -> "Database Logbook": Simpan pesan penolakan
+    "Database Logbook" --> "Control Verifikasi Logbook Mingguan": Konfirmasi update berhasil
+    "Control Verifikasi Logbook Mingguan" -> "Control Verifikasi Logbook Mingguan": Kirim notifikasi penolakan ke mahasiswa
+    "Control Verifikasi Logbook Mingguan" -> "Halaman Verifikasi Logbook Mingguan": Kirim notifikasi penolakan
+    "Halaman Verifikasi Logbook Mingguan" -> Dosen: Tampilkan konfirmasi penolakan
+end
+@enduml 

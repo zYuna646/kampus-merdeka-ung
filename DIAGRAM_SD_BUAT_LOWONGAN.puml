@@ -1,0 +1,34 @@
+@startuml
+hide footbox
+actor Admin
+boundary "Halaman Kelola Lowongan"
+control "Control Kelola Lowongan"
+database "Database Lowongan"
+
+Admin -> "Halaman Kelola Lowongan": Membuka menu lowongan
+Admin -> "Halaman Kelola Lowongan": Menekan tombol tambah lowongan
+"Halaman Kelola Lowongan" -> "Control Kelola Lowongan": Minta form tambah lowongan
+"Control Kelola Lowongan" -> "Halaman Kelola Lowongan": Kirim form lowongan kosong
+"Halaman Kelola Lowongan" -> Admin: Tampilkan form tambah lowongan
+
+Admin -> "Halaman Kelola Lowongan": Memilih program untuk lowongan
+Admin -> "Halaman Kelola Lowongan": Mengisi tahun akademik
+Admin -> "Halaman Kelola Lowongan": Mengisi biaya
+Admin -> "Halaman Kelola Lowongan": Mengisi tanggal mulai pendaftaran
+Admin -> "Halaman Kelola Lowongan": Mengisi tanggal mulai logbook
+Admin -> "Halaman Kelola Lowongan": Memilih penggunaan logbook
+Admin -> "Halaman Kelola Lowongan": Menekan tombol simpan
+
+"Halaman Kelola Lowongan" -> "Control Kelola Lowongan": Kirim data lowongan
+"Control Kelola Lowongan" -> "Control Kelola Lowongan": Validasi kelengkapan data
+
+alt Data lowongan valid
+    "Control Kelola Lowongan" -> "Database Lowongan": Simpan data lowongan baru
+    "Database Lowongan" --> "Control Kelola Lowongan": Konfirmasi penyimpanan berhasil
+    "Control Kelola Lowongan" -> "Halaman Kelola Lowongan": Kirim notifikasi sukses
+    "Halaman Kelola Lowongan" -> Admin: Tampilkan notifikasi sukses
+else Data lowongan tidak valid
+    "Control Kelola Lowongan" -> "Halaman Kelola Lowongan": Kirim pesan error validasi
+    "Halaman Kelola Lowongan" -> Admin: Tampilkan pesan error validasi
+end
+@enduml 

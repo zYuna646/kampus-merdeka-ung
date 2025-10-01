@@ -1,0 +1,41 @@
+@startuml
+hide footbox
+actor Mahasiswa
+boundary "Halaman Logbook Mingguan"
+control "Control Logbook Mingguan"
+database "Database Logbook"
+
+Mahasiswa -> "Halaman Logbook Mingguan": Membuka logbook mingguan
+"Halaman Logbook Mingguan" -> "Control Logbook Mingguan": Request akses logbook mingguan
+"Control Logbook Mingguan" -> "Database Logbook": Cek status semua logbook harian minggu tersebut
+"Database Logbook" --> "Control Logbook Mingguan": Status logbook harian
+
+alt Semua logbook harian sudah diterima
+    "Control Logbook Mingguan" -> "Database Logbook": Ambil template logbook mingguan
+    "Database Logbook" --> "Control Logbook Mingguan": Template logbook mingguan
+    "Control Logbook Mingguan" -> "Halaman Logbook Mingguan": Kirim form logbook mingguan
+    "Halaman Logbook Mingguan" -> Mahasiswa: Tampilkan form isian mingguan
+    
+    Mahasiswa -> "Halaman Logbook Mingguan": Mengisi aktivitas mingguan
+    Mahasiswa -> "Halaman Logbook Mingguan": Menekan tombol simpan
+    
+    "Halaman Logbook Mingguan" -> "Control Logbook Mingguan": Kirim data logbook mingguan
+    "Control Logbook Mingguan" -> "Control Logbook Mingguan": Validasi kelengkapan data
+    
+    alt Data valid
+        "Control Logbook Mingguan" -> "Database Logbook": Simpan data logbook mingguan
+        "Database Logbook" --> "Control Logbook Mingguan": Konfirmasi penyimpanan berhasil
+        "Control Logbook Mingguan" -> "Database Logbook": Update status logbook (menunggu verifikasi DPL)
+        "Control Logbook Mingguan" -> "Halaman Logbook Mingguan": Kirim notifikasi sukses
+        "Halaman Logbook Mingguan" -> Mahasiswa: Tampilkan notifikasi sukses
+        "Halaman Logbook Mingguan" -> Mahasiswa: Tampilkan status "menunggu verifikasi DPL"
+    else Data tidak valid
+        "Control Logbook Mingguan" -> "Halaman Logbook Mingguan": Kirim pesan error validasi
+        "Halaman Logbook Mingguan" -> Mahasiswa: Tampilkan pesan error validasi
+    end
+    
+else Ada logbook harian belum diterima
+    "Control Logbook Mingguan" -> "Halaman Logbook Mingguan": Kirim pesan persyaratan
+    "Halaman Logbook Mingguan" -> Mahasiswa: Tampilkan pesan "Lengkapi dan tunggu semua logbook harian diterima"
+end
+@enduml 

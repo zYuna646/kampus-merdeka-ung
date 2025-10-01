@@ -1,0 +1,9 @@
+@startuml
+start
+:Admin membuka data mahasiswa;
+:Admin memilih mahasiswa yang akan diverifikasi;
+:Admin menekan tombol verifikasi;
+:Sistem memperbarui status verifikasi mahasiswa;
+:Sistem menampilkan notifikasi sukses;
+stop
+@enduml

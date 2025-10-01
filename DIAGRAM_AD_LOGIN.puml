@@ -1,0 +1,22 @@
+@startuml
+|Pengguna|
+start
+:Pengguna membuka halaman login;
+:Pengguna mengisi username & password;
+:Pengguna menekan tombol login;
+
+|Sistem|
+:Menerima data login;
+:Validasi username & password;
+if (Data login valid?) then (ya)
+  :Autentikasi berhasil;
+  :Menentukan peran pengguna;
+  :Mengarahkan ke dashboard sesuai peran;
+else (tidak)
+  :Autentikasi gagal;
+  :Menampilkan pesan error;
+  |Pengguna|
+  :Pengguna melihat pesan error;
+endif
+stop
+@enduml 

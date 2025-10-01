@@ -1,0 +1,104 @@
+@startuml
+!theme plain
+title Cross Functional Flowchart - Sistem Monitoring Kegiatan Kampus Merdeka
+
+|#LightBlue|Admin|
+start
+:Admin login;
+:Buat lowongan program;
+:Tentukan tahun akademik, biaya, tanggal;
+:Import/kelola data master;
+
+|#LightGreen|Mahasiswa|
+:Mahasiswa register & login;
+:Lihat daftar program;
+:Daftar program yang diminati;
+:Upload bukti pembayaran;
+
+|#LightBlue|Admin|
+:Verifikasi bukti pembayaran;
+:Input total pembayaran;
+if (Pembayaran valid?) then (ya)
+  :Update status pembayaran;
+  :Mahasiswa masuk list peminat;
+else (tidak)
+  :Tolak pembayaran;
+  stop
+endif
+
+:Verifikasi peserta;
+:Pilih lokasi penempatan;
+:Update status peserta;
+
+:Assign mahasiswa ke DPL;
+:Assign mahasiswa ke Pamong;
+
+|#LightGreen|Mahasiswa|
+:Upload laporan rancangan kegiatan;
+
+|#LightYellow|Pamong|
+:Login ke sistem;
+:Lihat daftar peserta;
+:Verifikasi laporan rancangan;
+if (Laporan diterima Pamong?) then (ya)
+  :Update status laporan;
+else (tidak)
+  :Input pesan penolakan;
+  stop
+endif
+
+|#LightCyan|Dosen (DPL)|
+:Login ke sistem;
+:Lihat daftar peserta;
+:Verifikasi laporan rancangan;
+if (Laporan diterima DPL?) then (ya)
+  :Update status laporan;
+else (tidak)
+  :Input pesan penolakan;
+  stop
+endif
+
+|#LightGreen|Mahasiswa|
+if (Laporan diterima kedua pembimbing?) then (ya)
+  :Mulai isi logbook harian;
+  repeat
+    :Isi aktivitas harian;
+    :Upload dokumentasi;
+    
+    |#LightYellow|Pamong|
+    :Verifikasi logbook harian;
+    if (Logbook harian diterima?) then (ya)
+      :Update status logbook harian;
+    else (tidak)
+      :Input pesan penolakan;
+    endif
+    
+    |#LightGreen|Mahasiswa|
+  repeat while (Masih dalam periode program?) is (ya)
+  
+  :Isi logbook mingguan;
+  note right: Hanya bisa diisi jika\nsemua logbook harian\nminggu tersebut diterima
+  
+  |#LightCyan|Dosen (DPL)|
+  :Verifikasi logbook mingguan;
+  if (Logbook mingguan diterima?) then (ya)
+    :Update status logbook mingguan;
+  else (tidak)
+    :Input pesan penolakan;
+  endif
+  
+else (tidak)
+  :Tunggu verifikasi laporan;
+  stop
+endif
+
+|#LightPink|Operator|
+:Login ke sistem;
+:Pilih program untuk monitoring;
+:Lihat data mahasiswa;
+:Monitor status laporan & logbook;
+:Generate laporan monitoring;
+
+stop
+
+@enduml 

@@ -1,0 +1,36 @@
+@startuml
+hide footbox
+actor Admin
+boundary Web
+control DPLController
+control MahasiswaController
+database DPLModel
+database MahasiswaModel
+database ProgramTransactionModel
+
+Admin -> Web: Buka menu penugasan DPL
+Web -> DPLController: Tampilkan form tambah DPL
+Admin -> Web: Input data DPL baru
+Web -> DPLController: Simpan data DPL
+DPLController -> DPLModel: Create DPL baru
+DPLController -> Web: Konfirmasi DPL ditambahkan
+
+Admin -> Web: Pilih DPL dari daftar
+Web -> DPLController: Ambil detail DPL
+DPLController -> DPLModel: Get DPL data
+DPLModel -> DPLController: Return data DPL
+
+Admin -> Web: Pilih lowongan program
+Web -> MahasiswaController: Filter mahasiswa berdasarkan lowongan
+MahasiswaController -> ProgramTransactionModel: Get mahasiswa terverifikasi di lowongan
+ProgramTransactionModel -> MahasiswaController: Return daftar mahasiswa
+MahasiswaController -> Web: Tampilkan daftar mahasiswa
+
+Admin -> Web: Pilih mahasiswa dan klik assign
+Web -> DPLController: Kirim data penugasan
+DPLController -> DPLModel: Validasi ketersediaan DPL
+DPLController -> MahasiswaModel: Validasi ketersediaan mahasiswa
+DPLController -> DPLModel: Update relasi mahasiswa-DPL
+DPLController -> Web: Kirim notifikasi ke mahasiswa dan DPL
+DPLController -> Web: Tampilkan notifikasi sukses
+@enduml 

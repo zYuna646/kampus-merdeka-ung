@@ -7,6 +7,9 @@
             <h4 class="font-semibold text-lg">{{ $peserta->mahasiswa->name }} ({{ $peserta->mahasiswa->nim }})</h4>
         </div>
         <div class="col-span-12 mt-4">
+            <h4 class="font-semibold text-lg">{{ $peserta->mahasiswa->studi->name }}</h4>
+        </div>
+        <div class="col-span-12 mt-4">
             <h4 class="font-semibold text-lg">{{ $peserta->lokasi->name }}</h4>
         </div>
         <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500 mt-2">

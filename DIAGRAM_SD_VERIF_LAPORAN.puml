@@ -1,0 +1,67 @@
+@startuml
+hide footbox
+actor Pamong
+actor DPL
+boundary "Halaman Verifikasi Laporan"
+control "Control Verifikasi Laporan"
+database "Database Laporan"
+
+Pamong -> "Halaman Verifikasi Laporan": Login ke dashboard
+Pamong -> "Halaman Verifikasi Laporan": Memilih program
+Pamong -> "Halaman Verifikasi Laporan": Masuk ke detail program
+Pamong -> "Halaman Verifikasi Laporan": Melihat daftar laporan mahasiswa
+Pamong -> "Halaman Verifikasi Laporan": Memilih laporan mahasiswa
+Pamong -> "Halaman Verifikasi Laporan": Membaca dan mereview laporan
+Pamong -> "Halaman Verifikasi Laporan": Menentukan keputusan verifikasi
+
+"Halaman Verifikasi Laporan" -> "Control Verifikasi Laporan": Kirim keputusan verifikasi Pamong
+
+alt Pamong menerima laporan
+    "Control Verifikasi Laporan" -> "Database Laporan": Update status verifikasi Pamong (diterima)
+    "Database Laporan" --> "Control Verifikasi Laporan": Konfirmasi update berhasil
+    "Control Verifikasi Laporan" -> "Halaman Verifikasi Laporan": Kirim notifikasi sukses
+    "Halaman Verifikasi Laporan" -> Pamong: Tampilkan konfirmasi sukses
+else Pamong menolak laporan
+    Pamong -> "Halaman Verifikasi Laporan": Input pesan penolakan
+    "Control Verifikasi Laporan" -> "Database Laporan": Update status verifikasi Pamong (ditolak)
+    "Control Verifikasi Laporan" -> "Database Laporan": Simpan pesan penolakan Pamong
+    "Database Laporan" --> "Control Verifikasi Laporan": Konfirmasi update berhasil
+    "Control Verifikasi Laporan" -> "Halaman Verifikasi Laporan": Kirim notifikasi penolakan
+    "Halaman Verifikasi Laporan" -> Pamong: Tampilkan konfirmasi penolakan
+end
+
+DPL -> "Halaman Verifikasi Laporan": Login ke dashboard
+DPL -> "Halaman Verifikasi Laporan": Memilih program
+DPL -> "Halaman Verifikasi Laporan": Masuk ke detail program
+DPL -> "Halaman Verifikasi Laporan": Melihat daftar laporan mahasiswa
+DPL -> "Halaman Verifikasi Laporan": Memilih laporan mahasiswa
+DPL -> "Halaman Verifikasi Laporan": Membaca dan mereview laporan
+DPL -> "Halaman Verifikasi Laporan": Menentukan keputusan verifikasi
+
+"Halaman Verifikasi Laporan" -> "Control Verifikasi Laporan": Kirim keputusan verifikasi DPL
+
+alt DPL menerima laporan
+    "Control Verifikasi Laporan" -> "Database Laporan": Update status verifikasi DPL (diterima)
+    "Database Laporan" --> "Control Verifikasi Laporan": Konfirmasi update berhasil
+    "Control Verifikasi Laporan" -> "Halaman Verifikasi Laporan": Kirim notifikasi sukses
+    "Halaman Verifikasi Laporan" -> DPL: Tampilkan konfirmasi sukses
+else DPL menolak laporan
+    DPL -> "Halaman Verifikasi Laporan": Input pesan penolakan
+    "Control Verifikasi Laporan" -> "Database Laporan": Update status verifikasi DPL (ditolak)
+    "Control Verifikasi Laporan" -> "Database Laporan": Simpan pesan penolakan DPL
+    "Database Laporan" --> "Control Verifikasi Laporan": Konfirmasi update berhasil
+    "Control Verifikasi Laporan" -> "Halaman Verifikasi Laporan": Kirim notifikasi penolakan
+    "Halaman Verifikasi Laporan" -> DPL: Tampilkan konfirmasi penolakan
+end
+
+"Control Verifikasi Laporan" -> "Database Laporan": Cek status verifikasi kedua pembimbing
+"Database Laporan" --> "Control Verifikasi Laporan": Data status verifikasi
+
+alt Kedua pembimbing menerima
+    "Control Verifikasi Laporan" -> "Database Laporan": Update status laporan final (diterima)
+    "Control Verifikasi Laporan" -> "Control Verifikasi Laporan": Kirim notifikasi ke mahasiswa (laporan diterima)
+else Salah satu atau keduanya menolak
+    "Control Verifikasi Laporan" -> "Database Laporan": Update status laporan final (ditolak)
+    "Control Verifikasi Laporan" -> "Control Verifikasi Laporan": Kirim notifikasi ke mahasiswa (laporan ditolak)
+end
+@enduml 

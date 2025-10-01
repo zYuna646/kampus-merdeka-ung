@@ -1,0 +1,14 @@
+@startuml
+hide footbox
+actor Pengguna
+boundary "Halaman Login"
+control "Control Proses Data"
+database "Database Pengguna"
+
+Pengguna -> "Halaman Login": Input username & password
+"Halaman Login" -> "Control Proses Data": Kirim data login
+"Control Proses Data" -> "Database Pengguna": Cek user & password
+"Database Pengguna" --> "Control Proses Data": Data user/validasi
+"Control Proses Data" -> "Halaman Login": Redirect ke dashboard/role
+"Halaman Login" -> Pengguna: Tampilkan hasil (sukses/gagal)
+@enduml 

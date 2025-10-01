@@ -1,0 +1,26 @@
+@startuml
+|Mahasiswa|
+start
+:Mahasiswa membuka logbook harian;
+:Mahasiswa melihat form isian logbook;
+:Mahasiswa mengisi aktivitas harian;
+:Mahasiswa mengunggah dokumentasi;
+:Mahasiswa menekan tombol simpan;
+
+|Sistem|
+:Menerima data logbook harian;
+:Validasi kelengkapan data;
+if (Data valid?) then (ya)
+  :Menyimpan data logbook harian;
+  :Mengupdate status logbook (menunggu verifikasi);
+  :Menampilkan notifikasi sukses;
+  |Mahasiswa|
+  :Mahasiswa melihat notifikasi sukses;
+  :Mahasiswa melihat status "menunggu verifikasi pamong";
+else (tidak)
+  :Menampilkan pesan error validasi;
+  |Mahasiswa|
+  :Mahasiswa melihat pesan error;
+endif
+stop
+@enduml 

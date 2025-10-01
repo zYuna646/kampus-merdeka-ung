@@ -1,0 +1,40 @@
+@startuml
+hide footbox
+actor Mahasiswa
+boundary "Halaman Programku"
+control "Control Bukti Pembayaran"
+database "Database Pembayaran"
+
+Mahasiswa -> "Halaman Programku": Membuka menu Programku
+"Halaman Programku" -> "Control Bukti Pembayaran": Minta daftar program mahasiswa
+"Control Bukti Pembayaran" -> "Database Pembayaran": Ambil data program mahasiswa
+"Database Pembayaran" --> "Control Bukti Pembayaran": Data program mahasiswa
+"Control Bukti Pembayaran" -> "Halaman Programku": Kirim daftar program
+"Halaman Programku" -> Mahasiswa: Tampilkan daftar program
+
+Mahasiswa -> "Halaman Programku": Memilih program yang didaftarkan
+"Halaman Programku" -> "Control Bukti Pembayaran": Minta detail program dan status pembayaran
+"Control Bukti Pembayaran" -> "Database Pembayaran": Ambil status pembayaran program
+"Database Pembayaran" --> "Control Bukti Pembayaran": Data status pembayaran
+"Control Bukti Pembayaran" -> "Halaman Programku": Kirim status pembayaran
+"Halaman Programku" -> Mahasiswa: Tampilkan status pembayaran
+
+Mahasiswa -> "Halaman Programku": Memilih file bukti pembayaran
+Mahasiswa -> "Halaman Programku": Upload bukti pembayaran
+Mahasiswa -> "Halaman Programku": Menekan tombol simpan
+
+"Halaman Programku" -> "Control Bukti Pembayaran": Kirim file bukti pembayaran
+"Control Bukti Pembayaran" -> "Control Bukti Pembayaran": Validasi format dan ukuran file
+
+alt Bukti pembayaran valid
+    "Control Bukti Pembayaran" -> "Database Pembayaran": Simpan bukti pembayaran
+    "Database Pembayaran" --> "Control Bukti Pembayaran": Konfirmasi penyimpanan berhasil
+    "Control Bukti Pembayaran" -> "Database Pembayaran": Update status pembayaran (menunggu verifikasi)
+    "Control Bukti Pembayaran" -> "Halaman Programku": Kirim notifikasi sukses
+    "Halaman Programku" -> Mahasiswa: Tampilkan notifikasi sukses
+    "Halaman Programku" -> Mahasiswa: Tampilkan status "menunggu verifikasi"
+else Bukti pembayaran tidak valid
+    "Control Bukti Pembayaran" -> "Halaman Programku": Kirim pesan error validasi
+    "Halaman Programku" -> Mahasiswa: Tampilkan pesan error validasi
+end
+@enduml 

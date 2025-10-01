@@ -15,7 +15,14 @@ class DailyLog extends Model
         'date',
         'msg',
         'status',
-        'dokumentasi'
+        'dokumentasi',
+        'is_lock',
+        'is_verif_lock'
+    ];
+    
+    protected $casts = [
+        'is_lock' => 'boolean',
+        'is_verif_lock' => 'boolean',
     ];
 
     public function programTransaction()

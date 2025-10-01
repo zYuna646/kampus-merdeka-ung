@@ -1,0 +1,27 @@
+@startuml
+|Mahasiswa|
+start
+:Mahasiswa membuka menu Programku;
+:Mahasiswa memilih program yang didaftarkan;
+:Mahasiswa melihat status pembayaran;
+:Mahasiswa memilih file bukti pembayaran;
+:Mahasiswa mengunggah bukti pembayaran;
+:Mahasiswa menekan tombol simpan;
+
+|Sistem|
+:Menerima file bukti pembayaran;
+:Validasi format dan ukuran file;
+if (Bukti pembayaran valid?) then (ya)
+  :Menyimpan bukti pembayaran ke database;
+  :Mengupdate status pembayaran (menunggu verifikasi);
+  :Menampilkan notifikasi sukses;
+  |Mahasiswa|
+  :Mahasiswa melihat notifikasi sukses;
+  :Mahasiswa melihat status "menunggu verifikasi";
+else (tidak)
+  :Menampilkan pesan error validasi;
+  |Mahasiswa|
+  :Mahasiswa melihat pesan error;
+endif
+stop
+@enduml 

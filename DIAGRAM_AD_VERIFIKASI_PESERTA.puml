@@ -1,0 +1,42 @@
+@startuml
+|Admin|
+start
+:Admin membuka menu verifikasi peserta;
+:Admin melihat daftar peserta yang perlu diverifikasi;
+:Admin memilih peserta untuk diverifikasi;
+
+|Sistem|
+:Menampilkan detail peserta dan bukti pembayaran;
+
+|Admin|
+:Admin melakukan verifikasi bukti pembayaran;
+
+|Sistem|
+:Menerima hasil verifikasi pembayaran;
+if (Bukti pembayaran valid?) then (ya)
+  :Update status pembayaran (terverifikasi);
+  :Mengambil daftar lokasi sesuai program;
+  :Menampilkan form verifikasi peserta dan lokasi;
+  
+  |Admin|
+  :Admin memilih lokasi penempatan mahasiswa;
+  :Admin melakukan verifikasi peserta;
+  :Admin menekan tombol verifikasi;
+  
+  |Sistem|
+  :Menerima data verifikasi peserta dan lokasi;
+  :Memperbarui status peserta (diterima);
+  :Menyimpan lokasi penempatan;
+  :Menampilkan notifikasi sukses;
+  
+  |Admin|
+  :Admin melihat notifikasi verifikasi berhasil;
+else (tidak)
+  :Update status pembayaran (ditolak);
+  :Menampilkan notifikasi pembayaran ditolak;
+  
+  |Admin|
+  :Admin melihat notifikasi pembayaran ditolak;
+endif
+stop
+@enduml 

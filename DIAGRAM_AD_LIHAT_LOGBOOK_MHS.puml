@@ -1,0 +1,7 @@
+@startuml
+start
+:Operator login ke dashboard;
+:Operator membuka menu logbook mahasiswa;
+:Sistem menampilkan data logbook mahasiswa;
+stop
+@enduml 

@@ -1,0 +1,49 @@
+@startuml
+hide footbox
+actor Admin
+boundary "Halaman Verifikasi Peserta"
+control "Control Verifikasi Peserta"
+database "Database Peserta"
+database "Database Lokasi"
+
+Admin -> "Halaman Verifikasi Peserta": Membuka menu verifikasi peserta
+"Halaman Verifikasi Peserta" -> "Control Verifikasi Peserta": Minta daftar peserta yang perlu diverifikasi
+"Control Verifikasi Peserta" -> "Database Peserta": Ambil data peserta dan bukti pembayaran
+"Database Peserta" --> "Control Verifikasi Peserta": Data peserta dan bukti pembayaran
+"Control Verifikasi Peserta" -> "Halaman Verifikasi Peserta": Kirim daftar peserta
+"Halaman Verifikasi Peserta" -> Admin: Tampilkan daftar peserta
+
+Admin -> "Halaman Verifikasi Peserta": Memilih peserta untuk diverifikasi
+"Halaman Verifikasi Peserta" -> "Control Verifikasi Peserta": Minta detail peserta dan bukti pembayaran
+"Control Verifikasi Peserta" -> "Database Peserta": Ambil detail bukti pembayaran
+"Database Peserta" --> "Control Verifikasi Peserta": Detail bukti pembayaran
+"Control Verifikasi Peserta" -> "Halaman Verifikasi Peserta": Kirim detail bukti pembayaran
+"Halaman Verifikasi Peserta" -> Admin: Tampilkan bukti pembayaran untuk verifikasi
+
+Admin -> "Halaman Verifikasi Peserta": Melakukan verifikasi bukti pembayaran
+"Halaman Verifikasi Peserta" -> "Control Verifikasi Peserta": Kirim hasil verifikasi pembayaran
+
+alt Bukti pembayaran valid
+    "Control Verifikasi Peserta" -> "Database Peserta": Update status pembayaran (terverifikasi)
+    "Database Peserta" --> "Control Verifikasi Peserta": Konfirmasi update berhasil
+    
+    "Control Verifikasi Peserta" -> "Database Lokasi": Ambil daftar lokasi sesuai program
+    "Database Lokasi" --> "Control Verifikasi Peserta": Data lokasi tersedia
+    "Control Verifikasi Peserta" -> "Halaman Verifikasi Peserta": Kirim form verifikasi peserta dan daftar lokasi
+    "Halaman Verifikasi Peserta" -> Admin: Tampilkan form verifikasi peserta dan pilihan lokasi
+    
+    Admin -> "Halaman Verifikasi Peserta": Memilih lokasi penempatan
+    Admin -> "Halaman Verifikasi Peserta": Melakukan verifikasi peserta
+    "Halaman Verifikasi Peserta" -> "Control Verifikasi Peserta": Kirim data verifikasi peserta dan lokasi
+    
+    "Control Verifikasi Peserta" -> "Database Peserta": Update status peserta (diterima) dan lokasi penempatan
+    "Database Peserta" --> "Control Verifikasi Peserta": Konfirmasi update berhasil
+    "Control Verifikasi Peserta" -> "Halaman Verifikasi Peserta": Kirim notifikasi sukses
+    "Halaman Verifikasi Peserta" -> Admin: Tampilkan notifikasi verifikasi berhasil
+    
+else Bukti pembayaran tidak valid
+    "Control Verifikasi Peserta" -> "Database Peserta": Update status pembayaran (ditolak)
+    "Control Verifikasi Peserta" -> "Halaman Verifikasi Peserta": Kirim notifikasi pembayaran ditolak
+    "Halaman Verifikasi Peserta" -> Admin: Tampilkan notifikasi pembayaran ditolak
+end
+@enduml 

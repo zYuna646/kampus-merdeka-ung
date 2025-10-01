@@ -1,0 +1,36 @@
+@startuml
+|Mahasiswa|
+start
+:Mahasiswa membuka logbook mingguan;
+
+|Sistem|
+:Memeriksa status semua logbook harian pada minggu tersebut;
+if (Semua logbook harian sudah diterima?) then (ya)
+  :Menampilkan form logbook mingguan;
+  |Mahasiswa|
+  :Mahasiswa melihat form isian mingguan;
+  :Mahasiswa mengisi aktivitas mingguan;
+  :Mahasiswa menekan tombol simpan;
+  
+  |Sistem|
+  :Menerima data logbook mingguan;
+  :Validasi kelengkapan data;
+  if (Data valid?) then (ya)
+    :Menyimpan data logbook mingguan;
+    :Mengupdate status logbook (menunggu verifikasi DPL);
+    :Menampilkan notifikasi sukses;
+    |Mahasiswa|
+    :Mahasiswa melihat notifikasi sukses;
+    :Mahasiswa melihat status "menunggu verifikasi DPL";
+  else (tidak)
+    :Menampilkan pesan error validasi;
+    |Mahasiswa|
+    :Mahasiswa melihat pesan error;
+  endif
+else (tidak)
+  :Menampilkan pesan: "Lengkapi dan tunggu semua logbook harian diterima";
+  |Mahasiswa|
+  :Mahasiswa melihat pesan persyaratan;
+endif
+stop
+@enduml

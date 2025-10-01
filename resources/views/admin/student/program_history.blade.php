@@ -2,6 +2,13 @@
 
 @section('main')
     <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
+        @if (session('success'))
+        <x-alerts color="info" :text="session('success')" />
+        @endif
+    
+        @if (session('error'))
+        <x-alerts color="danger" :text="session('error')" />
+        @endif
         <div class="flex col-span-12 mt-2 w-full" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
@@ -73,6 +80,14 @@
                                                     Lihat Detail
                                                 </a>
                                             @endif
+                                            <a href=" {{ route('student.download_sk', $item->id) }} }}"
+                                                class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                                Lihat SK Rektor
+                                            </a>
+                                            <a href=" {{ route('student.download_surat', $item->id) }} }}"
+                                                class=" h-fit w-fit cursor-pointer bg-white border border-slate-900 text-slate-900 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                                Download Surat
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +99,7 @@
                                         @csrf
 
                                         {{-- Ukuran Baju --}}
-                                        <div>
+                                        {{-- <div>
                                             <label for="ukuran_baju" class="block text-sm font-medium text-gray-700">
                                                 Ukuran Baju
                                                 <span class="text-xs text-gray-500">(Harap pilih agar dapat diverifikasi
@@ -111,7 +126,7 @@
                                                     {{ old('ukuran_baju', $item->ukuran_baju) == 'XXL' ? 'selected' : '' }}>
                                                     XXL (Double Extra Large)</option>
                                             </select>
-                                        </div>
+                                        </div> --}}
 
                                         {{-- Bukti Pembayaran --}}
                                         <div>

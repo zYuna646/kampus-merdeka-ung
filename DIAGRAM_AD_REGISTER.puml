@@ -1,0 +1,56 @@
+@startuml
+|#White|Mahasiswa|
+|#White|Sistem|
+
+|Mahasiswa|
+start
+:Buka halaman register;
+
+:Input NIM;
+:Input nama lengkap;
+
+|Sistem|
+if (Validasi NIM dan nama?) then (tidak)
+  :Tampilkan pesan error\nNIM atau nama tidak valid;
+|Mahasiswa|
+else (ya)
+|Mahasiswa|
+  :Input provinsi;
+  :Input kabupaten;
+  :Input kecamatan;
+  :Input kelurahan;
+
+|Sistem|
+  if (Validasi data wilayah?) then (tidak)
+    :Tampilkan pesan error\ndata wilayah tidak valid;
+|Mahasiswa|
+  else (ya)
+|Mahasiswa|
+    :Input alamat lengkap;
+    :Input angkatan;
+
+|Sistem|
+    if (Validasi alamat dan angkatan?) then (tidak)
+      :Tampilkan pesan error\nalamat atau angkatan tidak valid;
+|Mahasiswa|
+    else (ya)
+|Mahasiswa|
+      :Submit form pendaftaran;
+
+|Sistem|
+      if (NIM sudah terdaftar?) then (ya)
+        :Tampilkan pesan error\nNIM sudah terdaftar;
+|Mahasiswa|
+      else (tidak)
+|Sistem|
+        :Simpan data user & mahasiswa\nke database;
+        :Set password default = NIM;
+        :Kirim notifikasi registrasi berhasil;
+|Mahasiswa|
+        :Redirect ke halaman login;
+        stop
+      endif
+    endif
+  endif
+endif
+@enduml 

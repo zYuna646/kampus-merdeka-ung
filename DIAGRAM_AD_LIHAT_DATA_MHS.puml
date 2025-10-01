@@ -1,0 +1,22 @@
+@startuml
+|Operator|
+start
+:Operator login ke dashboard;
+:Operator memilih program;
+:Operator masuk ke program detail;
+
+|Sistem|
+:Mengambil daftar mahasiswa pada program tersebut;
+:Mengambil status laporan mahasiswa;
+:Mengambil status logbook harian mahasiswa;
+:Mengambil status logbook mingguan mahasiswa;
+:Menampilkan list mahasiswa dengan detail status;
+
+|Operator|
+:Operator melihat daftar mahasiswa;
+:Operator melihat status upload laporan masing-masing mahasiswa;
+:Operator melihat status logbook harian masing-masing mahasiswa;
+:Operator melihat status logbook mingguan masing-masing mahasiswa;
+:Operator dapat melihat detail progress setiap mahasiswa;
+stop
+@enduml 

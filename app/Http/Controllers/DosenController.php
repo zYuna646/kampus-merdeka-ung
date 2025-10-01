@@ -15,9 +15,14 @@ use App\Models\DPL;
 use App\Models\ProgramTransaction;
 use App\Models\Studi;
 use App\Models\WeeklyLog;
+use App\Notifications\VerifikasiRancanganNotification;
+use App\Notifications\VerifikasiLogbookNotification;
+use App\Notifications\LogbookNotification;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 
 class DosenController extends Controller
@@ -153,6 +158,21 @@ class DosenController extends Controller
             $peserta->msg_dpl = $request->msg ?? " ";
         }
         $peserta->save();
+        
+        // Kirim notifikasi email ke mahasiswa
+        try {
+            $mahasiswa = $peserta->mahasiswa;
+            $mahasiswa->user->notify(new \App\Notifications\VerifikasiRancanganNotification(
+                $peserta,
+                $request->status == 'terima' ? 'terima' : 'tolak',
+                $peserta->msg_dosen,
+                'dosen'
+            ));
+        } catch (\Exception $e) {
+            // Log error jika terjadi masalah saat mengirim notifikasi
+            \Log::error('Error saat mengirim notifikasi verifikasi rancangan: ' . $e->getMessage());
+        }
+        
         return redirect()->back();
     }
 
@@ -163,14 +183,58 @@ class DosenController extends Controller
         // Find the WeeklyLog instance
         $weeklyLog = WeeklyLog::find($id);
 
+
         $weeklyLog->msg = $request->msg;
         $weeklyLog->status = $request->status;
 
         // Save the changes
         $weeklyLog->save();
+        
+        // Kirim notifikasi email ke mahasiswa
+        try {
+            if ($weeklyLog->programTransaction && $weeklyLog->programTransaction->mahasiswa) {
+                $mahasiswa = $weeklyLog->programTransaction->mahasiswa;
+                $mahasiswa->user->notify(new \App\Notifications\VerifikasiLogbookNotification(
+                    $weeklyLog,
+                    $request->status,
+                    $weeklyLog->msg,
+                    'dosen',
+                    'mingguan'
+                ));
+            }
+        } catch (\Exception $e) {
+            // Log error jika terjadi masalah saat mengirim notifikasi
+            \Log::error('Error saat mengirim notifikasi verifikasi logbook mingguan: ' . $e->getMessage());
+        }
 
         // Redirect or return the view
         return view('admin.dpl.weekly_review_dpl')->with('data', $weeklyLog);
+    }
+    
+    /**
+     * Toggle lock status for weekly logbook
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function toggleWeeklyLock($id)
+    {
+        $weeklyLog = WeeklyLog::findOrFail($id);
+        $weeklyLog->is_lock = !$weeklyLog->is_lock;
+        $weeklyLog->save();
+        
+        // Kirim notifikasi ke mahasiswa jika logbook dikunci
+        if ($weeklyLog->is_lock && $weeklyLog->programTransaction && $weeklyLog->programTransaction->mahasiswa) {
+            $mahasiswa = $weeklyLog->programTransaction->mahasiswa;
+            $mahasiswa->user->notify(new \App\Notifications\LogbookNotification(
+                'Logbook Mingguan Dikunci',
+                'Logbook mingguan Anda telah dikunci oleh DPL.',
+                'weekly_logbook'
+            ));
+        }
+
+        $status = $weeklyLog->is_lock ? 'dikunci' : 'dibuka';
+        return back()->with('success', 'Logbook mingguan berhasil ' . $status);
     }
 
 
@@ -182,29 +246,44 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'nidn' => 'required|unique:dosens',
             'name' => 'required',
             'studi_id' => 'required|exists:studis,id',
         ]);
+        try {
+            DB::beginTransaction();
 
-        $role = Role::where('slug', 'dosen')->first();
-        $user = User::create([
-            'username' => $request->nidn,
-            'password' => bcrypt($request->nidn), // Gunakan NIDN sebagai password
-            'role_id' => $role->id,
-        ]);
+            $role = Role::where('slug', 'dosen')->first();
 
-        Dosen::create([
-            'nidn' => $request->nidn,
-            'name' => $request->name,
-            'studi_id' => $request->studi_id,
-            'user_id' => $user->id,
-        ]);
-        
-        return redirect()->route('admin.dosen')
-            ->with('success', 'Dosen created successfully.');
+            $user = User::create([
+                'username' => $request->nidn,
+                'password' => bcrypt($request->nidn),
+                'role_id' => $role->id,
+            ]);
+
+            if (!$user) {
+                return redirect()->route('admin.dosen')
+                    ->with('error', 'Dosen gagal dibuat.');
+            }
+
+            Dosen::create([
+                'nidn' => $request->nidn,
+                'name' => $request->name,
+                'studi_id' => $request->studi_id,
+                'user_id' => $user->id,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.dosen')
+                ->with('success', 'Dosen created successfully.');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            return redirect()->route('admin.dosen')
+                ->with('error', 'Dosen gagal dibuat.');
+        }
     }
 
     public function import()

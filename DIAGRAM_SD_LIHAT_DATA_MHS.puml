@@ -1,0 +1,35 @@
+@startuml
+hide footbox
+actor Operator
+boundary Web
+control OperatorController
+database ProgramTransactionModel
+database LaporanModel
+database DailyLogModel
+database WeeklyLogModel
+
+Operator -> Web: Login ke dashboard
+Web -> OperatorController: Autentikasi operator
+OperatorController -> Web: Tampilkan dashboard
+
+Operator -> Web: Pilih program
+Web -> OperatorController: Request daftar program
+OperatorController -> Web: Tampilkan daftar program
+
+Operator -> Web: Masuk ke program detail
+Web -> OperatorController: Request data mahasiswa dalam program
+OperatorController -> ProgramTransactionModel: Ambil daftar mahasiswa pada program
+ProgramTransactionModel -> OperatorController: Return daftar mahasiswa
+
+OperatorController -> LaporanModel: Ambil status laporan setiap mahasiswa
+LaporanModel -> OperatorController: Return status laporan
+
+OperatorController -> DailyLogModel: Ambil status logbook harian setiap mahasiswa
+DailyLogModel -> OperatorController: Return status logbook harian
+
+OperatorController -> WeeklyLogModel: Ambil status logbook mingguan setiap mahasiswa
+WeeklyLogModel -> OperatorController: Return status logbook mingguan
+
+OperatorController -> Web: Tampilkan data mahasiswa dengan detail status
+Web -> Operator: Tampilkan daftar mahasiswa dan progress masing-masing
+@enduml 

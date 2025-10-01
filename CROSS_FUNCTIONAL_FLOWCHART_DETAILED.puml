@@ -1,0 +1,190 @@
+@startuml
+!theme plain
+title Cross Functional Flowchart - Sistem Monitoring Kegiatan Kampus Merdeka
+subtitle (Proses Bisnis End-to-End)
+
+== FASE 1: PERSIAPAN PROGRAM ==
+
+|#LightBlue|Admin|
+start
+:Login ke sistem;
+:Buat lowongan program baru;
+:Tentukan:
+- Tahun akademik
+- Semester  
+- Biaya program
+- Tanggal pendaftaran
+- Tanggal mulai logbook
+- Apakah menggunakan logbook;
+:Import/kelola data master:
+- Data fakultas/jurusan/prodi
+- Data dosen
+- Data lokasi program;
+
+== FASE 2: PENDAFTARAN MAHASISWA ==
+
+|#LightGreen|Mahasiswa|
+:Register akun baru;
+:Login ke sistem;
+:Lihat daftar program tersedia;
+:Pilih & daftar program;
+:Upload bukti pembayaran;
+
+|#LightBlue|Admin|
+:Buka menu verifikasi pembayaran;
+:Lihat daftar bukti pembayaran;
+:Periksa bukti pembayaran;
+if (Bukti pembayaran valid?) then (ya)
+  :Input total pembayaran sesuai bukti;
+  :Klik verifikasi;
+  :Mahasiswa masuk ke list peminat;
+else (tidak)
+  :Tolak verifikasi;
+  |#LightGreen|Mahasiswa|
+  :Upload ulang bukti pembayaran;
+  stop
+endif
+
+:Buka menu verifikasi peserta;
+:Lihat daftar peserta terverifikasi pembayaran;
+:Pilih peserta untuk diverifikasi;
+:Pilih lokasi penempatan mahasiswa;
+:Klik verifikasi peserta;
+
+== FASE 3: PENUGASAN PEMBIMBING ==
+
+|#LightBlue|Admin|
+:Buka menu assign DPL;
+:Pilih dosen DPL;
+:Pilih lowongan;
+:Pilih mahasiswa yang akan di-assign;
+:Klik assign DPL;
+
+:Buka menu assign Pamong;
+:Pilih pamong/guru;
+:Pilih lowongan dan lokasi;
+:Pilih mahasiswa yang akan di-assign;
+:Klik assign Pamong;
+
+== FASE 4: UPLOAD & VERIFIKASI LAPORAN ==
+
+|#LightGreen|Mahasiswa|
+:Buka dashboard;
+:Pilih program yang diikuti;
+:Upload laporan rancangan kegiatan;
+
+|#LightYellow|Pamong|
+:Login ke sistem;
+:Buka menu verifikasi laporan;
+:Pilih program dan mahasiswa;
+:Lihat laporan rancangan;
+if (Laporan rancangan layak?) then (ya)
+  :Klik terima laporan;
+  :Status laporan diupdate;
+else (tidak)
+  :Input pesan penolakan;
+  :Klik tolak laporan;
+  |#LightGreen|Mahasiswa|
+  :Perbaiki & upload ulang laporan;
+  stop
+endif
+
+|#LightCyan|Dosen (DPL)|
+:Login ke sistem;
+:Buka menu verifikasi laporan;
+:Pilih program dan mahasiswa;
+:Lihat laporan rancangan;
+if (Laporan rancangan layak?) then (ya)
+  :Klik terima laporan;
+  :Status laporan diupdate;
+else (tidak)
+  :Input pesan penolakan;
+  :Klik tolak laporan;
+  |#LightGreen|Mahasiswa|
+  :Perbaiki & upload ulang laporan;
+  stop
+endif
+
+== FASE 5: PENGISIAN & VERIFIKASI LOGBOOK ==
+
+|#LightGreen|Mahasiswa|
+if (Laporan diterima Pamong & DPL?) then (ya)
+  partition "Logbook Harian (Berulang)" {
+    :Buka logbook harian;
+    :Isi aktivitas harian:
+    - Deskripsi kegiatan
+    - Rencana kegiatan  
+    - Persentase progress
+    - Hambatan & solusi
+    - Jam mulai & selesai;
+    :Upload dokumentasi (opsional);
+    :Simpan logbook harian;
+    
+    |#LightYellow|Pamong|
+    :Buka menu verifikasi logbook harian;
+    :Pilih logbook mahasiswa;
+    :Periksa isi logbook harian;
+    if (Logbook harian sesuai?) then (ya)
+      :Klik terima;
+      :Status logbook harian diupdate;
+    else (tidak)
+      :Input pesan penolakan;
+      :Klik tolak;
+      |#LightGreen|Mahasiswa|
+      :Perbaiki logbook harian;
+    endif
+  }
+  
+  |#LightGreen|Mahasiswa|
+  note right: Logbook mingguan hanya bisa diisi\njika semua logbook harian\nminggu tersebut sudah diterima
+  
+  partition "Logbook Mingguan" {
+    :Cek status logbook harian minggu ini;
+    if (Semua logbook harian diterima?) then (ya)
+      :Buka logbook mingguan;
+      :Isi aktivitas mingguan;
+      :Simpan logbook mingguan;
+      
+      |#LightCyan|Dosen (DPL)|
+      :Buka menu verifikasi logbook mingguan;
+      :Pilih logbook mahasiswa;
+      :Periksa isi logbook mingguan;
+      if (Logbook mingguan sesuai?) then (ya)
+        :Klik terima;
+        :Status logbook mingguan diupdate;
+      else (tidak)
+        :Input pesan penolakan;
+        :Klik tolak;
+        |#LightGreen|Mahasiswa|
+        :Perbaiki logbook mingguan;
+      endif
+    else (tidak)
+      :Tampilkan pesan: "Lengkapi semua logbook harian";
+    endif
+  }
+else (tidak)
+  :Tunggu verifikasi laporan;
+  stop
+endif
+
+== FASE 6: MONITORING & PELAPORAN ==
+
+|#LightPink|Operator|
+:Login ke sistem;
+:Buka menu monitoring;
+:Pilih program untuk dimonitor;
+:Lihat daftar mahasiswa;
+:Monitor status:
+- Upload laporan
+- Verifikasi laporan  
+- Progress logbook harian
+- Progress logbook mingguan;
+:Generate laporan monitoring;
+
+|#LightBlue|Admin|
+:Lihat laporan monitoring;
+:Evaluasi pelaksanaan program;
+
+stop
+
+@enduml 

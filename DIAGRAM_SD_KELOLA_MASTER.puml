@@ -1,0 +1,24 @@
+@startuml
+hide footbox
+actor Admin
+boundary "Halaman Kelola Master"
+control "Control Kelola Data"
+database "Database Master"
+
+Admin -> "Halaman Kelola Master": Membuka menu data master
+Admin -> "Halaman Kelola Master": Memilih entitas (fakultas, jurusan, prodi)
+Admin -> "Halaman Kelola Master": Menentukan aksi (tambah/edit/hapus)
+Admin -> "Halaman Kelola Master": Mengisi/mengubah data
+Admin -> "Halaman Kelola Master": Menekan tombol simpan
+"Halaman Kelola Master" -> "Control Kelola Data": Kirim data untuk diproses
+"Control Kelola Data" -> "Control Kelola Data": Validasi data yang diinput
+alt Data valid
+    "Control Kelola Data" -> "Database Master": Update/Insert/Delete data
+    "Database Master" --> "Control Kelola Data": Konfirmasi perubahan berhasil
+    "Control Kelola Data" -> "Halaman Kelola Master": Kirim notifikasi sukses
+    "Halaman Kelola Master" -> Admin: Tampilkan notifikasi sukses
+else Data tidak valid
+    "Control Kelola Data" -> "Halaman Kelola Master": Kirim pesan error
+    "Halaman Kelola Master" -> Admin: Tampilkan pesan error
+end
+@enduml 

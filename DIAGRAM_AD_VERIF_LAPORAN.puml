@@ -1,0 +1,50 @@
+@startuml
+|Pamong|
+start
+:Pamong login ke dashboard;
+:Pamong memilih program;
+:Pamong masuk ke detail program;
+:Pamong melihat daftar laporan mahasiswa;
+:Pamong memilih laporan mahasiswa;
+:Pamong membaca dan mereview laporan;
+:Pamong menentukan keputusan verifikasi;
+
+|DPL|
+:DPL login ke dashboard;
+:DPL memilih program;
+:DPL masuk ke detail program;
+:DPL melihat daftar laporan mahasiswa;
+:DPL memilih laporan mahasiswa;
+:DPL membaca dan mereview laporan;
+:DPL menentukan keputusan verifikasi;
+
+|Sistem|
+:Menerima keputusan verifikasi dari Pamong;
+:Menerima keputusan verifikasi dari DPL;
+if (Laporan diterima oleh kedua pembimbing?) then (ya)
+  :Memperbarui status laporan (diterima);
+  :Menyimpan data verifikasi;
+  :Mengirim notifikasi ke mahasiswa;
+  :Menampilkan notifikasi sukses;
+  |Pamong|
+  :Pamong melihat konfirmasi sukses;
+  |DPL|
+  :DPL melihat konfirmasi sukses;
+else (tidak)
+  |Pamong|
+  :Pamong menginput pesan penolakan (jika menolak);
+  |DPL|
+  :DPL menginput pesan penolakan (jika menolak);
+  |Sistem|
+  :Menerima pesan penolakan;
+  :Memperbarui status laporan (ditolak);
+  :Menyimpan pesan penolakan;
+  :Mengirim notifikasi penolakan ke mahasiswa;
+  :Menampilkan notifikasi penolakan;
+  |Pamong|
+  :Pamong melihat konfirmasi penolakan;
+  |DPL|
+  :DPL melihat konfirmasi penolakan;
+endif
+stop
+@enduml 
